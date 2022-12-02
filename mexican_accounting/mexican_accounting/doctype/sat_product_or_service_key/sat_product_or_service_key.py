@@ -7,3 +7,7 @@ from frappe.model.document import Document
 
 class SATProductorServiceKey(Document):
     """SAT's Product or Service Key"""
+
+    def autoname(self):
+        """Set DocType name"""
+        self.name = f"{self.key} - {self.description}"[:140]
