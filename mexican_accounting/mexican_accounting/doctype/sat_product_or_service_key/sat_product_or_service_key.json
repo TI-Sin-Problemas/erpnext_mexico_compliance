@@ -1,7 +1,5 @@
 {
  "actions": [],
- "allow_rename": 1,
- "creation": "2022-12-02 01:46:07.162769",
  "default_view": "List",
  "doctype": "DocType",
  "document_type": "Setup",
@@ -40,7 +38,6 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-12-02 10:26:59.835661",
  "modified_by": "Administrator",
  "module": "Mexican Accounting",
  "name": "SAT Product or Service Key",
