@@ -186,4 +186,12 @@ app_license = "MIT"
 # 	"mexican_accounting.auth.validate"
 # ]
 
-fixtures = ["Custom Field"]
+# Data fixtures
+# --------
+fixtures = [
+    {
+        "doctype": "Custom Field",
+        "filters": [["fieldname", "=", "sat_product_or_service_key"]],
+    },
+    "SAT Product or Service Key",
+]
