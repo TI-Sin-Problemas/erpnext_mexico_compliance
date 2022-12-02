@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include mexican_accounting *.css
+recursive-include mexican_accounting *.csv
+recursive-include mexican_accounting *.html
+recursive-include mexican_accounting *.ico
+recursive-include mexican_accounting *.js
+recursive-include mexican_accounting *.json
+recursive-include mexican_accounting *.md
+recursive-include mexican_accounting *.png
+recursive-include mexican_accounting *.py
+recursive-include mexican_accounting *.svg
+recursive-include mexican_accounting *.txt
+recursive-exclude mexican_accounting *.pyc
