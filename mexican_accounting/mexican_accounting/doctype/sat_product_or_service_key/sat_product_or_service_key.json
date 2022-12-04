@@ -1,13 +1,30 @@
 {
   "actions": [],
-  "autoname": "field:key_name",
+  "autoname": "field:key",
   "default_view": "List",
   "doctype": "DocType",
   "document_type": "Setup",
   "editable_grid": 1,
   "engine": "InnoDB",
-  "field_order": ["enabled", "key_description", "key", "description"],
+  "field_order": [
+    "enabled",
+    "section_break",
+    "key_name",
+    "key",
+    "column_break",
+    "description"
+  ],
   "fields": [
+    {
+      "default": "1",
+      "fieldname": "enabled",
+      "fieldtype": "Check",
+      "label": "Enabled"
+    },
+    {
+      "fieldname": "section_break",
+      "fieldtype": "Section Break"
+    },
     {
       "fieldname": "key_name",
       "fieldtype": "Data",
@@ -23,20 +40,15 @@
       "unique": 1
     },
     {
+      "fieldname": "column_break",
+      "fieldtype": "Column Break"
+    },
+    {
       "fieldname": "description",
       "fieldtype": "Data",
-      "in_list_view": 1,
-      "in_preview": 1,
-      "in_standard_filter": 1,
       "label": "Description",
       "length": 150,
       "reqd": 1
-    },
-    {
-      "default": "1",
-      "fieldname": "enabled",
-      "fieldtype": "Check",
-      "label": "Enabled"
     }
   ],
   "index_web_pages_for_search": 1,
@@ -72,7 +84,9 @@
     }
   ],
   "quick_entry": 1,
-  "sort_field": "modified",
-  "sort_order": "DESC",
-  "states": []
+  "show_title_field_in_link": 1,
+  "sort_field": "key_name",
+  "sort_order": "ASC",
+  "states": [],
+  "title_field": "key_name"
 }
