@@ -3,7 +3,7 @@ from . import __version__ as app_version
 app_name = "mexican_accounting"
 app_title = "Mexican Accounting"
 app_publisher = "Alfredo Altamirano"
-app_description = "Base ERPNext App for Compliance with Mexican Accounting"
+app_description = "Base ERPNext App to Comply with Mexican Accounting"
 app_email = "frappe@tisinproblemas.com"
 app_license = "MIT"
 
@@ -64,7 +64,7 @@ app_license = "MIT"
 # ------------
 
 # before_install = "mexican_accounting.install.before_install"
-# after_install = "mexican_accounting.install.after_install"
+after_install = "mexican_accounting.install.after_install"
 
 # Uninstallation
 # ------------
@@ -191,7 +191,6 @@ app_license = "MIT"
 fixtures = [
     {
         "doctype": "Custom Field",
-        "filters": [["fieldname", "=", "sat_product_or_service_key"]],
-    },
-    "SAT Product or Service Key",
+        "filters": [["dt", "in", ["Item", "UOM"]]],
+    }
 ]
