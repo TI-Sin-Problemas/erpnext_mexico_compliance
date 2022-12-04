@@ -1,12 +1,19 @@
 {
   "actions": [],
+  "autoname": "field:key_name",
   "default_view": "List",
   "doctype": "DocType",
   "document_type": "Setup",
   "editable_grid": 1,
   "engine": "InnoDB",
-  "field_order": ["key", "description", "enabled"],
+  "field_order": ["enabled", "key_description", "key", "description"],
   "fields": [
+    {
+      "fieldname": "key_name",
+      "fieldtype": "Data",
+      "label": "Key Name",
+      "read_only": 1
+    },
     {
       "fieldname": "key",
       "fieldtype": "Data",
@@ -37,6 +44,7 @@
   "modified_by": "Administrator",
   "module": "Mexican Accounting",
   "name": "SAT Product or Service Key",
+  "naming_rule": "By fieldname",
   "owner": "Administrator",
   "permissions": [
     {
