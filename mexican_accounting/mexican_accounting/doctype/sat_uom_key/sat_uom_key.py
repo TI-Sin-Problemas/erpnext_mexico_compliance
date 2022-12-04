@@ -4,5 +4,8 @@
 # import frappe
 from frappe.model.document import Document
 
+
 class SATUOMKey(Document):
-	pass
+    def autoname(self):
+        """Set DocType Name"""
+        self.name = f"{self.key} - {self.uom_name}"[:140]
