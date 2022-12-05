@@ -3,4 +3,5 @@
 *.egg-info
 *.swp
 tags
-node_modules
+mexico_compliance/docs/current
+node_modules/

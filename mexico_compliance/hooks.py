@@ -1,25 +1,27 @@
 from . import __version__ as app_version
 
-app_name = "mexican_accounting"
-app_title = "Mexican Accounting"
-app_publisher = "Alfredo Altamirano"
-app_description = "Base ERPNext App to Comply with Mexican Accounting"
-app_email = "frappe@tisinproblemas.com"
+app_name = "mexico_compliance"
+app_title = "Mexico Compliance"
+app_publisher = "TI Sin Problemas"
+app_description = (
+    "ERPNext app to serve as base to comply with Mexican Rules and Regulations"
+)
+app_email = "info@tisinproblemas.com"
 app_license = "MIT"
 
 # Includes in <head>
 # ------------------
 
 # include js, css files in header of desk.html
-# app_include_css = "/assets/mexican_accounting/css/mexican_accounting.css"
-# app_include_js = "/assets/mexican_accounting/js/mexican_accounting.js"
+# app_include_css = "/assets/mexico_compliance/css/mexico_compliance.css"
+# app_include_js = "/assets/mexico_compliance/js/mexico_compliance.js"
 
 # include js, css files in header of web template
-# web_include_css = "/assets/mexican_accounting/css/mexican_accounting.css"
-# web_include_js = "/assets/mexican_accounting/js/mexican_accounting.js"
+# web_include_css = "/assets/mexico_compliance/css/mexico_compliance.css"
+# web_include_js = "/assets/mexico_compliance/js/mexico_compliance.js"
 
 # include custom scss in every website theme (without file extension ".scss")
-# website_theme_scss = "mexican_accounting/public/scss/website"
+# website_theme_scss = "mexico_compliance/public/scss/website"
 
 # include js, css files in header of web form
 # webform_include_js = {"doctype": "public/js/doctype.js"}
@@ -56,27 +58,27 @@ app_license = "MIT"
 
 # add methods and filters to jinja environment
 # jinja = {
-# 	"methods": "mexican_accounting.utils.jinja_methods",
-# 	"filters": "mexican_accounting.utils.jinja_filters"
+# 	"methods": "mexico_compliance.utils.jinja_methods",
+# 	"filters": "mexico_compliance.utils.jinja_filters"
 # }
 
 # Installation
 # ------------
 
-# before_install = "mexican_accounting.install.before_install"
-after_install = "mexican_accounting.install.after_install"
+# before_install = "mexico_compliance.install.before_install"
+after_install = "mexico_compliance.install.after_install"
 
 # Uninstallation
 # ------------
 
-# before_uninstall = "mexican_accounting.uninstall.before_uninstall"
-# after_uninstall = "mexican_accounting.uninstall.after_uninstall"
+# before_uninstall = "mexico_compliance.uninstall.before_uninstall"
+# after_uninstall = "mexico_compliance.uninstall.after_uninstall"
 
 # Desk Notifications
 # ------------------
 # See frappe.core.notifications.get_notification_config
 
-# notification_config = "mexican_accounting.notifications.get_notification_config"
+# notification_config = "mexico_compliance.notifications.get_notification_config"
 
 # Permissions
 # -----------
@@ -115,39 +117,39 @@ after_install = "mexican_accounting.install.after_install"
 
 # scheduler_events = {
 # 	"all": [
-# 		"mexican_accounting.tasks.all"
+# 		"mexico_compliance.tasks.all"
 # 	],
 # 	"daily": [
-# 		"mexican_accounting.tasks.daily"
+# 		"mexico_compliance.tasks.daily"
 # 	],
 # 	"hourly": [
-# 		"mexican_accounting.tasks.hourly"
+# 		"mexico_compliance.tasks.hourly"
 # 	],
 # 	"weekly": [
-# 		"mexican_accounting.tasks.weekly"
+# 		"mexico_compliance.tasks.weekly"
 # 	],
 # 	"monthly": [
-# 		"mexican_accounting.tasks.monthly"
+# 		"mexico_compliance.tasks.monthly"
 # 	],
 # }
 
 # Testing
 # -------
 
-# before_tests = "mexican_accounting.install.before_tests"
+# before_tests = "mexico_compliance.install.before_tests"
 
 # Overriding Methods
 # ------------------------------
 #
 # override_whitelisted_methods = {
-# 	"frappe.desk.doctype.event.event.get_events": "mexican_accounting.event.get_events"
+# 	"frappe.desk.doctype.event.event.get_events": "mexico_compliance.event.get_events"
 # }
 #
 # each overriding function accepts a `data` argument;
 # generated from the base implementation of the doctype dashboard,
 # along with any modifications made in other Frappe apps
 # override_doctype_dashboards = {
-# 	"Task": "mexican_accounting.task.get_dashboard_data"
+# 	"Task": "mexico_compliance.task.get_dashboard_data"
 # }
 
 # exempt linked doctypes from being automatically cancelled
@@ -183,7 +185,7 @@ after_install = "mexican_accounting.install.after_install"
 # --------------------------------
 
 # auth_hooks = [
-# 	"mexican_accounting.auth.validate"
+# 	"mexico_compliance.auth.validate"
 # ]
 
 # Data fixtures

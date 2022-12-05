@@ -1,6 +1,6 @@
-## Mexican Accounting
+## Mexico Compliance
 
-Base ERPNext App for Compliance with Mexican Accounting
+ERPNext app to serve as base to comply with Mexican Rules and Regulations
 
 #### License
 

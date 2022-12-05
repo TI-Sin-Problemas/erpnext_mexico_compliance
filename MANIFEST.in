@@ -4,15 +4,15 @@ include *.json
 include *.md
 include *.py
 include *.txt
-recursive-include mexican_accounting *.css
-recursive-include mexican_accounting *.csv
-recursive-include mexican_accounting *.html
-recursive-include mexican_accounting *.ico
-recursive-include mexican_accounting *.js
-recursive-include mexican_accounting *.json
-recursive-include mexican_accounting *.md
-recursive-include mexican_accounting *.png
-recursive-include mexican_accounting *.py
-recursive-include mexican_accounting *.svg
-recursive-include mexican_accounting *.txt
-recursive-exclude mexican_accounting *.pyc
+recursive-include mexico_compliance *.css
+recursive-include mexico_compliance *.csv
+recursive-include mexico_compliance *.html
+recursive-include mexico_compliance *.ico
+recursive-include mexico_compliance *.js
+recursive-include mexico_compliance *.json
+recursive-include mexico_compliance *.md
+recursive-include mexico_compliance *.png
+recursive-include mexico_compliance *.py
+recursive-include mexico_compliance *.svg
+recursive-include mexico_compliance *.txt
+recursive-exclude mexico_compliance *.pyc
