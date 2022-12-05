@@ -6,6 +6,6 @@ from frappe.model.document import Document
 
 
 class SATUOMKey(Document):
-    def autoname(self):
+    def before_save(self):
         """Set DocType Name"""
-        self.name = f"{self.key} - {self.uom_name}"[:140]
+        self.key_name = f"{self.key} - {self.uom_name}"[:140]

@@ -9,8 +9,8 @@
   "field_order": [
     "enabled",
     "section_break",
-    "key_name",
     "key",
+    "key_name",
     "column_break",
     "description"
   ],
