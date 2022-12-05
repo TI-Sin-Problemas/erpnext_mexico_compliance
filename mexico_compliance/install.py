@@ -2,13 +2,13 @@ import os
 import time
 import frappe
 
-logger = frappe.logger("mexican_accounting")
+logger = frappe.logger("mexico_compliance")
 
 
 def after_install():
     """After app installation hook"""
 
-    path = frappe.get_app_path("mexican_accounting", "fixtures_after_install")
+    path = frappe.get_app_path("mexico_compliance", "fixtures_after_install")
     for file in os.listdir(path):
         fixture = f"{path}/{file}"
 
