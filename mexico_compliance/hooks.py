@@ -8,6 +8,7 @@ app_description = (
 )
 app_email = "info@tisinproblemas.com"
 app_license = "MIT"
+required_apps = ["erpnext"]
 
 # Includes in <head>
 # ------------------
