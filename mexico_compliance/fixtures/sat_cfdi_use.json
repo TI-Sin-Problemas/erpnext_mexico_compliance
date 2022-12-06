@@ -1,0 +1,194 @@
+[
+ {
+  "description": "Adquisición de mercancías.",
+  "doctype": "SAT CFDI Use",
+  "enabled": 1,
+  "key": "G01",
+  "key_name": "G01 - Adquisición de mercancías.",
+  "name": "G01"
+ },
+ {
+  "description": "Devoluciones, descuentos o bonificaciones.",
+  "doctype": "SAT CFDI Use",
+  "enabled": 1,
+  "key": "G02",
+  "key_name": "G02 - Devoluciones, descuentos o bonificaciones.",
+  "name": "G02"
+ },
+ {
+  "description": "Gastos en general.",
+  "doctype": "SAT CFDI Use",
+  "enabled": 1,
+  "key": "G03",
+  "key_name": "G03 - Gastos en general.",
+  "name": "G03"
+ },
+ {
+  "description": "Construcciones.",
+  "doctype": "SAT CFDI Use",
+  "enabled": 1,
+  "key": "I01",
+  "key_name": "I01 - Construcciones.",
+  "name": "I01"
+ },
+ {
+  "description": "Mobiliario y equipo de oficina por inversiones.",
+  "doctype": "SAT CFDI Use",
+  "enabled": 1,
+  "key": "I02",
+  "key_name": "I02 - Mobiliario y equipo de oficina por inversiones.",
+  "name": "I02"
+ },
+ {
+  "description": "Equipo de transporte.",
+  "doctype": "SAT CFDI Use",
+  "enabled": 1,
+  "key": "I03",
+  "key_name": "I03 - Equipo de transporte.",
+  "name": "I03"
+ },
+ {
+  "description": "Equipo de computo y accesorios.",
+  "doctype": "SAT CFDI Use",
+  "enabled": 1,
+  "key": "I04",
+  "key_name": "I04 - Equipo de computo y accesorios.",
+  "name": "I04"
+ },
+ {
+  "description": "Dados, troqueles, moldes, matrices y herramental.",
+  "doctype": "SAT CFDI Use",
+  "enabled": 1,
+  "key": "I05",
+  "key_name": "I05 - Dados, troqueles, moldes, matrices y herramental.",
+  "name": "I05"
+ },
+ {
+  "description": "Comunicaciones telefónicas.",
+  "doctype": "SAT CFDI Use",
+  "enabled": 1,
+  "key": "I06",
+  "key_name": "I06 - Comunicaciones telefónicas.",
+  "name": "I06"
+ },
+ {
+  "description": "Comunicaciones satelitales.",
+  "doctype": "SAT CFDI Use",
+  "enabled": 1,
+  "key": "I07",
+  "key_name": "I07 - Comunicaciones satelitales.",
+  "name": "I07"
+ },
+ {
+  "description": "Otra maquinaria y equipo.",
+  "doctype": "SAT CFDI Use",
+  "enabled": 1,
+  "key": "I08",
+  "key_name": "I08 - Otra maquinaria y equipo.",
+  "name": "I08"
+ },
+ {
+  "description": "Honorarios médicos, dentales y gastos hospitalarios.",
+  "doctype": "SAT CFDI Use",
+  "enabled": 1,
+  "key": "D01",
+  "key_name": "D01 - Honorarios médicos, dentales y gastos hospitalarios.",
+  "name": "D01"
+ },
+ {
+  "description": "Gastos médicos por incapacidad o discapacidad.",
+  "doctype": "SAT CFDI Use",
+  "enabled": 1,
+  "key": "D02",
+  "key_name": "D02 - Gastos médicos por incapacidad o discapacidad.",
+  "name": "D02"
+ },
+ {
+  "description": "Gastos funerales.",
+  "doctype": "SAT CFDI Use",
+  "enabled": 1,
+  "key": "D03",
+  "key_name": "D03 - Gastos funerales.",
+  "name": "D03"
+ },
+ {
+  "description": "Donativos.",
+  "doctype": "SAT CFDI Use",
+  "enabled": 1,
+  "key": "D04",
+  "key_name": "D04 - Donativos.",
+  "name": "D04"
+ },
+ {
+  "description": "Intereses reales efectivamente pagados por créditos hipotecarios (casa habitación).",
+  "doctype": "SAT CFDI Use",
+  "enabled": 1,
+  "key": "D05",
+  "key_name": "D05 - Intereses reales efectivamente pagados por créditos hipotecarios (casa habitación).",
+  "name": "D05"
+ },
+ {
+  "description": "Aportaciones voluntarias al SAR.",
+  "doctype": "SAT CFDI Use",
+  "enabled": 1,
+  "key": "D06",
+  "key_name": "D06 - Aportaciones voluntarias al SAR.",
+  "name": "D06"
+ },
+ {
+  "description": "Primas por seguros de gastos médicos.",
+  "doctype": "SAT CFDI Use",
+  "enabled": 1,
+  "key": "D07",
+  "key_name": "D07 - Primas por seguros de gastos médicos.",
+  "name": "D07"
+ },
+ {
+  "description": "Gastos de transportación escolar obligatoria.",
+  "doctype": "SAT CFDI Use",
+  "enabled": 1,
+  "key": "D08",
+  "key_name": "D08 - Gastos de transportación escolar obligatoria.",
+  "name": "D08"
+ },
+ {
+  "description": "Depósitos en cuentas para el ahorro, primas que tengan como base planes de pensiones.",
+  "doctype": "SAT CFDI Use",
+  "enabled": 1,
+  "key": "D09",
+  "key_name": "D09 - Depósitos en cuentas para el ahorro, primas que tengan como base planes de pensiones.",
+  "name": "D09"
+ },
+ {
+  "description": "Pagos por servicios educativos (colegiaturas).",
+  "doctype": "SAT CFDI Use",
+  "enabled": 1,
+  "key": "D10",
+  "key_name": "D10 - Pagos por servicios educativos (colegiaturas).",
+  "name": "D10"
+ },
+ {
+  "description": "Sin efectos fiscales.",
+  "doctype": "SAT CFDI Use",
+  "enabled": 1,
+  "key": "S01",
+  "key_name": "S01 - Sin efectos fiscales.",
+  "name": "S01"
+ },
+ {
+  "description": "Pagos",
+  "doctype": "SAT CFDI Use",
+  "enabled": 1,
+  "key": "CP01",
+  "key_name": "CP01 - Pagos",
+  "name": "CP01"
+ },
+ {
+  "description": "Nómina",
+  "doctype": "SAT CFDI Use",
+  "enabled": 1,
+  "key": "CN01",
+  "key_name": "CN01 - Nómina",
+  "name": "CN01"
+ }
+]
