@@ -1,0 +1,154 @@
+[
+ {
+  "description": "General de Ley Personas Morales",
+  "doctype": "SAT Tax System",
+  "enabled": 1,
+  "key": "601",
+  "key_name": "601 - General de Ley Personas Morales",
+  "name": "601"
+ },
+ {
+  "description": "Personas Morales con Fines no Lucrativos",
+  "doctype": "SAT Tax System",
+  "enabled": 1,
+  "key": "603",
+  "key_name": "603 - Personas Morales con Fines no Lucrativos",
+  "name": "603"
+ },
+ {
+  "description": "Sueldos y Salarios e Ingresos Asimilados a Salarios",
+  "doctype": "SAT Tax System",
+  "enabled": 1,
+  "key": "605",
+  "key_name": "605 - Sueldos y Salarios e Ingresos Asimilados a Salarios",
+  "name": "605"
+ },
+ {
+  "description": "Arrendamiento",
+  "doctype": "SAT Tax System",
+  "enabled": 1,
+  "key": "606",
+  "key_name": "606 - Arrendamiento",
+  "name": "606"
+ },
+ {
+  "description": "Régimen de Enajenación o Adquisición de Bienes",
+  "doctype": "SAT Tax System",
+  "enabled": 1,
+  "key": "607",
+  "key_name": "607 - Régimen de Enajenación o Adquisición de Bienes",
+  "name": "607"
+ },
+ {
+  "description": "Demás ingresos",
+  "doctype": "SAT Tax System",
+  "enabled": 1,
+  "key": "608",
+  "key_name": "608 - Demás ingresos",
+  "name": "608"
+ },
+ {
+  "description": "Residentes en el Extranjero sin Establecimiento Permanente en México",
+  "doctype": "SAT Tax System",
+  "enabled": 1,
+  "key": "610",
+  "key_name": "610 - Residentes en el Extranjero sin Establecimiento Permanente en México",
+  "name": "610"
+ },
+ {
+  "description": "Ingresos por Dividendos (socios y accionistas)",
+  "doctype": "SAT Tax System",
+  "enabled": 1,
+  "key": "611",
+  "key_name": "611 - Ingresos por Dividendos (socios y accionistas)",
+  "name": "611"
+ },
+ {
+  "description": "Personas Físicas con Actividades Empresariales y Profesionales",
+  "doctype": "SAT Tax System",
+  "enabled": 1,
+  "key": "612",
+  "key_name": "612 - Personas Físicas con Actividades Empresariales y Profesionales",
+  "name": "612"
+ },
+ {
+  "description": "Ingresos por intereses",
+  "doctype": "SAT Tax System",
+  "enabled": 1,
+  "key": "614",
+  "key_name": "614 - Ingresos por intereses",
+  "name": "614"
+ },
+ {
+  "description": "Régimen de los ingresos por obtención de premios",
+  "doctype": "SAT Tax System",
+  "enabled": 1,
+  "key": "615",
+  "key_name": "615 - Régimen de los ingresos por obtención de premios",
+  "name": "615"
+ },
+ {
+  "description": "Sin obligaciones fiscales",
+  "doctype": "SAT Tax System",
+  "enabled": 1,
+  "key": "616",
+  "key_name": "616 - Sin obligaciones fiscales",
+  "name": "616"
+ },
+ {
+  "description": "Sociedades Cooperativas de Producción que optan por diferir sus ingresos",
+  "doctype": "SAT Tax System",
+  "enabled": 1,
+  "key": "620",
+  "key_name": "620 - Sociedades Cooperativas de Producción que optan por diferir sus ingresos",
+  "name": "620"
+ },
+ {
+  "description": "Incorporación Fiscal",
+  "doctype": "SAT Tax System",
+  "enabled": 1,
+  "key": "621",
+  "key_name": "621 - Incorporación Fiscal",
+  "name": "621"
+ },
+ {
+  "description": "Actividades Agrícolas, Ganaderas, Silvícolas y Pesqueras",
+  "doctype": "SAT Tax System",
+  "enabled": 1,
+  "key": "622",
+  "key_name": "622 - Actividades Agrícolas, Ganaderas, Silvícolas y Pesqueras",
+  "name": "622"
+ },
+ {
+  "description": "Opcional para Grupos de Sociedades",
+  "doctype": "SAT Tax System",
+  "enabled": 1,
+  "key": "623",
+  "key_name": "623 - Opcional para Grupos de Sociedades",
+  "name": "623"
+ },
+ {
+  "description": "Coordinados",
+  "doctype": "SAT Tax System",
+  "enabled": 1,
+  "key": "624",
+  "key_name": "624 - Coordinados",
+  "name": "624"
+ },
+ {
+  "description": "Régimen de las Actividades Empresariales con ingresos a través de Plataformas Tecnológicas",
+  "doctype": "SAT Tax System",
+  "enabled": 1,
+  "key": "625",
+  "key_name": "625 - Régimen de las Actividades Empresariales con ingresos a través de Plataformas Tecnológicas",
+  "name": "625"
+ },
+ {
+  "description": "Régimen Simplificado de Confianza",
+  "doctype": "SAT Tax System",
+  "enabled": 1,
+  "key": "626",
+  "key_name": "626 - Régimen Simplificado de Confianza",
+  "name": "626"
+ }
+]
