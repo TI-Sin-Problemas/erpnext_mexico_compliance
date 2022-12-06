@@ -194,6 +194,6 @@ after_install = "mexico_compliance.install.after_install"
 fixtures = [
     {
         "doctype": "Custom Field",
-        "filters": [["dt", "in", ["Item", "UOM"]]],
+        "filters": [["dt", "in", ["Item", "UOM", "Sales Invoice"]]],
     }
 ]
