@@ -67,8 +67,9 @@ required_apps = ["erpnext"]
 # ------------
 
 # before_install = "mexico_compliance.install.before_install"
-after_install = "mexico_compliance.install.after_install"
-after_migrate = "mexico_compliance.migrate.after_migrate"
+# after_install = "mexico_compliance.install.after_install"
+# after_migrate = "mexico_compliance.migrate.after_migrate"
+after_sync = "mexico_compliance.setup.after_sync"
 
 # Uninstallation
 # ------------

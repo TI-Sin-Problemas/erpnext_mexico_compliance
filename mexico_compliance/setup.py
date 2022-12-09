@@ -7,6 +7,11 @@ import frappe
 logger = frappe.logger("mexico_compliance")
 
 
+def after_sync():
+    """Run processes after fixtures sync"""
+    install_big_fixtures()
+
+
 def install_big_fixtures():
     """Install long running fixtures"""
 
