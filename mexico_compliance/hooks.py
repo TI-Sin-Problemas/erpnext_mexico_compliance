@@ -189,12 +189,3 @@ after_migrate = "mexico_compliance.migrate.after_migrate"
 # auth_hooks = [
 # 	"mexico_compliance.auth.validate"
 # ]
-
-# Data fixtures
-# --------
-fixtures = [
-    {
-        "doctype": "Custom Field",
-        "filters": [["dt", "in", ["Customer", "Item", "Sales Invoice", "UOM"]]],
-    }
-]
