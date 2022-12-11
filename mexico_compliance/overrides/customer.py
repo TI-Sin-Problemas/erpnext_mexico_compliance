@@ -25,7 +25,8 @@ class Customer(ERPNextCustomer):
         """Get customer primary address document"""
         return frappe.get_doc("Address", self.customer_primary_address)
 
-    def is_mexican_customer(self):
+    @frappe.whitelist()
+    def is_mexican(self):
         """Return True if primary address is in Mexico"""
         if not self.customer_primary_address:
             return False
@@ -34,7 +35,7 @@ class Customer(ERPNextCustomer):
         return address.country.upper().startswith("MEX")
 
     def validate(self):
-        if self.tax_id and self.is_mexican_customer():
+        if self.tax_id and self.is_mexican():
             self.tax_id = self.tax_id.upper()
             self.validate_mexican_tax_id()
 
