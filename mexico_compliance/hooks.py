@@ -99,9 +99,9 @@ after_sync = "mexico_compliance.setup.after_sync"
 # ---------------
 # Override standard doctype classes
 
-# override_doctype_class = {
-# 	"ToDo": "custom_app.overrides.CustomToDo"
-# }
+override_doctype_class = {
+    "Customer": "mexico_compliance.overrides.customer.Customer",
+}
 
 # Document Events
 # ---------------
