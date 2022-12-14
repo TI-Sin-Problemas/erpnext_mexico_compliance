@@ -101,6 +101,7 @@ after_sync = "mexico_compliance.setup.after_sync"
 
 override_doctype_class = {
     "Customer": "mexico_compliance.overrides.customer.Customer",
+    "Sales Invoice Item": "mexico_compliance.overrides.sales_invoice_item.SalesInvoiceItem",
 }
 
 # Document Events
