@@ -37,7 +37,7 @@ class SalesInvoiceItem(sales_invoice_item.SalesInvoiceItem):
     def get_cfdi_description(self):
         """Returns description ready to stamp a CFDI"""
         description = f"{self.item_name}"
-        if self.item_name != self.description:
+        if all([self.description, self.item_name != self.description]):
             description += f" - {self.description}"
 
         service_dates = self.get_service_duration()
