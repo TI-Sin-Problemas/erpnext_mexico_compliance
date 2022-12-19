@@ -61,9 +61,9 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Way To Pay",
+   "label": "Payment Mode",
    "link_count": 0,
-   "link_to": "SAT Way To Pay",
+   "link_to": "SAT Payment Mode",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
