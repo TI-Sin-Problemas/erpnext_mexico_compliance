@@ -193,9 +193,4 @@ override_doctype_class = {
 # 	"mexico_compliance.auth.validate"
 # ]
 
-fixtures = [
-    {
-        "doctype": "Custom Field",
-        "filters": [["name", "in", ("Account-tax_type", "Customer-sat_tax_system")]],
-    }
-]
+fixtures = [{"doctype": "Custom Field", "filters": [{"module": "Mexico Compliance"}]}]
