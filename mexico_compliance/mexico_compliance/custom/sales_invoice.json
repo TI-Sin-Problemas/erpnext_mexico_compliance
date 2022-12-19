@@ -139,7 +139,7 @@
    "dt": "Sales Invoice",
    "fetch_from": null,
    "fetch_if_empty": 0,
-   "fieldname": "column_break_207",
+   "fieldname": "column_break_206",
    "fieldtype": "Column Break",
    "hidden": 0,
    "hide_border": 0,
