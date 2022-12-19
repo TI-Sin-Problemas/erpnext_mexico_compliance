@@ -194,5 +194,8 @@ override_doctype_class = {
 # ]
 
 fixtures = [
-    {"doctype": "Custom Field", "filters": [["name", "in", ("Account-tax_type",)]]}
+    {
+        "doctype": "Custom Field",
+        "filters": [["name", "in", ("Account-tax_type", "Customer-sat_tax_system")]],
+    }
 ]
