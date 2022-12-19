@@ -192,3 +192,7 @@ override_doctype_class = {
 # auth_hooks = [
 # 	"mexico_compliance.auth.validate"
 # ]
+
+fixtures = [
+    {"doctype": "Custom Field", "filters": [["name", "in", ("Account-tax_type",)]]}
+]
