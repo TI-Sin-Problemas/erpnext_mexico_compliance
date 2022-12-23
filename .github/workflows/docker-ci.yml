@@ -27,5 +27,5 @@ jobs:
         with:
           push: true
           set: |
-            target.args.FRAPPE_VERSION=${{ secrets.FRAPPE_VERSION }}
-            target.args.FRAPPE_VERSION=${{ secrets.ERPNEXT_VERSION }}
+            default.args.FRAPPE_VERSION=${{ secrets.FRAPPE_VERSION }}
+            default.args.FRAPPE_VERSION=${{ secrets.ERPNEXT_VERSION }}
