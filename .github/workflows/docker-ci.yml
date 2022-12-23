@@ -26,5 +26,6 @@ jobs:
         uses: docker/bake-action@v2
         with:
           push: true
-          FRAPPE_VERSION: ${{ secrets.FRAPPE_VERSION }}
-          ERPNEXT_VERSION: ${{ secrets.ERPNEXT_VERSION }}
+          set: |
+            target.args.FRAPPE_VERSION=${{ secrets.FRAPPE_VERSION }}
+            target.args.FRAPPE_VERSION=${{ secrets.ERPNEXT_VERSION }}
