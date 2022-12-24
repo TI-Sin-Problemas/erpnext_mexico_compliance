@@ -193,4 +193,7 @@ override_doctype_class = {
 # 	"mexico_compliance.auth.validate"
 # ]
 
-fixtures = [{"doctype": "Custom Field", "filters": [{"module": "Mexico Compliance"}]}]
+fixtures = [
+    {"doctype": "Custom Field", "filters": [{"module": "Mexico Compliance"}]},
+    {"doctype": "Property Setter", "filters": [{"module": "Mexico Compliance"}]},
+]
