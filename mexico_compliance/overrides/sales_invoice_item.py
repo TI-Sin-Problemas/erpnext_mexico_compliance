@@ -44,4 +44,4 @@ class SalesInvoiceItem(sales_invoice_item.SalesInvoiceItem):
         if service_dates:
             description += f" ({service_dates})"
 
-        return description.strip()
+        return description.encode().decode().strip()
