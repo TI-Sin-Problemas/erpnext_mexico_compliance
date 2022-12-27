@@ -4,6 +4,7 @@ For license information, please see license.txt
 """
 import frappe
 from frappe import _
+from frappe.utils import strip_html
 from erpnext.accounts.doctype.sales_invoice_item import sales_invoice_item
 
 
@@ -38,10 +39,10 @@ class SalesInvoiceItem(sales_invoice_item.SalesInvoiceItem):
         """Returns description ready to stamp a CFDI"""
         description = f"{self.item_name}"
         if all([self.description, self.item_name != self.description]):
-            description += f" - {self.description}"
+            description += f" - {strip_html(self.description)}"
 
         service_dates = self.get_service_duration()
         if service_dates:
             description += f" ({service_dates})"
 
-        return description.encode().decode().strip()
+        return description.strip()
