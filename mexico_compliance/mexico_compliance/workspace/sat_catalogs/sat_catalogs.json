@@ -21,7 +21,7 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "CFDI Use",
+   "label": "SAT CFDI Use",
    "link_count": 0,
    "link_to": "SAT CFDI Use",
    "link_type": "DocType",
@@ -31,7 +31,7 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Product or Service Key",
+   "label": "SAT Product or Service Key",
    "link_count": 0,
    "link_to": "SAT Product or Service Key",
    "link_type": "DocType",
@@ -41,7 +41,7 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Tax System",
+   "label": "SAT Tax System",
    "link_count": 0,
    "link_to": "SAT Tax System",
    "link_type": "DocType",
@@ -51,7 +51,7 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "UOM Key",
+   "label": "SAT UOM Key",
    "link_count": 0,
    "link_to": "SAT UOM Key",
    "link_type": "DocType",
@@ -61,7 +61,7 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Payment Mode",
+   "label": "SAT Payment Mode",
    "link_count": 0,
    "link_to": "SAT Payment Mode",
    "link_type": "DocType",
