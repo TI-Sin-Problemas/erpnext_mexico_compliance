@@ -1,32 +1,49 @@
 """Setup functions"""
+import json
+import math
 import os
-import time
+import re
 import frappe
 
 
 logger = frappe.logger("mexico_compliance")
 
 
-def after_sync():
-    """Run processes after fixtures sync"""
-    install_big_fixtures()
+def split_big_fixtures():
+    """Split big fixtures to avoid to many writes error"""
+
+    src_path = frappe.get_app_path("mexico_compliance", "big_fixtures")
+    target_path = frappe.get_app_path("mexico_compliance", "fixtures")
+
+    for file in os.listdir(src_path):
+        file_path = f"{src_path}/{file}"
+        max_fixture_qty = 20000
+        fixtures = frappe.get_file_json(file_path)
+        fixtures_count = len(fixtures)
+        iterations = math.ceil(fixtures_count / max_fixture_qty)
+
+        start = 0
+        for i in range(iterations):
+            iteration = i + 1
+            end_limit = iteration * max_fixture_qty
+            end = end_limit if end_limit < fixtures_count else fixtures_count
+
+            with open(
+                f"{target_path}/{file}.{start}.{end}.json", "w+", encoding="utf-8"
+            ) as target_file:
+                target_file.write(
+                    json.dumps(fixtures[start:end], ensure_ascii=False, indent=1)
+                )
+
+            start = end
 
 
-def install_big_fixtures():
-    """Install long running fixtures"""
+def remove_splitted_fixtures():
+    """Remove splitted fixtures"""
 
-    path = frappe.get_app_path("mexico_compliance", "fixtures_after_install")
-    print("Importing long running fixtures. This may take a while.")
-    for file in os.listdir(path):
-        fixture = f"{path}/{file}"
+    src_path = frappe.get_app_path("mexico_compliance", "fixtures")
+    pattern = re.compile(r".*\.(\d+)\.(\d+)\.json")
 
-        print("🚛 Importing", file)
-        logger.info("Importing %s", file)
-
-        timer_start = time.perf_counter()
-        frappe.import_doc(fixture)
-        timer_end = time.perf_counter()
-        proc_time = f"{timer_end - timer_start:0.4f}"
-
-        print(f"⏱️ {file} took {proc_time} seconds")
-        logger.info("%s took %s seconds", file, proc_time)
+    for file in os.listdir(src_path):
+        if pattern.match(file):
+            os.unlink(file)

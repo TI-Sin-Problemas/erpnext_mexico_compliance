@@ -66,16 +66,21 @@ required_apps = ["erpnext"]
 # Installation
 # ------------
 
-# before_install = "mexico_compliance.install.before_install"
+before_install = "mexico_compliance.install.before_install"
 # after_install = "mexico_compliance.install.after_install"
-# after_migrate = "mexico_compliance.migrate.after_migrate"
-after_sync = "mexico_compliance.setup.after_sync"
+after_sync = "mexico_compliance.install.after_sync"
 
 # Uninstallation
 # ------------
 
 # before_uninstall = "mexico_compliance.uninstall.before_uninstall"
 # after_uninstall = "mexico_compliance.uninstall.after_uninstall"
+
+# Migration
+# ------------
+
+after_migrate = "mexico_compliance.migrate.after_migrate"
+before_migrate = "mexico_compliance.migrate.before_migrate"
 
 # Desk Notifications
 # ------------------
