@@ -8,6 +8,8 @@ USER root
 ARG APP_NAME
 COPY . ../apps/${APP_NAME}
 
+RUN chmod a+w ../apps/${APP_NAME}/mexico_compliance/fixtures
+
 RUN --mount=type=cache,target=/root/.cache/pip \
     install-app ${APP_NAME}
 
