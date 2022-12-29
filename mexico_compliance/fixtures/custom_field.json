@@ -832,7 +832,7 @@
   "name": "Sales Invoice-sat_payment_method",
   "no_copy": 0,
   "non_negative": 0,
-  "options": "\nPUE - Pago en una sola exhibici\u00f3n\nPPD - Pago en parcialidades o diferido",
+  "options": "\nPUE - Pago en una sola exhibición\nPPD - Pago en parcialidades o diferido",
   "permlevel": 0,
   "precision": "",
   "print_hide": 0,

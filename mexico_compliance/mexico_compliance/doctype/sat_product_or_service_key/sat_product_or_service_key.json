@@ -1,92 +1,132 @@
 {
-  "actions": [],
-  "autoname": "field:key",
-  "default_view": "List",
-  "doctype": "DocType",
-  "document_type": "Setup",
-  "editable_grid": 1,
-  "engine": "InnoDB",
-  "field_order": [
-    "enabled",
-    "section_break",
-    "key",
-    "key_name",
-    "column_break",
-    "description"
-  ],
-  "fields": [
-    {
-      "default": "1",
-      "fieldname": "enabled",
-      "fieldtype": "Check",
-      "label": "Enabled"
-    },
-    {
-      "fieldname": "section_break",
-      "fieldtype": "Section Break"
-    },
-    {
-      "fieldname": "key_name",
-      "fieldtype": "Data",
-      "label": "Key Name",
-      "read_only": 1
-    },
-    {
-      "fieldname": "key",
-      "fieldtype": "Data",
-      "label": "Key",
-      "length": 8,
-      "reqd": 1,
-      "unique": 1
-    },
-    {
-      "fieldname": "column_break",
-      "fieldtype": "Column Break"
-    },
-    {
-      "fieldname": "description",
-      "fieldtype": "Data",
-      "label": "Description",
-      "length": 150,
-      "reqd": 1
-    }
-  ],
-  "index_web_pages_for_search": 1,
-  "links": [],
-  "modified_by": "Administrator",
-  "module": "Mexico Compliance",
-  "name": "SAT Product or Service Key",
-  "naming_rule": "By fieldname",
-  "owner": "Administrator",
-  "permissions": [
-    {
-      "create": 1,
-      "delete": 1,
-      "email": 1,
-      "export": 1,
-      "print": 1,
-      "read": 1,
-      "report": 1,
-      "role": "System Manager",
-      "share": 1,
-      "write": 1
-    },
-    {
-      "create": 1,
-      "email": 1,
-      "export": 1,
-      "print": 1,
-      "read": 1,
-      "report": 1,
-      "role": "Accounts Manager",
-      "share": 1,
-      "write": 1
-    }
-  ],
-  "quick_entry": 1,
-  "show_title_field_in_link": 1,
-  "sort_field": "key_name",
-  "sort_order": "ASC",
-  "states": [],
-  "title_field": "key_name"
+ "actions": [],
+ "autoname": "field:key",
+ "default_view": "List",
+ "doctype": "DocType",
+ "document_type": "Setup",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "enabled",
+  "section_break",
+  "key",
+  "key_name",
+  "column_break",
+  "description",
+  "lft",
+  "rgt",
+  "is_group",
+  "old_parent",
+  "parent_sat_product_or_service_key"
+ ],
+ "fields": [
+  {
+   "default": "1",
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "label": "Enabled"
+  },
+  {
+   "fieldname": "section_break",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "key_name",
+   "fieldtype": "Data",
+   "label": "Key Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "key",
+   "fieldtype": "Data",
+   "label": "Key",
+   "length": 8,
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "column_break",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Data",
+   "label": "Description",
+   "length": 150,
+   "reqd": 1
+  },
+  {
+   "fieldname": "lft",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Left",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "rgt",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Right",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "is_group",
+   "fieldtype": "Check",
+   "label": "Is Group"
+  },
+  {
+   "fieldname": "old_parent",
+   "fieldtype": "Link",
+   "label": "Old Parent",
+   "options": "SAT Product or Service Key"
+  },
+  {
+   "fieldname": "parent_sat_product_or_service_key",
+   "fieldtype": "Link",
+   "label": "Parent SAT Product or Service Key",
+   "options": "SAT Product or Service Key"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_tree": 1,
+ "links": [],
+ "modified_by": "Administrator",
+ "module": "Mexico Compliance",
+ "name": "SAT Product or Service Key",
+ "naming_rule": "By fieldname",
+ "nsm_parent_field": "parent_sat_product_or_service_key",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "show_title_field_in_link": 1,
+ "sort_field": "key_name",
+ "sort_order": "ASC",
+ "states": [],
+ "title_field": "key_name"
 }
