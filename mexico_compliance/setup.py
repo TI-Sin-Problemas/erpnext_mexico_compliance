@@ -46,4 +46,4 @@ def remove_splitted_fixtures():
 
     for file in os.listdir(src_path):
         if pattern.match(file):
-            os.unlink(file)
+            os.unlink(f"{src_path}/{file}")
