@@ -1,13 +1,14 @@
-ARG FRAPPE_VERSION=version-14
+ARG FRAPPE_DOCKER_VERSION=v14
+ARG FRAPPE_GIT_VERSION=version-14
+ARG ERPNEXT_VERSION=version-14
+
 # Prepare builder image
 FROM frappe/bench:latest as assets
 
-ARG FRAPPE_VERSION=version-14
-ARG ERPNEXT_VERSION=version-14
 ARG APP_NAME
 
 # Setup frappe-bench using FRAPPE_VERSION
-RUN bench init --version=${FRAPPE_VERSION} --skip-redis-config-generation --verbose --skip-assets /home/frappe/frappe-bench
+RUN bench init --version=${FRAPPE_GIT_VERSION} --skip-redis-config-generation --verbose --skip-assets /home/frappe/frappe-bench
 WORKDIR /home/frappe/frappe-bench
 
 # Comment following if ERPNext is not required
@@ -24,7 +25,7 @@ RUN bench build --production --verbose --hard-link
 
 
 # Use frappe-nginx image with nginx template and env vars
-FROM frappe/frappe-nginx:${FRAPPE_VERSION}
+FROM frappe/frappe-nginx:${FRAPPE_DOCKER_VERSION}
 
 # Remove existing assets
 USER root
