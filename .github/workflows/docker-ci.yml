@@ -35,8 +35,15 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build and push
-        uses: docker/bake-action@v2
+        uses: docker/build-push-action@v3
         with:
+          context: ./docker
+          file: ./docker/Containerfile
           push: true
-          set: |
-            *.args.APPS_JSON_BASE64=${{ env.APPS_JSON_BASE64 }}
+          build-args: |
+            APPS_JSON_BASE64=${{ env.APPS_JSON_BASE64 }}
+            FRAPPE_PATH=https://github.com/frappe/frappe
+            FRAPPE_BRANCH=version-14
+
+          tags: |
+            ahuahuachi/erpnext-mexico_compliance:latest
