@@ -13,6 +13,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Build apps.json
+        uses: loveloper44/render-json-action@v2.0.2
+        id: render
+        env:
+          REPO_URL: https://token:${{ github.token }}@github.com/${{ github.repository }}
+          REPO_BRANCH: "main"
+        with:
+          json: ./apps.json
+
+      - name: Load apps.json to environment
+        run: echo "APPS_JSON_BASE64=$(base64 --wrap=0 ${{ steps.render.outputs.result }})" >> $GITHUB_ENV
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
@@ -27,5 +39,4 @@ jobs:
         with:
           push: true
           set: |
-            *.args.ERPNEXT_VERSION=v14.11.1
-            frontend.args.FRAPPE_VERSION=v14.21.0
+            *.args.APPS_JSON_BASE64=${{ env.APPS_JSON_BASE64 }}

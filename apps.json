@@ -1,0 +1,14 @@
+[
+  {
+    "url": "https://github.com/frappe/payments",
+    "branch": "develop"
+  },
+  {
+    "url": "https://github.com/frappe/erpnext",
+    "branch": "version-14"
+  },
+  {
+    "url": "%s REPO_URL",
+    "branch": "%s REPO_BRANCH"
+  }
+]
