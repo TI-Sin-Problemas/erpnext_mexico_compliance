@@ -6,14 +6,14 @@ import re
 import frappe
 
 
-logger = frappe.logger("mexico_compliance")
+logger = frappe.logger("erpnext_mexico_compliance")
 
 
 def split_big_fixtures():
     """Split big fixtures to avoid to many writes error"""
 
-    src_path = frappe.get_app_path("mexico_compliance", "big_fixtures")
-    target_path = frappe.get_app_path("mexico_compliance", "fixtures")
+    src_path = frappe.get_app_path("erpnext_mexico_compliance", "big_fixtures")
+    target_path = frappe.get_app_path("erpnext_mexico_compliance", "fixtures")
 
     for file in os.listdir(src_path):
         file_path = f"{src_path}/{file}"
@@ -41,7 +41,7 @@ def split_big_fixtures():
 def remove_splitted_fixtures():
     """Remove splitted fixtures"""
 
-    src_path = frappe.get_app_path("mexico_compliance", "fixtures")
+    src_path = frappe.get_app_path("erpnext_mexico_compliance", "fixtures")
     pattern = re.compile(r".*\.(\d+)\.(\d+)\.json")
 
     for file in os.listdir(src_path):

@@ -7,7 +7,7 @@ with open("requirements.txt") as f:
 from erpnext_mexico_compliance import __version__ as version
 
 setup(
-	name="mexico_compliance",
+	name="erpnext_mexico_compliance",
 	version=version,
 	description="ERPNext app to serve as base to comply with Mexican Rules and Regulations",
 	author="TI Sin Problemas",

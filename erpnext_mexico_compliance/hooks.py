@@ -1,7 +1,7 @@
 from . import __version__ as app_version
 
-app_name = "mexico_compliance"
-app_title = "Mexico Compliance"
+app_name = "erpnext_mexico_compliance"
+app_title = "ERPNext Mexico Compliance"
 app_publisher = "TI Sin Problemas"
 app_description = (
     "ERPNext app to serve as base to comply with Mexican Rules and Regulations"
@@ -14,15 +14,15 @@ required_apps = ["erpnext"]
 # ------------------
 
 # include js, css files in header of desk.html
-# app_include_css = "/assets/mexico_compliance/css/mexico_compliance.css"
-# app_include_js = "/assets/mexico_compliance/js/mexico_compliance.js"
+# app_include_css = "/assets/erpnext_mexico_compliance/css/erpnext_mexico_compliance.css"
+# app_include_js = "/assets/erpnext_mexico_compliance/js/erpnext_mexico_compliance.js"
 
 # include js, css files in header of web template
-# web_include_css = "/assets/mexico_compliance/css/mexico_compliance.css"
-# web_include_js = "/assets/mexico_compliance/js/mexico_compliance.js"
+# web_include_css = "/assets/erpnext_mexico_compliance/css/erpnext_mexico_compliance.css"
+# web_include_js = "/assets/erpnext_mexico_compliance/js/erpnext_mexico_compliance.js"
 
 # include custom scss in every website theme (without file extension ".scss")
-# website_theme_scss = "mexico_compliance/public/scss/website"
+# website_theme_scss = "erpnext_mexico_compliance/public/scss/website"
 
 # include js, css files in header of web form
 # webform_include_js = {"doctype": "public/js/doctype.js"}
@@ -59,34 +59,34 @@ required_apps = ["erpnext"]
 
 # add methods and filters to jinja environment
 # jinja = {
-# 	"methods": "mexico_compliance.utils.jinja_methods",
-# 	"filters": "mexico_compliance.utils.jinja_filters"
+# 	"methods": "erpnext_mexico_compliance.utils.jinja_methods",
+# 	"filters": "erpnext_mexico_compliance.utils.jinja_filters"
 # }
 
 # Installation
 # ------------
 
-before_install = "mexico_compliance.install.before_install"
-# after_install = "mexico_compliance.install.after_install"
-after_sync = "mexico_compliance.install.after_sync"
+before_install = "erpnext_mexico_compliance.install.before_install"
+# after_install = "erpnext_mexico_compliance.install.after_install"
+after_sync = "erpnext_mexico_compliance.install.after_sync"
 
 # Uninstallation
 # ------------
 
-# before_uninstall = "mexico_compliance.uninstall.before_uninstall"
-# after_uninstall = "mexico_compliance.uninstall.after_uninstall"
+# before_uninstall = "erpnext_mexico_compliance.uninstall.before_uninstall"
+# after_uninstall = "erpnext_mexico_compliance.uninstall.after_uninstall"
 
 # Migration
 # ------------
 
-after_migrate = "mexico_compliance.migrate.after_migrate"
-before_migrate = "mexico_compliance.migrate.before_migrate"
+after_migrate = "erpnext_mexico_compliance.migrate.after_migrate"
+before_migrate = "erpnext_mexico_compliance.migrate.before_migrate"
 
 # Desk Notifications
 # ------------------
 # See frappe.core.notifications.get_notification_config
 
-# notification_config = "mexico_compliance.notifications.get_notification_config"
+# notification_config = "erpnext_mexico_compliance.notifications.get_notification_config"
 
 # Permissions
 # -----------
@@ -105,9 +105,9 @@ before_migrate = "mexico_compliance.migrate.before_migrate"
 # Override standard doctype classes
 
 override_doctype_class = {
-    "Customer": "mexico_compliance.overrides.customer.Customer",
-    "Sales Invoice": "mexico_compliance.overrides.sales_invoice.SalesInvoice",
-    "Sales Invoice Item": "mexico_compliance.overrides.sales_invoice_item.SalesInvoiceItem",
+    "Customer": "erpnext_mexico_compliance.overrides.customer.Customer",
+    "Sales Invoice": "erpnext_mexico_compliance.overrides.sales_invoice.SalesInvoice",
+    "Sales Invoice Item": "erpnext_mexico_compliance.overrides.sales_invoice_item.SalesInvoiceItem",
 }
 
 # Document Events
@@ -127,44 +127,49 @@ override_doctype_class = {
 
 # scheduler_events = {
 # 	"all": [
-# 		"mexico_compliance.tasks.all"
+# 		"erpnext_mexico_compliance.tasks.all"
 # 	],
 # 	"daily": [
-# 		"mexico_compliance.tasks.daily"
+# 		"erpnext_mexico_compliance.tasks.daily"
 # 	],
 # 	"hourly": [
-# 		"mexico_compliance.tasks.hourly"
+# 		"erpnext_mexico_compliance.tasks.hourly"
 # 	],
 # 	"weekly": [
-# 		"mexico_compliance.tasks.weekly"
+# 		"erpnext_mexico_compliance.tasks.weekly"
 # 	],
 # 	"monthly": [
-# 		"mexico_compliance.tasks.monthly"
+# 		"erpnext_mexico_compliance.tasks.monthly"
 # 	],
 # }
 
 # Testing
 # -------
 
-# before_tests = "mexico_compliance.install.before_tests"
+# before_tests = "erpnext_mexico_compliance.install.before_tests"
 
 # Overriding Methods
 # ------------------------------
 #
 # override_whitelisted_methods = {
-# 	"frappe.desk.doctype.event.event.get_events": "mexico_compliance.event.get_events"
+# 	"frappe.desk.doctype.event.event.get_events": "erpnext_mexico_compliance.event.get_events"
 # }
 #
 # each overriding function accepts a `data` argument;
 # generated from the base implementation of the doctype dashboard,
 # along with any modifications made in other Frappe apps
 # override_doctype_dashboards = {
-# 	"Task": "mexico_compliance.task.get_dashboard_data"
+# 	"Task": "erpnext_mexico_compliance.task.get_dashboard_data"
 # }
 
 # exempt linked doctypes from being automatically cancelled
 #
 # auto_cancel_exempted_doctypes = ["Auto Repeat"]
+
+# Ignore links to specified DocTypes when deleting documents
+# -----------------------------------------------------------
+
+# ignore_links_on_delete = ["Communication", "ToDo"]
 
 
 # User Data Protection
@@ -195,10 +200,13 @@ override_doctype_class = {
 # --------------------------------
 
 # auth_hooks = [
-# 	"mexico_compliance.auth.validate"
+# 	"erpnext_mexico_compliance.auth.validate"
 # ]
 
 fixtures = [
-    {"doctype": "Custom Field", "filters": [{"module": "Mexico Compliance"}]},
-    {"doctype": "Property Setter", "filters": [{"module": "Mexico Compliance"}]},
+    {"doctype": "Custom Field", "filters": [{"module": "ERPNext Mexico Compliance"}]},
+    {
+        "doctype": "Property Setter",
+        "filters": [{"module": "ERPNext Mexico Compliance"}],
+    },
 ]

@@ -3,8 +3,8 @@ from frappe import _
 def get_data():
 	return [
 		{
-			"module_name": "Mexico Compliance",
+			"module_name": "ERPNext Mexico Compliance",
 			"type": "module",
-			"label": _("Mexico Compliance")
+			"label": _("ERPNext Mexico Compliance")
 		}
 	]

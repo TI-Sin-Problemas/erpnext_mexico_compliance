@@ -3,5 +3,5 @@
 *.egg-info
 *.swp
 tags
-mexico_compliance/docs/current
+erpnext_mexico_compliance/docs/current
 node_modules/

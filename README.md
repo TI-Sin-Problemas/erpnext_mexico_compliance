@@ -1,4 +1,4 @@
-## Mexico Compliance
+## ERPNext Mexico Compliance
 
 ERPNext app to serve as base to comply with Mexican Rules and Regulations
 
