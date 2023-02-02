@@ -4,7 +4,7 @@ with open("requirements.txt") as f:
 	install_requires = f.read().strip().split("\n")
 
 # get version from __version__ variable in mexico_compliance/__init__.py
-from mexico_compliance import __version__ as version
+from erpnext_mexico_compliance import __version__ as version
 
 setup(
 	name="mexico_compliance",

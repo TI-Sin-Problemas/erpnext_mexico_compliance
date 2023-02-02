@@ -48,4 +48,4 @@ jobs:
             FRAPPE_BRANCH=version-14
 
           tags: |
-            ahuahuachi/erpnext-mexico_compliance:latest
+            ahuahuachi/erpnext_mexico_compliance:latest
