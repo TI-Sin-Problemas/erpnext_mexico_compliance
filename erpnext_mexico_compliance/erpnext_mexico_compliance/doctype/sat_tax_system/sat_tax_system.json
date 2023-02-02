@@ -34,7 +34,7 @@
       "fieldname": "key",
       "fieldtype": "Data",
       "label": "Key",
-      "length": 4,
+      "length": 3,
       "reqd": 1,
       "unique": 1
     },
@@ -52,8 +52,8 @@
   "index_web_pages_for_search": 1,
   "links": [],
   "modified_by": "Administrator",
-  "module": "Mexico Compliance",
-  "name": "SAT CFDI Use",
+  "module": "ERPNext Mexico Compliance",
+  "name": "SAT Tax System",
   "owner": "Administrator",
   "permissions": [
     {

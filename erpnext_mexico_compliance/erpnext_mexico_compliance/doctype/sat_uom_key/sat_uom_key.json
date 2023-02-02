@@ -3,14 +3,17 @@
   "autoname": "field:key",
   "default_view": "List",
   "doctype": "DocType",
+  "document_type": "Setup",
   "editable_grid": 1,
   "engine": "InnoDB",
   "field_order": [
     "enabled",
-    "section_break",
+    "section_break_1",
     "key",
     "key_name",
     "column_break",
+    "uom_name",
+    "section_break_2",
     "description"
   ],
   "fields": [
@@ -21,8 +24,15 @@
       "label": "Enabled"
     },
     {
-      "fieldname": "section_break",
+      "fieldname": "section_break_1",
       "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "key",
+      "fieldtype": "Data",
+      "label": "Key",
+      "reqd": 1,
+      "unique": 1
     },
     {
       "fieldname": "key_name",
@@ -31,29 +41,31 @@
       "read_only": 1
     },
     {
-      "fieldname": "key",
-      "fieldtype": "Data",
-      "label": "Key",
-      "length": 3,
-      "reqd": 1,
-      "unique": 1
-    },
-    {
       "fieldname": "column_break",
       "fieldtype": "Column Break"
     },
     {
-      "fieldname": "description",
+      "fieldname": "uom_name",
       "fieldtype": "Data",
-      "label": "Description",
+      "label": "UOM Name",
       "reqd": 1
+    },
+    {
+      "fieldname": "section_break_2",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "description",
+      "fieldtype": "Small Text",
+      "label": "Description"
     }
   ],
   "index_web_pages_for_search": 1,
   "links": [],
   "modified_by": "Administrator",
-  "module": "Mexico Compliance",
-  "name": "SAT Tax System",
+  "module": "ERPNext Mexico Compliance",
+  "name": "SAT UOM Key",
+  "naming_rule": "By fieldname",
   "owner": "Administrator",
   "permissions": [
     {

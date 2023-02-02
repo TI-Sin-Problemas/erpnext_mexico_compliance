@@ -93,7 +93,7 @@
  "is_tree": 1,
  "links": [],
  "modified_by": "Administrator",
- "module": "Mexico Compliance",
+ "module": "ERPNext Mexico Compliance",
  "name": "SAT Product or Service Key",
  "naming_rule": "By fieldname",
  "nsm_parent_field": "parent_sat_product_or_service_key",

@@ -8,7 +8,7 @@
   "field_name": "tax_id",
   "is_system_generated": 0,
   "modified": "2022-12-23 22:48:41.912479",
-  "module": "Mexico Compliance",
+  "module": "ERPNext Mexico Compliance",
   "name": "Customer-tax_id-allow_in_quick_entry",
   "property": "allow_in_quick_entry",
   "property_type": "Check",
