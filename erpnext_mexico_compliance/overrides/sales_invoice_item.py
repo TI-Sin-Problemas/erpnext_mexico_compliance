@@ -42,8 +42,8 @@ class SalesInvoiceItem(sales_invoice_item.SalesInvoiceItem):
         if all([self.description, self.item_name != item_description]):
             cfdi_description += f" - {item_description}"
 
-        service_dates = self.get_service_duration()
-        if service_dates:
-            cfdi_description += f" ({service_dates})"
+        invoice_dates = self.parent_doc.get_invoice_service_dates()
+        if invoice_dates:
+            cfdi_description += f" ({invoice_dates})"
 
         return cfdi_description.strip()
