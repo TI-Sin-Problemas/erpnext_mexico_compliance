@@ -1,6 +1,8 @@
 {
  "actions": [],
+ "allow_import": 1,
  "autoname": "field:key",
+ "creation": "2023-06-13 17:11:45.330146",
  "default_view": "List",
  "doctype": "DocType",
  "document_type": "Setup",
@@ -39,6 +41,7 @@
   {
    "fieldname": "key",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Key",
    "length": 8,
    "reqd": 1,
@@ -51,6 +54,7 @@
   {
    "fieldname": "description",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Description",
    "length": 150,
    "reqd": 1
@@ -72,6 +76,7 @@
    "read_only": 1
   },
   {
+   "default": "0",
    "fieldname": "is_group",
    "fieldtype": "Check",
    "label": "Is Group"
@@ -92,6 +97,7 @@
  "index_web_pages_for_search": 1,
  "is_tree": 1,
  "links": [],
+ "modified": "2023-06-13 17:37:32.366409",
  "modified_by": "Administrator",
  "module": "ERPNext Mexico Compliance",
  "name": "SAT Product or Service Key",
