@@ -66,7 +66,7 @@ required_apps = ["erpnext"]
 # Installation
 # ------------
 
-before_install = "erpnext_mexico_compliance.install.before_install"
+# before_install = "erpnext_mexico_compliance.install.before_install"
 # after_install = "erpnext_mexico_compliance.install.after_install"
 after_sync = "erpnext_mexico_compliance.install.after_sync"
 
@@ -79,8 +79,8 @@ after_sync = "erpnext_mexico_compliance.install.after_sync"
 # Migration
 # ------------
 
-after_migrate = "erpnext_mexico_compliance.migrate.after_migrate"
-before_migrate = "erpnext_mexico_compliance.migrate.before_migrate"
+# after_migrate = "erpnext_mexico_compliance.migrate.after_migrate"
+# before_migrate = "erpnext_mexico_compliance.migrate.before_migrate"
 
 # Desk Notifications
 # ------------------
