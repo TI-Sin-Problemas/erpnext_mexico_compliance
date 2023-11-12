@@ -70,17 +70,20 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
+      - name: Install MariaDB Client
+        run: sudo apt-get install mariadb-client-10.6
+
       - name: Setup
         run: |
           pip install frappe-bench
-          bench init --frappe-branch version-14 --skip-redis-config-generation --skip-assets --python "$(which python)" ~/frappe-bench
-          mysql --host 127.0.0.1 --port 3306 -u root -proot -e "SET GLOBAL character_set_server = 'utf8mb4'"
-          mysql --host 127.0.0.1 --port 3306 -u root -proot -e "SET GLOBAL collation_server = 'utf8mb4_unicode_ci'"
+          bench init --frappe-branch version-15 --skip-redis-config-generation --skip-assets --python "$(which python)" ~/frappe-bench
+          mariadb --host 127.0.0.1 --port 3306 -u root -proot -e "SET GLOBAL character_set_server = 'utf8mb4'"
+          mariadb --host 127.0.0.1 --port 3306 -u root -proot -e "SET GLOBAL collation_server = 'utf8mb4_unicode_ci'"
 
       - name: Install
         working-directory: /home/runner/frappe-bench
         run: |
-          bench get-app erpnext --branch version-14
+          bench get-app erpnext --branch version-15
           bench get-app erpnext_mexico_compliance $GITHUB_WORKSPACE
           bench setup requirements --dev
           bench new-site --db-root-password root --admin-password admin test_site
