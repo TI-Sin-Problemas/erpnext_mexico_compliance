@@ -1,0 +1,17 @@
+[project]
+name = "erpnext_mexico_compliance"
+authors = [{ name = "TI Sin Problemas", email = "info@tisinproblemas.com" }]
+description = "ERPNext app to serve as base to comply with help with Mexican Rules and Regulations"
+requires-python = ">=3.10"
+readme = "README.md"
+dynamic = ["version"]
+dependencies = [
+    # "frappe~=15.0.0" # Installed and managed by bench.
+]
+[build-system]
+requires = ["flit_core"]
+build-backend = "flit_core.buildapi"
+
+# These dependencies are only installed when developer mode is enabled
+[tool.bench.dev-dependencies]
+# package_name = "~=1.1.0"
