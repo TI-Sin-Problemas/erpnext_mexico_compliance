@@ -1,20 +1,25 @@
 {
  "charts": [],
- "content": "[{\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">SAT Catalogs</span>\",\"col\":12}},{\"type\":\"card\",\"data\":{\"card_name\":\"Setup\",\"col\":4}}]",
- "creation": "2022-12-06 17:25:51.574668",
+ "content": "[{\"id\":\"I0YRNY96Kv\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Mexico Compliance</span>\",\"col\":12}},{\"id\":\"L_y6Iz2ciM\",\"type\":\"card\",\"data\":{\"card_name\":\"Contabilidad\",\"col\":4}}]",
+ "creation": "2024-06-25 23:20:44.180369",
+ "custom_blocks": [],
  "docstatus": 0,
  "doctype": "Workspace",
  "for_user": "",
  "hide_custom": 0,
- "icon": "table",
+ "icon": "organization",
  "idx": 0,
- "label": "SAT Catalogs",
+ "indicator_color": "green",
+ "is_hidden": 0,
+ "label": "Mexico Compliance",
  "links": [
   {
+   "description": "SAT Catalogs for accounting module",
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Setup",
+   "label": "Accounting",
    "link_count": 5,
+   "link_type": "DocType",
    "onboard": 0,
    "type": "Card Break"
   },
@@ -69,16 +74,17 @@
    "type": "Link"
   }
  ],
- "modified": "2022-12-06 17:29:14.082879",
+ "modified": "2024-06-25 23:31:02.513334",
  "modified_by": "Administrator",
  "module": "ERPNext Mexico Compliance",
- "name": "SAT Catalogs",
+ "name": "Mexico Compliance",
+ "number_cards": [],
  "owner": "Administrator",
- "parent_page": "Accounting",
+ "parent_page": "",
  "public": 1,
  "quick_lists": [],
  "roles": [],
- "sequence_id": 31.0,
+ "sequence_id": 39.0,
  "shortcuts": [],
- "title": "SAT Catalogs"
+ "title": "Mexico Compliance"
 }
