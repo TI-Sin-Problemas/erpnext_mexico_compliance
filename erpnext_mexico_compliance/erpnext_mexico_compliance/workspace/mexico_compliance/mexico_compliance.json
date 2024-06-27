@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"id\":\"I0YRNY96Kv\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Mexico Compliance</span>\",\"col\":12}},{\"id\":\"L_y6Iz2ciM\",\"type\":\"card\",\"data\":{\"card_name\":\"Contabilidad\",\"col\":4}}]",
+ "content": "[{\"id\":\"I0YRNY96Kv\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Mexico Compliance</span>\",\"col\":12}},{\"id\":\"2_c8TjCfdY\",\"type\":\"card\",\"data\":{\"card_name\":\"Accounting\",\"col\":4}}]",
  "creation": "2024-06-25 23:20:44.180369",
  "custom_blocks": [],
  "docstatus": 0,
@@ -14,7 +14,7 @@
  "label": "Mexico Compliance",
  "links": [
   {
-   "description": "SAT Catalogs for accounting module",
+   "description": "SAT Catalogs for accounting",
    "hidden": 0,
    "is_query_report": 0,
    "label": "Accounting",
@@ -74,7 +74,7 @@
    "type": "Link"
   }
  ],
- "modified": "2024-06-25 23:31:02.513334",
+ "modified": "2024-06-26 23:24:01.241491",
  "modified_by": "Administrator",
  "module": "ERPNext Mexico Compliance",
  "name": "Mexico Compliance",
