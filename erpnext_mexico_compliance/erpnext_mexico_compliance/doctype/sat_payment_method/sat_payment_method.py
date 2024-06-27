@@ -5,7 +5,7 @@
 from frappe.model.document import Document
 
 
-class SATPaymentMode(Document):
+class SATPaymentMethod(Document):
     """SAT's Payment Mode (Forma de pago)"""
 
     def before_save(self):

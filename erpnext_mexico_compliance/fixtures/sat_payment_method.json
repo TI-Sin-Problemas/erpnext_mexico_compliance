@@ -1,7 +1,7 @@
 [
  {
   "description": "Efectivo",
-  "doctype": "SAT Payment Mode",
+  "doctype": "SAT Payment Method",
   "enabled": 1,
   "key": "01",
   "key_name": "01 - Efectivo",
@@ -9,7 +9,7 @@
  },
  {
   "description": "Cheque nominativo",
-  "doctype": "SAT Payment Mode",
+  "doctype": "SAT Payment Method",
   "enabled": 1,
   "key": "02",
   "key_name": "02 - Cheque nominativo",
@@ -17,7 +17,7 @@
  },
  {
   "description": "Transferencia electrónica de fondos",
-  "doctype": "SAT Payment Mode",
+  "doctype": "SAT Payment Method",
   "enabled": 1,
   "key": "03",
   "key_name": "03 - Transferencia electrónica de fondos",
@@ -25,7 +25,7 @@
  },
  {
   "description": "Tarjeta de crédito",
-  "doctype": "SAT Payment Mode",
+  "doctype": "SAT Payment Method",
   "enabled": 1,
   "key": "04",
   "key_name": "04 - Tarjeta de crédito",
@@ -33,7 +33,7 @@
  },
  {
   "description": "Monedero electrónico",
-  "doctype": "SAT Payment Mode",
+  "doctype": "SAT Payment Method",
   "enabled": 1,
   "key": "05",
   "key_name": "05 - Monedero electrónico",
@@ -41,7 +41,7 @@
  },
  {
   "description": "Dinero electrónico",
-  "doctype": "SAT Payment Mode",
+  "doctype": "SAT Payment Method",
   "enabled": 1,
   "key": "06",
   "key_name": "06 - Dinero electrónico",
@@ -49,7 +49,7 @@
  },
  {
   "description": "Vales de despensa",
-  "doctype": "SAT Payment Mode",
+  "doctype": "SAT Payment Method",
   "enabled": 1,
   "key": "08",
   "key_name": "08 - Vales de despensa",
@@ -57,7 +57,7 @@
  },
  {
   "description": "Dación en pago",
-  "doctype": "SAT Payment Mode",
+  "doctype": "SAT Payment Method",
   "enabled": 1,
   "key": "12",
   "key_name": "12 - Dación en pago",
@@ -65,7 +65,7 @@
  },
  {
   "description": "Pago por subrogación",
-  "doctype": "SAT Payment Mode",
+  "doctype": "SAT Payment Method",
   "enabled": 1,
   "key": "13",
   "key_name": "13 - Pago por subrogación",
@@ -73,7 +73,7 @@
  },
  {
   "description": "Pago por consignación",
-  "doctype": "SAT Payment Mode",
+  "doctype": "SAT Payment Method",
   "enabled": 1,
   "key": "14",
   "key_name": "14 - Pago por consignación",
@@ -81,7 +81,7 @@
  },
  {
   "description": "Condonación",
-  "doctype": "SAT Payment Mode",
+  "doctype": "SAT Payment Method",
   "enabled": 1,
   "key": "15",
   "key_name": "15 - Condonación",
@@ -89,7 +89,7 @@
  },
  {
   "description": "Compensación",
-  "doctype": "SAT Payment Mode",
+  "doctype": "SAT Payment Method",
   "enabled": 1,
   "key": "17",
   "key_name": "17 - Compensación",
@@ -97,7 +97,7 @@
  },
  {
   "description": "Novación",
-  "doctype": "SAT Payment Mode",
+  "doctype": "SAT Payment Method",
   "enabled": 1,
   "key": "23",
   "key_name": "23 - Novación",
@@ -105,7 +105,7 @@
  },
  {
   "description": "Confusión",
-  "doctype": "SAT Payment Mode",
+  "doctype": "SAT Payment Method",
   "enabled": 1,
   "key": "24",
   "key_name": "24 - Confusión",
@@ -113,7 +113,7 @@
  },
  {
   "description": "Remisión de deuda",
-  "doctype": "SAT Payment Mode",
+  "doctype": "SAT Payment Method",
   "enabled": 1,
   "key": "25",
   "key_name": "25 - Remisión de deuda",
@@ -121,7 +121,7 @@
  },
  {
   "description": "Prescripción o caducidad",
-  "doctype": "SAT Payment Mode",
+  "doctype": "SAT Payment Method",
   "enabled": 1,
   "key": "26",
   "key_name": "26 - Prescripción o caducidad",
@@ -129,7 +129,7 @@
  },
  {
   "description": "A satisfacción del acreedor",
-  "doctype": "SAT Payment Mode",
+  "doctype": "SAT Payment Method",
   "enabled": 1,
   "key": "27",
   "key_name": "27 - A satisfacción del acreedor",
@@ -137,7 +137,7 @@
  },
  {
   "description": "Tarjeta de débito",
-  "doctype": "SAT Payment Mode",
+  "doctype": "SAT Payment Method",
   "enabled": 1,
   "key": "28",
   "key_name": "28 - Tarjeta de débito",
@@ -145,7 +145,7 @@
  },
  {
   "description": "Tarjeta de servicios",
-  "doctype": "SAT Payment Mode",
+  "doctype": "SAT Payment Method",
   "enabled": 1,
   "key": "29",
   "key_name": "29 - Tarjeta de servicios",
@@ -153,7 +153,7 @@
  },
  {
   "description": "Aplicación de anticipos",
-  "doctype": "SAT Payment Mode",
+  "doctype": "SAT Payment Method",
   "enabled": 1,
   "key": "30",
   "key_name": "30 - Aplicación de anticipos",
@@ -161,7 +161,7 @@
  },
  {
   "description": "Intermediario pagos",
-  "doctype": "SAT Payment Mode",
+  "doctype": "SAT Payment Method",
   "enabled": 1,
   "key": "31",
   "key_name": "31 - Intermediario pagos",
@@ -169,7 +169,7 @@
  },
  {
   "description": "Por definir",
-  "doctype": "SAT Payment Mode",
+  "doctype": "SAT Payment Method",
   "enabled": 1,
   "key": "99",
   "key_name": "99 - Por definir",
