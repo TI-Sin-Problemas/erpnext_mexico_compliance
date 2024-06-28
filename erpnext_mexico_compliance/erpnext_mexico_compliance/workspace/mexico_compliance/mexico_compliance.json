@@ -66,15 +66,25 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "SAT Payment Mode",
+   "label": "SAT Payment Method",
    "link_count": 0,
-   "link_to": "SAT Payment Mode",
+   "link_to": "SAT Payment Method",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "SAT Payment Option",
+   "link_count": 0,
+   "link_to": "SAT Payment Option",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
   }
  ],
- "modified": "2024-06-26 23:24:01.241491",
+ "modified": "2024-06-27 19:22:58.830059",
  "modified_by": "Administrator",
  "module": "ERPNext Mexico Compliance",
  "name": "Mexico Compliance",
