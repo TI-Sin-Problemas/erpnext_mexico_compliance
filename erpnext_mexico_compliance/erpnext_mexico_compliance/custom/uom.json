@@ -41,7 +41,7 @@
    "mandatory_depends_on": null,
    "modified": "2024-07-25 00:18:06.817491",
    "modified_by": "Administrator",
-   "module": null,
+   "module": "ERPNext Mexico Compliance",
    "name": "UOM-custom_cfdi",
    "no_copy": 0,
    "non_negative": 0,
