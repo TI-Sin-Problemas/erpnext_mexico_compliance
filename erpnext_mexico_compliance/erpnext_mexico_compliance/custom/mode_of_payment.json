@@ -130,30 +130,6 @@
  "custom_perms": [],
  "doctype": "Mode of Payment",
  "links": [],
- "property_setters": [
-  {
-   "_assign": null,
-   "_comments": null,
-   "_liked_by": null,
-   "_user_tags": null,
-   "creation": "2024-06-27 01:01:30.664001",
-   "default_value": null,
-   "doc_type": "Mode of Payment",
-   "docstatus": 0,
-   "doctype_or_field": "DocType",
-   "field_name": null,
-   "idx": 0,
-   "is_system_generated": 0,
-   "modified": "2024-07-24 23:36:47.697799",
-   "modified_by": "Administrator",
-   "module": null,
-   "name": "Mode of Payment-main-field_order",
-   "owner": "Administrator",
-   "property": "field_order",
-   "property_type": "Data",
-   "row_name": null,
-   "value": "[\"mode_of_payment\", \"enabled\", \"type\", \"accounts\", \"cfdi\", \"sat_payment_method\"]"
-  }
- ],
+ "property_setters": [],
  "sync_on_migrate": 1
 }
