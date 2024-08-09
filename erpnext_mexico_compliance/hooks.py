@@ -37,6 +37,11 @@ required_apps = ["erpnext"]
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
 
+# Svg Icons
+# ------------------
+# include app icons in desk
+# app_include_icons = "erpnext_mexico_compliance/public/icons.svg"
+
 # Home Pages
 # ----------
 
@@ -81,6 +86,22 @@ after_sync = "erpnext_mexico_compliance.install.after_sync"
 
 # after_migrate = "erpnext_mexico_compliance.migrate.after_migrate"
 # before_migrate = "erpnext_mexico_compliance.migrate.before_migrate"
+
+# Integration Setup
+# ------------------
+# To set up dependencies/integrations with other apps
+# Name of the app being installed is passed as an argument
+
+# before_app_install = "erpnext_mexico_compliance.utils.before_app_install"
+# after_app_install = "erpnext_mexico_compliance.utils.after_app_install"
+
+# Integration Cleanup
+# -------------------
+# To clean up dependencies/integrations with other apps
+# Name of the app being uninstalled is passed as an argument
+
+# before_app_uninstall = "erpnext_mexico_compliance.utils.before_app_uninstall"
+# after_app_uninstall = "erpnext_mexico_compliance.utils.after_app_uninstall"
 
 # Desk Notifications
 # ------------------
@@ -171,6 +192,15 @@ override_doctype_class = {
 
 # ignore_links_on_delete = ["Communication", "ToDo"]
 
+# Request Events
+# ----------------
+# before_request = ["erpnext_mexico_compliance.utils.before_request"]
+# after_request = ["erpnext_mexico_compliance.utils.after_request"]
+
+# Job Events
+# ----------
+# before_job = ["erpnext_cfdi.utils.before_job"]
+# after_job = ["erpnext_cfdi.utils.after_job"]
 
 # User Data Protection
 # --------------------
@@ -202,6 +232,13 @@ override_doctype_class = {
 # auth_hooks = [
 # 	"erpnext_mexico_compliance.auth.validate"
 # ]
+
+# Automatically update python controller files with type annotations for this app.
+# export_python_type_annotations = True
+
+# default_log_clearing_doctypes = {
+# 	"Logging DocType Name": 30  # days to retain logs
+# }
 
 fixtures = [
     {"doctype": "Custom Field", "filters": [{"module": "ERPNext Mexico Compliance"}]},
