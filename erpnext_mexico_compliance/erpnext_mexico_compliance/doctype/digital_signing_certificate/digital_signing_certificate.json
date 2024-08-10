@@ -1,47 +1,54 @@
 {
  "actions": [],
- "autoname": "field:company",
+ "allow_rename": 1,
+ "autoname": "format:{company}-{###}",
  "creation": "2024-08-09 21:12:07.021650",
  "description": "Company's Digital Signing Certificate to sign CFDI ",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
+  "company_section",
   "company",
+  "files_section",
+  "column_break_ymzu",
   "certificate",
   "key",
   "password",
-  "column_break_ymzu",
+  "column_break_jted",
   "legal_name",
-  "rfc"
+  "rfc",
+  "branch_name"
  ],
  "fields": [
   {
+   "description": "Company for which this certificate will be used to sign CFDI",
    "fieldname": "company",
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Company",
-   "no_copy": 1,
    "options": "Company",
-   "reqd": 1,
-   "unique": 1
+   "reqd": 1
   },
   {
    "description": "Certificate file (.cer)",
    "fieldname": "certificate",
    "fieldtype": "Attach",
-   "label": "Certificate"
+   "label": "Certificate",
+   "no_copy": 1
   },
   {
    "description": "Certificate key file (.key)",
    "fieldname": "key",
    "fieldtype": "Attach",
-   "label": "Key"
+   "label": "Key",
+   "no_copy": 1
   },
   {
    "description": "Password for the certificate key",
    "fieldname": "password",
    "fieldtype": "Password",
-   "label": "Password"
+   "label": "Password",
+   "no_copy": 1
   },
   {
    "description": "Certificate's RFC",
@@ -60,15 +67,36 @@
    "fieldtype": "Data",
    "is_virtual": 1,
    "label": "Legal Name"
+  },
+  {
+   "description": "Certificate's branch name",
+   "fieldname": "branch_name",
+   "fieldtype": "Data",
+   "is_virtual": 1,
+   "label": "Branch Name"
+  },
+  {
+   "fieldname": "column_break_jted",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "company_section",
+   "fieldtype": "Section Break",
+   "label": "Company"
+  },
+  {
+   "fieldname": "files_section",
+   "fieldtype": "Section Break",
+   "label": "Files"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-08-09 22:40:07.169173",
+ "modified": "2024-08-10 01:32:36.071690",
  "modified_by": "Administrator",
  "module": "ERPNext Mexico Compliance",
  "name": "Digital Signing Certificate",
- "naming_rule": "By fieldname",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {

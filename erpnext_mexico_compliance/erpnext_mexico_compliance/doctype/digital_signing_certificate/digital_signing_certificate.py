@@ -18,6 +18,7 @@ class DigitalSigningCertificate(Document):
     if TYPE_CHECKING:
         from frappe.types import DF
 
+        branch_name: DF.Data | None
         certificate: DF.Attach | None
         company: DF.Link
         key: DF.Attach | None
@@ -105,3 +106,13 @@ class DigitalSigningCertificate(Document):
             triad is not complete.
         """
         return self.get_signer().rfc if self.triad_is_complete else None
+
+    @property
+    def branch_name(self) -> str | None:
+        """Returns the branch name associated with the digital signing certificate.
+
+        Returns:
+            str | None: The branch name associated with the digital signing certificate, or None if
+            the triad is not complete.
+        """
+        return self.get_signer().branch_name if self.triad_is_complete else None
