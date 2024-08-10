@@ -5,9 +5,7 @@ description = "ERPNext app to serve as base to comply with help with Mexican Rul
 requires-python = ">=3.10"
 readme = "README.md"
 dynamic = ["version"]
-dependencies = [
-    # "frappe~=15.0.0" # Installed and managed by bench.
-]
+dependencies = ["zeep ≃4.2.1", "satcfdi ~=4.5.5"]
 [build-system]
 requires = ["flit_core"]
 build-backend = "flit_core.buildapi"
@@ -15,3 +13,7 @@ build-backend = "flit_core.buildapi"
 # These dependencies are only installed when developer mode is enabled
 [tool.bench.dev-dependencies]
 # package_name = "~=1.1.0"
+
+[tool.bench.frappe-dependencies]
+frappe = ">=15.0.0,<16.0.0"
+erpnext = ">=15.0.0,<16.0.0"
