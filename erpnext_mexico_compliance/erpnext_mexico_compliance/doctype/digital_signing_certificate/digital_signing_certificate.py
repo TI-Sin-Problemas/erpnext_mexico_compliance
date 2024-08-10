@@ -2,9 +2,11 @@
 # For license information, please see license.txt
 
 import frappe
+from erpnext.setup.doctype.company.company import Company
 from frappe import _
 from frappe.model.document import Document
 from frappe.utils.file_manager import get_file
+from satcfdi.create.cfd.cfdi40 import Emisor
 from satcfdi.exceptions import CFDIError
 from satcfdi.models import Signer
 
@@ -116,3 +118,24 @@ class DigitalSigningCertificate(Document):
             the triad is not complete.
         """
         return self.get_signer().branch_name if self.triad_is_complete else None
+
+    def get_company_doc(self) -> Company:
+        """Retrieves the Company doctype associated with the current instance.
+
+        Returns:
+            Company: The Company doctype.
+        """
+        return frappe.get_doc("Company", self.company)
+
+    def get_issuer(self) -> Emisor:
+        """Creates an Emisor object from the current instance.
+
+        Returns:
+            Emisor: The issuer information, including RFC, name, and tax regime.
+        """
+        company = self.get_company_doc()
+        if not company.mx_tax_regime:
+            frappe.throw(_("Company has no Tax regime"))
+        return Emisor(
+            rfc=self.rfc, nombre=self.legal_name, regimen_fiscal=company.mx_tax_regime
+        )
