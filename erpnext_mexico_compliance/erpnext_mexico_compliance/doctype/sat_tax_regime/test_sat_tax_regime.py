@@ -5,5 +5,5 @@
 from frappe.tests.utils import FrappeTestCase
 
 
-class TestSATTaxSystem(FrappeTestCase):
+class TestSATTaxRegime(FrappeTestCase):
 	pass

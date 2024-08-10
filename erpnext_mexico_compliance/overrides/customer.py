@@ -2,10 +2,12 @@
 Copyright (c) 2022, TI Sin Problemas and contributors
 For license information, please see license.txt
 """
+
 import re
+
 import frappe
-from frappe import _
 from erpnext.selling.doctype.customer.customer import Customer as ERPNextCustomer
+from frappe import _
 
 
 class Customer(ERPNextCustomer):
@@ -21,7 +23,7 @@ class Customer(ERPNextCustomer):
                 title=_("Invalid Tax Id"),
             )
 
-    def get_customer_primary_address(self):
+    def get_primary_address(self):
         """Get customer primary address document"""
         return frappe.get_doc("Address", self.customer_primary_address)
 
@@ -31,7 +33,7 @@ class Customer(ERPNextCustomer):
         if not self.customer_primary_address:
             return False
 
-        address = self.get_customer_primary_address()
+        address = self.get_primary_address()
         return address.country.upper().startswith("MEX")
 
     def validate(self):

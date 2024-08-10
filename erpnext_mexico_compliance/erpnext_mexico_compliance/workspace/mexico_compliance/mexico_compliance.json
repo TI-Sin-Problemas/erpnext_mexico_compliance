@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"id\":\"I0YRNY96Kv\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Mexico Compliance</span>\",\"col\":12}},{\"id\":\"2_c8TjCfdY\",\"type\":\"card\",\"data\":{\"card_name\":\"Accounting\",\"col\":4}}]",
+ "content": "[{\"id\":\"I0YRNY96Kv\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Mexico Compliance</span>\",\"col\":12}},{\"id\":\"2_c8TjCfdY\",\"type\":\"card\",\"data\":{\"card_name\":\"Accounting\",\"col\":4}},{\"id\":\"U5q9et5tJ7\",\"type\":\"card\",\"data\":{\"card_name\":\"Settings\",\"col\":4}}]",
  "creation": "2024-06-25 23:20:44.180369",
  "custom_blocks": [],
  "docstatus": 0,
@@ -14,11 +14,51 @@
  "label": "Mexico Compliance",
  "links": [
   {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "SAT Payment Option",
+   "link_count": 0,
+   "link_to": "SAT Payment Option",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "description": "Module settings",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Settings",
+   "link_count": 2,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "CFDI Stamping Settings",
+   "link_count": 0,
+   "link_to": "CFDI Stamping Settings",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Digital Signing Certificate",
+   "link_count": 0,
+   "link_to": "Digital Signing Certificate",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
    "description": "SAT Catalogs for accounting",
    "hidden": 0,
    "is_query_report": 0,
    "label": "Accounting",
-   "link_count": 5,
+   "link_count": 6,
    "link_type": "DocType",
    "onboard": 0,
    "type": "Card Break"
@@ -46,9 +86,9 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "SAT Tax System",
+   "label": "SAT Tax Regime",
    "link_count": 0,
-   "link_to": "SAT Tax System",
+   "link_to": "SAT Tax Regime",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -84,7 +124,7 @@
    "type": "Link"
   }
  ],
- "modified": "2024-06-27 19:22:58.830059",
+ "modified": "2024-08-10 14:48:14.626153",
  "modified_by": "Administrator",
  "module": "ERPNext Mexico Compliance",
  "name": "Mexico Compliance",
