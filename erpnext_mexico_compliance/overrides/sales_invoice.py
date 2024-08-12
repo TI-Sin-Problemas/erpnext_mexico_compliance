@@ -3,12 +3,15 @@ Copyright (c) 2022, TI Sin Problemas and contributors
 For license information, please see license.txt
 """
 
+from decimal import Decimal
+
 import frappe
 from erpnext.accounts.doctype.sales_invoice import sales_invoice
 from erpnext.setup.doctype.company.company import Company, get_default_company_address
 from frappe import _
 from frappe.contacts.doctype.address.address import Address
-from satcfdi.create.cfd import cfdi40
+from frappe.model.naming import NamingSeries
+from satcfdi.create.cfd import catalogos, cfdi40
 
 from .customer import Customer
 
@@ -31,47 +34,54 @@ class SalesInvoice(sales_invoice.SalesInvoice):
         if not self.company_address:
             self.company_address = get_default_company_address(self.company)
 
-    def get_invoice_service_dates(self) -> str:
-        """Returns invoice dates as a formatted string"""
-        start_date = _("From {}").format(self.from_date) if self.from_date else None
-        end_date = _("To {}").format(self.to_date) if self.to_date else None
+    @property
+    def subscription_duration_display(self) -> str:
+        """Returns a string displaying the service duration in a formatted manner.
+
+        The service duration is displayed as a range between the start date and the end date, if
+        both are provided. If only one of them is provided, the string will display the start or
+        end date accordingly. If neither is provided, an empty string is returned.
+
+        Examples:
+        - From `start_date`
+        - To `end_date`
+        - From `start_date` To `end_date`
+
+        Returns:
+            str: The formatted service duration string.
+        """
+        start_date = _("From {}").format(self.from_date) if self.from_date else ""
+        end_date = _("To {}").format(self.to_date) if self.to_date else ""
         return f"{start_date} {end_date}".strip()
 
     @property
     def company_doc(self) -> Company:
-        """Company that created the invoice
-
-        Returns:
-            Company: Company doctype
-        """
+        """Company DocType that created the invoice"""
         return frappe.get_doc("Company", self.company)
 
     @property
     def customer_doc(self) -> Customer:
-        """Customer of the invoice
-
-        Returns:
-            Customer: Customer doctype
-        """
+        """Customer DocType of the invoice"""
         return frappe.get_doc("Customer", self.customer)
 
     @property
     def company_address_doc(self) -> Address:
-        """Address of the issuer company
-
-        Returns:
-            Company: Company address doctype
-        """
+        """Address DocType of the issuer company"""
         return frappe.get_doc("Address", self.company_address)
 
     @property
     def customer_address_doc(self) -> Address:
-        """Address of the customer
-
-        Returns:
-            Address: Customer address doctype
-        """
+        """Address DocType of the customer"""
         return frappe.get_doc("Address", self.customer_address)
+
+    @property
+    def tax_accounts(self) -> list[dict]:
+        heads = [t.account_head for t in self.taxes]
+        return frappe.get_list(
+            "Account",
+            filters={"name": ["in", heads]},
+            fields=["name", "tax_type", "tax_rate"],
+        )
 
     def validate_company(self):
         """Validates the company information on the invoice.
@@ -129,14 +139,10 @@ class SalesInvoice(sales_invoice.SalesInvoice):
 
         self.customer_doc.validate_mexican_tax_id()
 
-    def get_cfdi_receiver(self) -> cfdi40.Receptor:
-        """Returns a `cfdi40.Receptor` object representing the receiver of the CFDI document for
-        this sales invoice.
-
-        Returns:
-            cfdi40.Receptor: Required node to specify the information of the taxpayer receiving the
-            receipt.
-        """
+    @property
+    def cfdi_receiver(self) -> cfdi40.Receptor:
+        """`cfdi40.Receptor` object representing the receiver of the CFDI document for this sales
+        invoice."""
         return cfdi40.Receptor(
             rfc=self.customer_doc.tax_id,
             nombre=self.customer_name.upper(),
@@ -144,4 +150,37 @@ class SalesInvoice(sales_invoice.SalesInvoice):
             regimen_fiscal_receptor=self.customer_doc.mx_tax_regime,
             uso_cfdi=self.mx_cfdi_use,
         )
+
+    @property
+    def cfdi_items(self) -> list[cfdi40.Concepto]:
+        """Returns a list of `cfdi40.Concepto` objects representing the items of the CFDI document
+        for this sales invoice."""
+        cfdi_items = []
+        for item in self.items:
+            discount = Decimal(item.discount_amount) if item.discount_amount else None
+            cfdi_items.append(
+                cfdi40.Concepto(
+                    clave_prod_serv=item.mx_product_service_key,
+                    cantidad=Decimal(item.qty),
+                    clave_unidad=item.uom_doc.mx_uom_key,
+                    descripcion=item.cfdi_description,
+                    valor_unitario=Decimal(item.rate),
+                    no_identificacion=item.item_code,
+                    descuento=discount,
+                    impuestos=item.cfdi_taxes,
+                )
+            )
+        return cfdi_items
+
+    @property
+    def cfdi_series(self) -> str:
+        """Series code for the CFDI document for this sales invoice."""
+        prefix = str(NamingSeries(self.naming_series).get_prefix())
+        return prefix if prefix[-1].isalnum() else prefix[:-1]
+
+    @property
+    def cfdi_folio(self) -> str:
+        """Folio number for the CFDI document for this sales invoice."""
+        prefix = str(NamingSeries(self.naming_series).get_prefix())
+        return str(int(self.name.replace(prefix, "")))
 
