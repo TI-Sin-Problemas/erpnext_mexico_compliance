@@ -135,7 +135,9 @@ class DigitalSigningCertificate(Document):
         """
         company = self.get_company_doc()
         if not company.mx_tax_regime:
-            frappe.throw(_("Company has no Tax regime"))
+            link = f'<a href="{company.get_url()}">{company.name}</a>'
+            msg = _("Company {0} has no tax regime").format(link)
+            frappe.throw(msg)
         return Emisor(
             rfc=self.rfc, nombre=self.legal_name, regimen_fiscal=company.mx_tax_regime
         )
