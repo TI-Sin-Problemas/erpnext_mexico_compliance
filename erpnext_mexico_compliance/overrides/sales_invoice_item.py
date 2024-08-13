@@ -97,7 +97,7 @@ class SalesInvoiceItem(sales_invoice_item.SalesInvoiceItem):
         transferred_taxes = []
         for account in self.parent_doc.tax_accounts:
             tax_type = catalogos.Impuesto[account["tax_type"]]
-            tax_rate = account["tax_rate"] / 100
+            tax_rate = Decimal(account["tax_rate"]) / 100
 
             if tax_rate < 0:
                 withholding = cfdi40.Retencion(
@@ -110,7 +110,7 @@ class SalesInvoiceItem(sales_invoice_item.SalesInvoiceItem):
                 transferred = cfdi40.Traslado(
                     impuesto=tax_type,
                     tipo_factor=catalogos.TipoFactor.TASA,
-                    tasa_o_cuota=Decimal(tax_rate),
+                    tasa_o_cuota=tax_rate,
                 )
                 transferred_taxes.append(transferred)
 
