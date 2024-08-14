@@ -20,13 +20,10 @@ class DigitalSigningCertificate(Document):
     if TYPE_CHECKING:
         from frappe.types import DF
 
-        branch_name: DF.Data | None
         certificate: DF.Attach | None
         company: DF.Link
         key: DF.Attach | None
-        legal_name: DF.Data | None
         password: DF.Password | None
-        rfc: DF.Data | None
     # end: auto-generated types
 
     def _get_file(self, field: str) -> bytes:
@@ -52,13 +49,17 @@ class DigitalSigningCertificate(Document):
             frappe.throw(_("Key file not configured"))
         return self._get_file("key")
 
-    def get_signer(self) -> Signer:
+    @property
+    def signer(self) -> Signer | None:
         """Returns a Signer object loaded with the certificate, key, and password of the current
         DigitalSigningCertificate instance.
 
         Returns:
-            Signer: CSD Signer
+            Signer | None: CSD Signer
         """
+        if not self.triad_is_complete:
+            return None
+
         certificate = self.read_certificate()
         key = self.read_key()
         password = self.get_password()
@@ -73,9 +74,9 @@ class DigitalSigningCertificate(Document):
     def validate_certificate(self):
         """Validates the digital signing certificate by checking if the certificate files and
         password are correctly configured."""
-        self.get_signer()
-        msg = _("Certificate files and password are valid")
-        frappe.msgprint(msg=msg, title=_("Success"), indicator="green")
+        if self.signer:
+            msg = _("Certificate files and password are valid")
+            frappe.msgprint(msg=msg, title=_("Success"), indicator="green")
 
     @property
     def triad_is_complete(self) -> bool:
@@ -89,6 +90,21 @@ class DigitalSigningCertificate(Document):
         """
         return all([self.certificate, self.key, self.password])
 
+    def validate(self):
+        """Validates the digital signing certificate.
+
+        This function checks if the digital signing certificate is valid by verifying if the
+        `signer` attribute is not None. If the `signer` is None, it means that the certificate
+        files and password are not valid, and a `frappe.ValidationError` is raised with the
+        message "Certificate files and password are not valid".
+
+        Raises:
+            frappe.ValidationError: If the digital signing certificate is not valid.
+        """
+
+        if self.triad_is_complete and not self.signer:
+            frappe.throw(_("Certificate files and password are not valid"))
+
     @property
     def legal_name(self) -> str | None:
         """Returns the legal name associated with the digital signing certificate.
@@ -97,7 +113,7 @@ class DigitalSigningCertificate(Document):
             str | None: The legal name associated with the digital signing certificate, or None if
             the triad is not complete.
         """
-        return self.get_signer().legal_name if self.triad_is_complete else None
+        return self.signer.legal_name if self.signer else None
 
     @property
     def rfc(self) -> str | None:
@@ -107,7 +123,7 @@ class DigitalSigningCertificate(Document):
             str | None: The RFC associated with the digital signing certificate, or None if the
             triad is not complete.
         """
-        return self.get_signer().rfc if self.triad_is_complete else None
+        return self.signer.rfc if self.signer else None
 
     @property
     def branch_name(self) -> str | None:
@@ -117,7 +133,7 @@ class DigitalSigningCertificate(Document):
             str | None: The branch name associated with the digital signing certificate, or None if
             the triad is not complete.
         """
-        return self.get_signer().branch_name if self.triad_is_complete else None
+        return self.signer.branch_name if self.signer else None
 
     def get_company_doc(self) -> Company:
         """Retrieves the Company doctype associated with the current instance.

@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "format:{company}-{###}",
+ "autoname": "format:{company}-{##}",
  "creation": "2024-08-09 21:12:07.021650",
  "description": "Company's Digital Signing Certificate to sign CFDI ",
  "doctype": "DocType",
@@ -13,11 +13,7 @@
   "column_break_ymzu",
   "certificate",
   "key",
-  "password",
-  "column_break_jted",
-  "legal_name",
-  "rfc",
-  "branch_name"
+  "password"
  ],
  "fields": [
   {
@@ -51,32 +47,7 @@
    "no_copy": 1
   },
   {
-   "description": "Certificate's RFC",
-   "fieldname": "rfc",
-   "fieldtype": "Data",
-   "is_virtual": 1,
-   "label": "RFC"
-  },
-  {
    "fieldname": "column_break_ymzu",
-   "fieldtype": "Column Break"
-  },
-  {
-   "description": "Certificate's legal name",
-   "fieldname": "legal_name",
-   "fieldtype": "Data",
-   "is_virtual": 1,
-   "label": "Legal Name"
-  },
-  {
-   "description": "Certificate's branch name",
-   "fieldname": "branch_name",
-   "fieldtype": "Data",
-   "is_virtual": 1,
-   "label": "Branch Name"
-  },
-  {
-   "fieldname": "column_break_jted",
    "fieldtype": "Column Break"
   },
   {
@@ -92,7 +63,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-08-10 01:32:36.071690",
+ "modified": "2024-08-13 18:41:10.791522",
  "modified_by": "Administrator",
  "module": "ERPNext Mexico Compliance",
  "name": "Digital Signing Certificate",
