@@ -2,66 +2,47 @@
 # For license information, please see license.txt
 
 import frappe
+from erpnext_mexico_compliance import ws_client
 from frappe import _
 from frappe.model.document import Document
-from frappe.utils.file_manager import get_file
-from frappe.utils.password import get_decrypted_password
-from satcfdi.exceptions import CFDIError
-from satcfdi.models import Signer
 
 
 class CFDIStampingSettings(Document):
+    # begin: auto-generated types
+    # This code is auto-generated. Do not modify anything in this block.
 
-    def _get_file(self, field: str) -> tuple[str, bytes]:
-        return get_file(getattr(self, field))
+    from typing import TYPE_CHECKING
 
-    def get_certificate(self) -> bytes:
-        """Returns the Digital Signing Certificate
+    if TYPE_CHECKING:
+        from frappe.types import DF
 
-        Returns:
-            bytes: Digital Signing Certificate
-        """
-        if not self.signing_certificate:
-            frappe.throw(_("Signing Certificate not configured"))
-        return self._get_file("signing_certificate")[1]
+        api_key: DF.Password | None
+        available_credits: DF.Int
+        test_mode: DF.Check
+    # end: auto-generated types
 
-    def get_key(self) -> bytes:
-        """Returns the Digital Signing Certificate Key
-
-        Returns:
-            bytes: Digital Signing Certificate Key
-        """
-        if not self.signing_key:
-            frappe.throw(_("Signing Key not configured"))
-        return self._get_file("signing_key")[1]
-
-    def get_certificate_password(self) -> str:
-        """Returns the Digital Signing Certificate Key Password
+    def get_api_key(self) -> str:
+        """Retrieves the API key from the CFDI Stamping Settings document.
 
         Returns:
-            str: Password for the Digital Signing Certificate key
+            str: The API key.
         """
-        if not self.signing_password:
-            frappe.throw(_("Signing Password not configured"))
-        return get_decrypted_password(self.doctype, self.name, "signing_password")
+        return self.get_password("api_key")
 
-    def get_csd_signer(self) -> Signer:
-        """Returns Signer from the Digital Signing Certificate
+    @property
+    def available_credits(self) -> int:
+        """Retrieves the available credits from the CFDI Web Service.
 
         Returns:
-            Signer: CSD Signer
+            int: The number of available credits.
         """
-        certificate = self.get_certificate()
-        key = self.get_key()
-        password = self.get_certificate_password()
-        try:
-            signer = Signer.load(certificate=certificate, key=key, password=password)
-        except (CFDIError, ValueError) as e:
-            frappe.throw(title="Invalid Signing Certificate", msg=str(e))
+        if self.api_key:
+            client = ws_client.get_ws_client()
+            try:
+                available_credits = client.get_available_credits()
+            except ws_client.WSClientException as exception:
+                frappe.throw(str(exception), title=_("CFDI Web Service Error"))
+        else:
+            available_credits = 0
 
-        return signer
-
-    @frappe.whitelist()
-    def validate_signing_certificate(self):
-        """Validate the CSD Signing Certificate"""
-        self.get_csd_signer()
+        return available_credits

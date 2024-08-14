@@ -5,42 +5,46 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "csd_column",
-  "signing_certificate",
-  "signing_key",
-  "signing_password"
+  "web_service_section",
+  "api_key",
+  "test_mode",
+  "column_break_zjrm",
+  "available_credits"
  ],
  "fields": [
   {
-   "description": ".cer file of the Digital Signing Certificate",
-   "fieldname": "signing_certificate",
-   "fieldtype": "Attach",
-   "in_list_view": 1,
-   "label": "Certificate"
+   "fieldname": "web_service_section",
+   "fieldtype": "Section Break",
+   "label": "Web Service"
   },
   {
-   "fieldname": "csd_column",
-   "fieldtype": "Column Break",
-   "label": "Digital Signing Certificate"
-  },
-  {
-   "description": ".key file of the Digital Signing Certificate",
-   "fieldname": "signing_key",
-   "fieldtype": "Attach",
-   "in_list_view": 1,
-   "label": "Certificate Key"
-  },
-  {
-   "fieldname": "signing_password",
+   "fieldname": "api_key",
    "fieldtype": "Password",
-   "in_list_view": 1,
-   "label": "Certificate Password"
+   "label": "API Key"
+  },
+  {
+   "default": "1",
+   "fieldname": "test_mode",
+   "fieldtype": "Check",
+   "label": "Test mode"
+  },
+  {
+   "fieldname": "column_break_zjrm",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "api_key",
+   "description": "Every time a CFDI gets stamped, 1 credit is consumed",
+   "fieldname": "available_credits",
+   "fieldtype": "Int",
+   "is_virtual": 1,
+   "label": "Available credits"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2024-08-09 16:45:34.677933",
+ "modified": "2024-08-13 01:44:43.369481",
  "modified_by": "Administrator",
  "module": "ERPNext Mexico Compliance",
  "name": "CFDI Stamping Settings",
