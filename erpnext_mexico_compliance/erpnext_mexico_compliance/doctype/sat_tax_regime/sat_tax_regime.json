@@ -1,6 +1,7 @@
 {
  "actions": [],
  "autoname": "field:key",
+ "creation": "2024-08-10 14:06:19.157418",
  "default_view": "List",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -33,6 +34,7 @@
   {
    "fieldname": "key",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Key",
    "length": 3,
    "reqd": 1,
@@ -45,15 +47,18 @@
   {
    "fieldname": "description",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Description",
    "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
+ "modified": "2024-08-14 16:36:37.232829",
  "modified_by": "Administrator",
  "module": "ERPNext Mexico Compliance",
  "name": "SAT Tax Regime",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {
