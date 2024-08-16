@@ -41,7 +41,7 @@ class Customer(ERPNextCustomer):
         return address.country.upper().startswith("MEX")
 
     def validate(self):
-        if self.is_mexican:
+        if self.is_mexican and self.tax_id:
             self.tax_id = self.tax_id.upper()
             self.validate_mexican_tax_id()
 
