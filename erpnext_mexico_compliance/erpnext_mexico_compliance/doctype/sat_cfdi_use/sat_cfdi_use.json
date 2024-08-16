@@ -61,13 +61,14 @@
   {
    "fieldname": "tax_regimes",
    "fieldtype": "Table",
+   "in_filter": 1,
    "label": "Tax regimes",
    "options": "SAT CFDI Use Tax Regime"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-08-14 17:41:50.249931",
+ "modified": "2024-08-14 21:23:44.236421",
  "modified_by": "Administrator",
  "module": "ERPNext Mexico Compliance",
  "name": "SAT CFDI Use",
