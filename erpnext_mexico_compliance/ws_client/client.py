@@ -1,17 +1,23 @@
 from enum import Enum
+from typing import Any
 
 import frappe
-from satcfdi.create.cfd.cfdi40 import CFDI
+from satcfdi.cfdi import CFDI
 from zeep import Client
 from zeep.cache import SqliteCache
 from zeep.transports import Transport
 
-from .exceptions import WSClientException
+from .exceptions import WSClientException, WSExistingCfdiException
 
 
 class WSClient:
+    """Represents a CFDI Web Service client."""
+
+    response: Any
 
     class OperationMode(Enum):
+        """Represents the operation mode of the CFDI Web Service."""
+
         PROD = "https://app.facturaloplus.com/ws/servicio.do?wsdl"
         TEST = "https://dev.facturaloplus.com/ws/servicio.do?wsdl"
 
@@ -20,19 +26,39 @@ class WSClient:
         self.client = Client(mode.value, transport=Transport(cache=SqliteCache()))
         self.logger = frappe.logger("erpnext_mexico_compliance.ws_client", True)
 
-    def raise_from_code(self, code: str, message: str):
-        """Raises a WSClientException if the given code is not 200.
+    def log_error(self, include_data: bool = False) -> None:
+        """Logs an error message with optional data.
 
         Args:
-            code (str): The status code to check.
-            message (str): The error message to raise.
+            include_data (bool, optional): Whether to include the response data in the error
+            message. Defaults to False.
+
+        This function logs an error message using the logger object. The error message includes the
+        response code and message. If the `include_data` parameter is set to True, the response data
+        is also included in the error message.
+        """
+        msg = {"code": self.response.code, "message": self.response.message}
+        if include_data:
+            msg["data"] = self.response.data
+        self.logger.error(msg)
+
+    def raise_from_code(self):
+        """Raises a WSClientException if the given code is not 200.
 
         Raises:
-            WSClientException: If the code is not 200.
+            WSClientException: If the given code is not 200.
+            WSExistingCfdiException: If the given code is 307.
         """
-        if code != "200":
-            self.logger.error({"code": code, "message": message})
-            raise WSClientException(message, code)
+        res = self.response
+        match res.code:
+            case "200":
+                return
+            case "307":
+                self.logger.error({"code": res.code, "message": res.message})
+                raise WSExistingCfdiException(res.message, res.code, res.data)
+            case _:
+                self.logger.error({"code": res.code, "message": res.message})
+                raise WSClientException(res.message, res.code)
 
     def stamp(self, cfdi: CFDI) -> tuple[str, str]:
         """Stamps a CFDI using the provided client and API key.
@@ -44,11 +70,17 @@ class WSClient:
             tuple[str, str]: A tuple containing the stamped CFDI data and the corresponding message.
 
         Raises:
+            WSExistingCfdiException: If the CFDI already exists.
             WSClientException: If the stamping operation fails.
         """
         xml_cfdi = cfdi.xml_bytes().decode("utf-8")
-        res = self.client.service.timbrar(apikey=self.api_key, xmlCFDI=xml_cfdi)
+        self.response = self.client.service.timbrar(
+            apikey=self.api_key, xmlCFDI=xml_cfdi
+        )
         self.logger.debug({"action": "stamp", "data": xml_cfdi})
+        self.raise_from_code()
+        return self.response.data, self.response.message
+
         self.raise_from_code(res.code, res.message)
         return res.data, res.message
 
@@ -59,5 +91,6 @@ class WSClient:
             int: The number of available credits.
         """
         res = self.client.service.consultarCreditosDisponibles(apikey=self.api_key)
-        self.raise_from_code(res.code, res.message)
+        self.response = res
+        self.raise_from_code()
         return res.data

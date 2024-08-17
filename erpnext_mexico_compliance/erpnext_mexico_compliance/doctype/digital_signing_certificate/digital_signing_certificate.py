@@ -75,8 +75,14 @@ class DigitalSigningCertificate(Document):
         """Validates the digital signing certificate by checking if the certificate files and
         password are correctly configured."""
         if self.signer:
-            msg = _("Certificate files and password are valid")
-            frappe.msgprint(msg=msg, title=_("Success"), indicator="green")
+            title = _("Certificate files and password are valid")
+            msg = [
+                _("Branch: {0}").format(self.branch_name),
+                _("Legal name: {0}").format(self.legal_name),
+                _("RFC: {0}").format(self.rfc),
+            ]
+
+            frappe.msgprint(msg=msg, title=title, indicator="green", as_list=True)
 
     @property
     def triad_is_complete(self) -> bool:

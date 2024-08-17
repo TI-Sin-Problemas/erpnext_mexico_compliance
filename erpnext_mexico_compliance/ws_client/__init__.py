@@ -4,7 +4,7 @@ For license information, please see license.txt"""
 import frappe
 
 from . import client
-from .exceptions import WSClientException
+from .exceptions import WSClientException, WSExistingCfdiException
 
 
 def get_ws_client() -> client.WSClient:
@@ -22,4 +22,4 @@ def get_ws_client() -> client.WSClient:
     return client.WSClient(api_key, mode_map[settings.test_mode])
 
 
-__all__ = ["get_ws_client", "WSClientException"]
+__all__ = ["get_ws_client", "WSClientException", "WSExistingCfdiException"]
