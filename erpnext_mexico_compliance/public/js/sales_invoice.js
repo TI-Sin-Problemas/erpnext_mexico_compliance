@@ -67,24 +67,78 @@ async function addAttachXmlButton(frm) {
   }
 }
 
-async function refresh(frm) {
-  const { docstatus, mx_stamped_xml, name } = frm.doc;
-
-  if (docstatus == 1 && !mx_stamped_xml) {
-    frm.add_custom_button(__("Stamp CFDI"), stampCfdi);
-  }
+function cancel(frm) {
+  const {
+    mx_stamped_xml,
+    cancellation_reason,
+    requires_relationship,
+    cancellation_related_invoices,
+  } = frm.doc;
 
   if (mx_stamped_xml) {
-    await addAttachPdfButton(frm);
-    await addAttachXmlButton(frm);
+    if (!cancellation_reason) {
+      const msg = __(
+        "A Cancellation Reason is required to cancel this sales invoice."
+      );
+      frappe.throw(msg);
+    }
+
+    if (requires_relationship && cancellation_related_invoices === 0) {
+      const msg = __("The Cancellation Reason requires a related invoice.");
+      frappe.throw(msg);
+    }
+
+    frappe.prompt(
+      [
+        {
+          label: __("Digital Signing Certificate"),
+          fieldname: "certificate",
+          fieldtype: "Link",
+          options: "Digital Signing Certificate",
+          filters: { company: frm.doc.company },
+        },
+      ],
+      async ({ certificate }) => {
+        const { message: cfdi_msg } = await frm.call("cancel_cfdi", {
+          certificate,
+        });
+        frappe.show_alert({ message: cfdi_msg, indicator: "green" });
+        const { message: cancelled } = await frm.call("cancel");
+        frappe.show_alert({ message: cancelled, indicator: "green" });
+      },
+      __("Select a Certificate to sign the CFDI")
+    );
+  }
+}
+
+function refresh(frm) {
+  const { mx_stamped_xml } = frm.doc;
+
+  if (mx_stamped_xml) {
+    addAttachPdfButton(frm);
+    addAttachXmlButton(frm);
+
+    if (frm.doc.docstatus === 1) {
+      frm.page.set_secondary_action("Cancel", () => cancel(frm));
+    }
   }
 }
 
 function setup(frm) {
-  frm.set_query("mx_cfdi_use", (doc, docType, docName) => {
+  frm.set_query("mx_cfdi_use", (doc) => {
     return {
       query: "erpnext_mexico_compliance.controllers.queries.cfdi_use_query",
       filters: { customer: doc.customer },
+    };
+  });
+
+  frm.set_query("substitute_invoice", (doc) => {
+    return {
+      filters: [
+        ["name", "!=", doc.name],
+        ["customer", "=", doc.customer],
+        ["mx_stamped_xml", "!=", ""],
+      ],
     };
   });
 }

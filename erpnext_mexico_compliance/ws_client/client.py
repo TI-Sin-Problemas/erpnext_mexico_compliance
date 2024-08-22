@@ -51,7 +51,7 @@ class WSClient:
         """
         res = self.response
         match res.code:
-            case "200":
+            case "200" | "201":
                 return
             case "307":
                 self.logger.error({"code": res.code, "message": res.message})
@@ -81,8 +81,50 @@ class WSClient:
         self.raise_from_code()
         return self.response.data, self.response.message
 
-        self.raise_from_code(res.code, res.message)
-        return res.data, res.message
+    def cancel(
+        self,
+        signing_certificate: str,
+        cfdi: CFDI,
+        reason: str,
+        substitute_uuid: str = None,
+    ) -> tuple[str, str]:
+        """Cancels a CFDI using the provided signing certificate, CFDI, reason, and optional
+        substitute UUID.
+
+        Args:
+            signing_certificate (str): The name of the Digital Signing Certificate DocType to use
+                for cancellation.
+            cfdi (CFDI): The CFDI to be cancelled.
+            reason (str): The reason for cancellation.
+            substitute_uuid (str, optional): The substitute UUID for cancellation. Defaults to None.
+
+        Returns:
+            tuple[str, str]: A tuple containing the cancellation data and the corresponding message.
+        """
+        csd = frappe.get_doc("Digital Signing Certificate", signing_certificate)
+        self.response = self.client.service.cancelar2(
+            apikey=self.api_key,
+            keyCSD=csd.get_key_b64(),
+            cerCSD=csd.get_certificate_b64(),
+            passCSD=csd.get_password(),
+            uuid=cfdi["Complemento"]["TimbreFiscalDigital"]["UUID"],
+            rfcEmisor=cfdi["Emisor"]["Rfc"],
+            rfcReceptor=cfdi["Receptor"]["Rfc"],
+            total=cfdi["Total"],
+            motivo=reason,
+            folioSustitucion=substitute_uuid or "",
+        )
+        self.logger.debug(
+            {
+                "action": "cancel",
+                "signing_certificate": signing_certificate,
+                "cfdi": cfdi,
+                "reason": reason,
+                "substitute_uuid": substitute_uuid,
+            }
+        )
+        self.raise_from_code()
+        return self.response.data, self.response.message
 
     def get_available_credits(self) -> int:
         """Retrieves the available credits from the CFDI Web Service.
@@ -94,3 +136,11 @@ class WSClient:
         self.response = res
         self.raise_from_code()
         return res.data
+
+    def validate(self, cfdi: CFDI) -> tuple[str, str]:
+        xml_cfdi = cfdi.xml_bytes().decode("utf-8")
+        res = self.client.service.validar(apikey=self.api_key, xmlCFDI=xml_cfdi)
+        self.response = res
+        self.logger.debug({"action": "validate", "data": xml_cfdi})
+        self.raise_from_code()
+        return res.data, res.message

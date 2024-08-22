@@ -1,5 +1,7 @@
-# Copyright (c) 2024, TI Sin Problemas and contributors
-# For license information, please see license.txt
+"""Copyright (c) 2024, TI Sin Problemas and contributors
+For license information, please see license.txt"""
+
+import base64
 
 import frappe
 from erpnext.setup.doctype.company.company import Company
@@ -163,3 +165,19 @@ class DigitalSigningCertificate(Document):
         return Emisor(
             rfc=self.rfc, nombre=self.legal_name, regimen_fiscal=company.mx_tax_regime
         )
+
+    def get_key_b64(self) -> str:
+        """Returns the key in Base64 format.
+
+        Returns:
+            str: The key in Base64 format.
+        """
+        return base64.b64encode(self.read_key()).decode("utf-8")
+
+    def get_certificate_b64(self) -> str:
+        """Returns the certificate in Base64 format.
+
+        Returns:
+            str: The certificate in Base64 format.
+        """
+        return base64.b64encode(self.read_certificate()).decode("utf-8")
