@@ -1,7 +1,7 @@
 // Copyright (c) 2024, TI Sin Problemas and contributors
 // For license information, please see license.txt
 
-function stampCfdi() {
+function stampCfdi(frm) {
   frappe.prompt(
     [
       {
@@ -15,6 +15,7 @@ function stampCfdi() {
     async ({ certificate }) => {
       const { message } = await frm.call("stamp_cfdi", { certificate });
       frappe.show_alert({ message, indicator: "green" });
+      frm.reload_doc();
     },
     __("Select a Certificate to sign the CFDI")
   );
@@ -105,6 +106,7 @@ function cancel(frm) {
         frappe.show_alert({ message: cfdi_msg, indicator: "green" });
         const { message: cancelled } = await frm.call("cancel");
         frappe.show_alert({ message: cancelled, indicator: "green" });
+        frm.reload_doc();
       },
       __("Select a Certificate to sign the CFDI")
     );
@@ -112,15 +114,21 @@ function cancel(frm) {
 }
 
 function refresh(frm) {
-  const { mx_stamped_xml } = frm.doc;
+  const { docstatus, mx_stamped_xml } = frm.doc;
 
   if (mx_stamped_xml) {
     addAttachPdfButton(frm);
     addAttachXmlButton(frm);
+  }
 
-    if (frm.doc.docstatus === 1) {
-      frm.page.set_secondary_action("Cancel", () => cancel(frm));
-    }
+  switch (docstatus) {
+    case 1:
+      if (mx_stamped_xml) {
+        frm.page.set_secondary_action("Cancel", () => cancel(frm));
+      } else {
+        frm.add_custom_button(__("Stamp CFDI"), () => stampCfdi(frm));
+      }
+      break;
   }
 }
 

@@ -1,3 +1,9 @@
+"""
+Copyright (c) 2022, TI Sin Problemas and contributors
+For license information, please see license.txt
+"""
+
+import json
 from enum import Enum
 from typing import Any
 
@@ -137,10 +143,19 @@ class WSClient:
         self.raise_from_code()
         return res.data
 
-    def validate(self, cfdi: CFDI) -> tuple[str, str]:
+    def validate(self, cfdi: CFDI) -> tuple[dict, str]:
+        """Validate the structure and content of a given CFDI using the CFDI Web Service.
+
+        Args:
+            cfdi (CFDI): The CFDI to be validated.
+
+        Returns:
+            tuple[dict, str]: A tuple containing the validation data in JSON format and the
+                corresponding message.
+        """
         xml_cfdi = cfdi.xml_bytes().decode("utf-8")
         res = self.client.service.validar(apikey=self.api_key, xmlCFDI=xml_cfdi)
         self.response = res
         self.logger.debug({"action": "validate", "data": xml_cfdi})
         self.raise_from_code()
-        return res.data, res.message
+        return json.loads(res.data), res.message
