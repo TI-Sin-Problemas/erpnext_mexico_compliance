@@ -14,11 +14,11 @@ from frappe import _
 from frappe.client import attach_file
 from frappe.contacts.doctype.address.address import Address
 from frappe.model.document import Document
-from frappe.model.naming import NamingSeries
 from frappe.utils import get_datetime
 from satcfdi.create.cfd import catalogos, cfdi40
 from satcfdi.exceptions import SchemaValidationError
 
+from ..controllers.common import CommonController
 from ..ws_client import WSClientException, WSExistingCfdiException, get_ws_client
 from .customer import Customer
 
@@ -27,7 +27,7 @@ if sys.path[0].rsplit("/", maxsplit=1)[-1] == "utils":
     sys.path[0] = sys.path[0].replace("apps/frappe/frappe/utils", "sites")
 
 
-class SalesInvoice(sales_invoice.SalesInvoice):
+class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
     """ERPNext Sales Invoice override"""
 
     from typing import TYPE_CHECKING
@@ -196,33 +196,12 @@ class SalesInvoice(sales_invoice.SalesInvoice):
         return cfdi_items
 
     @property
-    def cfdi_series(self) -> str:
-        """Series code for the CFDI document for this sales invoice."""
-        prefix = str(NamingSeries(self.naming_series).get_prefix())
-        return prefix if prefix[-1].isalnum() else prefix[:-1]
-
-    @property
-    def cfdi_folio(self) -> str:
-        """Folio number for the CFDI document for this sales invoice."""
-        prefix = str(NamingSeries(self.naming_series).get_prefix())
-        return str(int(self.name.replace(prefix, "")))
-
-    @property
     def posting_datetime(self) -> datetime:
         """`datetime` object representing the posting date and time of the sales invoice."""
         return get_datetime(f"{self.posting_date}T{self.posting_time}")
 
-    def sign_cfdi(self, certificate: str) -> cfdi40.CFDI:
-        """Create and sign the CFDI document for this sales invoice.
-
-        Args:
-            certificate (str): The name of the Digital Signing Certificate to use for signing.
-
-        Returns:
-            cfdi40.CFDI: Signed and processed CFDI document.
-        """
-        csd = frappe.get_doc("Digital Signing Certificate", certificate)
-        voucher = cfdi40.Comprobante(
+    def get_cfdi_voucher(self, csd) -> cfdi40.Comprobante:
+        return cfdi40.Comprobante(
             emisor=csd.get_issuer(),
             lugar_expedicion=self.company_address_doc.pincode,
             receptor=self.cfdi_receiver,
@@ -238,8 +217,6 @@ class SalesInvoice(sales_invoice.SalesInvoice):
             metodo_pago=self.mx_payment_option,
             fecha=self.posting_datetime,
         )
-        voucher.sign(csd.signer)
-        return voucher.process()
 
     @frappe.whitelist()
     def has_file(self, file_name: str) -> bool:
@@ -414,3 +391,21 @@ class SalesInvoice(sales_invoice.SalesInvoice):
         if self.mx_stamped_xml:
             self.validate_cancel_reason()
             self.validate_substitute_invoice()
+
+    @property
+    def payment_entries(self) -> list[frappe._dict]:
+        """List of Payment Entries associated with the current Sales Invoice."""
+        references = frappe.get_all(
+            "Payment Entry Reference",
+            filters={
+                "reference_doctype": self.doctype,
+                "reference_name": self.name,
+            },
+            fields=["parent"],
+        )
+        return frappe.get_all(
+            "Payment Entry",
+            filters={"name": ["in", [r.parent for r in references]]},
+            fields=["name", "posting_date"],
+            order_by="posting_date asc",
+        )
