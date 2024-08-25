@@ -80,11 +80,6 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
         return frappe.get_doc("Customer", self.customer)
 
     @property
-    def company_address_doc(self) -> Address:
-        """Address DocType of the issuer company"""
-        return frappe.get_doc("Address", self.company_address)
-
-    @property
     def customer_address_doc(self) -> Address:
         """Address DocType of the customer"""
         return frappe.get_doc("Address", self.customer_address)
@@ -115,19 +110,15 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
         Raises:
             frappe.ValidationError: If any issues were found.
         """
-        msgs = []
         if self.company_address:
-            address = self.company_address_doc
+            address = frappe.get_doc("Address", self.company_address)
             if not address.pincode:
                 link = f'<a href="{address.get_url()}">{address.name}</a>'
-                msgs.append(_("Address {0} has no zip code").format(link))
+                frappe.throw(_("Address {0} has no zip code").format(link))
         else:
             company = self.company_doc
             link = f'<a href="{company.get_url()}">{company.name}</a>'
-            msgs.append(_("Company {0} has no address").format(link))
-
-        if len(msgs) > 0:
-            frappe.throw(msgs, as_list=True)
+            frappe.throw(_("Company {0} has no address").format(link))
 
     def validate_customer(self):
         """Validates the customer information on the invoice.
@@ -201,9 +192,10 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
         return get_datetime(f"{self.posting_date}T{self.posting_time}")
 
     def get_cfdi_voucher(self, csd) -> cfdi40.Comprobante:
+        address = frappe.get_doc("Address", self.company_address)
         return cfdi40.Comprobante(
             emisor=csd.get_issuer(),
-            lugar_expedicion=self.company_address_doc.pincode,
+            lugar_expedicion=address.pincode,
             receptor=self.cfdi_receiver,
             conceptos=self.cfdi_items,
             moneda=self.currency,
