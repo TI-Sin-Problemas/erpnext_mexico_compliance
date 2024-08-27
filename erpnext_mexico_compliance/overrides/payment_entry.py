@@ -3,10 +3,14 @@ Copyright (c) 2024, TI Sin Problemas and contributors
 For license information, please see license.txt
 """
 
+import sys
+
 import frappe
 from erpnext.accounts.doctype.payment_entry import payment_entry
 from erpnext.setup.doctype.company.company import get_default_company_address
 from frappe import _
+from frappe.client import attach_file
+from frappe.model.document import Document
 from frappe.utils.data import get_datetime
 from satcfdi.create.cfd import cfdi40, pago20
 from satcfdi.exceptions import SchemaValidationError
@@ -16,6 +20,10 @@ from ..erpnext_mexico_compliance.doctype.digital_signing_certificate.digital_sig
     DigitalSigningCertificate,
 )
 from ..ws_client import WSClientException, WSExistingCfdiException, get_ws_client
+
+# temporary hack until https://github.com/frappe/frappe/issues/27373 is fixed
+if sys.path[0].rsplit("/", maxsplit=1)[-1] == "utils":
+    sys.path[0] = sys.path[0].replace("apps/frappe/frappe/utils", "sites")
 
 
 class PaymentEntry(CommonController, payment_entry.PaymentEntry):
@@ -66,6 +74,8 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
                     imp_saldo_ant=last_balance,
                     imp_pagado=pe_ref.allocated_amount,
                     objeto_imp_dr="01",
+                    serie=ref.cfdi_series,
+                    folio=ref.cfdi_folio,
                 )
             )
 
@@ -162,6 +172,48 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
         self.mx_stamped_xml = data
         self.save()
         return message
+
+    @frappe.whitelist()
+    def has_file(self, file_name: str) -> bool:
+        """Returns DocType name if the CFDI document for this sales invoice has a file named as
+        `file_name` attached."""
+        return frappe.db.exists(
+            "File",
+            {
+                "attached_to_doctype": self.doctype,
+                "attached_to_name": self.name,
+                "file_name": file_name,
+            },
+        )
+
+    @frappe.whitelist()
+    def attach_pdf(self) -> Document:
+        """Attaches the CFDI PDF to the current document.
+
+        This method generates a PDF file from the CFDI XML and attaches it to the current document.
+
+        Returns:
+            Document: The result of attaching the PDF file to the current document.
+        """
+        from satcfdi import render  # pylint: disable=import-outside-toplevel
+
+        cfdi = cfdi40.CFDI.from_string(self.mx_stamped_xml.encode("utf-8"))
+        file_name = f"{self.name}_CFDI.pdf"
+        file_data = render.pdf_bytes(cfdi)
+        return attach_file(file_name, file_data, self.doctype, self.name, is_private=1)
+
+    @frappe.whitelist()
+    def attach_xml(self) -> Document:
+        """Attaches the CFDI XML to the current document.
+
+        This method generates an XML file from the CFDI XML and attaches it to the current document.
+
+        Returns:
+            Document: The result of attaching the XML file to the current document.
+        """
+        file_name = f"{self.name}_CFDI.xml"
+        xml = self.mx_stamped_xml
+        return attach_file(file_name, xml, self.doctype, self.name, is_private=1)
 
 
 def get_installment_number(
