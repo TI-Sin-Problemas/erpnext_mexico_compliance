@@ -7,6 +7,7 @@ import frappe
 from erpnext.accounts.doctype.payment_entry import payment_entry
 from erpnext.setup.doctype.company.company import get_default_company_address
 from frappe import _
+from frappe.utils.data import get_datetime
 from satcfdi.create.cfd import cfdi40, pago20
 from satcfdi.exceptions import SchemaValidationError
 
@@ -76,22 +77,30 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
         if not address.pincode:
             frappe.throw(_("Address {0} has no zip code").format(address.name))
 
+        reference_date = self.reference_date
+        if isinstance(reference_date, str):
+            reference_date = get_datetime(reference_date)
+
+        payment = pago20.Pago(
+            fecha_pago=reference_date,
+            forma_de_pago_p=self.mx_payment_mode,
+            moneda_p=self.paid_from_account_currency,
+            docto_relacionado=self.cfdi_related_documents,
+            tipo_cambio_p=self.source_exchange_rate,
+        )
+
+        posting_date = self.posting_date
+        if isinstance(posting_date, str):
+            posting_date = get_datetime(posting_date)
+
         return cfdi40.Comprobante.pago(
             emisor=csd.get_issuer(),
             lugar_expedicion=address.pincode,
             receptor=self.cfdi_receiver,
-            complemento_pago=pago20.Pagos(
-                pago=pago20.Pago(
-                    fecha_pago=self.reference_date,
-                    forma_de_pago_p=self.mx_payment_mode,
-                    moneda_p=self.currency,
-                    docto_relacionado=self.cfdi_related_documents,
-                    tipo_cambio_p=self.conversion_rate,
-                )
-            ),
+            complemento_pago=pago20.Pagos(pago=payment),
             serie=self.cfdi_series,
             folio=self.cfdi_folio,
-            fecha=self.posting_date,
+            fecha=posting_date,
         )
 
     def validate_company(self):
@@ -155,7 +164,9 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
         return message
 
 
-def get_installment_number(doctype: str, docname: str, payment_entry_name: str) -> int:
+def get_installment_number(
+    doctype: str, docname: str, payment_entry_name: str
+) -> int | None:
     """Returns the installment number of a payment entry in a sales invoice.
 
     Args:
@@ -175,3 +186,5 @@ def get_installment_number(doctype: str, docname: str, payment_entry_name: str) 
     for idx, entry in enumerate(doc.payment_entries, 1):
         if entry.name == payment_entry_name:
             return idx
+
+    return None

@@ -124,7 +124,7 @@ function refresh(frm) {
   switch (docstatus) {
     case 1:
       if (mx_stamped_xml) {
-        frm.page.set_secondary_action("Cancel", () => cancel(frm));
+        frm.page.set_secondary_action(__("Cancel"), () => cancel(frm));
       } else {
         frm.add_custom_button(__("Stamp CFDI"), () => stampCfdi(frm));
       }
