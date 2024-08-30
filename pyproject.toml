@@ -2,7 +2,7 @@
 name = "erpnext_mexico_compliance"
 authors = [{ name = "TI Sin Problemas", email = "info@tisinproblemas.com" }]
 description = "ERPNext app to serve as base to comply with help with Mexican Rules and Regulations"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 readme = "README.md"
 dynamic = ["version"]
 dependencies = ["zeep==4.2.1", "satcfdi==4.5.6"]
