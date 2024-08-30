@@ -38,13 +38,14 @@
    "fieldname": "available_credits",
    "fieldtype": "Int",
    "is_virtual": 1,
-   "label": "Available credits"
+   "label": "Available credits",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2024-08-13 01:44:43.369481",
+ "modified": "2024-08-30 17:50:12.004701",
  "modified_by": "Administrator",
  "module": "ERPNext Mexico Compliance",
  "name": "CFDI Stamping Settings",
