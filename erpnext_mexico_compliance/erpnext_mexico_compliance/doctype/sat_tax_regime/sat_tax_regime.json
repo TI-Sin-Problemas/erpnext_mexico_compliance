@@ -1,7 +1,7 @@
 {
  "actions": [],
  "autoname": "field:key",
- "creation": "2024-08-05 22:35:49.169695",
+ "creation": "2024-08-10 14:06:19.157418",
  "default_view": "List",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -12,9 +12,7 @@
   "key",
   "key_name",
   "column_break",
-  "description",
-  "customer_section",
-  "tax_regimes"
+  "description"
  ],
  "fields": [
   {
@@ -38,7 +36,7 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Key",
-   "length": 4,
+   "length": 3,
    "reqd": 1,
    "unique": 1
   },
@@ -52,26 +50,14 @@
    "in_list_view": 1,
    "label": "Description",
    "reqd": 1
-  },
-  {
-   "fieldname": "customer_section",
-   "fieldtype": "Section Break",
-   "label": "Customer"
-  },
-  {
-   "fieldname": "tax_regimes",
-   "fieldtype": "Table",
-   "in_filter": 1,
-   "label": "Tax regimes",
-   "options": "SAT CFDI Use Tax Regime"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-08-14 21:23:44.236421",
+ "modified": "2024-08-14 16:36:37.232829",
  "modified_by": "Administrator",
  "module": "ERPNext Mexico Compliance",
- "name": "SAT CFDI Use",
+ "name": "SAT Tax Regime",
  "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [

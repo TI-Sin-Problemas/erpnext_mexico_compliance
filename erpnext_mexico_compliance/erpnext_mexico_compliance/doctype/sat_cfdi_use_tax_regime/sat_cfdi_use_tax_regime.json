@@ -1,0 +1,32 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-08-14 16:51:26.535096",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "tax_regime"
+ ],
+ "fields": [
+  {
+   "fieldname": "tax_regime",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Tax Regime",
+   "options": "SAT Tax Regime"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-08-14 17:46:03.491710",
+ "modified_by": "Administrator",
+ "module": "ERPNext Mexico Compliance",
+ "name": "SAT CFDI Use Tax Regime",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

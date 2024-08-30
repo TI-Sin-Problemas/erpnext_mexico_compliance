@@ -1,12 +1,12 @@
-# Copyright (c) 2022, TI Sin Problemas and contributors
+# Copyright (c) 2024, TI Sin Problemas and contributors
 # For license information, please see license.txt
 
 # import frappe
 from frappe.model.document import Document
 
 
-class SATPaymentMode(Document):
-    """SAT's Payment Mode (Forma de pago)"""
+class SATPaymentOption(Document):
+    """SAT's Payment Option (Método de pago)"""
 
     def before_save(self):
         """Set DocType key name"""

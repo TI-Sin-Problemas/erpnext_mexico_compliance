@@ -1,0 +1,18 @@
+[
+ {
+  "description": "Pago en parcialidades o diferido",
+  "doctype": "SAT Payment Option",
+  "enabled": 1,
+  "key": "PPD",
+  "key_name": "PPD - Pago en parcialidades o diferido",
+  "name": "PPD"
+ },
+ {
+  "description": "Pago en una sola exhibición",
+  "doctype": "SAT Payment Option",
+  "enabled": 1,
+  "key": "PUE",
+  "key_name": "PUE - Pago en una sola exhibición",
+  "name": "PUE"
+ }
+]

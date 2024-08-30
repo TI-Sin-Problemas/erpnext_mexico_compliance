@@ -1,7 +1,7 @@
 [
  {
   "description": "General de Ley Personas Morales",
-  "doctype": "SAT Tax System",
+  "doctype": "SAT Tax Regime",
   "enabled": 1,
   "key": "601",
   "key_name": "601 - General de Ley Personas Morales",
@@ -9,7 +9,7 @@
  },
  {
   "description": "Personas Morales con Fines no Lucrativos",
-  "doctype": "SAT Tax System",
+  "doctype": "SAT Tax Regime",
   "enabled": 1,
   "key": "603",
   "key_name": "603 - Personas Morales con Fines no Lucrativos",
@@ -17,7 +17,7 @@
  },
  {
   "description": "Sueldos y Salarios e Ingresos Asimilados a Salarios",
-  "doctype": "SAT Tax System",
+  "doctype": "SAT Tax Regime",
   "enabled": 1,
   "key": "605",
   "key_name": "605 - Sueldos y Salarios e Ingresos Asimilados a Salarios",
@@ -25,7 +25,7 @@
  },
  {
   "description": "Arrendamiento",
-  "doctype": "SAT Tax System",
+  "doctype": "SAT Tax Regime",
   "enabled": 1,
   "key": "606",
   "key_name": "606 - Arrendamiento",
@@ -33,7 +33,7 @@
  },
  {
   "description": "Régimen de Enajenación o Adquisición de Bienes",
-  "doctype": "SAT Tax System",
+  "doctype": "SAT Tax Regime",
   "enabled": 1,
   "key": "607",
   "key_name": "607 - Régimen de Enajenación o Adquisición de Bienes",
@@ -41,7 +41,7 @@
  },
  {
   "description": "Demás ingresos",
-  "doctype": "SAT Tax System",
+  "doctype": "SAT Tax Regime",
   "enabled": 1,
   "key": "608",
   "key_name": "608 - Demás ingresos",
@@ -49,7 +49,7 @@
  },
  {
   "description": "Residentes en el Extranjero sin Establecimiento Permanente en México",
-  "doctype": "SAT Tax System",
+  "doctype": "SAT Tax Regime",
   "enabled": 1,
   "key": "610",
   "key_name": "610 - Residentes en el Extranjero sin Establecimiento Permanente en México",
@@ -57,7 +57,7 @@
  },
  {
   "description": "Ingresos por Dividendos (socios y accionistas)",
-  "doctype": "SAT Tax System",
+  "doctype": "SAT Tax Regime",
   "enabled": 1,
   "key": "611",
   "key_name": "611 - Ingresos por Dividendos (socios y accionistas)",
@@ -65,7 +65,7 @@
  },
  {
   "description": "Personas Físicas con Actividades Empresariales y Profesionales",
-  "doctype": "SAT Tax System",
+  "doctype": "SAT Tax Regime",
   "enabled": 1,
   "key": "612",
   "key_name": "612 - Personas Físicas con Actividades Empresariales y Profesionales",
@@ -73,7 +73,7 @@
  },
  {
   "description": "Ingresos por intereses",
-  "doctype": "SAT Tax System",
+  "doctype": "SAT Tax Regime",
   "enabled": 1,
   "key": "614",
   "key_name": "614 - Ingresos por intereses",
@@ -81,7 +81,7 @@
  },
  {
   "description": "Régimen de los ingresos por obtención de premios",
-  "doctype": "SAT Tax System",
+  "doctype": "SAT Tax Regime",
   "enabled": 1,
   "key": "615",
   "key_name": "615 - Régimen de los ingresos por obtención de premios",
@@ -89,7 +89,7 @@
  },
  {
   "description": "Sin obligaciones fiscales",
-  "doctype": "SAT Tax System",
+  "doctype": "SAT Tax Regime",
   "enabled": 1,
   "key": "616",
   "key_name": "616 - Sin obligaciones fiscales",
@@ -97,7 +97,7 @@
  },
  {
   "description": "Sociedades Cooperativas de Producción que optan por diferir sus ingresos",
-  "doctype": "SAT Tax System",
+  "doctype": "SAT Tax Regime",
   "enabled": 1,
   "key": "620",
   "key_name": "620 - Sociedades Cooperativas de Producción que optan por diferir sus ingresos",
@@ -105,7 +105,7 @@
  },
  {
   "description": "Incorporación Fiscal",
-  "doctype": "SAT Tax System",
+  "doctype": "SAT Tax Regime",
   "enabled": 1,
   "key": "621",
   "key_name": "621 - Incorporación Fiscal",
@@ -113,7 +113,7 @@
  },
  {
   "description": "Actividades Agrícolas, Ganaderas, Silvícolas y Pesqueras",
-  "doctype": "SAT Tax System",
+  "doctype": "SAT Tax Regime",
   "enabled": 1,
   "key": "622",
   "key_name": "622 - Actividades Agrícolas, Ganaderas, Silvícolas y Pesqueras",
@@ -121,7 +121,7 @@
  },
  {
   "description": "Opcional para Grupos de Sociedades",
-  "doctype": "SAT Tax System",
+  "doctype": "SAT Tax Regime",
   "enabled": 1,
   "key": "623",
   "key_name": "623 - Opcional para Grupos de Sociedades",
@@ -129,7 +129,7 @@
  },
  {
   "description": "Coordinados",
-  "doctype": "SAT Tax System",
+  "doctype": "SAT Tax Regime",
   "enabled": 1,
   "key": "624",
   "key_name": "624 - Coordinados",
@@ -137,7 +137,7 @@
  },
  {
   "description": "Régimen de las Actividades Empresariales con ingresos a través de Plataformas Tecnológicas",
-  "doctype": "SAT Tax System",
+  "doctype": "SAT Tax Regime",
   "enabled": 1,
   "key": "625",
   "key_name": "625 - Régimen de las Actividades Empresariales con ingresos a través de Plataformas Tecnológicas",
@@ -145,7 +145,7 @@
  },
  {
   "description": "Régimen Simplificado de Confianza",
-  "doctype": "SAT Tax System",
+  "doctype": "SAT Tax Regime",
   "enabled": 1,
   "key": "626",
   "key_name": "626 - Régimen Simplificado de Confianza",

@@ -1,21 +1,13 @@
 {
  "actions": [],
  "autoname": "field:key",
- "creation": "2024-08-05 22:35:49.169695",
+ "creation": "2022-12-19 10:40:09.916493",
  "default_view": "List",
+ "description": "Indicates the form in which a payment was made, in accordance with the SAT catalog of forms of payment",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
- "field_order": [
-  "enabled",
-  "section_break",
-  "key",
-  "key_name",
-  "column_break",
-  "description",
-  "customer_section",
-  "tax_regimes"
- ],
+ "field_order": ["section_break", "enabled", "key", "key_name", "description"],
  "fields": [
   {
    "default": "1",
@@ -28,23 +20,19 @@
    "fieldtype": "Section Break"
   },
   {
-   "fieldname": "key_name",
-   "fieldtype": "Data",
-   "label": "Key Name",
-   "read_only": 1
-  },
-  {
    "fieldname": "key",
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Key",
-   "length": 4,
+   "length": 2,
    "reqd": 1,
    "unique": 1
   },
   {
-   "fieldname": "column_break",
-   "fieldtype": "Column Break"
+   "fieldname": "key_name",
+   "fieldtype": "Data",
+   "label": "Key Name",
+   "read_only": 1
   },
   {
    "fieldname": "description",
@@ -52,26 +40,15 @@
    "in_list_view": 1,
    "label": "Description",
    "reqd": 1
-  },
-  {
-   "fieldname": "customer_section",
-   "fieldtype": "Section Break",
-   "label": "Customer"
-  },
-  {
-   "fieldname": "tax_regimes",
-   "fieldtype": "Table",
-   "in_filter": 1,
-   "label": "Tax regimes",
-   "options": "SAT CFDI Use Tax Regime"
   }
  ],
+ "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-08-14 21:23:44.236421",
+ "modified": "2024-06-27 01:55:39.377966",
  "modified_by": "Administrator",
  "module": "ERPNext Mexico Compliance",
- "name": "SAT CFDI Use",
+ "name": "SAT Payment Method",
  "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
