@@ -33,8 +33,8 @@ async function attachFile(frm, ext) {
     });
     frm.reload_doc();
   } catch (error) {
-    const { responseJSON } = error;
-    frappe.throw(responseJSON ? responseJSON.exception : error);
+    const { message } = error;
+    frappe.throw(message ? message : error);
   }
 }
 
@@ -68,6 +68,53 @@ async function addAttachXmlButton(frm) {
   }
 }
 
+function cancel(frm) {
+  const {
+    mx_stamped_xml,
+    cancellation_reason,
+    requires_relationship,
+    substitute_payment_entry,
+  } = frm.doc;
+
+  if (mx_stamped_xml) {
+    if (!cancellation_reason) {
+      const msg = __(
+        "A Cancellation Reason is required to cancel this sales invoice."
+      );
+      frappe.throw(msg);
+    }
+  }
+
+  if (requires_relationship && !substitute_payment_entry) {
+    const msg = __(
+      "The Cancellation Reason requires a substitute payment entry."
+    );
+    frappe.throw(msg);
+  }
+
+  frappe.prompt(
+    [
+      {
+        label: __("Digital Signing Certificate"),
+        fieldname: "certificate",
+        fieldtype: "Link",
+        options: "Digital Signing Certificate",
+        filters: { company: frm.doc.company },
+      },
+    ],
+    async ({ certificate }) => {
+      const { message: cfdi_msg } = await frm.call("cancel_cfdi", {
+        certificate,
+      });
+      frappe.show_alert({ message: cfdi_msg, indicator: "green" });
+      const { message: cancelled } = await frm.call("cancel");
+      frappe.show_alert({ message: cancelled, indicator: "green" });
+      frm.reload_doc();
+    },
+    __("Select a Certificate to sign the CFDI")
+  );
+}
+
 function refresh(frm) {
   const { docstatus, mx_stamped_xml } = frm.doc;
 
@@ -78,7 +125,9 @@ function refresh(frm) {
 
   switch (docstatus) {
     case 1:
-      if (!mx_stamped_xml) {
+      if (mx_stamped_xml) {
+        frm.page.set_secondary_action(__("Cancel"), () => cancel(frm));
+      } else {
         frm.add_custom_button(__("Stamp CFDI"), () => stampCfdi(frm));
       }
       break;

@@ -279,7 +279,7 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
             frappe.throw(str(e), title=_("CFDI Web Service Error"))
 
         self.mx_stamped_xml = data
-        self.db_update()
+        self.save()
 
         self.attach_pdf()
         self.attach_xml()
@@ -307,7 +307,7 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
 
     @property
     def cfdi_uuid(self) -> str | None:
-        """Retrieves the CFDI UUID from the stamped XML.
+        """CFDI UUID from the stamped XML.
 
         Returns:
             str | None: The CFDI UUID if the stamped XML is available, otherwise None.
@@ -324,7 +324,7 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
         If no cancellation reason is found, it throws an error with a corresponding message.
         """
         if not self.cancellation_reason:
-            msg = _("A Cancellation Reason is required to cancel this sales invoice.")
+            msg = _("A Cancellation Reason is required.")
             title = _("Invalid Cancellation Reason")
             frappe.throw(msg, title=title)
 
@@ -342,8 +342,8 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
             frappe.throw(msg)
 
     @frappe.whitelist()
-    def cancel_cfdi(self, certificate):
-        """Cancels a CFDI document.
+    def cancel_cfdi(self, certificate: str):
+        """Cancels the CFDI document.
 
         Args:
             certificate (str): The name of the Digital Signing Certificate to use for cancellation.
@@ -369,13 +369,13 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
                 certificate,
                 cfdi,
                 self.cancellation_reason,
-                self.substitute_invoice.cfdi_uuid if substitute_invoice else None,
+                substitute_invoice.cfdi_uuid if substitute_invoice else None,
             )
         except WSClientException as e:
             frappe.throw(str(e), title=_("CFDI Web Service Error"))
 
         self.cancellation_acknowledgement = acknowledgement
-        self.db_update()
+        self.save()
 
         return message
 

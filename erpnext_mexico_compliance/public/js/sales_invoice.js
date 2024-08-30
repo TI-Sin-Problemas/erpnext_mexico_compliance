@@ -33,8 +33,8 @@ async function attachFile(frm, ext) {
     });
     frm.reload_doc();
   } catch (error) {
-    const { responseJSON } = error;
-    frappe.throw(responseJSON ? responseJSON.exception : error);
+    const { message } = error;
+    frappe.throw(message ? message : error);
   }
 }
 
@@ -73,7 +73,7 @@ function cancel(frm) {
     mx_stamped_xml,
     cancellation_reason,
     requires_relationship,
-    cancellation_related_invoices,
+    substitute_invoice,
   } = frm.doc;
 
   if (mx_stamped_xml) {
@@ -84,8 +84,8 @@ function cancel(frm) {
       frappe.throw(msg);
     }
 
-    if (requires_relationship && cancellation_related_invoices === 0) {
-      const msg = __("The Cancellation Reason requires a related invoice.");
+    if (requires_relationship && !substitute_invoice) {
+      const msg = __("The Cancellation Reason requires a substitute invoice.");
       frappe.throw(msg);
     }
 
