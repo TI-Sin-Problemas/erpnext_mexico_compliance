@@ -3,17 +3,11 @@
  "autoname": "field:key",
  "creation": "2022-12-19 10:40:09.916493",
  "default_view": "List",
- "description": "Indicates the form in which a payment was made, in accordance with the catalog of forms of payment",
+ "description": "Indicates the form in which a payment was made, in accordance with the SAT catalog of forms of payment",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
- "field_order": [
-  "section_break",
-  "enabled",
-  "key",
-  "key_name",
-  "description"
- ],
+ "field_order": ["section_break", "enabled", "key", "key_name", "description"],
  "fields": [
   {
    "default": "1",

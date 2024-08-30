@@ -79,7 +79,7 @@ function cancel(frm) {
   if (mx_stamped_xml) {
     if (!cancellation_reason) {
       const msg = __(
-        "A Cancellation Reason is required to cancel this sales invoice."
+        "A Cancellation Reason is required to cancel this payment entry."
       );
       frappe.throw(msg);
     }

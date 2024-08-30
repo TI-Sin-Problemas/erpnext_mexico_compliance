@@ -3,7 +3,7 @@
  "autoname": "field:key",
  "creation": "2024-06-27 01:29:40.855867",
  "default_view": "List",
- "description": "Indicates when the payment of the operation was made, in accordance with the SAT catalog of payment methods",
+ "description": "Indicates the method used to make a payment, in accordance with the SAT catalog of payment methods",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [

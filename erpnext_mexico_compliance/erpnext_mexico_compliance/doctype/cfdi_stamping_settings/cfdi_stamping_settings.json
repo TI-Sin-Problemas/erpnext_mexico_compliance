@@ -34,7 +34,7 @@
   },
   {
    "depends_on": "api_key",
-   "description": "Every time a CFDI gets stamped, 1 credit is consumed",
+   "description": "1 credit is consumed every time a CFDI gets stamped",
    "fieldname": "available_credits",
    "fieldtype": "Int",
    "is_virtual": 1,

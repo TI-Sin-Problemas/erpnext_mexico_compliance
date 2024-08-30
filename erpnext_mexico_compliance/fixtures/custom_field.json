@@ -1765,7 +1765,7 @@
   "insert_after": "cancellation_reason",
   "is_system_generated": 0,
   "is_virtual": 1,
-  "label": "Requires Relationship",
+  "label": "Requires relationship",
   "length": 0,
   "link_filters": null,
   "mandatory_depends_on": null,

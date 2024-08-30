@@ -79,7 +79,7 @@ class DigitalSigningCertificate(Document):
         if self.signer:
             title = _("Certificate files and password are valid")
             msg = [
-                _("Branch: {0}").format(self.branch_name),
+                _("Branch: {0}", context="Company branch").format(self.branch_name),
                 _("Legal name: {0}").format(self.legal_name),
                 _("RFC: {0}").format(self.rfc),
             ]
