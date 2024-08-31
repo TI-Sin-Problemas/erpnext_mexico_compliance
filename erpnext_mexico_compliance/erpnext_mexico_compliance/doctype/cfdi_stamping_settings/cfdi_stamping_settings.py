@@ -37,9 +37,9 @@ class CFDIStampingSettings(Document):
             int: The number of available credits.
         """
         if self.api_key:
-            client = ws_client.get_ws_client()
+            ws = ws_client.get_ws_client(self)
             try:
-                available_credits = client.get_available_credits()
+                available_credits = ws.get_available_credits()
             except ws_client.WSClientException as exception:
                 frappe.throw(str(exception), title=_("CFDI Web Service Error"))
         else:
