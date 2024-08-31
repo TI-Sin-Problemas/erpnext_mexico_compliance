@@ -51,6 +51,12 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
         entry."""
         customer = frappe.get_doc(self.party_type, self.party)
         address = frappe.get_doc("Address", customer.customer_primary_address)
+
+        if not customer.mx_tax_regime:
+            link = f'<a href="{customer.get_url()}">{customer.name}</a>'
+            msg = _("Customer {0} has no tax regime").format(link)
+            frappe.throw(msg)
+
         return cfdi40.Receptor(
             rfc=customer.tax_id,
             nombre=customer.customer_name.upper(),
