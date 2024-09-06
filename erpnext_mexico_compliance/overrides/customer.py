@@ -3,11 +3,11 @@ Copyright (c) 2022, TI Sin Problemas and contributors
 For license information, please see license.txt
 """
 
-import re
-
 import frappe
 from erpnext.selling.doctype.customer.customer import Customer as ERPNextCustomer
 from frappe import _
+
+from ..controllers.validators import is_valid_rfc
 
 
 class Customer(ERPNextCustomer):
@@ -16,9 +16,7 @@ class Customer(ERPNextCustomer):
     @property
     def tax_id_is_rfc(self) -> bool:
         """True if tax id complies with RFC format"""
-        exp = r"^([A-ZÑ]|\&){3,4}[0-9]{2}(0[1-9]|1[0-2])([12][0-9]|0[1-9]|3[01])[A-Z0-9]{3}$"
-        pattern = re.compile(exp)
-        return bool(re.match(pattern, self.tax_id))
+        return is_valid_rfc(self.tax_id)
 
     def validate_mexican_tax_id(self):
         """Validate customer name for SAT compliance"""
