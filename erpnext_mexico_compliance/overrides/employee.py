@@ -11,6 +11,7 @@ from ..controllers import validators
 
 
 class Employee(ERPNextEmployee):
+    """ERPNext Employee override"""
 
     from typing import TYPE_CHECKING
 
@@ -20,6 +21,7 @@ class Employee(ERPNextEmployee):
         mx_second_last_name: DF.Data
         mx_rfc: DF.Data
         mx_curp: DF.Data
+        mx_ssn: DF.Data
 
     def set_employee_name(self):
         super().set_employee_name()
@@ -51,6 +53,18 @@ class Employee(ERPNextEmployee):
             msg = _("Invalid CURP format")
             frappe.throw(msg, title=_("Invalid CURP"))
 
+    def validate_ssn(self):
+        """Validate the SSN of the Employee.
+
+        This function checks if the SSN of the Employee complies with the numeric format.
+        If the SSN does not comply, it throws an error with a corresponding message.
+
+        Raises:
+            frappe.ValidationError: If the SSN does not comply with the numeric format.
+        """
+        if not self.mx_ssn.isnumeric():
+            frappe.throw(_("Invalid SSN format"), title=_("Invalid SSN"))
+
     def validate(self):
         super().validate()
 
@@ -59,3 +73,6 @@ class Employee(ERPNextEmployee):
 
         if self.mx_curp:
             self.validate_curp()
+
+        if self.mx_ssn:
+            self.validate_ssn()
