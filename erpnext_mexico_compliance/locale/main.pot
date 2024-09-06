@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ERPNext Mexico Compliance VERSION\n"
 "Report-Msgid-Bugs-To: info@tisinproblemas.com\n"
-"POT-Creation-Date: 2024-08-30 22:42+0000\n"
-"PO-Revision-Date: 2024-08-30 22:42+0000\n"
+"POT-Creation-Date: 2024-09-06 06:04+0000\n"
+"PO-Revision-Date: 2024-09-06 06:04+0000\n"
 "Last-Translator: info@tisinproblemas.com\n"
 "Language-Team: info@tisinproblemas.com\n"
 "MIME-Version: 1.0\n"
@@ -35,7 +35,7 @@ msgstr ""
 msgid "A Cancellation Reason is required to cancel this sales invoice."
 msgstr ""
 
-#: overrides/payment_entry.py:257 overrides/sales_invoice.py:327
+#: overrides/payment_entry.py:263 overrides/sales_invoice.py:327
 msgid "A Cancellation Reason is required."
 msgstr ""
 
@@ -60,7 +60,7 @@ msgstr ""
 msgid "Accounts Manager"
 msgstr ""
 
-#: overrides/payment_entry.py:91 overrides/payment_entry.py:133
+#: overrides/payment_entry.py:97 overrides/payment_entry.py:139
 #: overrides/sales_invoice.py:117
 msgid "Address {0} has no zip code"
 msgstr ""
@@ -95,7 +95,7 @@ msgid "CFDI Stamping Settings"
 msgstr ""
 
 #: erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.py:44
-#: overrides/payment_entry.py:173 overrides/payment_entry.py:309
+#: overrides/payment_entry.py:179 overrides/payment_entry.py:315
 #: overrides/sales_invoice.py:279 overrides/sales_invoice.py:375
 msgid "CFDI Web Service Error"
 msgstr ""
@@ -161,7 +161,7 @@ msgstr ""
 msgid "Company for which this certificate will be used to sign CFDI"
 msgstr ""
 
-#: overrides/payment_entry.py:137 overrides/sales_invoice.py:121
+#: overrides/payment_entry.py:143 overrides/sales_invoice.py:121
 msgid "Company {0} has no address"
 msgstr ""
 
@@ -187,7 +187,7 @@ msgstr ""
 msgid "Customer {0} has no tax ID"
 msgstr ""
 
-#: overrides/sales_invoice.py:141
+#: overrides/payment_entry.py:57 overrides/sales_invoice.py:141
 msgid "Customer {0} has no tax regime"
 msgstr ""
 
@@ -259,19 +259,39 @@ msgstr ""
 msgid "Indicates the method used to make a payment, in accordance with the SAT catalog of payment methods"
 msgstr ""
 
-#: overrides/payment_entry.py:168 overrides/sales_invoice.py:274
+#: overrides/payment_entry.py:174 overrides/sales_invoice.py:274
 msgid "Invalid CFDI"
 msgstr ""
 
-#: overrides/payment_entry.py:258 overrides/sales_invoice.py:328
+#: overrides/employee.py:54
+msgid "Invalid CURP"
+msgstr ""
+
+#: overrides/employee.py:53
+msgid "Invalid CURP format"
+msgstr ""
+
+#: overrides/payment_entry.py:264 overrides/sales_invoice.py:328
 msgid "Invalid Cancellation Reason"
 msgstr ""
 
-#: overrides/payment_entry.py:334
+#: overrides/payment_entry.py:340
 msgid "Invalid Document Type"
 msgstr ""
 
-#: overrides/customer.py:27
+#: overrides/employee.py:41
+msgid "Invalid RFC"
+msgstr ""
+
+#: overrides/employee.py:66
+msgid "Invalid SSN"
+msgstr ""
+
+#: overrides/employee.py:66
+msgid "Invalid SSN format"
+msgstr ""
+
+#: overrides/customer.py:25
 msgid "Invalid Tax Id"
 msgstr ""
 
@@ -360,11 +380,15 @@ msgstr ""
 msgid "Password for the certificate key"
 msgstr ""
 
+#: overrides/employee.py:40
+msgid "RFC format does not comply with SAT specifications"
+msgstr ""
+
 #: erpnext_mexico_compliance/doctype/digital_signing_certificate/digital_signing_certificate.py:84
 msgid "RFC: {0}"
 msgstr ""
 
-#: overrides/payment_entry.py:153
+#: overrides/payment_entry.py:159
 msgid "Reference {0} has not being stamped"
 msgstr ""
 
@@ -457,7 +481,7 @@ msgstr ""
 msgid "System Manager"
 msgstr ""
 
-#: overrides/customer.py:26
+#: overrides/customer.py:24
 msgid "Tax Id does not comply with SAT specifications"
 msgstr ""
 
@@ -484,7 +508,7 @@ msgstr ""
 msgid "The Cancellation Reason requires a substitute payment entry."
 msgstr ""
 
-#: overrides/payment_entry.py:272 overrides/sales_invoice.py:340
+#: overrides/payment_entry.py:278 overrides/sales_invoice.py:340
 msgid "The reason of cancellation {} requires a substitute invoice"
 msgstr ""
 
