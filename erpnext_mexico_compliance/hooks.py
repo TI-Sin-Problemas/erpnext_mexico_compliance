@@ -130,6 +130,7 @@ after_sync = "erpnext_mexico_compliance.install.after_sync"
 
 override_doctype_class = {
     "Customer": "erpnext_mexico_compliance.overrides.customer.Customer",
+    "Employee": "erpnext_mexico_compliance.overrides.employee.Employee",
     "Payment Entry": "erpnext_mexico_compliance.overrides.payment_entry.PaymentEntry",
     "Sales Invoice": "erpnext_mexico_compliance.overrides.sales_invoice.SalesInvoice",
     "Sales Invoice Item": "erpnext_mexico_compliance.overrides.sales_invoice_item.SalesInvoiceItem",
