@@ -5,7 +5,7 @@ description = "ERPNext app to serve as base to comply with help with Mexican Rul
 requires-python = ">=3.11"
 readme = "README.md"
 dynamic = ["version"]
-dependencies = ["zeep==4.2.1", "satcfdi==4.5.6"]
+dependencies = ["zeep==4.2.1", "satcfdi==4.5.7"]
 [build-system]
 requires = ["flit_core"]
 build-backend = "flit_core.buildapi"
