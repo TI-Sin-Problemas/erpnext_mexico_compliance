@@ -171,14 +171,16 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
         for this sales invoice."""
         cfdi_items = []
         for item in self.items:
-            discount = Decimal(item.discount_amount) if item.discount_amount else None
+            discount = (
+                Decimal(str(item.discount_amount)) if item.discount_amount else None
+            )
             cfdi_items.append(
                 cfdi40.Concepto(
                     clave_prod_serv=item.mx_product_service_key,
                     cantidad=Decimal(item.qty),
                     clave_unidad=item.uom_doc.mx_uom_key,
                     descripcion=item.cfdi_description,
-                    valor_unitario=Decimal(item.rate),
+                    valor_unitario=Decimal(str(item.rate)),
                     no_identificacion=item.item_code,
                     descuento=discount,
                     impuestos=item.cfdi_taxes,
