@@ -104,6 +104,8 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
         if isinstance(posting_date, str):
             posting_date = get_datetime(posting_date)
 
+        issuer = csd.get_issuer()
+
         if all(r.total_amount == r.allocated_amount for r in self.references):
             invoices = []
             for r in self.references:
@@ -117,12 +119,19 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
                 comprobantes=invoices,
                 fecha_pago=get_datetime(reference_date),
                 forma_pago=self.mx_payment_mode,
-                emisor=csd.get_issuer(),
+                emisor=issuer,
                 lugar_expedicion=address.pincode,
                 serie=self.cfdi_series,
                 folio=self.cfdi_folio,
                 fecha=get_datetime(posting_date),
             )
+
+        frappe.throw(
+            _(
+                "All references must have the same total amount, "
+                "partial payments are not supported"
+            )
+        )
 
         payment = pago20.Pago(
             fecha_pago=reference_date,
@@ -137,7 +146,7 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
             posting_date = get_datetime(posting_date)
 
         return cfdi40.Comprobante.pago(
-            emisor=csd.get_issuer(),
+            emisor=issuer,
             lugar_expedicion=address.pincode,
             receptor=self.cfdi_receiver,
             complemento_pago=pago20.Pagos(pago=payment),
