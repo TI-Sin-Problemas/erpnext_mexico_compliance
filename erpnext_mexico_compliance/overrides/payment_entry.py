@@ -100,6 +100,39 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
         if isinstance(reference_date, str):
             reference_date = get_datetime(reference_date)
 
+        posting_date = self.posting_date
+        if isinstance(posting_date, str):
+            posting_date = get_datetime(posting_date)
+
+        issuer = csd.get_issuer()
+
+        if all(r.total_amount == r.allocated_amount for r in self.references):
+            invoices = []
+            for r in self.references:
+                invoice = frappe.get_doc(r.reference_doctype, r.reference_name)
+                if not invoice.mx_stamped_xml:
+                    msg = _("Reference {0} has not being stamped").format(invoice.name)
+                    frappe.throw(msg)
+                cfdi = cfdi40.CFDI.from_string(invoice.mx_stamped_xml.encode("utf-8"))
+                invoices.append(cfdi)
+            return cfdi40.Comprobante.pago_comprobantes(
+                comprobantes=invoices,
+                fecha_pago=get_datetime(reference_date),
+                forma_pago=self.mx_payment_mode,
+                emisor=issuer,
+                lugar_expedicion=address.pincode,
+                serie=self.cfdi_series,
+                folio=self.cfdi_folio,
+                fecha=get_datetime(posting_date),
+            )
+
+        frappe.throw(
+            _(
+                "All references must have the same total amount, "
+                "partial payments are not supported"
+            )
+        )
+
         payment = pago20.Pago(
             fecha_pago=reference_date,
             forma_de_pago_p=self.mx_payment_mode,
@@ -113,7 +146,7 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
             posting_date = get_datetime(posting_date)
 
         return cfdi40.Comprobante.pago(
-            emisor=csd.get_issuer(),
+            emisor=issuer,
             lugar_expedicion=address.pincode,
             receptor=self.cfdi_receiver,
             complemento_pago=pago20.Pagos(pago=payment),
