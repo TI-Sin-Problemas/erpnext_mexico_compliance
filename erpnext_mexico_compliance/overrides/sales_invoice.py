@@ -101,8 +101,8 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
             fields=["name", "tax_type", "tax_rate"],
         )
 
-    def validate_company(self):
-        """Validates the company information on the invoice.
+    def validate_company_address(self):
+        """Validates the company address on the invoice.
 
         This function checks if the company has an address and if it has a valid zip code.
         If any issues are found, an error message is thrown with the list of issues.
@@ -265,7 +265,7 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
             str: A message indicating the result of the stamping operation.
         """
 
-        self.validate_company()
+        self.validate_company_address()
         self.validate_customer()
 
         cfdi = self.sign_cfdi(certificate)
