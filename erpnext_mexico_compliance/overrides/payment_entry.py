@@ -155,7 +155,7 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
             fecha=posting_date,
         )
 
-    def validate_company(self):
+    def validate_company_address(self):
         """
         Validates the company information associated with the current payment entry.
 
@@ -196,7 +196,7 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
 
     @frappe.whitelist()
     def stamp_cfdi(self, certificate: str):
-        self.validate_company()
+        self.validate_company_address()
         self.validate_references()
 
         cfdi = self.sign_cfdi(certificate)
