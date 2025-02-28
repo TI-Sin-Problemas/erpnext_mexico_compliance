@@ -180,7 +180,7 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
                     cantidad=Decimal(item.qty),
                     clave_unidad=item.uom_doc.mx_uom_key,
                     descripcion=item.cfdi_description,
-                    valor_unitario=Decimal(str(item.rate)),
+                    valor_unitario=Decimal(str(item.rate + item.discount_amount)),
                     no_identificacion=item.item_code,
                     descuento=discount,
                     impuestos=item.cfdi_taxes,
