@@ -167,6 +167,12 @@ New fields are created for the following Doctypes
 | -------------------------- | -------------------------------------------------- |
 | SAT Product or Service Key | SAT Product or Service Key for Sales Invoice Items |
 
+#### Sales Order Item
+
+| Field                      | Description                                      |
+| -------------------------- | ------------------------------------------------ |
+| SAT Product or Service Key | SAT Product or Service Key for Sales Order Items |
+
 #### UOM
 
 | Field       | Description                                         |
