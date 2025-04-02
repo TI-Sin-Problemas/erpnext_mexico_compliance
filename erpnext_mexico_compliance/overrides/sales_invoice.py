@@ -362,20 +362,15 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
         else:
             substitute_invoice = None
 
-        try:
-            acknowledgement, message = ws.cancel(
-                certificate,
-                cfdi,
-                self.cancellation_reason,
-                substitute_invoice.cfdi_uuid if substitute_invoice else None,
-            )
-        except WSClientException as e:
-            frappe.throw(str(e), title=_("CFDI Web Service Error"))
-
-        self.cancellation_acknowledgement = acknowledgement
+        self.cancellation_acknowledgement = ws.cancel(
+            certificate,
+            cfdi,
+            self.cancellation_reason,
+            substitute_invoice.cfdi_uuid if substitute_invoice else None,
+        )
         self.save()
 
-        return message
+        return _("CFDI cancellation requested successfully")
 
     def before_cancel(self):
         if self.mx_stamped_xml:

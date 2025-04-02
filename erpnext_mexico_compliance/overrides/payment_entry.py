@@ -333,20 +333,15 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
             else None
         )
 
-        try:
-            ack, message = ws.cancel(
-                certificate,
-                cfdi,
-                self.cancellation_reason,
-                substitute.cfdi_uuid if substitute else None,
-            )
-        except WSClientException as e:
-            frappe.throw(str(e), title=_("CFDI Web Service Error"))
-
-        self.cancellation_acknowledgement = ack
+        self.cancellation_acknowledgement = ws.cancel(
+            certificate,
+            cfdi,
+            self.cancellation_reason,
+            substitute.cfdi_uuid if substitute else None,
+        )
         self.save()
 
-        return message
+        return _("CFDI cancellation requested successfully")
 
 
 def get_installment_number(

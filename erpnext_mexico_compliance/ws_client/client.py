@@ -116,7 +116,7 @@ class WSClient:
         cfdi: CFDI,
         reason: str,
         substitute_uuid: str = None,
-    ) -> tuple[str, str]:
+    ) -> str:
         """Cancels a CFDI using the provided signing certificate, CFDI, reason, and optional
         substitute UUID.
 
@@ -128,21 +128,21 @@ class WSClient:
             substitute_uuid (str, optional): The substitute UUID for cancellation. Defaults to None.
 
         Returns:
-            tuple[str, str]: A tuple containing the cancellation data and the corresponding message.
+            str: The cancellation acknowledgement xml.
         """
         csd = frappe.get_doc("Digital Signing Certificate", signing_certificate)
-        self.response = self.client.service.cancelar2(
-            apikey=self.api_key,
-            keyCSD=csd.get_key_b64(),
-            cerCSD=csd.get_certificate_b64(),
-            passCSD=csd.get_password(),
-            uuid=cfdi["Complemento"]["TimbreFiscalDigital"]["UUID"],
-            rfcEmisor=cfdi["Emisor"]["Rfc"],
-            rfcReceptor=cfdi["Receptor"]["Rfc"],
-            total=cfdi["Total"],
-            motivo=reason,
-            folioSustitucion=substitute_uuid or "",
-        )
+        data = {
+            "key": csd.get_key_b64(),
+            "cer": csd.get_certificate_b64(),
+            "password": csd.get_password(),
+            "uuid": cfdi["Complemento"]["TimbreFiscalDigital"]["UUID"],
+            "issuer_rfc": cfdi["Emisor"]["Rfc"],
+            "receiver_rfc": cfdi["Receptor"]["Rfc"],
+            "total": cfdi["Total"],
+            "cancellation_reason": reason,
+            "substitute_uuid": substitute_uuid,
+        }
+        self.response = self.session.post(self._get_uri("cancel"), data=data)
         self.logger.debug(
             {
                 "action": "cancel",
@@ -153,7 +153,8 @@ class WSClient:
             }
         )
         self.raise_from_code()
-        return self.response.data, self.response.message
+        msg = self._get_message()
+        return msg["acknowledgement"]
 
     def get_available_credits(self) -> int:
         """Retrieves the available credits from the CFDI Web Service.
