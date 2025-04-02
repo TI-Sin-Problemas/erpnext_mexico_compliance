@@ -21,13 +21,21 @@ class CFDIStampingSettings(Document):
         test_mode: DF.Check
     # end: auto-generated types
 
-    def get_api_key(self) -> str:
-        """Retrieves the API key from the CFDI Stamping Settings document.
+    def get_secret(self) -> str:
+        """Retrieves the API secret.
 
         Returns:
-            str: The API key.
+            str: The API secret.
         """
-        return self.get_password("api_key")
+        return self.get_password("api_secret")
+
+    def get_token(self) -> str:
+        """Retrieves the API token.
+
+        Returns:
+            str: The API token.
+        """
+        return f"{self.api_key}:{self.get_secret()}"
 
     @property
     def available_credits(self) -> int:

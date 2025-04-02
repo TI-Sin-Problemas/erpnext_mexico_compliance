@@ -18,12 +18,12 @@ def get_ws_client(settings=None) -> client.WSClient:
     """
     if not settings:
         settings = frappe.get_single("CFDI Stamping Settings")
-    api_key = settings.get_api_key()
+    token = settings.get_token()
     mode_map = {
-        0: client.WSClient.OperationMode.PROD,
-        1: client.WSClient.OperationMode.TEST,
+        0: client.OperationMode.PROD,
+        1: client.OperationMode.TEST,
     }
-    return client.WSClient(api_key, mode_map[settings.test_mode])
+    return client.WSClient(token, mode_map[settings.test_mode])
 
 
 __all__ = ["get_ws_client", "WSClientException", "WSExistingCfdiException"]

@@ -16,19 +16,20 @@ from zeep.transports import Transport
 from .exceptions import WSClientException, WSExistingCfdiException
 
 
+class OperationMode(Enum):
+    """Represents the operation mode of the CFDI Web Service."""
+
+    PROD = "https://tisinproblemas.com"
+    TEST = "https://cfdi.tisp-staging.com"
+
+
 class WSClient:
     """Represents a CFDI Web Service client."""
 
     response: Any
 
-    class OperationMode(Enum):
-        """Represents the operation mode of the CFDI Web Service."""
-
-        PROD = "https://app.facturaloplus.com/ws/servicio.do?wsdl"
-        TEST = "https://dev.facturaloplus.com/ws/servicio.do?wsdl"
-
-    def __init__(self, api_key: str, mode: OperationMode = OperationMode.TEST) -> None:
-        self.api_key = api_key
+    def __init__(self, token: str, mode: OperationMode = OperationMode.TEST) -> None:
+        self.token = token
         self.client = Client(mode.value, transport=Transport(cache=SqliteCache()))
         self.logger = frappe.logger("erpnext_mexico_compliance.ws_client", True)
 
