@@ -5,15 +5,13 @@ For license information, please see license.txt
 
 import json
 from enum import Enum
-from typing import Any
 
 import frappe
+import requests
+from frappe import _
 from satcfdi.cfdi import CFDI
-from zeep import Client
-from zeep.cache import SqliteCache
-from zeep.transports import Transport
 
-from .exceptions import WSClientException, WSExistingCfdiException
+from . import auth
 
 
 class OperationMode(Enum):
@@ -26,12 +24,38 @@ class OperationMode(Enum):
 class WSClient:
     """Represents a CFDI Web Service client."""
 
-    response: Any
+    response: requests.Response
+    endpoints = {
+        "cancel": "/api/method/stamp_provider.api.v1.cancel",
+        "status": "/api/method/stamp_provider.api.v1.status",
+        "quota": "/api/method/stamp_provider.api.v1.quota",
+        "stamp": "/api/method/stamp_provider.api.v1.stamp",
+    }
 
     def __init__(self, token: str, mode: OperationMode = OperationMode.TEST) -> None:
-        self.token = token
-        self.client = Client(mode.value, transport=Transport(cache=SqliteCache()))
+        self.session = requests.Session()
+        self.session.auth = auth.TokenAuth(token)
+        self.url = mode.value
         self.logger = frappe.logger("erpnext_mexico_compliance.ws_client", True)
+
+    def _get_uri(self, method: str) -> str:
+        """Returns the URI for the given method.
+
+        Args:
+            method (str): The method for which to get the URI.
+
+        Returns:
+            str: The URI for the given method.
+        """
+        return f"{self.url}{self.endpoints[method]}"
+
+    def _get_message(self):
+        """Extracts and returns the 'message' field from the JSON response.
+
+        Returns:
+            str: The message extracted from the JSON response.
+        """
+        return self.response.json()["message"]
 
     def log_error(self, include_data: bool = False) -> None:
         """Logs an error message with optional data.
@@ -139,10 +163,9 @@ class WSClient:
         Returns:
             int: The number of available credits.
         """
-        res = self.client.service.consultarCreditosDisponibles(apikey=self.api_key)
-        self.response = res
+        self.response = self.session.get(self._get_uri("quota"), timeout=60)
         self.raise_from_code()
-        return res.data
+        return self._get_message()["available"]
 
     def validate(self, cfdi: CFDI) -> tuple[dict, str]:
         """Validate the structure and content of a given CFDI using the CFDI Web Service.
