@@ -87,7 +87,11 @@ class WSClient:
             {"status": self.response.status_code, "message": self.response.text}
         )
         res = self.response.json()
-        frappe.throw(res.get("exception", ""), title=_("CFDI Web Service Error"))
+        msg = res.get("exception", "")
+        exc_type = res.get("exc_type", "")
+        if exc_type:
+            msg = msg.split(exc_type + ":")[1].strip()
+        frappe.throw(msg, title=_("CFDI Web Service Error"))
 
     def stamp(self, cfdi: CFDI) -> tuple[str, str]:
         """Stamps a CFDI using the provided client and API key.
