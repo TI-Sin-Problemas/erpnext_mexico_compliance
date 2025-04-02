@@ -1,9 +1,7 @@
-# Copyright (c) 2024, TI Sin Problemas and contributors
-# For license information, please see license.txt
+"""Copyright (c) 2024, TI Sin Problemas and contributors
+For license information, please see license.txt"""
 
-import frappe
 from erpnext_mexico_compliance import ws_client
-from frappe import _
 from frappe.model.document import Document
 
 
@@ -44,12 +42,9 @@ class CFDIStampingSettings(Document):
         Returns:
             int: The number of available credits.
         """
-        if self.api_key:
+        if self.api_key and self.api_secret:
             ws = ws_client.get_ws_client(self)
-            try:
-                available_credits = ws.get_available_credits()
-            except ws_client.WSClientException as exception:
-                frappe.throw(str(exception), title=_("CFDI Web Service Error"))
+            available_credits = ws.get_available_credits()
         else:
             available_credits = 0
 
