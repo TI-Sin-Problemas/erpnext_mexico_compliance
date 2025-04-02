@@ -19,7 +19,7 @@ from satcfdi.create.cfd import catalogos, cfdi40
 from satcfdi.exceptions import SchemaValidationError
 
 from ..controllers.common import CommonController
-from ..ws_client import WSClientException, WSExistingCfdiException, get_ws_client
+from ..ws_client import WSClientException, get_ws_client
 from .customer import Customer
 
 # temporary hack until https://github.com/frappe/frappe/issues/27373 is fixed
@@ -271,22 +271,17 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
         cfdi = self.sign_cfdi(certificate)
         ws = get_ws_client()
         try:
-            data, message = ws.stamp(cfdi)
+            xml = ws.stamp(cfdi)
         except SchemaValidationError as e:
             frappe.throw(str(e), title=_("Invalid CFDI"))
-        except WSExistingCfdiException as e:
-            data = e.data
-            message = e.message
-        except WSClientException as e:
-            frappe.throw(str(e), title=_("CFDI Web Service Error"))
 
-        self.mx_stamped_xml = data
+        self.mx_stamped_xml = xml
         self.save()
 
         self.attach_pdf()
         self.attach_xml()
 
-        return message
+        return _("CFDI Stamped Successfully")
 
     @property
     def requires_relationship(self) -> int:

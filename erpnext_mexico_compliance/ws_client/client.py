@@ -3,7 +3,6 @@ Copyright (c) 2022, TI Sin Problemas and contributors
 For license information, please see license.txt
 """
 
-import json
 from enum import Enum
 
 import frappe
@@ -93,26 +92,23 @@ class WSClient:
             msg = msg.split(exc_type + ":")[1].strip()
         frappe.throw(msg, title=_("CFDI Web Service Error"))
 
-    def stamp(self, cfdi: CFDI) -> tuple[str, str]:
-        """Stamps a CFDI using the provided client and API key.
+    def stamp(self, cfdi: CFDI) -> str:
+        """Stamps the provided CFDI.
 
         Args:
             cfdi (CFDI): The CFDI to be stamped.
 
         Returns:
-            tuple[str, str]: A tuple containing the stamped CFDI data and the corresponding message.
-
-        Raises:
-            WSExistingCfdiException: If the CFDI already exists.
-            WSClientException: If the stamping operation fails.
+            str: The stamped CFDI XML.
         """
         xml_cfdi = cfdi.xml_bytes().decode("utf-8")
-        self.response = self.client.service.timbrar(
-            apikey=self.api_key, xmlCFDI=xml_cfdi
+        self.response = self.session.post(
+            self._get_uri("stamp"), data={"xml": xml_cfdi}
         )
         self.logger.debug({"action": "stamp", "data": xml_cfdi})
         self.raise_from_code()
-        return self.response.data, self.response.message
+        message = self._get_message()
+        return message["xml"]
 
     def cancel(
         self,

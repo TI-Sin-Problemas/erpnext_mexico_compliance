@@ -19,7 +19,7 @@ from ..controllers.common import CommonController
 from ..erpnext_mexico_compliance.doctype.digital_signing_certificate.digital_signing_certificate import (
     DigitalSigningCertificate,
 )
-from ..ws_client import WSClientException, WSExistingCfdiException, get_ws_client
+from ..ws_client import WSClientException, get_ws_client
 
 # temporary hack until https://github.com/frappe/frappe/issues/27373 is fixed
 if sys.path[0].rsplit("/", maxsplit=1)[-1] == "utils":
@@ -202,22 +202,17 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
         cfdi = self.sign_cfdi(certificate)
         ws = get_ws_client()
         try:
-            data, message = ws.stamp(cfdi)
+            xml = ws.stamp(cfdi)
         except SchemaValidationError as e:
             frappe.throw(str(e), title=_("Invalid CFDI"))
-        except WSExistingCfdiException as e:
-            data = e.data
-            message = e.message
-        except WSClientException as e:
-            frappe.throw(str(e), title=_("CFDI Web Service Error"))
 
-        self.mx_stamped_xml = data
+        self.mx_stamped_xml = xml
         self.save()
 
         self.attach_pdf()
         self.attach_xml()
 
-        return message
+        return _("CFDI Stamped Successfully")
 
     @frappe.whitelist()
     def has_file(self, file_name: str) -> bool:
