@@ -268,12 +268,13 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
         self.validate_company_address()
         self.validate_customer()
 
-        cfdi = self.sign_cfdi(certificate)
-        ws = get_ws_client()
         try:
-            xml = ws.stamp(cfdi)
+            cfdi = self.sign_cfdi(certificate)
         except SchemaValidationError as e:
             frappe.throw(str(e), title=_("Invalid CFDI"))
+
+        ws = get_ws_client()
+        xml = ws.stamp(cfdi)
 
         self.mx_stamped_xml = xml
         self.save()
