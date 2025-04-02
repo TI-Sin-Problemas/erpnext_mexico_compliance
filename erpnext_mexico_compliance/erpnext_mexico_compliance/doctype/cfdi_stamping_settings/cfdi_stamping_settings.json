@@ -8,9 +8,7 @@
   "web_service_section",
   "api_key",
   "api_secret",
-  "test_mode",
-  "column_break_zjrm",
-  "available_credits"
+  "test_mode"
  ],
  "fields": [
   {
@@ -30,19 +28,6 @@
    "label": "Test mode"
   },
   {
-   "fieldname": "column_break_zjrm",
-   "fieldtype": "Column Break"
-  },
-  {
-   "depends_on": "api_key",
-   "description": "1 credit is consumed every time a CFDI gets stamped",
-   "fieldname": "available_credits",
-   "fieldtype": "Int",
-   "is_virtual": 1,
-   "label": "Available credits",
-   "read_only": 1
-  },
-  {
    "fieldname": "api_secret",
    "fieldtype": "Password",
    "label": "API Secret"
@@ -52,7 +37,7 @@
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2025-04-01 19:24:24.575055",
+ "modified": "2025-04-02 00:06:38.221170",
  "modified_by": "Administrator",
  "module": "ERPNext Mexico Compliance",
  "name": "CFDI Stamping Settings",
@@ -69,6 +54,7 @@
    "write": 1
   }
  ],
+ "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []

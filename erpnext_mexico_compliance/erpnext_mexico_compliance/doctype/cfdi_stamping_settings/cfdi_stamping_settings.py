@@ -1,6 +1,7 @@
 """Copyright (c) 2024, TI Sin Problemas and contributors
 For license information, please see license.txt"""
 
+import frappe
 from erpnext_mexico_compliance import ws_client
 from frappe.model.document import Document
 
@@ -35,17 +36,12 @@ class CFDIStampingSettings(Document):
         """
         return f"{self.api_key}:{self.get_secret()}"
 
-    @property
-    def available_credits(self) -> int:
+    @frappe.whitelist()
+    def get_available_credits(self) -> int:
         """Retrieves the available credits from the CFDI Web Service.
 
         Returns:
             int: The number of available credits.
         """
-        if self.api_key and self.api_secret:
-            ws = ws_client.get_ws_client(self)
-            available_credits = ws.get_available_credits()
-        else:
-            available_credits = 0
-
-        return available_credits
+        ws = ws_client.get_ws_client(self)
+        return ws.get_available_credits()
