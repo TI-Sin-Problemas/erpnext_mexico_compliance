@@ -7,6 +7,7 @@
  "field_order": [
   "web_service_section",
   "api_key",
+  "api_secret",
   "test_mode",
   "column_break_zjrm",
   "available_credits"
@@ -19,7 +20,7 @@
   },
   {
    "fieldname": "api_key",
-   "fieldtype": "Password",
+   "fieldtype": "Data",
    "label": "API Key"
   },
   {
@@ -40,12 +41,18 @@
    "is_virtual": 1,
    "label": "Available credits",
    "read_only": 1
+  },
+  {
+   "fieldname": "api_secret",
+   "fieldtype": "Password",
+   "label": "API Secret"
   }
  ],
+ "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2024-08-30 17:50:12.004701",
+ "modified": "2025-04-01 19:24:24.575055",
  "modified_by": "Administrator",
  "module": "ERPNext Mexico Compliance",
  "name": "CFDI Stamping Settings",

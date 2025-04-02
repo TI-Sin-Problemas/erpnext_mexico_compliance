@@ -16,8 +16,8 @@ class CFDIStampingSettings(Document):
     if TYPE_CHECKING:
         from frappe.types import DF
 
-        api_key: DF.Password | None
-        available_credits: DF.Int
+        api_key: DF.Data | None
+        api_secret: DF.Password | None
         test_mode: DF.Check
     # end: auto-generated types
 
