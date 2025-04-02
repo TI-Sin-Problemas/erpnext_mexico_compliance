@@ -80,16 +80,14 @@ class WSClient:
             WSClientException: If the given code is not 200.
             WSExistingCfdiException: If the given code is 307.
         """
-        res = self.response
-        match res.code:
-            case "200" | "201":
-                return
-            case "307":
-                self.logger.error({"code": res.code, "message": res.message})
-                raise WSExistingCfdiException(res.message, res.code, res.data)
-            case _:
-                self.logger.error({"code": res.code, "message": res.message})
-                raise WSClientException(res.message, res.code)
+        if self.response.ok:
+            return
+
+        self.logger.error(
+            {"status": self.response.status_code, "message": self.response.text}
+        )
+        res = self.response.json()
+        frappe.throw(res.get("exception", ""), title=_("CFDI Web Service Error"))
 
     def stamp(self, cfdi: CFDI) -> tuple[str, str]:
         """Stamps a CFDI using the provided client and API key.
