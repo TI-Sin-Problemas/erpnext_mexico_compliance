@@ -31,7 +31,7 @@ bench --site site_name install-app erpnext_mexico_compliance
 To enable the CFDI Stamping feature, you will need:
 
 - A package of stamps. To buy a package of stamps please contact us by sending an email to info@tisinproblemas.com
-- An API Key. You will get an API Key whith your package of stamps.
+- An API Key and API Secret. You will get your API Key and API Secret whith your package of stamps.
 - A valid Digital Signing Certificate (CSD) issued by the Mexican Tax Administration Service (SAT)
 
 Once you have all the requirements, on your ERPNext instance follow the steps below:
@@ -47,11 +47,11 @@ Once you have all the requirements, on your ERPNext instance follow the steps be
    6. Click on _Save_
 
 3. Go to Desktop -> Mexico Compliance -> CFDI Stamping Settings:
-   1. Enter your API Key
+   1. Enter your API Key & API Secret
    2. Uncheck the Test mode checkbox in your production environment
    3. Click on _Save_
 
-You will see the total amount of available credits/stamps in the CFDI Stamping Settings if the API Key and environment is correct
+You can check the total amount of available credits/stamps in the CFDI Stamping Settings by clicking on the _Available Credits_ button
 
 ## Features
 

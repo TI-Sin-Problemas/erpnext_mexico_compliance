@@ -19,7 +19,7 @@ from satcfdi.create.cfd import catalogos, cfdi40
 from satcfdi.exceptions import SchemaValidationError
 
 from ..controllers.common import CommonController
-from ..ws_client import WSClientException, WSExistingCfdiException, get_ws_client
+from ..ws_client import WSClientException, get_ws_client
 from .customer import Customer
 
 # temporary hack until https://github.com/frappe/frappe/issues/27373 is fixed
@@ -268,25 +268,21 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
         self.validate_company_address()
         self.validate_customer()
 
-        cfdi = self.sign_cfdi(certificate)
-        ws = get_ws_client()
         try:
-            data, message = ws.stamp(cfdi)
+            cfdi = self.sign_cfdi(certificate)
         except SchemaValidationError as e:
             frappe.throw(str(e), title=_("Invalid CFDI"))
-        except WSExistingCfdiException as e:
-            data = e.data
-            message = e.message
-        except WSClientException as e:
-            frappe.throw(str(e), title=_("CFDI Web Service Error"))
 
-        self.mx_stamped_xml = data
+        ws = get_ws_client()
+        xml = ws.stamp(cfdi)
+
+        self.mx_stamped_xml = xml
         self.save()
 
         self.attach_pdf()
         self.attach_xml()
 
-        return message
+        return _("CFDI Stamped Successfully")
 
     @property
     def requires_relationship(self) -> int:
@@ -366,20 +362,15 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
         else:
             substitute_invoice = None
 
-        try:
-            acknowledgement, message = ws.cancel(
-                certificate,
-                cfdi,
-                self.cancellation_reason,
-                substitute_invoice.cfdi_uuid if substitute_invoice else None,
-            )
-        except WSClientException as e:
-            frappe.throw(str(e), title=_("CFDI Web Service Error"))
-
-        self.cancellation_acknowledgement = acknowledgement
+        self.cancellation_acknowledgement = ws.cancel(
+            certificate,
+            cfdi,
+            self.cancellation_reason,
+            substitute_invoice.cfdi_uuid if substitute_invoice else None,
+        )
         self.save()
 
-        return message
+        return _("CFDI cancellation requested successfully")
 
     def before_cancel(self):
         if self.mx_stamped_xml:

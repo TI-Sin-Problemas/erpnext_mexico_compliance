@@ -1,9 +1,8 @@
-# Copyright (c) 2024, TI Sin Problemas and contributors
-# For license information, please see license.txt
+"""Copyright (c) 2024, TI Sin Problemas and contributors
+For license information, please see license.txt"""
 
 import frappe
 from erpnext_mexico_compliance import ws_client
-from frappe import _
 from frappe.model.document import Document
 
 
@@ -16,33 +15,33 @@ class CFDIStampingSettings(Document):
     if TYPE_CHECKING:
         from frappe.types import DF
 
-        api_key: DF.Password | None
-        available_credits: DF.Int
+        api_key: DF.Data | None
+        api_secret: DF.Password | None
         test_mode: DF.Check
     # end: auto-generated types
 
-    def get_api_key(self) -> str:
-        """Retrieves the API key from the CFDI Stamping Settings document.
+    def get_secret(self) -> str:
+        """Retrieves the API secret.
 
         Returns:
-            str: The API key.
+            str: The API secret.
         """
-        return self.get_password("api_key")
+        return self.get_password("api_secret")
 
-    @property
-    def available_credits(self) -> int:
+    def get_token(self) -> str:
+        """Retrieves the API token.
+
+        Returns:
+            str: The API token.
+        """
+        return f"{self.api_key}:{self.get_secret()}"
+
+    @frappe.whitelist()
+    def get_available_credits(self) -> int:
         """Retrieves the available credits from the CFDI Web Service.
 
         Returns:
             int: The number of available credits.
         """
-        if self.api_key:
-            ws = ws_client.get_ws_client(self)
-            try:
-                available_credits = ws.get_available_credits()
-            except ws_client.WSClientException as exception:
-                frappe.throw(str(exception), title=_("CFDI Web Service Error"))
-        else:
-            available_credits = 0
-
-        return available_credits
+        ws = ws_client.get_ws_client(self)
+        return ws.get_available_credits()

@@ -60,7 +60,7 @@ class CommonController(abc.ABC):
         csd = frappe.get_doc("Digital Signing Certificate", certificate)
         voucher = self.get_cfdi_voucher(csd)
         voucher.sign(csd.signer)
-        return voucher.process()
+        return voucher.process(True)
 
     @abc.abstractmethod
     def stamp_cfdi(self, certificate: str):

@@ -19,7 +19,7 @@ from ..controllers.common import CommonController
 from ..erpnext_mexico_compliance.doctype.digital_signing_certificate.digital_signing_certificate import (
     DigitalSigningCertificate,
 )
-from ..ws_client import WSClientException, WSExistingCfdiException, get_ws_client
+from ..ws_client import WSClientException, get_ws_client
 
 # temporary hack until https://github.com/frappe/frappe/issues/27373 is fixed
 if sys.path[0].rsplit("/", maxsplit=1)[-1] == "utils":
@@ -199,25 +199,21 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
         self.validate_company_address()
         self.validate_references()
 
-        cfdi = self.sign_cfdi(certificate)
-        ws = get_ws_client()
         try:
-            data, message = ws.stamp(cfdi)
+            cfdi = self.sign_cfdi(certificate)
         except SchemaValidationError as e:
             frappe.throw(str(e), title=_("Invalid CFDI"))
-        except WSExistingCfdiException as e:
-            data = e.data
-            message = e.message
-        except WSClientException as e:
-            frappe.throw(str(e), title=_("CFDI Web Service Error"))
 
-        self.mx_stamped_xml = data
+        ws = get_ws_client()
+        xml = ws.stamp(cfdi)
+
+        self.mx_stamped_xml = xml
         self.save()
 
         self.attach_pdf()
         self.attach_xml()
 
-        return message
+        return _("CFDI Stamped Successfully")
 
     @frappe.whitelist()
     def has_file(self, file_name: str) -> bool:
@@ -337,20 +333,15 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
             else None
         )
 
-        try:
-            ack, message = ws.cancel(
-                certificate,
-                cfdi,
-                self.cancellation_reason,
-                substitute.cfdi_uuid if substitute else None,
-            )
-        except WSClientException as e:
-            frappe.throw(str(e), title=_("CFDI Web Service Error"))
-
-        self.cancellation_acknowledgement = ack
+        self.cancellation_acknowledgement = ws.cancel(
+            certificate,
+            cfdi,
+            self.cancellation_reason,
+            substitute.cfdi_uuid if substitute else None,
+        )
         self.save()
 
-        return message
+        return _("CFDI cancellation requested successfully")
 
 
 def get_installment_number(
