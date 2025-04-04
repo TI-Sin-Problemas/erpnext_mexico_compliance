@@ -97,6 +97,10 @@ jobs:
         env:
           CI: "Yes"
 
+      - working-directory: /home/runner/frappe-bench \
+        run: |
+          bench --site test_site partial-restore -v apps/erpnext_mexico_compliance/.github/helper/partial-database.sql.gz
+
       - name: Run Tests
         working-directory: /home/runner/frappe-bench
         run: |
