@@ -1,5 +1,5 @@
 """
-Copyright (c) 2024, TI Sin Problemas and contributors
+Copyright (c) 2024-2025, TI Sin Problemas and contributors
 For license information, please see license.txt
 """
 
