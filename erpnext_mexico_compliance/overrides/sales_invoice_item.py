@@ -80,7 +80,7 @@ class SalesInvoiceItem(sales_invoice_item.SalesInvoiceItem):
     def cfdi_description(self):
         """Returns description ready to stamp a CFDI"""
         cfdi_description = f"{self.item_name}"
-        item_description = strip_html(self.description)
+        item_description = strip_html(self.description) if self.description else ""
         if all([self.description, self.item_name != item_description]):
             cfdi_description += f" - {item_description}"
 
