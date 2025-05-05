@@ -25,7 +25,8 @@ class Employee(ERPNextEmployee):
 
     def set_employee_name(self):
         super().set_employee_name()
-        self.employee_name += " " + self.mx_second_last_name
+        if self.mx_second_last_name:
+            self.employee_name += " " + self.mx_second_last_name
 
     def validate_rfc(self):
         """Validate the RFC of the Employee.
