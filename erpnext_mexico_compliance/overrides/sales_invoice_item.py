@@ -1,5 +1,5 @@
 """
-Copyright (c) 2022, TI Sin Problemas and contributors
+Copyright (c) 2022-2025, TI Sin Problemas and contributors
 For license information, please see license.txt
 """
 
@@ -98,6 +98,7 @@ class SalesInvoiceItem(sales_invoice_item.SalesInvoiceItem):
         for account in self.parent_doc.tax_accounts:
             tax_type = catalogos.Impuesto[account["tax_type"]]
             tax_rate = Decimal(account["tax_rate"]) / 100
+            tax_rate = tax_rate.quantize(Decimal("1.0000"))
 
             if tax_rate < 0:
                 withholding = cfdi40.Retencion(
