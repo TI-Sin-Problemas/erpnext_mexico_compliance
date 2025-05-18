@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ERPNext Mexico Compliance VERSION\n"
 "Report-Msgid-Bugs-To: info@tisinproblemas.com\n"
-"POT-Creation-Date: 2025-04-03 00:25+0000\n"
-"PO-Revision-Date: 2025-04-03 00:25+0000\n"
+"POT-Creation-Date: 2025-05-18 00:09+0000\n"
+"PO-Revision-Date: 2025-05-18 00:09+0000\n"
 "Last-Translator: info@tisinproblemas.com\n"
 "Language-Team: info@tisinproblemas.com\n"
 "MIME-Version: 1.0\n"
@@ -291,11 +291,11 @@ msgstr ""
 msgid "Invalid CFDI"
 msgstr ""
 
-#: erpnext_mexico_compliance/overrides/employee.py:54
+#: erpnext_mexico_compliance/overrides/employee.py:55
 msgid "Invalid CURP"
 msgstr ""
 
-#: erpnext_mexico_compliance/overrides/employee.py:53
+#: erpnext_mexico_compliance/overrides/employee.py:54
 msgid "Invalid CURP format"
 msgstr ""
 
@@ -308,15 +308,15 @@ msgstr ""
 msgid "Invalid Document Type"
 msgstr ""
 
-#: erpnext_mexico_compliance/overrides/employee.py:41
+#: erpnext_mexico_compliance/overrides/employee.py:42
 msgid "Invalid RFC"
 msgstr ""
 
-#: erpnext_mexico_compliance/overrides/employee.py:66
+#: erpnext_mexico_compliance/overrides/employee.py:67
 msgid "Invalid SSN"
 msgstr ""
 
-#: erpnext_mexico_compliance/overrides/employee.py:66
+#: erpnext_mexico_compliance/overrides/employee.py:67
 msgid "Invalid SSN format"
 msgstr ""
 
@@ -409,7 +409,7 @@ msgstr ""
 msgid "Password for the certificate key"
 msgstr ""
 
-#: erpnext_mexico_compliance/overrides/employee.py:40
+#: erpnext_mexico_compliance/overrides/employee.py:41
 msgid "RFC format does not comply with SAT specifications"
 msgstr ""
 
