@@ -174,6 +174,13 @@ New fields are created for the following Doctypes
 | -------------------------- | ------------------------------------------------ |
 | SAT Product or Service Key | SAT Product or Service Key for Sales Order Items |
 
+#### Subscription
+
+| Field              | Description                           |
+| ------------------ | ------------------------------------- |
+| Mode of Payment    | Mode of Payment for Sales Invoices    |
+| SAT Payment Option | SAT Payment Option for Sales Invoices |
+
 #### UOM
 
 | Field       | Description                                         |
