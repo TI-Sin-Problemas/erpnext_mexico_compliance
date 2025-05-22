@@ -123,9 +123,10 @@ New fields are created for the following Doctypes
 
 #### Customer
 
-| Field          | Description                  |
-| -------------- | ---------------------------- |
-| SAT Tax Regime | SAT Tax Regime for Customers |
+| Field          | Description                              |
+| -------------- | ---------------------------------------- |
+| SAT Tax Regime | SAT Tax Regime for Customers             |
+| CFDI Use       | Default CFDI Use for Customer's Invoices |
 
 #### Item
 
