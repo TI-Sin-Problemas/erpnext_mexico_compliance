@@ -8,7 +8,10 @@
   "web_service_section",
   "api_key",
   "api_secret",
-  "test_mode"
+  "test_mode",
+  "column_break_omyj",
+  "stamp_on_submit",
+  "default_csds"
  ],
  "fields": [
   {
@@ -31,13 +34,32 @@
    "fieldname": "api_secret",
    "fieldtype": "Password",
    "label": "API Secret"
+  },
+  {
+   "fieldname": "column_break_omyj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "description": "If this option is enabled the Documents will be stamped automatically when submitting them",
+   "fieldname": "stamp_on_submit",
+   "fieldtype": "Check",
+   "label": "Stamp on submit"
+  },
+  {
+   "depends_on": "eval: doc.stamp_on_submit;",
+   "fieldname": "default_csds",
+   "fieldtype": "Table",
+   "label": "Default Digital Signing Certificates",
+   "mandatory_depends_on": "eval: doc.stamp_on_submit;",
+   "options": "Default CSD"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2025-04-02 00:06:38.221170",
+ "modified": "2025-05-21 23:42:23.622995",
  "modified_by": "Administrator",
  "module": "ERPNext Mexico Compliance",
  "name": "CFDI Stamping Settings",
