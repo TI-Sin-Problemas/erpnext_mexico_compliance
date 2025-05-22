@@ -16,6 +16,9 @@ from satcfdi.create.cfd import cfdi40, pago20
 from satcfdi.exceptions import SchemaValidationError
 
 from ..controllers.common import CommonController
+from ..erpnext_mexico_compliance.doctype.cfdi_stamping_settings.cfdi_stamping_settings import (
+    CFDIStampingSettings,
+)
 from ..erpnext_mexico_compliance.doctype.digital_signing_certificate.digital_signing_certificate import (
     DigitalSigningCertificate,
 )
@@ -39,6 +42,25 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
         cancellation_reason: DF.Link
         substitute_payment_entry: DF.Link
         cancellation_acknowledgement: DF.HTMLEditor
+
+    def on_submit(self):
+        """
+        Stamps the payment entry automatically if the
+        CFDI Stamping Settings are configured to do so.
+
+        If the CFDI Stamping Settings are configured to stamp the payment entry
+        automatically, this method will stamp the payment entry with the first
+        digital signing certificate that matches the company of the payment
+        entry. If no matching certificate is found, the payment entry will not
+        be stamped.
+        """
+        super().on_submit()
+        settings: CFDIStampingSettings = frappe.get_single("CFDI Stamping Settings")
+        if settings.stamp_on_submit:
+            for s in settings.default_csds:
+                if s.company == self.company:
+                    self.stamp_cfdi(s.csd)
+                    break
 
     @property
     def company_address(self) -> str:
