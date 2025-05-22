@@ -8,6 +8,8 @@ ERPNext Mexico Compliance has been designed to adapt ERPNext business logic to c
 
 It is built on top of [ERPNext][erpnext_github] and [Frappe Framework][frappe_github]
 
+For more details see [the documentation](https://tisinproblemas.com/mexico-compliance/introduccion)
+
 ## Installation
 
 The installation steps assumes you have [Frappe Framework][frappe_github] and [ERPNext][erpnext_github] already installed.
