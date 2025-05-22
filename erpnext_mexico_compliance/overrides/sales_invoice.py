@@ -19,6 +19,9 @@ from satcfdi.create.cfd import catalogos, cfdi40
 from satcfdi.exceptions import SchemaValidationError
 
 from ..controllers.common import CommonController
+from ..erpnext_mexico_compliance.doctype.cfdi_stamping_settings.cfdi_stamping_settings import (
+    CFDIStampingSettings,
+)
 from ..ws_client import WSClientException, get_ws_client
 from .customer import Customer
 
@@ -48,6 +51,25 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
         super().__init__(*args, **kwargs)
         if not self.company_address:
             self.company_address = get_default_company_address(self.company)
+
+    def on_submit(self):
+        """
+        Stamps the sales invoice atomatically if the
+        CFDI Stamping Settings are configured to do so.
+
+        If the CFDI Stamping Settings are configured to stamp the sales invoice
+        automatically, this method will stamp the sales invoice with the first
+        digital signing certificate that matches the company of the sales
+        invoice. If no matching certificate is found, the sales invoice will not
+        be stamped.
+        """
+        super().on_submit()
+        settings: CFDIStampingSettings = frappe.get_single("CFDI Stamping Settings")
+        if settings.stamp_on_submit:
+            for s in settings.default_csds:
+                if s.company == self.company:
+                    self.stamp_cfdi(s.csd)
+                    break
 
     @property
     def subscription_duration_display(self) -> str:
