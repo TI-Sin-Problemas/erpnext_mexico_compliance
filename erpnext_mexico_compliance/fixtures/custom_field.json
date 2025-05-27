@@ -314,7 +314,7 @@
   "insert_after": "mode_of_payment",
   "is_system_generated": 0,
   "is_virtual": 0,
-  "label": "SAT Payment Mode",
+  "label": "SAT Payment Method",
   "length": 0,
   "link_filters": null,
   "mandatory_depends_on": null,
