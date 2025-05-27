@@ -1,3 +1,3 @@
 files:
   - source: /erpnext_mexico_compliance/locale/main.pot
-    translation: /frappe/locale/%locale_with_underscore%.po
+    translation: /erpnext_mexico_compliance/locale/%locale_with_underscore%.po
