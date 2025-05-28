@@ -3,7 +3,7 @@
  "allow_rename": 1,
  "autoname": "format:{company}-{##}",
  "creation": "2024-08-09 21:12:07.021650",
- "description": "Company's Digital Signing Certificate to sign CFDI ",
+ "description": "Company's Digital Signing Certificate to sign CFDI",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ERPNext Mexico Compliance VERSION\n"
 "Report-Msgid-Bugs-To: info@tisinproblemas.com\n"
-"POT-Creation-Date: 2025-05-27 20:53+0000\n"
-"PO-Revision-Date: 2025-05-27 20:53+0000\n"
+"POT-Creation-Date: 2025-05-28 04:12+0000\n"
+"PO-Revision-Date: 2025-05-28 04:12+0000\n"
 "Last-Translator: info@tisinproblemas.com\n"
 "Language-Team: info@tisinproblemas.com\n"
 "MIME-Version: 1.0\n"
@@ -240,7 +240,7 @@ msgstr ""
 
 #. Description of a DocType
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/digital_signing_certificate/digital_signing_certificate.json
-msgid "Company's Digital Signing Certificate to sign CFDI "
+msgid "Company's Digital Signing Certificate to sign CFDI"
 msgstr ""
 
 #. Label of a Section Break field in DocType 'SAT CFDI Use'
