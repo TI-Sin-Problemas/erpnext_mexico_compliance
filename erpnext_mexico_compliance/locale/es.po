@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: erpnext-mexico-compliance\n"
 "Report-Msgid-Bugs-To: info@tisinproblemas.com\n"
 "POT-Creation-Date: 2025-05-28 04:12+0000\n"
-"PO-Revision-Date: 2024-08-30 22:42+0000\n"
+"PO-Revision-Date: 2025-05-28 04:51\n"
 "Last-Translator: info@tisinproblemas.com\n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -701,11 +701,11 @@ msgstr "Modo de pruebas"
 
 #: erpnext_mexico_compliance/public/js/sales_invoice.js:88
 msgid "The Cancellation Reason requires a substitute invoice."
-msgstr "El motivo de cancelación requiere una factura sustituta"
+msgstr "El motivo de cancelación requiere una factura sustituta."
 
 #: erpnext_mexico_compliance/public/js/payment_entry.js:89
 msgid "The Cancellation Reason requires a substitute payment entry."
-msgstr "El motivo de cancelación requiere una entrada de pago sustituta"
+msgstr "El motivo de cancelación requiere una entrada de pago sustituta."
 
 #: erpnext_mexico_compliance/overrides/payment_entry.py:329
 #: erpnext_mexico_compliance/overrides/sales_invoice.py:360
