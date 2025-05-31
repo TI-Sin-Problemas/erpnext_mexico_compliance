@@ -85,7 +85,10 @@ class WSClient:
         self.logger.error(
             {"status": self.response.status_code, "message": self.response.text}
         )
-        res = self.response.json()
+        try:
+            res = self.response.json()
+        except requests.JSONDecodeError:
+            res = {"exception": self.response.text}
         msg = res.get("exception", "")
         exc_type = res.get("exc_type", "")
         if exc_type:
