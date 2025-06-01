@@ -193,14 +193,16 @@ New fields are created for the following Doctypes
 
 The following Document Event hooks are implemented
 
-- `before_stamp_cfdi` - Method executed before stamping a CFDI document
-- `after_stamp_cfdi` - Method executed after stamping a CFDI document
-- `before_attach_files` - Method executed before attaching the CFDI files to the document
-- `after_attach_files` - Method executed after attaching the CFDI files to the document
-- `before_attach_pdf` - Method executed before attaching the PDF file to the document
-- `after_attach_pdf` - Method executed after attaching the PDF file to the document
-- `before_attach_xml` - Method executed before attaching the XML file to the document
-- `after_attach_xml` - Method executed after attaching the XML file to the document
+| Hook                  | Description                                                     |
+| --------------------- | --------------------------------------------------------------- |
+| `before_stamp_cfdi`   | Method executed before stamping a CFDI document                 |
+| `after_stamp_cfdi`    | Method executed after stamping a CFDI document                  |
+| `before_attach_files` | Method executed before attaching the CFDI files to the document |
+| `after_attach_files`  | Method executed after attaching the CFDI files to the document  |
+| `before_attach_pdf`   | Method executed before attaching the PDF file to the document   |
+| `after_attach_pdf`    | Method executed after attaching the PDF file to the document    |
+| `before_attach_xml`   | Method executed before attaching the XML file to the document   |
+| `after_attach_xml`    | Method executed after attaching the XML file to the document    |
 
 ### License
 
