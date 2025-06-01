@@ -93,7 +93,7 @@ class WSClient:
         exc_type = res.get("exc_type", "")
         if exc_type and ":" in msg:
             # If the exception type is present, split the message to get the actual error message
-            msg = msg.split(exc_type)[1].strip()
+            msg = msg.split(exc_type + ":")[1].strip()
         frappe.throw(msg, title=_("CFDI Web Service Error"))
 
     def stamp(self, cfdi: CFDI) -> str:
