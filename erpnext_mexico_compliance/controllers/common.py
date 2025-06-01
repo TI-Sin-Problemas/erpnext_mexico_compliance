@@ -6,6 +6,9 @@ For license information, please see license.txt
 import abc
 
 import frappe
+from frappe import _
+from frappe.client import attach_file
+from frappe.model.document import Document
 from frappe.model.naming import NamingSeries
 from satcfdi.cfdi import CFDI
 from satcfdi.create.cfd import cfdi40
@@ -15,7 +18,7 @@ from ..erpnext_mexico_compliance.doctype.digital_signing_certificate.digital_sig
 )
 
 
-class CommonController(abc.ABC):
+class CommonController(Document):
     from typing import TYPE_CHECKING
 
     if TYPE_CHECKING:
@@ -23,6 +26,7 @@ class CommonController(abc.ABC):
 
         name: DF.Data
         naming_series: DF.Data
+        mx_stamped_xml: DF.HTMLEditor
 
     @property
     def cfdi_series(self) -> str:
@@ -63,6 +67,43 @@ class CommonController(abc.ABC):
         return voucher.process(True)
 
     @abc.abstractmethod
+    def send_stamp_request(self, certificate: str):
+        """Sends a request to stamp the CFDI document with the provided digital signing certificate.
+        Args:
+            certificate (str): The name of the Digital Signing Certificate to use for stamping.
+        """
+        raise NotImplementedError("send_stamp_request method is not implemented")
+
+    @frappe.whitelist()
+    def attach_pdf(self) -> Document:
+        """Attaches the CFDI PDF to the current document.
+
+        This method generates a PDF file from the CFDI XML and attaches it to the current document.
+
+        Returns:
+            Document: The result of attaching the PDF file to the current document.
+        """
+        from satcfdi import render  # pylint: disable=import-outside-toplevel
+
+        cfdi = cfdi40.CFDI.from_string(self.mx_stamped_xml.encode("utf-8"))
+        file_name = f"{self.name}_CFDI.pdf"
+        file_data = render.pdf_bytes(cfdi)
+        return attach_file(file_name, file_data, self.doctype, self.name, is_private=1)
+
+    @frappe.whitelist()
+    def attach_xml(self) -> Document:
+        """Attaches the CFDI XML to the current document.
+
+        This method generates an XML file from the CFDI XML and attaches it to the current document.
+
+        Returns:
+            Document: The result of attaching the XML file to the current document.
+        """
+        file_name = f"{self.name}_CFDI.xml"
+        xml = self.mx_stamped_xml
+        return attach_file(file_name, xml, self.doctype, self.name, is_private=1)
+
+    @frappe.whitelist()
     def stamp_cfdi(self, certificate: str):
         """Stamps a CFDI document with the provided digital signing certificate.
 
@@ -72,4 +113,7 @@ class CommonController(abc.ABC):
         Returns:
             CFDI: A message indicating the result of the stamping operation.
         """
-        raise NotImplementedError("stamp_cfdi method is not implemented")
+        self.send_stamp_request(certificate)
+        self.attach_pdf()
+        self.attach_xml()
+        return _("CFDI Stamped Successfully")

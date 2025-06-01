@@ -11,9 +11,7 @@ import frappe
 from erpnext.accounts.doctype.sales_invoice import sales_invoice
 from erpnext.setup.doctype.company.company import Company, get_default_company_address
 from frappe import _
-from frappe.client import attach_file
 from frappe.contacts.doctype.address.address import Address
-from frappe.model.document import Document
 from frappe.utils import get_datetime
 from satcfdi.create.cfd import catalogos, cfdi40
 from satcfdi.exceptions import SchemaValidationError
@@ -22,7 +20,7 @@ from ..controllers.common import CommonController
 from ..erpnext_mexico_compliance.doctype.cfdi_stamping_settings.cfdi_stamping_settings import (
     CFDIStampingSettings,
 )
-from ..ws_client import WSClientException, get_ws_client
+from ..ws_client import get_ws_client
 from .customer import Customer
 
 # temporary hack until https://github.com/frappe/frappe/issues/27373 is fixed
@@ -247,46 +245,12 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
             },
         )
 
-    @frappe.whitelist()
-    def attach_pdf(self) -> Document:
-        """Attaches the CFDI PDF to the current document.
-
-        This method generates a PDF file from the CFDI XML and attaches it to the current document.
-
-        Returns:
-            Document: The result of attaching the PDF file to the current document.
-        """
-        from satcfdi import render  # pylint: disable=import-outside-toplevel
-
-        cfdi = cfdi40.CFDI.from_string(self.mx_stamped_xml.encode("utf-8"))
-        file_name = f"{self.name}_CFDI.pdf"
-        file_data = render.pdf_bytes(cfdi)
-        return attach_file(file_name, file_data, self.doctype, self.name, is_private=1)
-
-    @frappe.whitelist()
-    def attach_xml(self) -> Document:
-        """Attaches the CFDI XML to the current document.
-
-        This method generates an XML file from the CFDI XML and attaches it to the current document.
-
-        Returns:
-            Document: The result of attaching the XML file to the current document.
-        """
-        file_name = f"{self.name}_CFDI.xml"
-        xml = self.mx_stamped_xml
-        return attach_file(file_name, xml, self.doctype, self.name, is_private=1)
-
-    @frappe.whitelist()
-    def stamp_cfdi(self, certificate: str):
+    def send_stamp_request(self, certificate: str):
         """Stamps a CFDI document for the current sales invoice.
 
         Args:
             certificate (str): The name of the Digital Signing Certificate to use for signing.
-
-        Returns:
-            str: A message indicating the result of the stamping operation.
         """
-
         self.validate_company_address()
         self.validate_customer()
 
@@ -300,11 +264,6 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
 
         self.mx_stamped_xml = xml
         self.save()
-
-        self.attach_pdf()
-        self.attach_xml()
-
-        return _("CFDI Stamped Successfully")
 
     @property
     def requires_relationship(self) -> int:

@@ -216,8 +216,7 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
         if len(msgs) > 0:
             frappe.throw(msgs, as_list=True)
 
-    @frappe.whitelist()
-    def stamp_cfdi(self, certificate: str):
+    def send_stamp_request(self, certificate: str):
         self.validate_company_address()
         self.validate_references()
 
@@ -232,11 +231,6 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
         self.mx_stamped_xml = xml
         self.save()
 
-        self.attach_pdf()
-        self.attach_xml()
-
-        return _("CFDI Stamped Successfully")
-
     @frappe.whitelist()
     def has_file(self, file_name: str) -> bool:
         """Returns DocType name if the CFDI document for this sales invoice has a file named as
@@ -249,35 +243,6 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
                 "file_name": file_name,
             },
         )
-
-    @frappe.whitelist()
-    def attach_pdf(self) -> Document:
-        """Attaches the CFDI PDF to the current document.
-
-        This method generates a PDF file from the CFDI XML and attaches it to the current document.
-
-        Returns:
-            Document: The result of attaching the PDF file to the current document.
-        """
-        from satcfdi import render  # pylint: disable=import-outside-toplevel
-
-        cfdi = cfdi40.CFDI.from_string(self.mx_stamped_xml.encode("utf-8"))
-        file_name = f"{self.name}_CFDI.pdf"
-        file_data = render.pdf_bytes(cfdi)
-        return attach_file(file_name, file_data, self.doctype, self.name, is_private=1)
-
-    @frappe.whitelist()
-    def attach_xml(self) -> Document:
-        """Attaches the CFDI XML to the current document.
-
-        This method generates an XML file from the CFDI XML and attaches it to the current document.
-
-        Returns:
-            Document: The result of attaching the XML file to the current document.
-        """
-        file_name = f"{self.name}_CFDI.xml"
-        xml = self.mx_stamped_xml
-        return attach_file(file_name, xml, self.doctype, self.name, is_private=1)
 
     @property
     def requires_relationship(self) -> int:
