@@ -113,7 +113,15 @@ class CommonController(Document):
         Returns:
             CFDI: A message indicating the result of the stamping operation.
         """
+        self.run_method("before_stamp_cfdi")
         self.send_stamp_request(certificate)
+        self.run_method("after_stamp_cfdi")
+        self.run_method("before_attach_files")
+        self.run_method("before_attach_pdf")
         self.attach_pdf()
+        self.run_method("after_attach_pdf")
+        self.run_method("before_attach_xml")
         self.attach_xml()
+        self.run_method("after_attach_xml")
+        self.run_method("after_attach_files")
         return _("CFDI Stamped Successfully")
