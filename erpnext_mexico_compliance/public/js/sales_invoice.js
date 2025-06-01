@@ -13,8 +13,7 @@ function stampCfdi(frm) {
       },
     ],
     async ({ certificate }) => {
-      const { message } = await frm.call("stamp_cfdi", { certificate });
-      frappe.show_alert({ message, indicator: "green" });
+      await frm.call("stamp_cfdi", { certificate });
       frm.reload_doc();
     },
     __("Select a Certificate to sign the CFDI")
