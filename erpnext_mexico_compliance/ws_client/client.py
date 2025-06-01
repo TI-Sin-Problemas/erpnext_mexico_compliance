@@ -85,10 +85,14 @@ class WSClient:
         self.logger.error(
             {"status": self.response.status_code, "message": self.response.text}
         )
-        res = self.response.json()
+        try:
+            res = self.response.json()
+        except requests.JSONDecodeError:
+            res = {"exception": self.response.text}
         msg = res.get("exception", "")
         exc_type = res.get("exc_type", "")
-        if exc_type:
+        if exc_type and ":" in msg:
+            # If the exception type is present, split the message to get the actual error message
             msg = msg.split(exc_type + ":")[1].strip()
         frappe.throw(msg, title=_("CFDI Web Service Error"))
 
