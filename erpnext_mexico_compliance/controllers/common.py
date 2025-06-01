@@ -124,4 +124,4 @@ class CommonController(Document):
         self.attach_xml()
         self.run_method("after_attach_xml")
         self.run_method("after_attach_files")
-        return _("CFDI Stamped Successfully")
+        frappe.msgprint(_("CFDI Stamped Successfully"), indicator="green", alert=True)
