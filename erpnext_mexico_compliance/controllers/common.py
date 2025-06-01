@@ -85,10 +85,13 @@ class CommonController(Document):
         """
         from satcfdi import render  # pylint: disable=import-outside-toplevel
 
+        self.run_method("before_attach_pdf")
         cfdi = cfdi40.CFDI.from_string(self.mx_stamped_xml.encode("utf-8"))
         file_name = f"{self.name}_CFDI.pdf"
         file_data = render.pdf_bytes(cfdi)
-        return attach_file(file_name, file_data, self.doctype, self.name, is_private=1)
+        ret = attach_file(file_name, file_data, self.doctype, self.name, is_private=1)
+        self.run_method("after_attach_pdf")
+        return ret
 
     @frappe.whitelist()
     def attach_xml(self) -> Document:
@@ -99,9 +102,12 @@ class CommonController(Document):
         Returns:
             Document: The result of attaching the XML file to the current document.
         """
+        self.run_method("before_attach_xml")
         file_name = f"{self.name}_CFDI.xml"
         xml = self.mx_stamped_xml
-        return attach_file(file_name, xml, self.doctype, self.name, is_private=1)
+        ret = attach_file(file_name, xml, self.doctype, self.name, is_private=1)
+        self.run_method("after_attach_xml")
+        return ret
 
     @frappe.whitelist()
     def stamp_cfdi(self, certificate: str):
@@ -117,11 +123,7 @@ class CommonController(Document):
         self.send_stamp_request(certificate)
         self.run_method("after_stamp_cfdi")
         self.run_method("before_attach_files")
-        self.run_method("before_attach_pdf")
         self.attach_pdf()
-        self.run_method("after_attach_pdf")
-        self.run_method("before_attach_xml")
         self.attach_xml()
-        self.run_method("after_attach_xml")
         self.run_method("after_attach_files")
         frappe.msgprint(_("CFDI Stamped Successfully"), indicator="green", alert=True)
