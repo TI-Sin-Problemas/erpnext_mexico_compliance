@@ -9,8 +9,6 @@ import frappe
 from erpnext.accounts.doctype.payment_entry import payment_entry
 from erpnext.setup.doctype.company.company import get_default_company_address
 from frappe import _
-from frappe.client import attach_file
-from frappe.model.document import Document
 from frappe.utils.data import get_datetime
 from satcfdi.create.cfd import cfdi40, pago20
 from satcfdi.exceptions import SchemaValidationError
