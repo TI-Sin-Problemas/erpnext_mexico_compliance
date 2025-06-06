@@ -16,6 +16,7 @@ from satcfdi.create.cfd import cfdi40
 from ..erpnext_mexico_compliance.doctype.digital_signing_certificate.digital_signing_certificate import (
     DigitalSigningCertificate,
 )
+from ..ws_client import get_ws_client
 
 
 class CommonController(Document):
@@ -27,6 +28,7 @@ class CommonController(Document):
         name: DF.Data
         naming_series: DF.Data
         mx_stamped_xml: DF.HTMLEditor
+        mx_is_cancellable: DF.Check
 
     @property
     def cfdi_series(self) -> str:
@@ -127,3 +129,57 @@ class CommonController(Document):
         self.attach_xml()
         self.run_method("after_attach_files")
         frappe.msgprint(_("CFDI Stamped Successfully"), indicator="green", alert=True)
+
+    def update_cancellation_status(self):
+        """
+        Updates the cancellation status of the CFDI associated with the document.
+
+        This method uses a web service client to retrieve the current status of the CFDI.
+        If the CFDI is determined to be not cancellable, it updates the document's
+        'mx_is_cancellable' field to reflect this status and saves the document.
+        If the CFDI is already cancelled, it cancels the document.
+
+        Returns:
+            Document: The result of the cancel operation if the CFDI is cancelled.
+        """
+        ws = get_ws_client()
+        cfdi = CFDI.from_string(self.mx_stamped_xml.encode("utf-8"))
+        status = ws.get_status(cfdi)
+        if status.is_cancellable == status.CancellableStatus.NOT_CANCELLABLE:
+            self.mx_is_cancellable = 0
+            return self.save()
+
+        if status.status == status.DocumentStatus.CANCELLED:
+            return self.cancel()
+        return None
+
+    @frappe.whitelist()
+    def check_cancellation_status(self):
+        """
+        Checks the current cancellation status of the CFDI associated with the document.
+
+        This method uses a web service client to retrieve the current status of the CFDI.
+        If the CFDI is cancelled, it calls the `update_cancellation_status` method to update
+        the document's cancellation status and save the document.
+
+        Returns:
+            Document: The result of the cancel operation if the CFDI is cancelled.
+        """
+        client = get_ws_client()
+        status = client.get_status(
+            CFDI.from_string(self.mx_stamped_xml.encode("utf-8"))
+        )
+        title = status.status if isinstance(status.status, str) else status.status.value
+        frappe.msgprint(
+            msg=[
+                _("CFDI Code: {0}").format(status.code),
+                _("CFDI Status: {0}").format(title),
+                _("Is Cancellable: {0}").format(status.is_cancellable),
+                _("Cancellation Status: {0}").format(status.cancellation_status),
+            ],
+            title=title,
+            as_list=True,
+        )
+        if status.status == status.DocumentStatus.CANCELLED:
+            return self.update_cancellation_status()
+        return None
