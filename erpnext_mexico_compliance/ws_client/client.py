@@ -10,7 +10,7 @@ import requests
 from frappe import _
 from satcfdi.cfdi import CFDI
 
-from . import auth
+from . import auth, models
 
 
 class OperationMode(Enum):
@@ -169,3 +169,25 @@ class WSClient:
         self.response = self.session.get(self._get_uri("quota"), timeout=60)
         self.raise_from_code()
         return self._get_message()["available"]
+
+    def get_status(self, cfdi: CFDI) -> models.CfdiStatus:
+        """
+        Retrieves the status of a CFDI document from the CFDI Web Service.
+
+        Args:
+            cfdi (CFDI): The CFDI document to retrieve the status for.
+
+        Returns:
+            CfdiStatus: The status of the CFDI document.
+        """
+        params = {
+            "uuid": cfdi["Complemento"]["TimbreFiscalDigital"]["UUID"],
+            "issuer_rfc": cfdi["Emisor"]["Rfc"],
+            "receiver_rfc": cfdi["Receptor"]["Rfc"],
+            "total": cfdi["Total"],
+        }
+        self.response = self.session.get(
+            self._get_uri("status"), params=params, timeout=60
+        )
+        self.raise_from_code()
+        return models.CfdiStatus.from_json(self.response.json())
