@@ -151,23 +151,21 @@ override_doctype_class = {
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
-# 	"all": [
-# 		"erpnext_mexico_compliance.tasks.all"
-# 	],
-# 	"daily": [
-# 		"erpnext_mexico_compliance.tasks.daily"
-# 	],
-# 	"hourly": [
-# 		"erpnext_mexico_compliance.tasks.hourly"
-# 	],
-# 	"weekly": [
-# 		"erpnext_mexico_compliance.tasks.weekly"
-# 	],
-# 	"monthly": [
-# 		"erpnext_mexico_compliance.tasks.monthly"
-# 	],
-# }
+scheduler_events = {
+    # 	"all": [
+    # 		"erpnext_mexico_compliance.tasks.all"
+    # 	],
+    # 	"daily": [
+    # 		"erpnext_mexico_compliance.tasks.daily"
+    # 	],
+    "hourly": ["erpnext_mexico_compliance.tasks.check_cancellation_status"],
+    # 	"weekly": [
+    # 		"erpnext_mexico_compliance.tasks.weekly"
+    # 	],
+    # 	"monthly": [
+    # 		"erpnext_mexico_compliance.tasks.monthly"
+    # 	],
+}
 
 # Testing
 # -------
