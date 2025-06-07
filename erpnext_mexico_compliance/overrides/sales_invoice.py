@@ -296,19 +296,6 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
         cfdi = cfdi40.CFDI.from_string(self.mx_stamped_xml.encode("utf-8"))
         return cfdi.get("Complemento", {}).get("TimbreFiscalDigital", {}).get("UUID")
 
-    def validate_substitute_invoice(self):
-        """Validates whether a substitute invoice is provided for the cancellation reason.
-
-        This function checks if the cancellation reason requires a substitute invoice and if the
-        substitute invoice is not provided. If both conditions are met, it throws an error with a
-        corresponding message.
-        """
-        reason = frappe.get_doc("Cancellation Reason", self.cancellation_reason)
-        if reason.requires_relationship and not self.substitute_invoice:
-            msg = _("The reason of cancellation {} requires a substitute invoice")
-            msg = msg.format(self.cancellation_reason)
-            frappe.throw(msg)
-
     @frappe.whitelist()
     def cancel_cfdi(self, certificate: str):
         """Cancels the CFDI document.
@@ -323,7 +310,7 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
             WSClientException: If an error occurs during the cancellation process.
         """
         self.validate_cancel_reason()
-        self.validate_substitute_invoice()
+        self.validate_substitute_document("substitute_invoice")
         cfdi = cfdi40.CFDI.from_string(self.mx_stamped_xml.encode("utf-8"))
         ws = get_ws_client()
 
