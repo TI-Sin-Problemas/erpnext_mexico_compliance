@@ -29,6 +29,7 @@ class CommonController(Document):
         mx_stamped_xml: DF.HTMLEditor
         mx_is_cancellable: DF.Check
         cancellation_reason: DF.Link
+        cancellation_acknowledgement: DF.HTMLEditor
 
     @property
     def cfdi_series(self) -> str:
@@ -216,3 +217,46 @@ class CommonController(Document):
                 substitute_field_label, reason_field_label, reason.description
             )
             frappe.throw(msg, title=_("{} is required").format(substitute_field_label))
+
+    def _cancel_cfdi(self, certificate: str, substitute_field: str):
+        """Cancels the CFDI document associated with the current document.
+
+        This method uses a web service client to cancel the CFDI document associated
+        with the current document. The cancellation request is sent with the
+        cancellation reason and optional substitute document.
+
+        Args:
+            certificate (str): The name of the Digital Signing Certificate to use for cancellation.
+            substitute_field (str): The field name of the substitute document.
+
+        Returns:
+            Document: The result of the save operation.
+        """
+        self.validate_cancel_reason()
+        self.validate_substitute_document(substitute_field)
+
+        cfdi = CFDI.from_string(self.mx_stamped_xml.encode("utf-8"))
+        ws = get_ws_client()
+
+        substitute = (
+            frappe.get_doc("Payment Entry", self.substitute_payment_entry)
+            if self.substitute_payment_entry
+            else None
+        )
+
+        self.cancellation_acknowledgement = ws.cancel(
+            certificate,
+            cfdi,
+            self.cancellation_reason,
+            substitute.cfdi_uuid if substitute else None,
+        )
+
+        ret = self.save()
+        frappe.msgprint(
+            _(
+                "This Document will be cancelled once the CFDI cancellation request is approved"
+            ),
+            _("CFDI cancellation requested successfully"),
+            indicator="green",
+        )
+        return ret

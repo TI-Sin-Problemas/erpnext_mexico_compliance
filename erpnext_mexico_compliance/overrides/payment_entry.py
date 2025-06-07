@@ -274,33 +274,10 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
         Args:
             certificate (str): The name of the Digital Signing Certificate to use for cancellation.
 
-        Raises:
-            WSClientException: If an error occurs during the cancellation process.
-
         Returns:
-            str: A message indicating the result of the cancellation operation.
+            Document: The result of the cancellation operation.
         """
-        self.validate_cancel_reason()
-        self.validate_substitute_document("substitute_payment_entry")
-
-        cfdi = cfdi40.CFDI.from_string(self.mx_stamped_xml.encode("utf-8"))
-        ws = get_ws_client()
-
-        substitute = (
-            frappe.get_doc("Payment Entry", self.substitute_payment_entry)
-            if self.substitute_payment_entry
-            else None
-        )
-
-        self.cancellation_acknowledgement = ws.cancel(
-            certificate,
-            cfdi,
-            self.cancellation_reason,
-            substitute.cfdi_uuid if substitute else None,
-        )
-        self.save()
-
-        return _("CFDI cancellation requested successfully")
+        return super()._cancel_cfdi(certificate, "substitute_payment_entry")
 
 
 def get_installment_number(

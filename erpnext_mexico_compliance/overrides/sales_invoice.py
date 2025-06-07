@@ -298,43 +298,15 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
 
     @frappe.whitelist()
     def cancel_cfdi(self, certificate: str):
-        """Cancels the CFDI document.
+        """Cancels the CFDI document of this sales invoice.
 
         Args:
             certificate (str): The name of the Digital Signing Certificate to use for cancellation.
 
         Returns:
-            str: A message indicating the result of the cancellation operation.
-
-        Raises:
-            WSClientException: If an error occurs during the cancellation process.
+            Document: The result of the cancellation operation.
         """
-        self.validate_cancel_reason()
-        self.validate_substitute_document("substitute_invoice")
-        cfdi = cfdi40.CFDI.from_string(self.mx_stamped_xml.encode("utf-8"))
-        ws = get_ws_client()
-
-        if self.substitute_invoice:
-            substitute_invoice = frappe.get_doc(
-                "Sales Invoice", self.substitute_invoice
-            )
-        else:
-            substitute_invoice = None
-
-        self.cancellation_acknowledgement = ws.cancel(
-            certificate,
-            cfdi,
-            self.cancellation_reason,
-            substitute_invoice.cfdi_uuid if substitute_invoice else None,
-        )
-        self.save()
-
-        return _("CFDI cancellation requested successfully")
-
-    def before_cancel(self):
-        if self.mx_stamped_xml:
-            self.validate_cancel_reason()
-            self.validate_substitute_invoice()
+        return super()._cancel_cfdi(certificate, "substitute_invoice")
 
     @property
     def payment_entries(self) -> list[frappe._dict]:
