@@ -267,32 +267,6 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
         cfdi = cfdi40.CFDI.from_string(self.mx_stamped_xml.encode("utf-8"))
         return cfdi.get("Complemento", {}).get("TimbreFiscalDigital", {}).get("UUID")
 
-    def validate_cancel_reason(self):
-        """Validates whether a cancellation reason is provided before cancelling a payment entry.
-
-        This function checks if a cancellation reason is set for the current payment entry.
-        If no cancellation reason is found, it throws an error with a corresponding message.
-        """
-        if not self.cancellation_reason:
-            msg = _("A Cancellation Reason is required.")
-            title = _("Invalid Cancellation Reason")
-            frappe.throw(msg, title=title)
-
-    def validate_substitute_payment_entry(self):
-        """Validates whether a substitute payment entry is required before cancelling a payment
-        entry.
-
-        This function checks if a substitute payment entry is set for the current payment entry,
-        and if the cancellation reason requires a substitute payment entry.
-        If no substitute payment entry is found when required, it throws an error with a
-        corresponding message.
-        """
-        reason = frappe.get_doc("Cancellation Reason", self.cancellation_reason)
-        if reason.requires_relationship and not self.substitute_payment_entry:
-            msg = _("The reason of cancellation {} requires a substitute invoice")
-            msg = msg.format(self.cancellation_reason)
-            frappe.throw(msg)
-
     @frappe.whitelist()
     def cancel_cfdi(self, certificate: str):
         """Cancels the CFDI document of this payment entry.
@@ -307,7 +281,7 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
             str: A message indicating the result of the cancellation operation.
         """
         self.validate_cancel_reason()
-        self.validate_substitute_payment_entry()
+        self.validate_substitute_document("substitute_payment_entry")
 
         cfdi = cfdi40.CFDI.from_string(self.mx_stamped_xml.encode("utf-8"))
         ws = get_ws_client()

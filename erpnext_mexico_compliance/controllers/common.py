@@ -25,10 +25,10 @@ class CommonController(Document):
     if TYPE_CHECKING:
         from frappe.types import DF
 
-        name: DF.Data
         naming_series: DF.Data
         mx_stamped_xml: DF.HTMLEditor
         mx_is_cancellable: DF.Check
+        cancellation_reason: DF.Link
 
     @property
     def cfdi_series(self) -> str:
@@ -183,3 +183,36 @@ class CommonController(Document):
         if status.status == status.DocumentStatus.CANCELLED:
             return self.update_cancellation_status()
         return None
+
+    def validate_cancel_reason(self):
+        """Validates whether a cancellation reason is provided before cancelling a Document.
+
+        This function checks if a cancellation reason is set for the current Document.
+        If no cancellation reason is found, it throws an error with a corresponding message.
+        """
+        if not self.cancellation_reason:
+            msg = _("A Cancellation Reason is required.")
+            title = _("Invalid Cancellation Reason")
+            frappe.throw(msg, title=title)
+
+    def validate_substitute_document(self, substitute_field: str):
+        """Validates whether a substitute document is required for the cancellation reason.
+
+        This function checks if the cancellation reason requires a substitute document
+        and verifies if the substitute document is provided. If the cancellation reason
+        requires a relationship and no substitute document is found, it throws an error
+        with a corresponding message.
+
+        Args:
+            substitute_field (str): The field name of the substitute document.
+        """
+
+        reason = frappe.get_doc("Cancellation Reason", self.cancellation_reason)
+        substitute_doc = getattr(self, substitute_field, None)
+        substitute_field_label = _(self.meta.get_field(substitute_field).label)
+        reason_field_label = _(self.meta.get_field("cancellation_reason").label)
+        if reason.requires_relationship and not substitute_doc:
+            msg = _("{} is required when {} is {}").format(
+                substitute_field_label, reason_field_label, reason.description
+            )
+            frappe.throw(msg, title=_("{} is required").format(substitute_field_label))
