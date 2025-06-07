@@ -204,7 +204,21 @@ The following Document Event hooks are implemented
 | `before_attach_xml`   | Method executed before attaching the XML file to the document   |
 | `after_attach_xml`    | Method executed after attaching the XML file to the document    |
 
-### License
+### Scheduled Jobs
+
+The following Scheduled Jobs are implemented
+
+| Scheduled Job Type          | Description                                                               | Frequency |
+| --------------------------- | ------------------------------------------------------------------------- | --------- |
+| `check_cancellation_status` | Checks the CFDI cancellation status of Sales Invoices and Payment Entries | Hourly    |
+
+## Contributing
+
+PRs are welcome!
+
+If you want to help with the translation of this app, please consider joining the project on [Crowdin](https://crwd.in/erpnext-mexico-compliance/35a28fa170d6652eeedc5b7dbd064a7a2457550)
+
+## License
 
 MIT
 
