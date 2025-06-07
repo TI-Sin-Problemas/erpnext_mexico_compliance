@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: erpnext-mexico-compliance\n"
 "Report-Msgid-Bugs-To: info@tisinproblemas.com\n"
 "POT-Creation-Date: 2025-06-07 00:54+0000\n"
-"PO-Revision-Date: 2025-06-07 02:08\n"
+"PO-Revision-Date: 2025-06-07 04:11\n"
 "Last-Translator: info@tisinproblemas.com\n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -432,11 +432,11 @@ msgstr "La factura no tiene dirección de facturación"
 #. Label of the mx_is_cancellable (Check) field in DocType 'Sales Invoice'
 #: erpnext_mexico_compliance/fixtures/custom_field.json
 msgid "Is Cancellable"
-msgstr "Es Cancelable"
+msgstr "Se puede cancelar"
 
 #: erpnext_mexico_compliance/controllers/common.py:178
 msgid "Is Cancellable: {0}"
-msgstr "Es Cancelable: {0}"
+msgstr "Se puede cancelar: {0}"
 
 #. Label of a Check field in DocType 'SAT Product or Service Key'
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_product_or_service_key/sat_product_or_service_key.json
