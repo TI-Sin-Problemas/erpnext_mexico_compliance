@@ -322,6 +322,8 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
         Raises:
             WSClientException: If an error occurs during the cancellation process.
         """
+        self.validate_cancel_reason()
+        self.validate_substitute_invoice()
         cfdi = cfdi40.CFDI.from_string(self.mx_stamped_xml.encode("utf-8"))
         ws = get_ws_client()
 
