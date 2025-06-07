@@ -204,6 +204,14 @@ The following Document Event hooks are implemented
 | `before_attach_xml`   | Method executed before attaching the XML file to the document   |
 | `after_attach_xml`    | Method executed after attaching the XML file to the document    |
 
+### Scheduled Jobs
+
+The following Scheduled Jobs are implemented
+
+| Scheduled Job Type          | Description                                                               | Frequency |
+| --------------------------- | ------------------------------------------------------------------------- | --------- |
+| `check_cancellation_status` | Checks the CFDI cancellation status of Sales Invoices and Payment Entries | Hourly    |
+
 ## Contributing
 
 PRs are welcome!
