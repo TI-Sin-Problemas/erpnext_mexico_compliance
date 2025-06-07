@@ -67,6 +67,10 @@ async function addAttachXmlButton(frm) {
   }
 }
 
+async function checkCancellationStatus(frm) {
+  await frm.call("check_cancellation_status");
+}
+
 function cancel(frm) {
   const {
     mx_stamped_xml,
@@ -99,12 +103,7 @@ function cancel(frm) {
         },
       ],
       async ({ certificate }) => {
-        const { message: cfdi_msg } = await frm.call("cancel_cfdi", {
-          certificate,
-        });
-        frappe.show_alert({ message: cfdi_msg, indicator: "green" });
-        const { message: cancelled } = await frm.call("cancel");
-        frappe.show_alert({ message: cancelled, indicator: "green" });
+        await frm.call("cancel_cfdi", { certificate });
         frm.reload_doc();
       },
       __("Select a Certificate to sign the CFDI")
@@ -113,7 +112,7 @@ function cancel(frm) {
 }
 
 function refresh(frm) {
-  const { docstatus, mx_stamped_xml } = frm.doc;
+  const { docstatus, mx_stamped_xml, cancellation_acknowledgement } = frm.doc;
 
   if (mx_stamped_xml) {
     addAttachPdfButton(frm);
@@ -127,6 +126,13 @@ function refresh(frm) {
       } else {
         frm.add_custom_button(__("Stamp CFDI"), () => stampCfdi(frm));
       }
+
+      if (cancellation_acknowledgement) {
+        frm.add_custom_button(__("Check Cancellation Status"), () =>
+          checkCancellationStatus(frm)
+        );
+      }
+
       break;
   }
 }

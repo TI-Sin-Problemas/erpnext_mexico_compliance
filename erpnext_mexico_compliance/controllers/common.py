@@ -16,6 +16,7 @@ from satcfdi.create.cfd import cfdi40
 from ..erpnext_mexico_compliance.doctype.digital_signing_certificate.digital_signing_certificate import (
     DigitalSigningCertificate,
 )
+from ..ws_client import get_ws_client
 
 
 class CommonController(Document):
@@ -24,9 +25,11 @@ class CommonController(Document):
     if TYPE_CHECKING:
         from frappe.types import DF
 
-        name: DF.Data
         naming_series: DF.Data
         mx_stamped_xml: DF.HTMLEditor
+        mx_is_cancellable: DF.Check
+        cancellation_reason: DF.Link
+        cancellation_acknowledgement: DF.HTMLEditor
 
     @property
     def cfdi_series(self) -> str:
@@ -127,3 +130,133 @@ class CommonController(Document):
         self.attach_xml()
         self.run_method("after_attach_files")
         frappe.msgprint(_("CFDI Stamped Successfully"), indicator="green", alert=True)
+
+    def update_cancellation_status(self):
+        """
+        Updates the cancellation status of the CFDI associated with the document.
+
+        This method uses a web service client to retrieve the current status of the CFDI.
+        If the CFDI is determined to be not cancellable, it updates the document's
+        'mx_is_cancellable' field to reflect this status and saves the document.
+        If the CFDI is already cancelled, it cancels the document.
+
+        Returns:
+            Document: The result of the cancel operation if the CFDI is cancelled.
+        """
+        ws = get_ws_client()
+        cfdi = CFDI.from_string(self.mx_stamped_xml.encode("utf-8"))
+        status = ws.get_status(cfdi)
+        if status.is_cancellable == status.CancellableStatus.NOT_CANCELLABLE:
+            self.mx_is_cancellable = 0
+            return self.save()
+
+        if status.status == status.DocumentStatus.CANCELLED:
+            return self.cancel()
+        return None
+
+    @frappe.whitelist()
+    def check_cancellation_status(self):
+        """
+        Checks the current cancellation status of the CFDI associated with the document.
+
+        This method uses a web service client to retrieve the current status of the CFDI.
+        If the CFDI is cancelled, it calls the `update_cancellation_status` method to update
+        the document's cancellation status and save the document.
+
+        Returns:
+            Document: The result of the cancel operation if the CFDI is cancelled.
+        """
+        client = get_ws_client()
+        status = client.get_status(
+            CFDI.from_string(self.mx_stamped_xml.encode("utf-8"))
+        )
+        title = status.status if isinstance(status.status, str) else status.status.value
+        frappe.msgprint(
+            msg=[
+                _("CFDI Code: {0}").format(status.code),
+                _("CFDI Status: {0}").format(title),
+                _("Is Cancellable: {0}").format(status.is_cancellable),
+                _("Cancellation Status: {0}").format(status.cancellation_status),
+            ],
+            title=title,
+            as_list=True,
+        )
+        if status.status == status.DocumentStatus.CANCELLED:
+            return self.update_cancellation_status()
+        return None
+
+    def validate_cancel_reason(self):
+        """Validates whether a cancellation reason is provided before cancelling a Document.
+
+        This function checks if a cancellation reason is set for the current Document.
+        If no cancellation reason is found, it throws an error with a corresponding message.
+        """
+        if not self.cancellation_reason:
+            msg = _("A Cancellation Reason is required.")
+            title = _("Invalid Cancellation Reason")
+            frappe.throw(msg, title=title)
+
+    def validate_substitute_document(self, substitute_field: str):
+        """Validates whether a substitute document is required for the cancellation reason.
+
+        This function checks if the cancellation reason requires a substitute document
+        and verifies if the substitute document is provided. If the cancellation reason
+        requires a relationship and no substitute document is found, it throws an error
+        with a corresponding message.
+
+        Args:
+            substitute_field (str): The field name of the substitute document.
+        """
+
+        reason = frappe.get_doc("Cancellation Reason", self.cancellation_reason)
+        substitute_doc = getattr(self, substitute_field, None)
+        substitute_field_label = _(self.meta.get_field(substitute_field).label)
+        reason_field_label = _(self.meta.get_field("cancellation_reason").label)
+        if reason.requires_relationship and not substitute_doc:
+            msg = _("{} is required when {} is {}").format(
+                substitute_field_label, reason_field_label, reason.description
+            )
+            frappe.throw(msg, title=_("{} is required").format(substitute_field_label))
+
+    def _cancel_cfdi(self, certificate: str, substitute_field: str):
+        """Cancels the CFDI document associated with the current document.
+
+        This method uses a web service client to cancel the CFDI document associated
+        with the current document. The cancellation request is sent with the
+        cancellation reason and optional substitute document.
+
+        Args:
+            certificate (str): The name of the Digital Signing Certificate to use for cancellation.
+            substitute_field (str): The field name of the substitute document.
+
+        Returns:
+            Document: The result of the save operation.
+        """
+        self.validate_cancel_reason()
+        self.validate_substitute_document(substitute_field)
+
+        cfdi = CFDI.from_string(self.mx_stamped_xml.encode("utf-8"))
+        ws = get_ws_client()
+
+        substitute = (
+            frappe.get_doc("Payment Entry", self.substitute_payment_entry)
+            if self.substitute_payment_entry
+            else None
+        )
+
+        self.cancellation_acknowledgement = ws.cancel(
+            certificate,
+            cfdi,
+            self.cancellation_reason,
+            substitute.cfdi_uuid if substitute else None,
+        )
+
+        ret = self.save()
+        frappe.msgprint(
+            _(
+                "This Document will be cancelled once the CFDI cancellation request is approved"
+            ),
+            _("CFDI cancellation requested successfully"),
+            indicator="green",
+        )
+        return ret
