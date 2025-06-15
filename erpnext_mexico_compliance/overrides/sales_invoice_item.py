@@ -102,7 +102,7 @@ class SalesInvoiceItem(sales_invoice_item.SalesInvoiceItem):
                 frappe.throw(_("Account {} does not have a tax type.").format(anchor))
             tax_type = catalogos.Impuesto[account["tax_type"]]
             tax_rate = Decimal(account["tax_rate"]) / 100
-            tax_rate = tax_rate.quantize(Decimal("1.0000"))
+            tax_rate = tax_rate.quantize(Decimal("1.000000"))
 
             if tax_rate < 0:
                 withholding = cfdi40.Retencion(
