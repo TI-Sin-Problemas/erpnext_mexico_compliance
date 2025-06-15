@@ -49,6 +49,10 @@ msgstr ""
 msgid "API Secret"
 msgstr ""
 
+#: erpnext_mexico_compliance/overrides/sales_invoice_item.py:102
+msgid "Account {} does not have a tax type."
+msgstr "La cuenta {} no tiene un tipo de impuesto."
+
 #. Label of a Card Break in the Mexico Compliance Workspace
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/workspace/mexico_compliance/mexico_compliance.json
 msgid "Accounting"
@@ -174,7 +178,6 @@ msgstr "Estado de cancelación: {0}"
 
 #. Label of the cancellation_acknowledgement (HTML Editor) field in DocType
 #. 'Payment Entry'
-#. Label of the cancellation_acknowledgement (HTML Editor) field in DocType
 #. 'Sales Invoice'
 #: erpnext_mexico_compliance/fixtures/custom_field.json
 msgid "Cancellation acknowledgement"
@@ -610,7 +613,6 @@ msgstr "Método de Pago SAT"
 #. Item'
 #. Label of the mx_product_service_key (Link) field in DocType 'Item'
 #. Label of the mx_product_service_key (Link) field in DocType 'Sales Invoice
-#. Item'
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_product_or_service_key/sat_product_or_service_key.json
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/workspace/mexico_compliance/mexico_compliance.json
 #: erpnext_mexico_compliance/fixtures/custom_field.json

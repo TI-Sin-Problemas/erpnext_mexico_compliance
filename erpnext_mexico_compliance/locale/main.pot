@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ERPNext Mexico Compliance VERSION\n"
 "Report-Msgid-Bugs-To: info@tisinproblemas.com\n"
-"POT-Creation-Date: 2025-06-07 00:54+0000\n"
-"PO-Revision-Date: 2025-06-07 00:54+0000\n"
+"POT-Creation-Date: 2025-06-14 17:36+0000\n"
+"PO-Revision-Date: 2025-06-14 17:36+0000\n"
 "Last-Translator: info@tisinproblemas.com\n"
 "Language-Team: info@tisinproblemas.com\n"
 "MIME-Version: 1.0\n"
@@ -45,6 +45,10 @@ msgstr ""
 #. Label of a Password field in DocType 'CFDI Stamping Settings'
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.json
 msgid "API Secret"
+msgstr ""
+
+#: erpnext_mexico_compliance/overrides/sales_invoice_item.py:102
+msgid "Account {} does not have a tax type."
 msgstr ""
 
 #. Label of a Card Break in the Mexico Compliance Workspace
