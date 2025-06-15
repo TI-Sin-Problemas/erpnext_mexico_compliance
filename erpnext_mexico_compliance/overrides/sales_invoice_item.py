@@ -96,9 +96,13 @@ class SalesInvoiceItem(sales_invoice_item.SalesInvoiceItem):
         withholding_taxes = []
         transferred_taxes = []
         for account in self.parent_doc.tax_accounts:
+            if not account["tax_type"]:
+                account_name = account["name"]
+                anchor = f'<a href="/app/account/{account_name}">{account_name}</a>'
+                frappe.throw(_("Account {} does not have a tax type.").format(anchor))
             tax_type = catalogos.Impuesto[account["tax_type"]]
             tax_rate = Decimal(account["tax_rate"]) / 100
-            tax_rate = tax_rate.quantize(Decimal("1.0000"))
+            tax_rate = tax_rate.quantize(Decimal("1.000000"))
 
             if tax_rate < 0:
                 withholding = cfdi40.Retencion(
