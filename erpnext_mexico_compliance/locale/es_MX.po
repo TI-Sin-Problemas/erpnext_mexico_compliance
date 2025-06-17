@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: erpnext-mexico-compliance\n"
 "Report-Msgid-Bugs-To: info@tisinproblemas.com\n"
-"POT-Creation-Date: 2025-06-07 00:54+0000\n"
-"PO-Revision-Date: 2025-06-07 02:08\n"
+"POT-Creation-Date: 2025-06-14 17:36+0000\n"
+"PO-Revision-Date: 2025-06-17 06:05\n"
 "Last-Translator: info@tisinproblemas.com\n"
 "Language-Team: Spanish, Mexico\n"
 "MIME-Version: 1.0\n"
@@ -178,6 +178,7 @@ msgstr "Estado de cancelación: {0}"
 
 #. Label of the cancellation_acknowledgement (HTML Editor) field in DocType
 #. 'Payment Entry'
+#. Label of the cancellation_acknowledgement (HTML Editor) field in DocType
 #. 'Sales Invoice'
 #: erpnext_mexico_compliance/fixtures/custom_field.json
 msgid "Cancellation acknowledgement"
@@ -613,6 +614,7 @@ msgstr "Método de Pago SAT"
 #. Item'
 #. Label of the mx_product_service_key (Link) field in DocType 'Item'
 #. Label of the mx_product_service_key (Link) field in DocType 'Sales Invoice
+#. Item'
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_product_or_service_key/sat_product_or_service_key.json
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/workspace/mexico_compliance/mexico_compliance.json
 #: erpnext_mexico_compliance/fixtures/custom_field.json
