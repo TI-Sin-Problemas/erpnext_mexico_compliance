@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: erpnext-mexico-compliance\n"
 "Report-Msgid-Bugs-To: info@tisinproblemas.com\n"
 "POT-Creation-Date: 2025-06-14 17:36+0000\n"
-"PO-Revision-Date: 2025-06-15 01:29\n"
+"PO-Revision-Date: 2025-06-17 06:05\n"
 "Last-Translator: info@tisinproblemas.com\n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -51,7 +51,7 @@ msgstr ""
 
 #: erpnext_mexico_compliance/overrides/sales_invoice_item.py:102
 msgid "Account {} does not have a tax type."
-msgstr ""
+msgstr "La cuenta {} no tiene un tipo de impuesto."
 
 #. Label of a Card Break in the Mexico Compliance Workspace
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/workspace/mexico_compliance/mexico_compliance.json
