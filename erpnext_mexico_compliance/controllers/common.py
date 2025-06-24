@@ -271,5 +271,4 @@ class CommonController(Document):
     def mx_cfdi_qr(self) -> str:
         """Generates a QR code from the CFDI verification URL and returns it in base64-encoded PNG
         format."""
-        qr = pyqrcode.create(self.mx_cfdi_obj.verifica_url)
-        return qr.png_as_base64_str(scale=2, quiet_zone=1)
+        return qr_as_base64(self.mx_cfdi_obj.verifica_url)
