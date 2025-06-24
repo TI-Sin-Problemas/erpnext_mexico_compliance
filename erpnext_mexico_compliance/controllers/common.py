@@ -6,6 +6,7 @@ For license information, please see license.txt
 import abc
 
 import frappe
+import pyqrcode
 from frappe import _
 from frappe.client import attach_file
 from frappe.model.document import Document
@@ -260,3 +261,15 @@ class CommonController(Document):
             indicator="green",
         )
         return ret
+
+    @property
+    def mx_cfdi_obj(self) -> CFDI:
+        """Converts the stamped XML string to a CFDI object."""
+        return CFDI.from_string(self.mx_stamped_xml.encode("utf-8"))
+
+    @property
+    def mx_cfdi_qr(self) -> str:
+        """Generates a QR code from the CFDI verification URL and returns it in base64-encoded PNG
+        format."""
+        qr = pyqrcode.create(self.mx_cfdi_obj.verifica_url)
+        return qr.png_as_base64_str(scale=2, quiet_zone=1)
