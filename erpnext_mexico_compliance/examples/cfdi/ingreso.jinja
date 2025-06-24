@@ -1,0 +1,287 @@
+<h3>CFDI de {{ cfdi.TipoDeComprobante.description }}</h3>
+
+<table>
+    <thead>
+        <tr>
+            <th>Serie</th>
+            <th>Folio</th>
+            <th>Emisor</th>
+            <th>Receptor</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="text-center">{{ cfdi.Serie }}</td>
+            <td class="text-center">{{ cfdi.Folio }}</td>
+            <td rowspan="4">
+                <div><strong>{{ cfdi.Emisor.Nombre }}</strong></div>
+                <div><strong>RFC: </strong>{{ cfdi.Emisor.Rfc }}</div>
+                <div><strong>Régimen Fiscal: </strong>{{ cfdi.Emisor.RegimenFiscal }}</div>
+                <div><strong>C.P.: </strong>{{ cfdi.LugarExpedicion }}</div>
+                <div><strong>No. Certificado: </strong>{{ cfdi.NoCertificado }}</div>
+            </td>
+            <td rowspan="4">
+                <div><strong>{{ cfdi.Receptor.Nombre }}</strong></div>
+                <div><strong>RFC: </strong>{{ cfdi.Receptor.Rfc }}</div>
+                <div><strong>Régimen Fiscal: </strong>{{ cfdi.Receptor.RegimenFiscalReceptor }}</div>
+                <div><strong>C.P.: </strong>{{ cfdi.Receptor.DomicilioFiscalReceptor }}</div>
+                <div></div>
+            </td>
+        </tr>
+        <tr>
+            <th colspan="2">Fecha de Emision</th>
+        </tr>
+        <tr>
+            <td colspan="2" class="text-center">{{ cfdi.Fecha }}</td>
+        </tr>
+    </tbody>
+</table>
+<table>
+    <tbody>
+        <tr>
+            <th>Moneda</th>
+            <th>Método de Pago</th>
+            <th>Forma de Pago</th>
+            <th>Uso CFDI</th>
+        </tr>
+        <tr class="text-center">
+            <td>{{ cfdi.Moneda }}</td>
+            <td>{{ cfdi.MetodoPago.description }}</td>
+            <td>{{ cfdi.FormaPago.description }}</td>
+            <td>{{ cfdi.Receptor.UsoCFDI.description }}</td>
+        </tr>
+        <tr>
+            <th>Tipo de Cambio</th>
+            <th>Exportación</th>
+            <th colspan="2">Condiciones de Pago</th>
+        </tr>
+        <tr class="text-center">
+            <td>{% if cfdi.TipoCambio %}{{ cfdi.TipoCambio }}{% endif %}</td>
+            <td>{{ cfdi.Exportacion.description }}</td>
+            <td>{% if cfdi.CondicionesDePago %}{{ cfdi.CondicionesDePago }}{% endif %}</td>
+        </tr>
+    </tbody>
+</table>
+
+<h5>Conceptos</h5>
+<table>
+    <thead>
+        <tr>
+            <th>Descripción</th>
+            <th>Cantidad</th>
+            <th>Valor Unitario</th>
+            <th>Descuento</th>
+            <th>Importe</th>
+        </tr>
+    </thead>
+    <tbody>
+{% for c in cfdi.Conceptos %}
+        <tr>
+            <td>
+                <div>{{ c.Descripcion }}</div>
+                <div><strong>Clave SAT:</strong> {{ c.ClaveProdServ }}</div>
+                {% if c.NoIdentificacion %}
+                <div><strong>No. Identificación:</strong> {{ c.NoIdentificacion }}</div>
+                {% endif %}
+                <div><strong>Objeto de Impuesto:</strong> {{ c.ObjetoImp }}</div>
+            </td>
+            <td class="text-center">
+                <div>{{ c.Cantidad }}</div>
+                <div>{{ c.ClaveUnidad }}</div>
+            </td>
+            <td class="text-right">{{ c.ValorUnitario }}</td>
+            <td class="text-right">{% if c.Descuento %}{{ c.Descuento }}{% endif %}</td>
+            <td class="text-right">{{ c.Importe }}</td>
+        </tr>
+        {% if c.Impuestos %}
+        <tr>
+            <td colspan="5" class="taxes__td">
+                <table>
+                    <tbody>
+                        <tr>
+                            <th style="background-color: transparent;"></th>
+                            <th>Base</th>
+                            <th>Impuesto</th>
+                            <th>Tasa o Cuota</th>
+                            <th>Importe</th>
+                        </tr>
+                        {% if c.Impuestos.Traslados %}
+                        {% for _, v in c.Impuestos.Traslados|items %}
+                        <tr class="text-center">
+                            <td class="text-right">
+                            {% if loop.first %}<strong>+ Traslados</strong>{% endif %}
+                            </td>
+                            <td class="text-right">{{ v.Base }}</td>
+                            <td>{{ v.Impuesto.description }}</td>
+                            <td>
+                                {% if v.TipoFactor == "Tasa" %}
+                                {{ "{:%}".format(v.TasaOCuota) }}
+                                {% else %}
+                                {{ v.TasaOCuota }}
+                                {% endif %}
+                            </td>
+                            <td class="text-right">{{ v.Importe }}</td>
+                        </tr>
+                        {% endfor %}
+                        {% endif %}
+                        
+                        {% if c.Impuestos.Retenciones %}
+                        {% for _, v in c.Impuestos.Retenciones|items %}
+                        <tr class="text-center">
+                            <td class="text-right">
+                                {% if loop.first %}<strong>- Retenciones</strong>{% endif %}
+                            </td>
+                            <td class="text-right">{{ v.Base }}</td>
+                            <td>{{ v.Impuesto.description }}</td>
+                            <td>
+                                {% if v.TipoFactor == "Tasa" %}
+                                {{ "{:%}".format(v.TasaOCuota) }}
+                                {% else %}
+                                {{ v.TasaOCuota }}
+                                {% endif %}
+                            </td>
+                            <td class="text-right">{{ v.Importe }}</td>
+                        </tr>
+                        {% endfor %}
+                        {% endif %}
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        {% endif %}
+{% endfor %}
+    </tbody>
+</table>
+
+<table class="total__table">
+    <tbody class="text-right">
+        <tr>
+            <td>
+                <strong>Subtotal</strong>
+            </td>
+            <td colspan="2"></td>
+            <td>{{ cfdi.SubTotal }}</td>
+        </tr>
+        {% if cfdi.Descuento %}
+        <tr>
+            <td>
+                <strong>Descuento</strong>
+            </td>
+            <td colspan="2"></td>
+            <td>{{ cfdi.Descuento }}</td>
+        </tr>
+        {% endif %}
+        {% if cfdi.Impuestos %}
+        {% if cfdi.Impuestos.Traslados %}
+        {% for _, v in cfdi.Impuestos.Traslados|items %}
+        <tr>
+            <td>{% if loop.first %}<strong>+ Traslados</strong>{% endif %}</td>
+            <td>{{ v.Impuesto.description }}</td>
+            <td>
+                {% if v.TipoFactor == "Tasa" %}
+                {{ "{:%}".format(v.TasaOCuota) }}
+                {% else %}
+                {{ v.TasaOCuota }}
+                {% endif %}
+            </td>
+            <td>{{ v.Importe }}</td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+        {% if cfdi.Impuestos.Retenciones %}
+        {% for _, v in c.Impuestos.Retenciones|items %}
+        <tr>
+            <td>{% if loop.first %}<strong>- Retenciones</strong>{% endif %}</td>
+            <td>{{ v.Impuesto.description }}</td>
+            <td>
+                {% if v.TipoFactor == "Tasa" %}
+                {{ "{:%}".format(v.TasaOCuota) }}
+                {% else %}
+                {{ v.TasaOCuota }}
+                {% endif %}
+            </td>
+            <td>{{ v.Importe }}</td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+        {% endif %}
+        <tr>
+            <td><strong>Total</strong></td>
+            <td colspan="2"></td>
+            <td>{{ cfdi.Total }}</td>
+        </tr>
+    </tbody>
+</table>
+
+{% if cfdi.CfdiRelacionados %}
+<h5>CFDI Relacionados</h5>
+<table>
+    <tbody>
+        <tr>
+            {% for _, v in cfdi.CfdiRelacionados|items %}
+            <td><strong>Tipo de Relación:</strong>{{ v.TipoRelacion.description }}</td>
+            <td>
+                <ul>
+                    {% for _, r in v.CfdiRelacionado|items %}
+                    <li><strong>UUID:</strong> {{ r }}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+    {% endfor %}
+</table>
+{% endif %}
+
+{% if cfdi.Complemento %}
+{% set tfd = cfdi.Complemento.TimbreFiscalDigital %}
+<h4>Timbre Fiscal Digital</h4>
+<table>
+    <tbody>
+        <tr>
+            <td><strong>Folio Fiscal:</strong></td>
+            <td>{{ tfd.UUID }}</td>
+            <td><strong>Fecha de Certificación:</strong></td>
+            <td>{{ tfd.FechaTimbrado }}</td>
+        </tr>
+        <tr>
+            {% if tfd.Version == "1.1" %}
+            <td><strong>RFC del PAC:</strong></td>
+            <td>{{ tfd.RfcProvCertif }}</td>
+            {% endif %}
+            <td><strong>No. Certificado SAT:</strong></td>
+            <td>{{ tfd.NoCertificadoSAT }}</td>
+        </tr>
+    </tbody>
+</table>
+<table>
+    <tbody>
+        <tr>
+            <td><img src="data:image/png;base64,{{ doc.mx_cfdi_qr }}" alt="QR Code" /></td>
+            <td>
+                <div class="tfd">
+                    <div>
+                        <strong>Sello del CFDI:</strong> {{ "&#8203;".join(tfd.SelloCFD) }}
+                    </div>
+                    <div>
+                        <strong>Sello del SAT:</strong> {{ "&#8203;".join(tfd.SelloSAT) }}
+                    </div>
+                    <div>
+                        <strong>Cadena Original del Timbre Fiscal:</strong>{{ "&#8203;".join(tfd.cadena_original()) }}
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+{% endif %}
+<table>
+    <tbody>
+        <tr>
+            {% if cfdi.Version %}
+            <td>Comprobante versión: {{ cfdi.Version }}</td>
+            {% endif %}
+            <td class="text-right">Este documento es una representación impresa de un CFDI</td>
+        </tr>
+    </tbody>
+</table>
