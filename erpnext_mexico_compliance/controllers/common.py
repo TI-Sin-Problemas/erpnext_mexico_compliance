@@ -6,7 +6,6 @@ For license information, please see license.txt
 import abc
 
 import frappe
-import pyqrcode
 from frappe import _
 from frappe.client import attach_file
 from frappe.model.document import Document
@@ -14,6 +13,7 @@ from frappe.model.naming import NamingSeries
 from satcfdi.cfdi import CFDI
 from satcfdi.create.cfd import cfdi40
 
+from ...erpnext_mexico_compliance.utils import qr_as_base64
 from ..erpnext_mexico_compliance.doctype.digital_signing_certificate.digital_signing_certificate import (
     DigitalSigningCertificate,
 )
