@@ -189,17 +189,11 @@
         {% endfor %}
         {% endif %}
         {% if cfdi.Impuestos.Retenciones %}
-        {% for _, v in c.Impuestos.Retenciones|items %}
+        {% for _, v in cfdi.Impuestos.Retenciones|items %}
         <tr>
             <td>{% if loop.first %}<strong>- Retenciones</strong>{% endif %}</td>
             <td>{{ v.Impuesto.description }}</td>
-            <td>
-                {% if v.TipoFactor == "Tasa" %}
-                {{ "{:%}".format(v.TasaOCuota) }}
-                {% else %}
-                {{ v.TasaOCuota }}
-                {% endif %}
-            </td>
+            <td></td>
             <td>{{ v.Importe }}</td>
         </tr>
         {% endfor %}
@@ -257,7 +251,7 @@
 <table>
     <tbody>
         <tr>
-            <td><img src="data:image/png;base64,{{ doc.mx_cfdi_qr }}" alt="QR Code" /></td>
+            <td><img src="data:image/png;base64,{{ qr }}" alt="QR Code" /></td>
             <td>
                 <div class="tfd">
                     <div>
