@@ -238,17 +238,14 @@ class CommonController(Document):
         cfdi = CFDI.from_string(self.mx_stamped_xml.encode("utf-8"))
         ws = get_ws_client()
 
-        substitute = (
-            frappe.get_doc("Payment Entry", self.substitute_payment_entry)
-            if self.substitute_payment_entry
-            else None
-        )
+        substitute_name = getattr(self, substitute_field)
+        substitute_uuid = None
+        if substitute_name:
+            substitute = frappe.get_doc(self.doctype, self.substitute_payment_entry)
+            substitute_uuid = substitute.cfdi_uuid
 
         self.cancellation_acknowledgement = ws.cancel(
-            certificate,
-            cfdi,
-            self.cancellation_reason,
-            substitute.cfdi_uuid if substitute else None,
+            certificate, cfdi, self.cancellation_reason, substitute_uuid
         )
 
         ret = self.save()
