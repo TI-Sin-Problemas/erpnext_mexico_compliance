@@ -106,12 +106,14 @@ function cancel(frm) {
       },
     ],
     async ({ certificate }) => {
-      const { message: cfdi_msg } = await frm.call("cancel_cfdi", {
-        certificate,
+      const { message: cfdi_msg } = await frappe.call({
+        method: "cancel_cfdi",
+        doc: frm.doc,
+        args: { certificate },
+        btn: $(".btn-secondary"),
+        freeze: true,
       });
       frappe.show_alert({ message: cfdi_msg, indicator: "green" });
-      const { message: cancelled } = await frm.call("cancel");
-      frappe.show_alert({ message: cancelled, indicator: "green" });
       frm.reload_doc();
     },
     __("Select a Certificate to sign the CFDI")
