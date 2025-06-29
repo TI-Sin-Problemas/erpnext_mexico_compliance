@@ -16,3 +16,13 @@ frappe.ui.form.on("CFDI Stamping Settings", {
     }
   },
 });
+
+frappe.ui.form.on("CFDI PDF Template", {
+  print_example(frm, cdt, cdn) {
+    if (cdn.startsWith("new")) {
+      frappe.throw(__("Please save the CFDI PDF Template first"));
+    }
+    const url = `/api/method/erpnext_mexico_compliance.erpnext_mexico_compliance.doctype.cfdi_pdf_template.cfdi_pdf_template.print_example?docname=${cdn}`;
+    window.open(url);
+  },
+});
