@@ -6,6 +6,12 @@ requires-python = ">=3.11"
 readme = "README.md"
 dynamic = ["version"]
 dependencies = ["satcfdi==4.7.3"]
+
+[project.urls]
+Homepage = "https://tisinproblemas.com/mexico-compliance"
+Repository = "https://github.com/TI-Sin-Problemas/erpnext_mexico_compliance.git"
+"Bug Reports" = "https://github.com/TI-Sin-Problemas/erpnext_mexico_compliance/issues"
+
 [build-system]
 requires = ["flit_core"]
 build-backend = "flit_core.buildapi"
