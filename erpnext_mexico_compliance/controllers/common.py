@@ -185,12 +185,16 @@ class CommonController(Document):
             CFDI.from_string(self.mx_stamped_xml.encode("utf-8"))
         )
         title = status.status if isinstance(status.status, str) else status.status.value
+        is_cancellable = status.is_cancellable.value if status.is_cancellable else None
+        cancellation_status = (
+            status.cancellation_status.value if status.cancellation_status else None
+        )
         frappe.msgprint(
             msg=[
                 _("CFDI Code: {0}").format(status.code),
                 _("CFDI Status: {0}").format(title),
-                _("Is Cancellable: {0}").format(status.is_cancellable),
-                _("Cancellation Status: {0}").format(status.cancellation_status),
+                _("Is Cancellable: {0}").format(is_cancellable),
+                _("Cancellation Status: {0}").format(cancellation_status),
             ],
             title=title,
             as_list=True,

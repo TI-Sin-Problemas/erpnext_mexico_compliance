@@ -25,10 +25,10 @@ class WSClient:
 
     response: requests.Response
     endpoints = {
-        "cancel": "/api/method/stamp_provider.api.v1.cancel",
-        "status": "/api/method/stamp_provider.api.v1.status",
-        "quota": "/api/method/stamp_provider.api.v1.quota",
-        "stamp": "/api/method/stamp_provider.api.v1.stamp",
+        "cancel": "/api/method/tisp_apps.api.v1.cfdi.cancel",
+        "status": "/api/method/tisp_apps.api.v1.cfdi.status",
+        "quota": "/api/method/tisp_apps.api.v1.cfdi.quota",
+        "stamp": "/api/method/tisp_apps.api.v1.cfdi.stamp",
     }
 
     def __init__(self, token: str, mode: OperationMode = OperationMode.TEST) -> None:
