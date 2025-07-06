@@ -250,3 +250,7 @@ fixtures = [
         "filters": [{"module": "ERPNext Mexico Compliance"}],
     },
 ]
+
+# Extend Bootinfo
+# https://docs.frappe.io/framework/user/en/python-api/hooks#extend-bootinfo
+extend_bootinfo = "erpnext_mexico_compliance.boot.boot_session"
