@@ -14,12 +14,8 @@ class CFDIStampingSettings(Document):
     from typing import TYPE_CHECKING
 
     if TYPE_CHECKING:
-        from erpnext_mexico_compliance.erpnext_mexico_compliance.doctype.cfdi_pdf_template.cfdi_pdf_template import (
-            CFDIPDFTemplate,
-        )
-        from erpnext_mexico_compliance.erpnext_mexico_compliance.doctype.default_csd.default_csd import (
-            DefaultCSD,
-        )
+        from erpnext_mexico_compliance.erpnext_mexico_compliance.doctype.cfdi_pdf_template.cfdi_pdf_template import CFDIPDFTemplate
+        from erpnext_mexico_compliance.erpnext_mexico_compliance.doctype.default_csd.default_csd import DefaultCSD
         from frappe.types import DF
 
         api_key: DF.Data | None

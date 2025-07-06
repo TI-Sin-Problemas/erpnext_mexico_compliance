@@ -61,6 +61,7 @@
    "fieldtype": "Section Break"
   },
   {
+   "depends_on": "eval:frappe.boot.erpnext_mexico_compliance.has_subscription;",
    "fieldname": "pdf_templates",
    "fieldtype": "Table",
    "label": "PDF Templates",
@@ -71,7 +72,7 @@
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2025-06-19 17:40:28.077035",
+ "modified": "2025-07-05 19:03:22.663307",
  "modified_by": "Administrator",
  "module": "ERPNext Mexico Compliance",
  "name": "CFDI Stamping Settings",
