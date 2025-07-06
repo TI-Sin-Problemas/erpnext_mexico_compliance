@@ -12,7 +12,7 @@
   "title",
   "letter_head",
   "css_styles",
-  "body",
+  "html_content",
   "print_example"
  ],
  "fields": [
@@ -49,13 +49,6 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "body",
-   "fieldtype": "HTML Editor",
-   "ignore_xss_filter": 1,
-   "label": "Body",
-   "reqd": 1
-  },
-  {
    "fieldname": "print_example",
    "fieldtype": "Button",
    "label": "Print example"
@@ -65,13 +58,20 @@
    "fieldtype": "Link",
    "label": "Letter Head",
    "options": "Letter Head"
+  },
+  {
+   "fieldname": "html_content",
+   "fieldtype": "HTML Editor",
+   "ignore_xss_filter": 1,
+   "label": "HTML Content",
+   "reqd": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-06-26 20:20:05.172301",
+ "modified": "2025-07-05 21:45:07.049569",
  "modified_by": "Administrator",
  "module": "ERPNext Mexico Compliance",
  "name": "CFDI PDF Template",

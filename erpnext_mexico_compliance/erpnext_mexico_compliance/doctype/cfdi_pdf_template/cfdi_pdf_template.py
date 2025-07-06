@@ -2,12 +2,11 @@
 For license information, please see license.txt"""
 
 import frappe
+from erpnext_mexico_compliance.hooks import app_name
+from erpnext_mexico_compliance.utils import qr_as_base64
 from frappe.model.document import Document
 from frappe.utils.pdf import get_pdf
 from satcfdi.cfdi import CFDI
-
-from erpnext_mexico_compliance.hooks import app_name
-from erpnext_mexico_compliance.utils import qr_as_base64
 
 
 class CFDIPDFTemplate(Document):
@@ -19,10 +18,10 @@ class CFDIPDFTemplate(Document):
     if TYPE_CHECKING:
         from frappe.types import DF
 
-        body: DF.HTMLEditor
         company: DF.Link
         css_styles: DF.Code | None
         document_type: DF.Literal["Sales Invoice"]
+        html_content: DF.HTMLEditor
         letter_head: DF.Link | None
         parent: DF.Data
         parentfield: DF.Data
@@ -43,9 +42,9 @@ class CFDIPDFTemplate(Document):
             letterhead = frappe.get_doc("Letter Head", self.letter_head)
             header = letterhead.content or ""
             footer = letterhead.footer or ""
-            body = f"<body>{header}{self.body}{footer}</body>"
+            body = f"<body>{header}{self.html_content}{footer}</body>"
         else:
-            body = f"<body>{self.body}</body>"
+            body = f"<body>{self.html_content}</body>"
         return f"<html>{head}{body}</html>"
 
     def get_rendered_pdf(self, xml: str) -> bytes:
