@@ -9,6 +9,7 @@
   "api_key",
   "api_secret",
   "test_mode",
+  "is_premium",
   "column_break_omyj",
   "stamp_on_submit",
   "default_csds",
@@ -61,18 +62,26 @@
    "fieldtype": "Section Break"
   },
   {
-   "depends_on": "eval:frappe.boot.erpnext_mexico_compliance.has_subscription;",
+   "depends_on": "eval:doc.is_premium;",
    "fieldname": "pdf_templates",
    "fieldtype": "Table",
    "label": "PDF Templates",
    "options": "CFDI PDF Template"
+  },
+  {
+   "default": "0",
+   "description": "This attribute will be enabled if you purchased a premium subscription",
+   "fieldname": "is_premium",
+   "fieldtype": "Check",
+   "is_virtual": 1,
+   "label": "Is Premium"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2025-07-05 19:03:22.663307",
+ "modified": "2025-07-06 20:14:05.451299",
  "modified_by": "Administrator",
  "module": "ERPNext Mexico Compliance",
  "name": "CFDI Stamping Settings",
