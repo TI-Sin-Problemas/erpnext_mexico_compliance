@@ -13,6 +13,9 @@ from frappe.model.naming import NamingSeries
 from satcfdi.cfdi import CFDI
 from satcfdi.create.cfd import cfdi40
 
+from erpnext_mexico_compliance.erpnext_mexico_compliance.doctype.cfdi_stamping_settings.cfdi_stamping_settings import (
+    CFDIStampingSettings,
+)
 from erpnext_mexico_compliance.utils import qr_as_base64
 
 from ..erpnext_mexico_compliance.doctype.digital_signing_certificate.digital_signing_certificate import (
@@ -93,12 +96,13 @@ class CommonController(Document):
         cfdi = cfdi40.CFDI.from_string(self.mx_stamped_xml.encode("utf-8"))
         file_name = f"{self.name}_CFDI.pdf"
 
+        settings: CFDIStampingSettings = frappe.get_single("CFDI Stamping Settings")
         template = frappe.get_all(
             "CFDI PDF Template",
             filters={"document_type": self.doctype, "company": self.company},
         )
 
-        if len(template) == 0:
+        if not settings.is_premium or len(template) == 0:
             from satcfdi import render  # pylint: disable=import-outside-toplevel
 
             file_data = render.pdf_bytes(cfdi)
@@ -285,11 +289,4 @@ class CommonController(Document):
     def mx_cfdi_qr(self) -> str:
         """Generates a QR code from the CFDI verification URL and returns it in base64-encoded PNG
         format."""
-        return qr_as_base64(self.mx_cfdi_obj.verifica_url)
-        return qr_as_base64(self.mx_cfdi_obj.verifica_url)
-        return qr_as_base64(self.mx_cfdi_obj.verifica_url)
-        return qr_as_base64(self.mx_cfdi_obj.verifica_url)
-        return qr_as_base64(self.mx_cfdi_obj.verifica_url)
-        return qr_as_base64(self.mx_cfdi_obj.verifica_url)
-        return qr_as_base64(self.mx_cfdi_obj.verifica_url)
         return qr_as_base64(self.mx_cfdi_obj.verifica_url)
