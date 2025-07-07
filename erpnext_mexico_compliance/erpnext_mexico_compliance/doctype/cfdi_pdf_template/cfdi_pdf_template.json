@@ -12,7 +12,7 @@
   "title",
   "letter_head",
   "css_styles",
-  "html_content",
+  "content_html",
   "print_example"
  ],
  "fields": [
@@ -60,10 +60,11 @@
    "options": "Letter Head"
   },
   {
-   "fieldname": "html_content",
+   "description": "PDF body in HTML",
+   "fieldname": "content_html",
    "fieldtype": "HTML Editor",
    "ignore_xss_filter": 1,
-   "label": "HTML Content",
+   "label": "Content HTML",
    "reqd": 1
   }
  ],
@@ -71,7 +72,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-07-05 21:45:07.049569",
+ "modified": "2025-07-07 12:37:34.315825",
  "modified_by": "Administrator",
  "module": "ERPNext Mexico Compliance",
  "name": "CFDI PDF Template",
