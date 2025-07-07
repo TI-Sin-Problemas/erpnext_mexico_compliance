@@ -59,10 +59,12 @@
   },
   {
    "fieldname": "section_break_eylu",
-   "fieldtype": "Section Break"
+   "fieldtype": "Section Break",
+   "label": "Premium Features"
   },
   {
    "depends_on": "eval:doc.is_premium;",
+   "description": "Custom templates to be used to create the PDF File of Sales Invoices, Payment Entries, etc.",
    "fieldname": "pdf_templates",
    "fieldtype": "Table",
    "label": "PDF Templates",
@@ -81,7 +83,7 @@
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2025-07-06 20:14:05.451299",
+ "modified": "2025-07-07 15:30:15.166278",
  "modified_by": "Administrator",
  "module": "ERPNext Mexico Compliance",
  "name": "CFDI Stamping Settings",
