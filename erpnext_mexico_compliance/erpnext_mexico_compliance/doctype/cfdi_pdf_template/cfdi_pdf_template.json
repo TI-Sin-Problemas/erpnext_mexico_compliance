@@ -41,7 +41,7 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Document Type",
-   "options": "Sales Invoice",
+   "options": "\nPayment Entry\nSales Invoice",
    "reqd": 1
   },
   {
@@ -72,7 +72,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-07-07 12:37:34.315825",
+ "modified": "2025-07-07 15:18:35.944830",
  "modified_by": "Administrator",
  "module": "ERPNext Mexico Compliance",
  "name": "CFDI PDF Template",

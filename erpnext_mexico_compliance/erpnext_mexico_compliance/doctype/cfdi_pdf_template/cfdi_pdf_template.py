@@ -22,7 +22,7 @@ class CFDIPDFTemplate(Document):
         company: DF.Link
         content_html: DF.HTMLEditor
         css_styles: DF.Code | None
-        document_type: DF.Literal["Sales Invoice"]
+        document_type: DF.Literal["", "Payment Entry", "Sales Invoice"]
         letter_head: DF.Link | None
         parent: DF.Data
         parentfield: DF.Data
