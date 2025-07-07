@@ -97,18 +97,18 @@ class CommonController(Document):
         file_name = f"{self.name}_CFDI.pdf"
 
         settings: CFDIStampingSettings = frappe.get_single("CFDI Stamping Settings")
-        template = frappe.get_all(
-            "CFDI PDF Template",
-            filters={"document_type": self.doctype, "company": self.company},
+        template = filter(
+            lambda x: x.document_type == self.doctype and x.company == self.company,
+            settings.pdf_templates,
         )
+        template = list(template)
 
         if not settings.is_premium or len(template) == 0:
-            from satcfdi import render  # pylint: disable=import-outside-toplevel
+            from satcfdi import render
 
             file_data = render.pdf_bytes(cfdi)
         else:
-            template = frappe.get_doc("CFDI PDF Template", template[0].name)
-            file_data = template.get_rendered_pdf(self.mx_stamped_xml)
+            file_data = template[0].get_rendered_pdf(self.mx_stamped_xml)
 
         ret = attach_file(file_name, file_data, self.doctype, self.name, is_private=1)
         self.run_method("after_attach_pdf")
