@@ -1,6 +1,8 @@
 """Copyright (c) 2025, TI Sin Problemas and contributors
 For license information, please see license.txt"""
 
+import typing as t
+
 import frappe
 from frappe.model.document import Document
 from frappe.utils.pdf import get_pdf
@@ -10,30 +12,35 @@ from erpnext_mexico_compliance.hooks import app_name
 from erpnext_mexico_compliance.utils import qr_as_base64
 
 
-def get_sample_file_content(document_type: str) -> str:
-    """Reads a sample CFDI XML file for the given document type.
+def get_sample_file_content(
+    document_type: str, sample_type: t.Literal["xml", "html", "css"]
+) -> str:
+    """
+    Reads a sample file for the given document type.
 
     Args:
-        document_type (str): The document type of the CFDI XML file to read.
+        document_type (str): The document type of the file to read.
+        sample_type (Literal["xml", "html", "css"]): The type of the file to read, which can be
+            "xml", "html", or "css".
 
     Returns:
-        str: The contents of the sample CFDI XML file.
+        str: The contents of the sample file.
 
     Raises:
         ValueError: If the document type is not supported.
     """
     match document_type:
         case "Payment Entry":
-            file_name = "pago.xml"
+            file_name = f"pago.{sample_type}"
         case "Sales Invoice":
-            file_name = "ingreso.xml"
+            file_name = f"ingreso.{sample_type}"
         case _:
             raise ValueError(f"Unsupported document type: {document_type}")
 
     path = f"{frappe.get_app_path(app_name)}/examples/cfdi/{file_name}"
     with open(path, "r") as f:
-        xml = f.read()
-    return xml
+        content = f.read()
+    return content
 
 
 class CFDIPDFTemplate(Document):
@@ -98,7 +105,7 @@ class CFDIPDFTemplate(Document):
             bytes: The rendered example PDF.
         """
 
-        xml = get_sample_file_content(self.document_type)
+        xml = get_sample_file_content(self.document_type, "xml")
         return self.get_rendered_pdf(xml)
 
 
