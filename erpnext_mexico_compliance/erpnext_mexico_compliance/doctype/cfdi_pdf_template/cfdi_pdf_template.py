@@ -13,7 +13,7 @@ from erpnext_mexico_compliance.utils import qr_as_base64
 
 
 def get_sample_file_content(
-    document_type: str, sample_type: t.Literal["xml", "html", "css"]
+    document_type: str, sample_type: t.Literal["xml", "html.jinja", "css"]
 ) -> str:
     """
     Reads a sample file for the given document type.
@@ -107,6 +107,31 @@ class CFDIPDFTemplate(Document):
 
         xml = get_sample_file_content(self.document_type, "xml")
         return self.get_rendered_pdf(xml)
+
+    @frappe.whitelist()
+    def get_sample_content(self) -> str:
+        """Returns a sample HTML content for the given document type.
+
+        This method reads a sample HTML file from the application's examples directory,
+        which can be used to populate the `content_html` field of the CFDI PDF template.
+
+        Returns:
+            str: The sample HTML content.
+        """
+        return get_sample_file_content(self.document_type, "html.jinja")
+
+    @frappe.whitelist()
+    def get_sample_css(self) -> str:
+        """Returns a sample CSS content for the given document type.
+
+        This method reads a sample CSS file from the application's examples directory,
+        which can be used to populate the `css_styles` field of the CFDI PDF template.
+
+        Returns:
+            str: The sample CSS content.
+        """
+
+        return get_sample_file_content(self.document_type, "css")
 
 
 @frappe.whitelist()
