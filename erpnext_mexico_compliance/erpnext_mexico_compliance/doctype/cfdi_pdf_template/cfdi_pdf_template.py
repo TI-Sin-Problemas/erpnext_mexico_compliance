@@ -10,6 +10,32 @@ from erpnext_mexico_compliance.hooks import app_name
 from erpnext_mexico_compliance.utils import qr_as_base64
 
 
+def get_sample_file_content(document_type: str) -> str:
+    """Reads a sample CFDI XML file for the given document type.
+
+    Args:
+        document_type (str): The document type of the CFDI XML file to read.
+
+    Returns:
+        str: The contents of the sample CFDI XML file.
+
+    Raises:
+        ValueError: If the document type is not supported.
+    """
+    match document_type:
+        case "Payment Entry":
+            file_name = "pago.xml"
+        case "Sales Invoice":
+            file_name = "ingreso.xml"
+        case _:
+            raise ValueError(f"Unsupported document type: {document_type}")
+
+    path = f"{frappe.get_app_path(app_name)}/examples/cfdi/{file_name}"
+    with open(path, "r") as f:
+        xml = f.read()
+    return xml
+
+
 class CFDIPDFTemplate(Document):
     # begin: auto-generated types
     # This code is auto-generated. Do not modify anything in this block.
@@ -72,9 +98,7 @@ class CFDIPDFTemplate(Document):
             bytes: The rendered example PDF.
         """
 
-        example_file_path = f"{frappe.get_app_path(app_name)}/examples/cfdi/ingreso.xml"
-        with open(example_file_path, "r") as f:
-            xml = f.read()
+        xml = get_sample_file_content(self.document_type)
         return self.get_rendered_pdf(xml)
 
 
