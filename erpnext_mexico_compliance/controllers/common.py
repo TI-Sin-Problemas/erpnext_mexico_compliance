@@ -13,6 +13,11 @@ from frappe.model.naming import NamingSeries
 from satcfdi.cfdi import CFDI
 from satcfdi.create.cfd import cfdi40
 
+from erpnext_mexico_compliance.erpnext_mexico_compliance.doctype.cfdi_stamping_settings.cfdi_stamping_settings import (
+    CFDIStampingSettings,
+)
+from erpnext_mexico_compliance.utils import qr_as_base64
+
 from ..erpnext_mexico_compliance.doctype.digital_signing_certificate.digital_signing_certificate import (
     DigitalSigningCertificate,
 )
@@ -86,12 +91,25 @@ class CommonController(Document):
         Returns:
             Document: The result of attaching the PDF file to the current document.
         """
-        from satcfdi import render  # pylint: disable=import-outside-toplevel
 
         self.run_method("before_attach_pdf")
         cfdi = cfdi40.CFDI.from_string(self.mx_stamped_xml.encode("utf-8"))
         file_name = f"{self.name}_CFDI.pdf"
-        file_data = render.pdf_bytes(cfdi)
+
+        settings: CFDIStampingSettings = frappe.get_single("CFDI Stamping Settings")
+        template = filter(
+            lambda x: x.document_type == self.doctype and x.company == self.company,
+            settings.pdf_templates,
+        )
+        template = list(template)
+
+        if not settings.is_premium or len(template) == 0:
+            from satcfdi import render
+
+            file_data = render.pdf_bytes(cfdi)
+        else:
+            file_data = template[0].get_rendered_pdf(self.mx_stamped_xml)
+
         ret = attach_file(file_name, file_data, self.doctype, self.name, is_private=1)
         self.run_method("after_attach_pdf")
         return ret
@@ -261,3 +279,14 @@ class CommonController(Document):
             indicator="green",
         )
         return ret
+
+    @property
+    def mx_cfdi_obj(self) -> CFDI:
+        """Converts the stamped XML string to a CFDI object."""
+        return CFDI.from_string(self.mx_stamped_xml.encode("utf-8"))
+
+    @property
+    def mx_cfdi_qr(self) -> str:
+        """Generates a QR code from the CFDI verification URL and returns it in base64-encoded PNG
+        format."""
+        return qr_as_base64(self.mx_cfdi_obj.verifica_url)

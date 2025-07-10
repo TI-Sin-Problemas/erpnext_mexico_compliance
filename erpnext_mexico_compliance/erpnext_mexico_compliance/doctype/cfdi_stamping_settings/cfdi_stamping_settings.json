@@ -9,9 +9,12 @@
   "api_key",
   "api_secret",
   "test_mode",
+  "is_premium",
   "column_break_omyj",
   "stamp_on_submit",
-  "default_csds"
+  "default_csds",
+  "section_break_eylu",
+  "pdf_templates"
  ],
  "fields": [
   {
@@ -53,13 +56,34 @@
    "label": "Default Digital Signing Certificates",
    "mandatory_depends_on": "eval: doc.stamp_on_submit;",
    "options": "Default CSD"
+  },
+  {
+   "fieldname": "section_break_eylu",
+   "fieldtype": "Section Break",
+   "label": "Premium Features"
+  },
+  {
+   "depends_on": "eval:doc.is_premium;",
+   "description": "Custom templates to be used to create the PDF File of Sales Invoices, Payment Entries, etc.",
+   "fieldname": "pdf_templates",
+   "fieldtype": "Table",
+   "label": "PDF Templates",
+   "options": "CFDI PDF Template"
+  },
+  {
+   "default": "0",
+   "description": "This attribute will be enabled if you purchased a premium subscription",
+   "fieldname": "is_premium",
+   "fieldtype": "Check",
+   "is_virtual": 1,
+   "label": "Is Premium"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2025-05-21 23:42:23.622995",
+ "modified": "2025-07-07 15:30:15.166278",
  "modified_by": "Administrator",
  "module": "ERPNext Mexico Compliance",
  "name": "CFDI Stamping Settings",

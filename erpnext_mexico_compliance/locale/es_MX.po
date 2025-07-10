@@ -1,22 +1,18 @@
+
 msgid ""
 msgstr ""
-"Project-Id-Version: erpnext-mexico-compliance\n"
+"Project-Id-Version:  erpnext-mexico-compliance\n"
 "Report-Msgid-Bugs-To: info@tisinproblemas.com\n"
-"POT-Creation-Date: 2025-06-14 17:36+0000\n"
-"PO-Revision-Date: 2025-06-17 06:05\n"
+"POT-Creation-Date: 2025-07-06 03:54+0000\n"
+"PO-Revision-Date: 2025-06-17 06:05+0000\n"
 "Last-Translator: info@tisinproblemas.com\n"
+"Language: es_MX\n"
 "Language-Team: Spanish, Mexico\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.13.1\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Crowdin-Project: erpnext-mexico-compliance\n"
-"X-Crowdin-Project-ID: 794316\n"
-"X-Crowdin-Language: es-MX\n"
-"X-Crowdin-File: /main/erpnext_mexico_compliance/locale/main.pot\n"
-"X-Crowdin-File-ID: 7\n"
-"Language: es_MX\n"
 
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.js:12
 msgid "1 credit is consumed every time a CFDI gets stamped"
@@ -35,7 +31,7 @@ msgstr "Un Motivo de Cancelación es necesario para cancelar este pago."
 msgid "A Cancellation Reason is required to cancel this sales invoice."
 msgstr "Un Motivo de Cancelación es necesario para cancelar esta factura de venta."
 
-#: erpnext_mexico_compliance/controllers/common.py:195
+#: erpnext_mexico_compliance/controllers/common.py:213
 msgid "A Cancellation Reason is required."
 msgstr "Un Motivo de Cancelación es necesario."
 
@@ -99,29 +95,21 @@ msgctxt "Company branch"
 msgid "Branch: {0}"
 msgstr "Sucursal: {0}"
 
-#. Label of the cfdi_section (Section Break) field in DocType 'UOM'
-#. Label of the cfdi (Section Break) field in DocType 'Mode of Payment'
-#. Label of the mx_cfdi_section_break (Section Break) field in DocType
-#. 'Subscription'
-#. Label of the cfdi_tab (Tab Break) field in DocType 'Payment Entry'
-#. Label of the mx_cfdi (Section Break) field in DocType 'Sales Order Item'
-#. Label of the cfdi (Tab Break) field in DocType 'Item'
-#. Label of the cfdi (Section Break) field in DocType 'Sales Invoice Item'
-#. Label of the cfdi_40 (Tab Break) field in DocType 'Sales Invoice'
-#: erpnext_mexico_compliance/fixtures/custom_field.json
-msgid "CFDI"
-msgstr ""
-
 #: erpnext_mexico_compliance/public/js/payment_entry.js:40
 #: erpnext_mexico_compliance/public/js/sales_invoice.js:40
 msgid "CFDI Actions"
 msgstr "Acciones de CFDI"
 
-#: erpnext_mexico_compliance/controllers/common.py:176
+#: erpnext_mexico_compliance/controllers/common.py:194
 msgid "CFDI Code: {0}"
-msgstr ""
+msgstr "Código CFDI: {0}"
 
-#: erpnext_mexico_compliance/controllers/common.py:132
+#. Name of a DocType
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_pdf_template/cfdi_pdf_template.json
+msgid "CFDI PDF Template"
+msgstr "Plantilla PDF de CFDI"
+
+#: erpnext_mexico_compliance/controllers/common.py:146
 msgid "CFDI Stamped Successfully"
 msgstr "CFDI Timbrado Exitosamente"
 
@@ -132,7 +120,7 @@ msgstr "CFDI Timbrado Exitosamente"
 msgid "CFDI Stamping Settings"
 msgstr "Configuración de Timbrado de CFDI"
 
-#: erpnext_mexico_compliance/controllers/common.py:177
+#: erpnext_mexico_compliance/controllers/common.py:195
 msgid "CFDI Status: {0}"
 msgstr "Estado de CFDI: {0}"
 
@@ -140,55 +128,28 @@ msgstr "Estado de CFDI: {0}"
 msgid "CFDI Web Service Error"
 msgstr "Error del Web Service de CFDI"
 
-#: erpnext_mexico_compliance/controllers/common.py:259
+#: erpnext_mexico_compliance/controllers/common.py:274
 msgid "CFDI cancellation requested successfully"
 msgstr "Cancelación de CFDI solicitada exitosamente"
 
-#. Label of the clabe (Data) field in DocType 'Bank Account'
-#: erpnext_mexico_compliance/fixtures/custom_field.json
-msgid "CLABE"
-msgstr ""
+#. Label of a Code field in DocType 'CFDI PDF Template'
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_pdf_template/cfdi_pdf_template.json
+msgid "CSS Styles"
+msgstr "Estilos CSS"
 
-#. Label of the mx_curp (Data) field in DocType 'Employee'
-#: erpnext_mexico_compliance/fixtures/custom_field.json
-msgid "CURP"
-msgstr ""
-
-#: erpnext_mexico_compliance/public/js/payment_entry.js:132
-#: erpnext_mexico_compliance/public/js/sales_invoice.js:125
+#: erpnext_mexico_compliance/public/js/payment_entry.js:134
+#: erpnext_mexico_compliance/public/js/sales_invoice.js:131
 msgid "Cancel"
 msgstr "Cancelar"
-
-#. Label of the mx_cancellation_section (Section Break) field in DocType
-#. 'Payment Entry'
-#. Label of the cancellation_section (Section Break) field in DocType 'Sales
-#. Invoice'
-#: erpnext_mexico_compliance/fixtures/custom_field.json
-msgid "Cancellation"
-msgstr "Cancelación"
 
 #. Name of a DocType
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cancellation_reason/cancellation_reason.json
 msgid "Cancellation Reason"
 msgstr "Motivo de Cancelación"
 
-#: erpnext_mexico_compliance/controllers/common.py:179
+#: erpnext_mexico_compliance/controllers/common.py:197
 msgid "Cancellation Status: {0}"
 msgstr "Estado de cancelación: {0}"
-
-#. Label of the cancellation_acknowledgement (HTML Editor) field in DocType
-#. 'Payment Entry'
-#. Label of the cancellation_acknowledgement (HTML Editor) field in DocType
-#. 'Sales Invoice'
-#: erpnext_mexico_compliance/fixtures/custom_field.json
-msgid "Cancellation acknowledgement"
-msgstr "Acuse de cancelación"
-
-#. Label of the cancellation_reason (Link) field in DocType 'Payment Entry'
-#. Label of the cancellation_reason (Link) field in DocType 'Sales Invoice'
-#: erpnext_mexico_compliance/fixtures/custom_field.json
-msgid "Cancellation reason"
-msgstr "Motivo de cancelación"
 
 #. Label of a Attach field in DocType 'Digital Signing Certificate'
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/digital_signing_certificate/digital_signing_certificate.json
@@ -219,8 +180,8 @@ msgstr "Los archivos de certificado y contraseña son válidos"
 msgid "Certificate key file (.key)"
 msgstr "Archivo de clave de certificado (.key)"
 
-#: erpnext_mexico_compliance/public/js/payment_entry.js:138
-#: erpnext_mexico_compliance/public/js/sales_invoice.js:131
+#: erpnext_mexico_compliance/public/js/payment_entry.js:140
+#: erpnext_mexico_compliance/public/js/sales_invoice.js:137
 msgid "Check Cancellation Status"
 msgstr "Verificar estado de cancelación"
 
@@ -235,9 +196,11 @@ msgstr "Marca este campo si la factura cancelada necesita tener otra factura rel
 msgid "Code"
 msgstr "Código"
 
+#. Label of a Link field in DocType 'CFDI PDF Template'
 #. Label of a Link field in DocType 'Default CSD'
 #. Label of a Link field in DocType 'Digital Signing Certificate'
 #. Label of a Section Break field in DocType 'Digital Signing Certificate'
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_pdf_template/cfdi_pdf_template.json
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/default_csd/default_csd.json
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/digital_signing_certificate/digital_signing_certificate.json
 msgid "Company"
@@ -321,6 +284,15 @@ msgstr "Descripción"
 msgid "Digital Signing Certificate"
 msgstr "Certificado de Sello Digital"
 
+#. Label of a Select field in DocType 'CFDI PDF Template'
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_pdf_template/cfdi_pdf_template.json
+msgid "Document Type"
+msgstr "Tipo de Documento"
+
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.py:67
+msgid "Duplicated PDF template for {} and {}"
+msgstr "Plantilla PDF duplicada para {} y {}"
+
 #: erpnext_mexico_compliance/config/desktop.py:8
 msgid "ERPNext Mexico Compliance"
 msgstr "ERPNext Cumplimiento para México"
@@ -355,25 +327,10 @@ msgstr "Archivos"
 msgid "From {}"
 msgstr "De {}"
 
-#. Option for the 'Tax Type' (Select) field in DocType 'Account'
-#: erpnext_mexico_compliance/fixtures/custom_field.json
-msgid "IEPS"
-msgstr ""
-
-#. Label of the column_break_imss (Column Break) field in DocType 'Employee'
-#: erpnext_mexico_compliance/fixtures/custom_field.json
-msgid "IMSS"
-msgstr ""
-
-#. Option for the 'Tax Type' (Select) field in DocType 'Account'
-#: erpnext_mexico_compliance/fixtures/custom_field.json
-msgid "ISR"
-msgstr ""
-
-#. Option for the 'Tax Type' (Select) field in DocType 'Account'
-#: erpnext_mexico_compliance/fixtures/custom_field.json
-msgid "IVA"
-msgstr ""
+#. Label of a HTML Editor field in DocType 'CFDI PDF Template'
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_pdf_template/cfdi_pdf_template.json
+msgid "HTML Content"
+msgstr "Contenido HTML"
 
 #. Description of the 'Stamp on submit' (Check) field in DocType 'CFDI Stamping
 #. Settings'
@@ -404,7 +361,7 @@ msgstr "CURP inválido"
 msgid "Invalid CURP format"
 msgstr "Formato de CURP inválido"
 
-#: erpnext_mexico_compliance/controllers/common.py:196
+#: erpnext_mexico_compliance/controllers/common.py:214
 msgid "Invalid Cancellation Reason"
 msgstr "Motivo de Cancelación inválido"
 
@@ -432,13 +389,7 @@ msgstr "RFC Inválido"
 msgid "Invoice has no billing address"
 msgstr "La factura no tiene dirección de facturación"
 
-#. Label of the mx_is_cancellable (Check) field in DocType 'Payment Entry'
-#. Label of the mx_is_cancellable (Check) field in DocType 'Sales Invoice'
-#: erpnext_mexico_compliance/fixtures/custom_field.json
-msgid "Is Cancellable"
-msgstr "Es Cancelable"
-
-#: erpnext_mexico_compliance/controllers/common.py:178
+#: erpnext_mexico_compliance/controllers/common.py:196
 msgid "Is Cancellable: {0}"
 msgstr "Es Cancelable: {0}"
 
@@ -492,18 +443,15 @@ msgstr ""
 msgid "Legal name: {0}"
 msgstr "Razón social: {0}"
 
+#. Label of a Link field in DocType 'CFDI PDF Template'
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_pdf_template/cfdi_pdf_template.json
+msgid "Letter Head"
+msgstr ""
+
 #. Name of a Workspace
-#. Label of the tab_mexico_compliance (Tab Break) field in DocType 'Employee'
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/workspace/mexico_compliance/mexico_compliance.json
-#: erpnext_mexico_compliance/fixtures/custom_field.json
 msgid "Mexico Compliance"
 msgstr "Cumplimiento para México"
-
-#. Label of the mx_mode_of_payment (Link) field in DocType 'Subscription'
-#. Label of the mode_of_payment (Link) field in DocType 'Sales Invoice'
-#: erpnext_mexico_compliance/fixtures/custom_field.json
-msgid "Mode of Payment"
-msgstr "Modo de Pago"
 
 #. Description of a Card Break in the Mexico Compliance Workspace
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/workspace/mexico_compliance/mexico_compliance.json
@@ -514,6 +462,11 @@ msgstr "Configuración del módulo"
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_product_or_service_key/sat_product_or_service_key.json
 msgid "Old Parent"
 msgstr "Padre antiguo"
+
+#. Label of a Table field in DocType 'CFDI Stamping Settings'
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.json
+msgid "PDF Templates"
+msgstr "Plantillas PDF"
 
 #. Label of a Link field in DocType 'SAT Product or Service Key'
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_product_or_service_key/sat_product_or_service_key.json
@@ -531,9 +484,13 @@ msgstr "Contraseña"
 msgid "Password for the certificate key"
 msgstr "Contraseña para la llave del certificado"
 
-#. Label of the mx_rfc (Data) field in DocType 'Employee'
-#: erpnext_mexico_compliance/fixtures/custom_field.json
-msgid "RFC"
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.js:23
+msgid "Please save the CFDI PDF Template first"
+msgstr "Por favor guarda la Plantilla PDF de CFDI primero"
+
+#. Label of a Button field in DocType 'CFDI PDF Template'
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_pdf_template/cfdi_pdf_template.json
+msgid "Print example"
 msgstr ""
 
 #: erpnext_mexico_compliance/overrides/employee.py:41
@@ -550,10 +507,7 @@ msgid "Reference {0} has not being stamped"
 msgstr "La referencia {0} no ha sido timbrada"
 
 #. Label of a Check field in DocType 'Cancellation Reason'
-#. Label of the requires_relationship (Check) field in DocType 'Payment Entry'
-#. Label of the requires_relationship (Check) field in DocType 'Sales Invoice'
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cancellation_reason/cancellation_reason.json
-#: erpnext_mexico_compliance/fixtures/custom_field.json
 msgid "Requires relationship"
 msgstr "Requiere relación"
 
@@ -562,18 +516,10 @@ msgstr "Requiere relación"
 msgid "Right"
 msgstr ""
 
-#. Label of the column_break_sat (Column Break) field in DocType 'Employee'
-#: erpnext_mexico_compliance/fixtures/custom_field.json
-msgid "SAT"
-msgstr ""
-
 #. Name of a DocType
 #. Label of a Link in the Mexico Compliance Workspace
-#. Label of the mx_cfdi_use (Link) field in DocType 'Customer'
-#. Label of the mx_cfdi_use (Link) field in DocType 'Sales Invoice'
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_cfdi_use/sat_cfdi_use.json
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/workspace/mexico_compliance/mexico_compliance.json
-#: erpnext_mexico_compliance/fixtures/custom_field.json
 msgid "SAT CFDI Use"
 msgstr "Uso de CFDI SAT"
 
@@ -589,71 +535,48 @@ msgstr "Catálogos del SAT para contabilidad"
 
 #. Name of a DocType
 #. Label of a Link in the Mexico Compliance Workspace
-#. Label of the sat_payment_method (Link) field in DocType 'Mode of Payment'
-#. Label of the mx_payment_mode (Data) field in DocType 'Payment Entry'
-#. Label of the mx_payment_mode (Data) field in DocType 'Sales Invoice'
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_payment_method/sat_payment_method.json
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/workspace/mexico_compliance/mexico_compliance.json
-#: erpnext_mexico_compliance/fixtures/custom_field.json
 msgid "SAT Payment Method"
 msgstr "Forma de Pago SAT"
 
 #. Name of a DocType
 #. Label of a Link in the Mexico Compliance Workspace
-#. Label of the mx_sat_payment_option (Link) field in DocType 'Subscription'
-#. Label of the mx_payment_option (Link) field in DocType 'Sales Invoice'
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_payment_option/sat_payment_option.json
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/workspace/mexico_compliance/mexico_compliance.json
-#: erpnext_mexico_compliance/fixtures/custom_field.json
 msgid "SAT Payment Option"
 msgstr "Método de Pago SAT"
 
 #. Name of a DocType
 #. Label of a Link in the Mexico Compliance Workspace
-#. Label of the mx_product_service_key (Link) field in DocType 'Sales Order
-#. Item'
-#. Label of the mx_product_service_key (Link) field in DocType 'Item'
-#. Label of the mx_product_service_key (Link) field in DocType 'Sales Invoice
-#. Item'
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_product_or_service_key/sat_product_or_service_key.json
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/workspace/mexico_compliance/mexico_compliance.json
-#: erpnext_mexico_compliance/fixtures/custom_field.json
 msgid "SAT Product or Service Key"
 msgstr "Clave SAT de Producto o Servicio"
 
 #. Name of a DocType
 #. Label of a Link in the Mexico Compliance Workspace
-#. Label of the mx_tax_regime (Link) field in DocType 'Company'
-#. Label of the mx_tax_regime (Link) field in DocType 'Customer'
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_tax_regime/sat_tax_regime.json
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/workspace/mexico_compliance/mexico_compliance.json
-#: erpnext_mexico_compliance/fixtures/custom_field.json
 msgid "SAT Tax Regime"
 msgstr "Régimen Fiscal SAT"
 
 #. Name of a DocType
 #. Label of a Link in the Mexico Compliance Workspace
-#. Label of the mx_uom_key (Link) field in DocType 'UOM'
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_uom_key/sat_uom_key.json
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/workspace/mexico_compliance/mexico_compliance.json
-#: erpnext_mexico_compliance/fixtures/custom_field.json
 msgid "SAT UOM Key"
 msgstr "Clave SAT de UDM"
 
-#. Label of the mx_ssn (Data) field in DocType 'Employee'
-#: erpnext_mexico_compliance/fixtures/custom_field.json
-msgid "SSN"
-msgstr "Número de Seguro Social"
-
-#. Label of the mx_second_last_name (Data) field in DocType 'Employee'
-#: erpnext_mexico_compliance/fixtures/custom_field.json
-msgid "Second Last Name"
-msgstr "Apellido Materno"
+#. Option for the 'Document Type' (Select) field in DocType 'CFDI PDF Template'
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_pdf_template/cfdi_pdf_template.json
+msgid "Sales Invoice"
+msgstr ""
 
 #: erpnext_mexico_compliance/public/js/payment_entry.js:19
-#: erpnext_mexico_compliance/public/js/payment_entry.js:117
+#: erpnext_mexico_compliance/public/js/payment_entry.js:119
 #: erpnext_mexico_compliance/public/js/sales_invoice.js:19
-#: erpnext_mexico_compliance/public/js/sales_invoice.js:109
+#: erpnext_mexico_compliance/public/js/sales_invoice.js:115
 msgid "Select a Certificate to sign the CFDI"
 msgstr "Selecciona un Certificado para firmar el CFDI"
 
@@ -662,8 +585,8 @@ msgstr "Selecciona un Certificado para firmar el CFDI"
 msgid "Settings"
 msgstr "Configuración"
 
-#: erpnext_mexico_compliance/public/js/payment_entry.js:134
-#: erpnext_mexico_compliance/public/js/sales_invoice.js:127
+#: erpnext_mexico_compliance/public/js/payment_entry.js:136
+#: erpnext_mexico_compliance/public/js/sales_invoice.js:133
 msgid "Stamp CFDI"
 msgstr "Timbrar CFDI"
 
@@ -671,23 +594,6 @@ msgstr "Timbrar CFDI"
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.json
 msgid "Stamp on submit"
 msgstr "Timbrar al validar"
-
-#. Label of the mx_stamped_xml (HTML Editor) field in DocType 'Payment Entry'
-#. Label of the mx_stamped_xml (HTML Editor) field in DocType 'Sales Invoice'
-#: erpnext_mexico_compliance/fixtures/custom_field.json
-msgid "Stamped XML"
-msgstr "XML Timbrado"
-
-#. Label of the substitute_invoice (Link) field in DocType 'Sales Invoice'
-#: erpnext_mexico_compliance/fixtures/custom_field.json
-msgid "Substitute invoice"
-msgstr "Factura sustituta"
-
-#. Label of the substitute_payment_entry (Link) field in DocType 'Payment
-#. Entry'
-#: erpnext_mexico_compliance/fixtures/custom_field.json
-msgid "Substitute payment entry"
-msgstr "Entrada de pago sustituta"
 
 #. Name of a role
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cancellation_reason/cancellation_reason.json
@@ -711,11 +617,6 @@ msgstr "El RFC cumple con las especificaciones del SAT"
 msgid "Tax Regime"
 msgstr "Régimen Fiscal"
 
-#. Label of the tax_type (Select) field in DocType 'Account'
-#: erpnext_mexico_compliance/fixtures/custom_field.json
-msgid "Tax Type"
-msgstr "Tipo de impuesto"
-
 #. Label of a Table field in DocType 'SAT CFDI Use'
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_cfdi_use/sat_cfdi_use.json
 msgid "Tax regimes"
@@ -734,9 +635,14 @@ msgstr "El motivo de cancelación requiere una factura sustituta."
 msgid "The Cancellation Reason requires a substitute payment entry."
 msgstr "El motivo de cancelación requiere una entrada de pago sustituta."
 
-#: erpnext_mexico_compliance/controllers/common.py:256
+#: erpnext_mexico_compliance/controllers/common.py:271
 msgid "This Document will be cancelled once the CFDI cancellation request is approved"
 msgstr "Este Documento será cancelado una vez que la solicitud de cancelación de CFDI sea aprobada"
+
+#. Label of a Data field in DocType 'CFDI PDF Template'
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_pdf_template/cfdi_pdf_template.json
+msgid "Title"
+msgstr "Título"
 
 #: erpnext_mexico_compliance/overrides/sales_invoice.py:89
 #: erpnext_mexico_compliance/overrides/sales_invoice_item.py:75
@@ -757,23 +663,11 @@ msgstr "Validar Certificado"
 msgid "Web Service"
 msgstr ""
 
-#. Label of the stamped_xml (Section Break) field in DocType 'Payment Entry'
-#. Label of the section_break_9ww80 (Section Break) field in DocType 'Sales
-#. Invoice'
-#: erpnext_mexico_compliance/fixtures/custom_field.json
-msgid "XML"
-msgstr ""
-
-#. Label of the mx_zip_code (Data) field in DocType 'Employee'
-#: erpnext_mexico_compliance/fixtures/custom_field.json
-msgid "Zip code"
-msgstr "Código postal"
-
-#: erpnext_mexico_compliance/controllers/common.py:219
+#: erpnext_mexico_compliance/controllers/common.py:237
 msgid "{} is required"
 msgstr "{} es requerido"
 
-#: erpnext_mexico_compliance/controllers/common.py:216
+#: erpnext_mexico_compliance/controllers/common.py:234
 msgid "{} is required when {} is {}"
 msgstr "{} es requerido cuando {} es {}"
 
