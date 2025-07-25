@@ -1,101 +1,115 @@
 {
-  "actions": [],
-  "autoname": "field:key",
-  "default_view": "List",
-  "doctype": "DocType",
-  "document_type": "Setup",
-  "editable_grid": 1,
-  "engine": "InnoDB",
-  "field_order": [
-    "enabled",
-    "section_break_1",
-    "key",
-    "key_name",
-    "column_break",
-    "uom_name",
-    "section_break_2",
-    "description"
-  ],
-  "fields": [
-    {
-      "default": "1",
-      "fieldname": "enabled",
-      "fieldtype": "Check",
-      "label": "Enabled"
-    },
-    {
-      "fieldname": "section_break_1",
-      "fieldtype": "Section Break"
-    },
-    {
-      "fieldname": "key",
-      "fieldtype": "Data",
-      "label": "Key",
-      "reqd": 1,
-      "unique": 1
-    },
-    {
-      "fieldname": "key_name",
-      "fieldtype": "Data",
-      "label": "Key Name",
-      "read_only": 1
-    },
-    {
-      "fieldname": "column_break",
-      "fieldtype": "Column Break"
-    },
-    {
-      "fieldname": "uom_name",
-      "fieldtype": "Data",
-      "label": "UOM Name",
-      "reqd": 1
-    },
-    {
-      "fieldname": "section_break_2",
-      "fieldtype": "Section Break"
-    },
-    {
-      "fieldname": "description",
-      "fieldtype": "Small Text",
-      "label": "Description"
-    }
-  ],
-  "index_web_pages_for_search": 1,
-  "links": [],
-  "modified_by": "Administrator",
-  "module": "ERPNext Mexico Compliance",
-  "name": "SAT UOM Key",
-  "naming_rule": "By fieldname",
-  "owner": "Administrator",
-  "permissions": [
-    {
-      "create": 1,
-      "delete": 1,
-      "email": 1,
-      "export": 1,
-      "print": 1,
-      "read": 1,
-      "report": 1,
-      "role": "System Manager",
-      "share": 1,
-      "write": 1
-    },
-    {
-      "create": 1,
-      "email": 1,
-      "export": 1,
-      "print": 1,
-      "read": 1,
-      "report": 1,
-      "role": "Accounts Manager",
-      "share": 1,
-      "write": 1
-    }
-  ],
-  "quick_entry": 1,
-  "show_title_field_in_link": 1,
-  "sort_field": "key_name",
-  "sort_order": "ASC",
-  "states": [],
-  "title_field": "key_name"
+ "actions": [],
+ "autoname": "field:key",
+ "creation": "2025-04-05 11:54:19.674704",
+ "default_view": "List",
+ "doctype": "DocType",
+ "document_type": "Setup",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "enabled",
+  "section_break_1",
+  "key",
+  "key_name",
+  "column_break",
+  "uom_name",
+  "section_break_2",
+  "description"
+ ],
+ "fields": [
+  {
+   "default": "1",
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "label": "Enabled"
+  },
+  {
+   "fieldname": "section_break_1",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "key",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Key",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "key_name",
+   "fieldtype": "Data",
+   "label": "Key Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "uom_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "UOM Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_2",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-07-24 21:35:59.664673",
+ "modified_by": "Administrator",
+ "module": "ERPNext Mexico Compliance",
+ "name": "SAT UOM Key",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts User",
+   "share": 1
+  }
+ ],
+ "quick_entry": 1,
+ "row_format": "Dynamic",
+ "show_title_field_in_link": 1,
+ "sort_field": "key_name",
+ "sort_order": "ASC",
+ "states": [],
+ "title_field": "key_name"
 }
