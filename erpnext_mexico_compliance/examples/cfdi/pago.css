@@ -1,0 +1,82 @@
+body {
+    font-size: 9pt;
+}
+
+h3 {
+    background-color: #333;
+    color: white;
+    margin-bottom: 0;
+    padding: 3px 0;
+    text-align: center;
+}
+
+h4 {
+    background-color: #555;
+    color: white;
+    font-size: 9.89pt;
+    margin-bottom: 0;
+    padding: 3px 0;
+    text-align: center;
+}
+
+h5 {
+    background-color: #777;
+    color: white;
+    font-size: 8.6pt;
+    margin-bottom: 0;
+    padding: 2.5px 0;
+    padding-left: 10px;
+}
+
+table {
+    font-size: 8.6pt;
+    width: 100%;
+    border-collapse: collapse;
+    border: none;
+}
+
+table table {
+    font-size: 7.47pt;
+}
+
+table table table {
+    font-size: 6.5pt;
+}
+
+th {
+    background-color: #e0e0e0;
+    border-right: 2px solid white;
+    padding: 2px;
+}
+
+th:last-child {
+    border-right: 0;
+}
+
+td {
+    vertical-align: top;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.taxes__td {
+    padding-left: 1%;
+    padding-right: 30%;
+    padding-bottom: 5px;
+}
+
+.total__table {
+    margin-left: 50%;
+    width: 50%;
+    border-top: solid 1px;
+}
+
+.tfd {
+    font-size: 5.65pt;
+}

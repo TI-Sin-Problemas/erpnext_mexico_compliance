@@ -16,3 +16,27 @@ frappe.ui.form.on("CFDI Stamping Settings", {
     }
   },
 });
+
+frappe.ui.form.on("CFDI PDF Template", {
+  print_example(frm, cdt, cdn) {
+    if (cdn.startsWith("new")) {
+      frappe.throw(__("Please save the CFDI PDF Template first"));
+    }
+    const url = `/api/method/erpnext_mexico_compliance.erpnext_mexico_compliance.doctype.cfdi_pdf_template.cfdi_pdf_template.print_example?docname=${cdn}`;
+    window.open(url);
+  },
+  async load_css_sample(frm, cdt, cdn) {
+    const { message } = await frappe.call({
+      method: "get_sample_css",
+      doc: frappe.get_doc(cdt, cdn),
+    });
+    frappe.model.set_value(cdt, cdn, "css_styles", message);
+  },
+  async load_content_sample(frm, cdt, cdn) {
+    const { message } = await frappe.call({
+      method: "get_sample_content",
+      doc: frappe.get_doc(cdt, cdn),
+    });
+    frappe.model.set_value(cdt, cdn, "content_html", message);
+  },
+});

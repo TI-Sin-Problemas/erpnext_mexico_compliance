@@ -64,3 +64,30 @@ class CfdiStatus:
             status=status,
             cancellation_status=cancellation_status,
         )
+
+
+@dataclass(frozen=True)
+class SubscriptionDetails:
+    """Represents the details of a subscription."""
+
+    available_credits: int
+    consumed_credits: int
+    has_subscription: bool
+
+    @classmethod
+    def from_json(cls, response: dict):
+        """
+        Creates a SubscriptionDetails object from a JSON response.
+
+        Args:
+            response (dict): The JSON response to parse.
+
+        Returns:
+            SubscriptionDetails: The parsed SubscriptionDetails object.
+        """
+        message = response.get("message", {})
+        return cls(
+            available_credits=message["available_credits"],
+            consumed_credits=message["consumed_credits"],
+            has_subscription=message["has_subscription"],
+        )

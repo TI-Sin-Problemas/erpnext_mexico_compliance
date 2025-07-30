@@ -25,10 +25,10 @@ class WSClient:
 
     response: requests.Response
     endpoints = {
-        "cancel": "/api/method/stamp_provider.api.v1.cancel",
-        "status": "/api/method/stamp_provider.api.v1.status",
-        "quota": "/api/method/stamp_provider.api.v1.quota",
-        "stamp": "/api/method/stamp_provider.api.v1.stamp",
+        "cancel": "/api/method/tisp_apps.api.v1.cfdi.cancel",
+        "status": "/api/method/tisp_apps.api.v1.cfdi.status",
+        "stamp": "/api/method/tisp_apps.api.v1.cfdi.stamp",
+        "subscription": "/api/method/tisp_apps.api.v1.cfdi.subscription_details",
     }
 
     def __init__(self, token: str, mode: OperationMode = OperationMode.TEST) -> None:
@@ -166,9 +166,9 @@ class WSClient:
         Returns:
             int: The number of available credits.
         """
-        self.response = self.session.get(self._get_uri("quota"), timeout=60)
+        self.response = self.session.get(self._get_uri("subscription"), timeout=60)
         self.raise_from_code()
-        return self._get_message()["available"]
+        return self._get_message()["available_credits"]
 
     def get_status(self, cfdi: CFDI) -> models.CfdiStatus:
         """
@@ -191,3 +191,13 @@ class WSClient:
         )
         self.raise_from_code()
         return models.CfdiStatus.from_json(self.response.json())
+
+    def get_subscription_details(self) -> models.SubscriptionDetails:
+        """Retrieves the subscription details from the CFDI Web Service.
+
+        Returns:
+            SubscriptionDetails: The subscription details.
+        """
+        self.response = self.session.get(self._get_uri("subscription"), timeout=60)
+        self.raise_from_code()
+        return models.SubscriptionDetails.from_json(self.response.json())
