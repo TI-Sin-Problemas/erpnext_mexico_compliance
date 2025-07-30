@@ -92,6 +92,11 @@ msgstr ""
 msgid "Available credits"
 msgstr ""
 
+#. Label of a HTML Editor field in DocType 'CFDI PDF Template'
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_pdf_template/cfdi_pdf_template.json
+msgid "Body"
+msgstr ""
+
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/digital_signing_certificate/digital_signing_certificate.py:82
 msgctxt "Company branch"
 msgid "Branch: {0}"
@@ -106,6 +111,12 @@ msgstr ""
 msgid "CFDI Code: {0}"
 msgstr ""
 
+#. Name of a DocType
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_pdf_template/cfdi_pdf_template.json
+msgid "CFDI PDF Template"
+msgstr ""
+
+#: erpnext_mexico_compliance/controllers/common.py:146
 #. Name of a DocType
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_pdf_template/cfdi_pdf_template.json
 msgid "CFDI PDF Template"
@@ -137,8 +148,13 @@ msgstr ""
 #. Label of a Code field in DocType 'CFDI PDF Template'
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_pdf_template/cfdi_pdf_template.json
 msgid "CSS Styles"
+#. Label of a Code field in DocType 'CFDI PDF Template'
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_pdf_template/cfdi_pdf_template.json
+msgid "CSS Styles"
 msgstr ""
 
+#: erpnext_mexico_compliance/public/js/payment_entry.js:134
+#: erpnext_mexico_compliance/public/js/sales_invoice.js:131
 #: erpnext_mexico_compliance/public/js/payment_entry.js:134
 #: erpnext_mexico_compliance/public/js/sales_invoice.js:131
 msgid "Cancel"
@@ -184,6 +200,8 @@ msgstr ""
 
 #: erpnext_mexico_compliance/public/js/payment_entry.js:140
 #: erpnext_mexico_compliance/public/js/sales_invoice.js:137
+#: erpnext_mexico_compliance/public/js/payment_entry.js:140
+#: erpnext_mexico_compliance/public/js/sales_invoice.js:137
 msgid "Check Cancellation Status"
 msgstr ""
 
@@ -199,9 +217,11 @@ msgid "Code"
 msgstr ""
 
 #. Label of a Link field in DocType 'CFDI PDF Template'
+#. Label of a Link field in DocType 'CFDI PDF Template'
 #. Label of a Link field in DocType 'Default CSD'
 #. Label of a Link field in DocType 'Digital Signing Certificate'
 #. Label of a Section Break field in DocType 'Digital Signing Certificate'
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_pdf_template/cfdi_pdf_template.json
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_pdf_template/cfdi_pdf_template.json
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/default_csd/default_csd.json
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/digital_signing_certificate/digital_signing_certificate.json
@@ -450,6 +470,11 @@ msgstr ""
 msgid "Letter Head"
 msgstr ""
 
+#. Label of a Link field in DocType 'CFDI PDF Template'
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_pdf_template/cfdi_pdf_template.json
+msgid "Letter Head"
+msgstr ""
+
 #. Name of a Workspace
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/workspace/mexico_compliance/mexico_compliance.json
 msgid "Mexico Compliance"
@@ -463,6 +488,11 @@ msgstr ""
 #. Label of a Link field in DocType 'SAT Product or Service Key'
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_product_or_service_key/sat_product_or_service_key.json
 msgid "Old Parent"
+msgstr ""
+
+#. Label of a Table field in DocType 'CFDI Stamping Settings'
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.json
+msgid "PDF Templates"
 msgstr ""
 
 #. Label of a Table field in DocType 'CFDI Stamping Settings'
@@ -486,6 +516,13 @@ msgstr ""
 msgid "Password for the certificate key"
 msgstr ""
 
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.js:23
+msgid "Please save the CFDI PDF Template first"
+msgstr ""
+
+#. Label of a Button field in DocType 'CFDI PDF Template'
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_pdf_template/cfdi_pdf_template.json
+msgid "Print example"
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.js:23
 msgid "Please save the CFDI PDF Template first"
 msgstr ""
@@ -573,11 +610,16 @@ msgstr ""
 #. Option for the 'Document Type' (Select) field in DocType 'CFDI PDF Template'
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_pdf_template/cfdi_pdf_template.json
 msgid "Sales Invoice"
+#. Option for the 'Document Type' (Select) field in DocType 'CFDI PDF Template'
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_pdf_template/cfdi_pdf_template.json
+msgid "Sales Invoice"
 msgstr ""
 
 #: erpnext_mexico_compliance/public/js/payment_entry.js:19
 #: erpnext_mexico_compliance/public/js/payment_entry.js:119
+#: erpnext_mexico_compliance/public/js/payment_entry.js:119
 #: erpnext_mexico_compliance/public/js/sales_invoice.js:19
+#: erpnext_mexico_compliance/public/js/sales_invoice.js:115
 #: erpnext_mexico_compliance/public/js/sales_invoice.js:115
 msgid "Select a Certificate to sign the CFDI"
 msgstr ""
@@ -587,6 +629,8 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
+#: erpnext_mexico_compliance/public/js/payment_entry.js:136
+#: erpnext_mexico_compliance/public/js/sales_invoice.js:133
 #: erpnext_mexico_compliance/public/js/payment_entry.js:136
 #: erpnext_mexico_compliance/public/js/sales_invoice.js:133
 msgid "Stamp CFDI"
@@ -639,6 +683,11 @@ msgstr ""
 
 #: erpnext_mexico_compliance/controllers/common.py:271
 msgid "This Document will be cancelled once the CFDI cancellation request is approved"
+msgstr ""
+
+#. Label of a Data field in DocType 'CFDI PDF Template'
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_pdf_template/cfdi_pdf_template.json
+msgid "Title"
 msgstr ""
 
 #. Label of a Data field in DocType 'CFDI PDF Template'
