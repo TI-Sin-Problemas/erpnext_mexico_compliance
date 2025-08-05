@@ -81,18 +81,21 @@ class CFDIPDFTemplate(Document):
             body = f"<body>{self.content_html}</body>"
         return f"<html>{head}{body}</html>"
 
-    def get_rendered_pdf(self, xml: str) -> bytes:
+    def get_rendered_pdf(self, xml: str, context: dict | None = None) -> bytes:
         """Renders the PDF template with the given XML and returns it as a PDF.
 
         Args:
             xml (str): The XML of the CFDI to render.
+            context (dict, optional): Additional context to render the template. Defaults to None.
 
         Returns:
             bytes: The rendered PDF.
         """
         cfdi = CFDI.from_string(xml.encode("utf-8"))
         qr = qr_as_base64(cfdi.verifica_url)
-        rendered = frappe.render_template(self.template, {"cfdi": cfdi, "qr": qr})
+        context = context or {}
+        context.update({"cfdi": cfdi, "qr": qr})
+        rendered = frappe.render_template(self.template, context)
         return get_pdf(rendered)
 
     def get_example_pdf(self):

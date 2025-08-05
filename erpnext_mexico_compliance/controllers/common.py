@@ -108,7 +108,9 @@ class CommonController(Document):
 
             file_data = render.pdf_bytes(cfdi)
         else:
-            file_data = template[0].get_rendered_pdf(self.mx_stamped_xml)
+            file_data = template[0].get_rendered_pdf(
+                self.mx_stamped_xml, context={"doc": self}
+            )
 
         ret = attach_file(file_name, file_data, self.doctype, self.name, is_private=1)
         self.run_method("after_attach_pdf")
