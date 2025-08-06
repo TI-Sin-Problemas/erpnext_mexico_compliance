@@ -79,21 +79,32 @@ class CFDIStampingSettings(Document):
         self._validate_children()
 
     @property
-    @redis_cache(ttl=43200)  # Cache for 12 hours
     def is_premium(self) -> bool:
-        """
-        Checks if the current account has a valid premium subscription.
+        """Determines if the account is a premium subscriber.
 
-        It first checks if the API key and secret are set. Then it uses the
-        Web Service client to retrieve the subscription details and checks
-        if the subscription is valid.
+        Checks if both the API key and API secret are set. If either is missing,
+        the account is not considered premium. Otherwise, it verifies the premium
+        status through an external check.
 
         Returns:
-            bool: True if the account has a valid premium subscription, False otherwise.
+            bool: True if the account is premium, False otherwise.
         """
         if not self.api_key or not self.api_secret:
             return False
+        return get_is_premium()
 
-        ws = ws_client.get_ws_client(self)
-        subscription = ws.get_subscription_details()
-        return subscription.has_subscription
+
+@redis_cache(ttl=43200)  # Cache for 12 hours
+def get_is_premium() -> bool:
+    """
+    Checks if the current account has a valid premium subscription.
+
+    It uses the Web Service client to retrieve the subscription details and
+    checks if the subscription is valid. The result is cached for 12 hours.
+
+    Returns:
+        bool: True if the account has a valid premium subscription, False otherwise.
+    """
+    ws = ws_client.get_ws_client()
+    subscription = ws.get_subscription_details()
+    return subscription.has_subscription
