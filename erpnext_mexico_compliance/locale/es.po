@@ -1,18 +1,22 @@
-
 msgid ""
 msgstr ""
-"Project-Id-Version:  erpnext-mexico-compliance\n"
+"Project-Id-Version: erpnext-mexico-compliance\n"
 "Report-Msgid-Bugs-To: info@tisinproblemas.com\n"
 "POT-Creation-Date: 2025-07-30 05:52+0000\n"
-"PO-Revision-Date: 2025-07-10 21:50+0000\n"
+"PO-Revision-Date: 2025-08-05 21:17\n"
 "Last-Translator: info@tisinproblemas.com\n"
-"Language: es_ES\n"
 "Language-Team: Spanish\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.13.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Crowdin-Project: erpnext-mexico-compliance\n"
+"X-Crowdin-Project-ID: 794316\n"
+"X-Crowdin-Language: es-ES\n"
+"X-Crowdin-File: /main/erpnext_mexico_compliance/locale/main.pot\n"
+"X-Crowdin-File-ID: 7\n"
+"Language: es_ES\n"
 
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.js:12
 msgid "1 credit is consumed every time a CFDI gets stamped"
@@ -197,6 +201,7 @@ msgstr "Estado de cancelación: {0}"
 
 #. Label of the cancellation_acknowledgement (HTML Editor) field in DocType
 #. 'Payment Entry'
+#. Label of the cancellation_acknowledgement (HTML Editor) field in DocType
 #. 'Sales Invoice'
 #: erpnext_mexico_compliance/fixtures/custom_field.json
 msgid "Cancellation acknowledgement"
@@ -704,6 +709,7 @@ msgstr "Método de Pago SAT"
 #. Item'
 #. Label of the mx_product_service_key (Link) field in DocType 'Item'
 #. Label of the mx_product_service_key (Link) field in DocType 'Sales Invoice
+#. Item'
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_product_or_service_key/sat_product_or_service_key.json
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/workspace/mexico_compliance/mexico_compliance.json
 #: erpnext_mexico_compliance/fixtures/custom_field.json
