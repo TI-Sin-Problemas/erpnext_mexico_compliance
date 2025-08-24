@@ -81,10 +81,13 @@ class CFDIPDFTemplate(Document):
             body = f"<body>{self.content_html}</body>"
         return f"<html>{head}{body}</html>"
 
-    def get_rendered_pdf(self, xml: str, context: dict | None = None) -> bytes:
+    def get_rendered_pdf(
+        self, xml: str, doc: Document, context: dict | None = None
+    ) -> bytes:
         """Renders the PDF template with the given XML and returns it as a PDF.
 
         Args:
+            doc (Document): The document to render the PDF for.
             xml (str): The XML of the CFDI to render.
             context (dict, optional): Additional context to render the template. Defaults to None.
 
@@ -94,9 +97,10 @@ class CFDIPDFTemplate(Document):
         cfdi = CFDI.from_string(xml.encode("utf-8"))
         qr = qr_as_base64(cfdi.verifica_url)
         context = context or {}
-        context.update({"cfdi": cfdi, "qr": qr})
+        context.update({"doc": doc, "cfdi": cfdi, "qr": qr})
         rendered = frappe.render_template(self.template, context)
-        return get_pdf(rendered)
+        options = {"margin-left": "5mm", "margin-right": "5mm"}
+        return get_pdf(rendered, options=options)
 
     def get_example_pdf(self):
         """Generates an example PDF using a sample CFDI XML file.
@@ -109,7 +113,11 @@ class CFDIPDFTemplate(Document):
         """
 
         xml = get_sample_file_content(self.document_type, "xml")
-        return self.get_rendered_pdf(xml)
+        doc = frappe.get_doc(
+            self.document_type,
+            frappe.get_all(self.document_type, limit_page_length=1)[0].name,
+        )
+        return self.get_rendered_pdf(xml, doc)
 
     @frappe.whitelist()
     def get_sample_content(self) -> str:
