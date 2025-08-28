@@ -54,7 +54,17 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
         """
         super().on_submit()
         settings: CFDIStampingSettings = frappe.get_single("CFDI Stamping Settings")
-        if settings.stamp_on_submit:
+        payment_options = [
+            doc.mx_payment_option if hasattr(doc, "mx_payment_option") else None
+            for doc in self.get_reference_docs()
+        ]
+        conditions = [
+            settings.stamp_on_submit,
+            self.payment_type == "Receive",
+            self.party_type == "Customer",
+            all(i == "PPD" for i in payment_options),
+        ]
+        if all(conditions):
             for s in settings.default_csds:
                 if s.company == self.company:
                     self.stamp_cfdi(s.csd)
