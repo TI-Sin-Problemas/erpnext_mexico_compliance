@@ -9,6 +9,7 @@ import frappe
 from erpnext.accounts.doctype.payment_entry import payment_entry
 from erpnext.setup.doctype.company.company import get_default_company_address
 from frappe import _
+from frappe.model.document import Document
 from frappe.utils.data import get_datetime
 from satcfdi.create.cfd import cfdi40, pago20
 from satcfdi.exceptions import SchemaValidationError
@@ -20,7 +21,7 @@ from ..erpnext_mexico_compliance.doctype.cfdi_stamping_settings.cfdi_stamping_se
 from ..erpnext_mexico_compliance.doctype.digital_signing_certificate.digital_signing_certificate import (
     DigitalSigningCertificate,
 )
-from ..ws_client import WSClientException, get_ws_client
+from ..ws_client import get_ws_client
 
 # temporary hack until https://github.com/frappe/frappe/issues/27373 is fixed
 if sys.path[0].rsplit("/", maxsplit=1)[-1] == "utils":
@@ -205,11 +206,11 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
             link = f'<a href="{company.get_url()}">{company.name}</a>'
             frappe.throw(_("Company {0} has no address").format(link))
 
-    def get_reference_docs(self) -> list[frappe.Document]:
+    def get_reference_docs(self) -> list[Document]:
         """List of documents associated with the current payment entry.
 
         Returns:
-            list[frappe.Document]: List of documents associated with the current payment entry.
+            list[Document]: List of documents associated with the current payment entry.
         """
 
         return [
