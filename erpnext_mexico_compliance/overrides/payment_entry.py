@@ -54,7 +54,17 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
         """
         super().on_submit()
         settings: CFDIStampingSettings = frappe.get_single("CFDI Stamping Settings")
-        if settings.stamp_on_submit:
+        payment_options = [
+            doc.mx_payment_option if hasattr(doc, "mx_payment_option") else None
+            for doc in self.get_reference_docs()
+        ]
+        conditions = [
+            settings.stamp_on_submit,
+            self.payment_type == "Receive",
+            self.party_type == "Customer",
+            all(i == "PPD" for i in payment_options),
+        ]
+        if all(conditions):
             for s in settings.default_csds:
                 if s.company == self.company:
                     self.stamp_cfdi(s.csd)
@@ -195,6 +205,18 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
             link = f'<a href="{company.get_url()}">{company.name}</a>'
             frappe.throw(_("Company {0} has no address").format(link))
 
+    def get_reference_docs(self) -> list[frappe.Document]:
+        """List of documents associated with the current payment entry.
+
+        Returns:
+            list[frappe.Document]: List of documents associated with the current payment entry.
+        """
+
+        return [
+            frappe.get_doc(r.reference_doctype, r.reference_name)
+            for r in self.references
+        ]
+
     def validate_references(self):
         """Validates the references in the payment entry.
 
@@ -205,11 +227,22 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
             frappe.ValidationError: If any of the references have not been stamped.
         """
         msgs = []
-        for pe_ref in self.references:
-            ref = frappe.get_doc(pe_ref.reference_doctype, pe_ref.reference_name)
+        for ref in self.get_reference_docs():
+            if ref.doctype != "Sales Invoice":
+                msg = _("Cannot stamp a payment entry with a {0} reference").format(
+                    ref.doctype
+                )
+                msgs.append(msg)
+
             if not ref.mx_stamped_xml:
                 anchor = f'<a href="{ref.get_url()}">{ref.name}</a>'
                 msgs.append(_("Reference {0} has not being stamped").format(anchor))
+
+            if ref.mx_payment_option != "PPD":
+                msg = _("SAT Payment Option for reference {0} is not PPD").format(
+                    ref.mx_payment_option
+                )
+                msgs.append(msg)
 
         if len(msgs) > 0:
             frappe.throw(msgs, as_list=True)
