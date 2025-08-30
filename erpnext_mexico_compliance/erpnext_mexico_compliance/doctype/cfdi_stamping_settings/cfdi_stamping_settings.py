@@ -91,7 +91,10 @@ class CFDIStampingSettings(Document):
         """
         if not self.api_key or not self.api_secret:
             return False
-        return get_is_premium()
+        try:
+            return get_is_premium()
+        except frappe.exceptions.ValidationError:
+            return False
 
 
 @redis_cache(ttl=43200)  # Cache for 12 hours
