@@ -13,7 +13,12 @@ function stampCfdi(frm) {
       },
     ],
     async ({ certificate }) => {
-      await frm.call("stamp_cfdi", { certificate });
+      await frm.call({
+        method: "stamp_cfdi",
+        doc: frm.doc,
+        args: { certificate },
+        freeze: true,
+      });
       frm.reload_doc();
     },
     __("Select a Certificate to sign the CFDI")
