@@ -313,6 +313,7 @@ class CommonController(Document):
             return None
 
         root = etree.Element("{http://www.sat.gob.mx/cfd/4}Addenda")
-        child = etree.fromstring(self.mx_addenda)
+        rendered_addenda = frappe.render_template(self.mx_addenda, {"doc": self})
+        child = etree.fromstring(rendered_addenda)
         root.append(child)
         return root
