@@ -10,6 +10,7 @@ from frappe import _
 from frappe.client import attach_file
 from frappe.model.document import Document
 from frappe.model.naming import NamingSeries
+from lxml import etree
 from satcfdi.cfdi import CFDI
 from satcfdi.create.cfd import cfdi40
 
@@ -125,8 +126,16 @@ class CommonController(Document):
         """
         self.run_method("before_attach_xml")
         file_name = f"{self.name}_CFDI.xml"
-        xml = self.mx_stamped_xml
-        ret = attach_file(file_name, xml, self.doctype, self.name, is_private=1)
+
+        if hasattr(self, "mx_addenda") and self.mx_addenda:
+            xml = etree.fromstring(self.mx_stamped_xml.encode("utf-8"))
+            xml.append(self.build_addenda())
+            content = etree.tostring(xml, xml_declaration=True, encoding="utf-8")
+            content = content.decode()
+        else:
+            content = self.mx_stamped_xml
+
+        ret = attach_file(file_name, content, self.doctype, self.name, is_private=1)
         self.run_method("after_attach_xml")
         return ret
 
@@ -290,3 +299,20 @@ class CommonController(Document):
         """Generates a QR code from the CFDI verification URL and returns it in base64-encoded PNG
         format."""
         return qr_as_base64(self.mx_cfdi_obj.verifica_url)
+
+    def build_addenda(self) -> etree.Element:
+        """Builds the addenda XML element for the document.
+
+        This method checks if the document has a Mexican addenda and constructs an XML element
+        with the appropriate namespace. If no addenda is found, it returns None.
+
+        Returns:
+            etree.Element | None: The constructed addenda XML element or None if no addenda is present.
+        """
+        if not hasattr(self, "mx_addenda") or not self.mx_addenda:
+            return None
+
+        root = etree.Element("{http://www.sat.gob.mx/cfd/4}Addenda")
+        child = etree.fromstring(self.mx_addenda)
+        root.append(child)
+        return root
