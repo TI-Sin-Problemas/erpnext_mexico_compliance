@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: erpnext-mexico-compliance\n"
 "Report-Msgid-Bugs-To: info@tisinproblemas.com\n"
 "POT-Creation-Date: 2025-07-30 05:52+0000\n"
-"PO-Revision-Date: 2025-08-31 03:59\n"
+"PO-Revision-Date: 2025-08-31 04:11\n"
 "Last-Translator: info@tisinproblemas.com\n"
 "Language-Team: Spanish, Mexico\n"
 "MIME-Version: 1.0\n"
@@ -86,7 +86,7 @@ msgstr ""
 #. Description of the 'Addenda' (HTML Editor) field in DocType 'Sales Invoice'
 #: erpnext_mexico_compliance/fixtures/custom_field.json
 msgid "Add extra XML code into the \"Addenda\" tag of the CFDI Invoices created for this Customer. You can use jinja template code style and the `doc` variable to access the Document's attributes."
-msgstr ""
+msgstr "Añadir código XML extra en la etiqueta \"Addenda\" de las facturas CFDI creadas para este cliente. Puedes usar el estilo de código de plantilla de jinja y la variable `doc` para acceder a los atributos del documento."
 
 #. Label of the mx_addenda (HTML Editor) field in DocType 'Customer'
 #. Label of the mx_addenda (HTML Editor) field in DocType 'Sales Invoice'
@@ -227,7 +227,7 @@ msgstr "Motivo de cancelación"
 
 #: erpnext_mexico_compliance/overrides/payment_entry.py:233
 msgid "Cannot stamp a payment entry with a {0} reference"
-msgstr ""
+msgstr "No se puede timbrar una entrada de pago con una referencia {0}"
 
 #. Label of a Attach field in DocType 'Digital Signing Certificate'
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/digital_signing_certificate/digital_signing_certificate.json
@@ -721,7 +721,7 @@ msgstr "Método de Pago SAT"
 
 #: erpnext_mexico_compliance/overrides/payment_entry.py:243
 msgid "SAT Payment Option for reference {0} is not PPD"
-msgstr ""
+msgstr "El Método de Pago SAT para la referencia {0} no es PPD"
 
 #. Name of a DocType
 #. Label of a Link in the Mexico Compliance Workspace
