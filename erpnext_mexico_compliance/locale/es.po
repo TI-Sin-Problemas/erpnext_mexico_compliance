@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: erpnext-mexico-compliance\n"
 "Report-Msgid-Bugs-To: info@tisinproblemas.com\n"
 "POT-Creation-Date: 2025-07-30 05:52+0000\n"
-"PO-Revision-Date: 2025-08-05 21:17\n"
+"PO-Revision-Date: 2025-08-31 02:10\n"
 "Last-Translator: info@tisinproblemas.com\n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -804,7 +804,7 @@ msgstr "Administrador del sistema"
 
 #: erpnext_mexico_compliance/overrides/customer.py:24
 msgid "Tax Id does not comply with SAT specifications"
-msgstr "El RFC cumple con las especificaciones del SAT"
+msgstr "El RFC no cumple con las especificaciones del SAT"
 
 #. Label of a Link field in DocType 'SAT CFDI Use Tax Regime'
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_cfdi_use_tax_regime/sat_cfdi_use_tax_regime.json
