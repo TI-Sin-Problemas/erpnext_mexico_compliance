@@ -4,6 +4,7 @@ For license information, please see license.txt
 """
 
 import frappe
+import lxml
 from erpnext.selling.doctype.customer.customer import Customer as ERPNextCustomer
 from frappe import _
 
@@ -42,5 +43,16 @@ class Customer(ERPNextCustomer):
         if self.is_mexican and self.tax_id:
             self.tax_id = self.tax_id.upper()
             self.validate_mexican_tax_id()
+
+        if self.mx_addenda:
+            # Parse the XML string into an Element instance
+            element = lxml.etree.fromstring(self.mx_addenda)
+            if not element.nsmap:
+                # If the element element does not have a namespace, set it
+                # to the default namespace for SAT CFDI 4.0
+                element.tag = "{http://www.sat.gob.mx/cfd/4}" + element.tag
+                for e in element:
+                    e.tag = "{http://www.sat.gob.mx/cfd/4}" + e.tag
+            self.mx_addenda = lxml.etree.tostring(element, encoding="unicode")
 
         return super().validate()

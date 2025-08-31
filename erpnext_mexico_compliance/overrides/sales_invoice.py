@@ -44,6 +44,7 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
         cancellation_reason: DF.Link
         substitute_invoice: DF.Link
         cancellation_acknowledgement: DF.HTMLEditor
+        mx_addenda: DF.HTMLEditor
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
