@@ -65,10 +65,12 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
         super().on_submit()
         settings: CFDIStampingSettings = frappe.get_single("CFDI Stamping Settings")
         if settings.stamp_on_submit:
-            for s in settings.default_csds:
-                if s.company == self.company:
-                    self.stamp_cfdi(s.csd)
-                    break
+            csd = frappe.get_value("Default CSD", {"company": self.company}, "csd")
+            # If stamping fails, do not block the submission of the sales invoice
+            try:
+                self.stamp_cfdi(csd)
+            except Exception as e:
+                frappe.msgprint(str(e), title=_("CFDI Stamping Error"))
 
     @property
     def subscription_duration_display(self) -> str:
