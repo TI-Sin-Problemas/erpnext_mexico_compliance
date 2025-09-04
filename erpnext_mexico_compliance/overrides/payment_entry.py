@@ -66,10 +66,12 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
             all(i == "PPD" for i in payment_options),
         ]
         if all(conditions):
-            for s in settings.default_csds:
-                if s.company == self.company:
-                    self.stamp_cfdi(s.csd)
-                    break
+            csd = frappe.get_value("Default CSD", {"company": self.company}, "csd")
+            # If stamping fails, do not block the submission of the payment entry
+            try:
+                self.stamp_cfdi(csd)
+            except Exception as e:
+                frappe.msgprint(str(e), title=_("CFDI Stamping Error"))
 
     @property
     def company_address(self) -> str:
