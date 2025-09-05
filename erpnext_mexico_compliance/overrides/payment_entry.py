@@ -262,8 +262,7 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
         ws = get_ws_client()
         xml = ws.stamp(cfdi)
 
-        self.mx_stamped_xml = xml
-        self.save()
+        self.db_set("mx_stamped_xml", xml)
 
     @frappe.whitelist()
     def has_file(self, file_name: str) -> bool:
