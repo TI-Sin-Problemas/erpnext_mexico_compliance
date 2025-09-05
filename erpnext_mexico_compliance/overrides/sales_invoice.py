@@ -265,8 +265,7 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
         ws = get_ws_client()
         xml = ws.stamp(cfdi)
 
-        self.mx_stamped_xml = xml
-        self.save()
+        self.db_set("mx_stamped_xml", xml)
 
     @property
     def requires_relationship(self) -> int:
