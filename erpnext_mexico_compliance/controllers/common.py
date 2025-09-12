@@ -17,7 +17,7 @@ from satcfdi.create.cfd import cfdi40
 from erpnext_mexico_compliance.erpnext_mexico_compliance.doctype.cfdi_stamping_settings.cfdi_stamping_settings import (
     CFDIStampingSettings,
 )
-from erpnext_mexico_compliance.utils import qr_as_base64
+from erpnext_mexico_compliance.utils import money_in_words, qr_as_base64
 
 from ..erpnext_mexico_compliance.doctype.digital_signing_certificate.digital_signing_certificate import (
     DigitalSigningCertificate,
@@ -317,3 +317,20 @@ class CommonController(Document):
         child = etree.fromstring(rendered_addenda)
         root.append(child)
         return root
+
+    def set_total_in_words(self):
+        if self.meta.get_field("base_in_words"):
+            base_amount = abs(
+                self.base_grand_total
+                if self.is_rounded_total_disabled()
+                else self.base_rounded_total
+            )
+            self.base_in_words = money_in_words(base_amount, self.company_currency)
+
+        if self.meta.get_field("in_words"):
+            amount = abs(
+                self.grand_total
+                if self.is_rounded_total_disabled()
+                else self.rounded_total
+            )
+            self.in_words = money_in_words(amount, self.currency)
