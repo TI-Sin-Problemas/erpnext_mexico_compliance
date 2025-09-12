@@ -26,11 +26,7 @@ def qr_as_base64(content: str, scale: int = 2, quiet_zone: int = 1) -> str:
     return qr.png_as_base64_str(scale=scale, quiet_zone=quiet_zone)
 
 
-def money_in_words(
-    number: str | float | int,
-    main_currency: str | None = None,
-    fraction_currency: str | None = None,
-):
+def money_in_words(number: str | float | int, main_currency: str | None = None):
     """Converts a number to a string with currency and fraction currency.
 
     Based on `frappe.utils.money_in_words`, but addapted for Mexican format
@@ -38,7 +34,6 @@ def money_in_words(
     Args:
         number (str | float | int): The number to convert.
         main_currency (str, optional): The main currency. Defaults to None.
-        fraction_currency (str, optional): The fraction currency. Defaults to None.
 
     Returns:
         str: The string representation of the number with currency and fraction currency.
@@ -56,10 +51,6 @@ def money_in_words(
     d = get_defaults()
     if not main_currency:
         main_currency = d.get("currency", "MXN")
-    if not fraction_currency:
-        fraction_currency = frappe.db.get_value(
-            "Currency", main_currency, "fraction", cache=True
-        ) or _("Cent")
 
     number_format = (
         frappe.db.get_value("Currency", main_currency, "number_format", cache=True)
