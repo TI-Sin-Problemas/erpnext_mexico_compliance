@@ -14,6 +14,8 @@ from frappe.utils.data import get_datetime
 from satcfdi.create.cfd import cfdi40, pago20
 from satcfdi.exceptions import SchemaValidationError
 
+from erpnext_mexico_compliance.utils import money_in_words
+
 from ..controllers.common import CommonController
 from ..erpnext_mexico_compliance.doctype.cfdi_stamping_settings.cfdi_stamping_settings import (
     CFDIStampingSettings,
@@ -313,6 +315,19 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
             Document: The result of the cancellation operation.
         """
         return super()._cancel_cfdi(certificate, "substitute_payment_entry")
+
+    def set_total_in_words(self):
+        if self.payment_type in ("Pay", "Internal Transfer"):
+            base_amount = abs(self.base_paid_amount)
+            amount = abs(self.paid_amount)
+            currency = self.paid_from_account_currency
+        elif self.payment_type == "Receive":
+            base_amount = abs(self.base_received_amount)
+            amount = abs(self.received_amount)
+            currency = self.paid_to_account_currency
+
+        self.base_in_words = money_in_words(base_amount, self.company_currency)
+        self.in_words = money_in_words(amount, currency)
 
 
 def get_installment_number(
