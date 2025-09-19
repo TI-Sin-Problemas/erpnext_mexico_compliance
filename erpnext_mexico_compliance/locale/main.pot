@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ERPNext Mexico Compliance VERSION\n"
 "Report-Msgid-Bugs-To: info@tisinproblemas.com\n"
-"POT-Creation-Date: 2025-09-12 05:30+0000\n"
-"PO-Revision-Date: 2025-09-12 05:30+0000\n"
+"POT-Creation-Date: 2025-09-19 16:28+0000\n"
+"PO-Revision-Date: 2025-09-19 16:28+0000\n"
 "Last-Translator: info@tisinproblemas.com\n"
 "Language-Team: info@tisinproblemas.com\n"
 "MIME-Version: 1.0\n"
@@ -92,13 +92,13 @@ msgstr ""
 msgid "Addenda"
 msgstr ""
 
-#: erpnext_mexico_compliance/overrides/payment_entry.py:130
-#: erpnext_mexico_compliance/overrides/payment_entry.py:205
-#: erpnext_mexico_compliance/overrides/sales_invoice.py:140
+#: erpnext_mexico_compliance/overrides/payment_entry.py:132
+#: erpnext_mexico_compliance/overrides/payment_entry.py:207
+#: erpnext_mexico_compliance/overrides/sales_invoice.py:142
 msgid "Address {0} has no zip code"
 msgstr ""
 
-#: erpnext_mexico_compliance/overrides/payment_entry.py:163
+#: erpnext_mexico_compliance/overrides/payment_entry.py:165
 msgid "All references must have the same total amount, partial payments are not supported"
 msgstr ""
 
@@ -153,8 +153,8 @@ msgstr ""
 msgid "CFDI Stamped Successfully"
 msgstr ""
 
-#: erpnext_mexico_compliance/overrides/payment_entry.py:74
-#: erpnext_mexico_compliance/overrides/sales_invoice.py:73
+#: erpnext_mexico_compliance/overrides/payment_entry.py:76
+#: erpnext_mexico_compliance/overrides/sales_invoice.py:75
 msgid "CFDI Stamping Error"
 msgstr ""
 
@@ -228,12 +228,8 @@ msgstr ""
 msgid "Cancellation reason"
 msgstr ""
 
-#: erpnext_mexico_compliance/overrides/payment_entry.py:235
+#: erpnext_mexico_compliance/overrides/payment_entry.py:237
 msgid "Cannot stamp a payment entry with a {0} reference"
-msgstr ""
-
-#: erpnext_mexico_compliance/utils.py:62
-msgid "Cent"
 msgstr ""
 
 #. Label of a Attach field in DocType 'Digital Signing Certificate'
@@ -297,8 +293,8 @@ msgstr ""
 msgid "Company for which this certificate will be used to sign CFDI"
 msgstr ""
 
-#: erpnext_mexico_compliance/overrides/payment_entry.py:209
-#: erpnext_mexico_compliance/overrides/sales_invoice.py:144
+#: erpnext_mexico_compliance/overrides/payment_entry.py:211
+#: erpnext_mexico_compliance/overrides/sales_invoice.py:146
 msgid "Company {0} has no address"
 msgstr ""
 
@@ -327,16 +323,20 @@ msgstr ""
 msgid "Customer"
 msgstr ""
 
-#: erpnext_mexico_compliance/overrides/sales_invoice.py:170
+#: erpnext_mexico_compliance/overrides/sales_invoice.py:172
 msgid "Customer address {0} has no zip code"
 msgstr ""
 
-#: erpnext_mexico_compliance/overrides/sales_invoice.py:161
+#: erpnext_mexico_compliance/overrides/customer.py:52
+msgid "Customer with Tax Id {0} already exists"
+msgstr ""
+
+#: erpnext_mexico_compliance/overrides/sales_invoice.py:163
 msgid "Customer {0} has no tax ID"
 msgstr ""
 
-#: erpnext_mexico_compliance/overrides/payment_entry.py:90
-#: erpnext_mexico_compliance/overrides/sales_invoice.py:164
+#: erpnext_mexico_compliance/overrides/payment_entry.py:92
+#: erpnext_mexico_compliance/overrides/sales_invoice.py:166
 msgid "Customer {0} has no tax regime"
 msgstr ""
 
@@ -418,7 +418,7 @@ msgstr ""
 msgid "Files"
 msgstr ""
 
-#: erpnext_mexico_compliance/overrides/sales_invoice.py:91
+#: erpnext_mexico_compliance/overrides/sales_invoice.py:93
 #: erpnext_mexico_compliance/overrides/sales_invoice_item.py:71
 msgid "From {}"
 msgstr ""
@@ -459,8 +459,8 @@ msgstr ""
 msgid "Indicates the method used to make a payment, in accordance with the SAT catalog of payment methods"
 msgstr ""
 
-#: erpnext_mexico_compliance/overrides/payment_entry.py:260
-#: erpnext_mexico_compliance/overrides/sales_invoice.py:263
+#: erpnext_mexico_compliance/overrides/payment_entry.py:262
+#: erpnext_mexico_compliance/overrides/sales_invoice.py:265
 msgid "Invalid CFDI"
 msgstr ""
 
@@ -476,7 +476,7 @@ msgstr ""
 msgid "Invalid Cancellation Reason"
 msgstr ""
 
-#: erpnext_mexico_compliance/overrides/payment_entry.py:335
+#: erpnext_mexico_compliance/overrides/payment_entry.py:350
 msgid "Invalid Document Type"
 msgstr ""
 
@@ -496,7 +496,7 @@ msgstr ""
 msgid "Invalid Tax Id"
 msgstr ""
 
-#: erpnext_mexico_compliance/overrides/sales_invoice.py:172
+#: erpnext_mexico_compliance/overrides/sales_invoice.py:174
 msgid "Invoice has no billing address"
 msgstr ""
 
@@ -662,8 +662,8 @@ msgstr ""
 msgid "RFC: {0}"
 msgstr ""
 
-#: erpnext_mexico_compliance/overrides/payment_entry.py:147
-#: erpnext_mexico_compliance/overrides/payment_entry.py:242
+#: erpnext_mexico_compliance/overrides/payment_entry.py:149
+#: erpnext_mexico_compliance/overrides/payment_entry.py:244
 msgid "Reference {0} has not being stamped"
 msgstr ""
 
@@ -726,7 +726,7 @@ msgstr ""
 msgid "SAT Payment Option"
 msgstr ""
 
-#: erpnext_mexico_compliance/overrides/payment_entry.py:245
+#: erpnext_mexico_compliance/overrides/payment_entry.py:247
 msgid "SAT Payment Option for reference {0} is not PPD"
 msgstr ""
 
@@ -876,7 +876,7 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: erpnext_mexico_compliance/overrides/sales_invoice.py:92
+#: erpnext_mexico_compliance/overrides/sales_invoice.py:94
 #: erpnext_mexico_compliance/overrides/sales_invoice_item.py:75
 msgid "To {}"
 msgstr ""

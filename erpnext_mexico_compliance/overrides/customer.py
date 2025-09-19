@@ -39,10 +39,25 @@ class Customer(ERPNextCustomer):
         address = self.get_primary_address()
         return address.country.upper().startswith("MEX")
 
+    def validate_duplicate_tax_id(self):
+        if not self.tax_id:
+            return
+
+        if self.tax_id.upper() == "XEXX010101000":
+            return
+
+        if frappe.db.exists(
+            "Customer", {"tax_id": self.tax_id, "name": ["!=", self.name]}
+        ):
+            msg = _("Customer with Tax Id {0} already exists").format(self.tax_id)
+            frappe.throw(msg)
+
     def validate(self):
         if self.is_mexican and self.tax_id:
             self.tax_id = self.tax_id.upper()
             self.validate_mexican_tax_id()
+
+        self.validate_duplicate_tax_id()
 
         if self.mx_addenda:
             # Parse the XML string into an Element instance
