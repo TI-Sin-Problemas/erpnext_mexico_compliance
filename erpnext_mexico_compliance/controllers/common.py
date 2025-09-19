@@ -273,7 +273,7 @@ class CommonController(Document):
         substitute_uuid = None
         if substitute_name:
             substitute = frappe.get_doc(self.doctype, self.substitute_payment_entry)
-            substitute_uuid = substitute.cfdi_uuid
+            substitute_uuid = substitute.mx_uuid
 
         self.cancellation_acknowledgement = ws.cancel(
             certificate, cfdi, self.cancellation_reason, substitute_uuid

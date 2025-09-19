@@ -15,6 +15,7 @@ from satcfdi.create.cfd import cfdi40, pago20
 from satcfdi.exceptions import SchemaValidationError
 
 from erpnext_mexico_compliance.utils import money_in_words
+from erpnext_mexico_compliance.utils.cfdi import get_uuid_from_xml
 
 from ..controllers.common import CommonController
 from ..erpnext_mexico_compliance.doctype.cfdi_stamping_settings.cfdi_stamping_settings import (
@@ -110,7 +111,7 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
             last_balance = pe_ref.allocated_amount + pe_ref.outstanding_amount
             result.append(
                 pago20.DoctoRelacionado(
-                    id_documento=ref.cfdi_uuid,
+                    id_documento=ref.mx_uuid,
                     moneda_dr=ref.currency,
                     num_parcialidad=get_installment_number(
                         ref.doctype, ref.name, self.name
@@ -265,6 +266,7 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
         xml = ws.stamp(cfdi)
 
         self.db_set("mx_stamped_xml", xml)
+        self.db_set("mx_uuid", get_uuid_from_xml(xml))
 
     @frappe.whitelist()
     def has_file(self, file_name: str) -> bool:
@@ -291,18 +293,6 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
             return 0
         reason = frappe.get_doc("Cancellation Reason", self.cancellation_reason)
         return reason.requires_relationship
-
-    @property
-    def cfdi_uuid(self) -> str | None:
-        """CFDI UUID from the stamped XML.
-
-        Returns:
-            str | None: The CFDI UUID if the stamped XML is available, otherwise None.
-        """
-        if not self.mx_stamped_xml:
-            return None
-        cfdi = cfdi40.CFDI.from_string(self.mx_stamped_xml.encode("utf-8"))
-        return cfdi.get("Complemento", {}).get("TimbreFiscalDigital", {}).get("UUID")
 
     @frappe.whitelist()
     def cancel_cfdi(self, certificate: str):
