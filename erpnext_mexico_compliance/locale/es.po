@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: erpnext-mexico-compliance\n"
 "Report-Msgid-Bugs-To: info@tisinproblemas.com\n"
 "POT-Creation-Date: 2025-09-19 16:28+0000\n"
-"PO-Revision-Date: 2025-09-19 18:00\n"
+"PO-Revision-Date: 2025-09-20 02:10\n"
 "Last-Translator: info@tisinproblemas.com\n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -331,7 +331,7 @@ msgstr "La dirección del cliente {0} no tiene código postal"
 
 #: erpnext_mexico_compliance/overrides/customer.py:52
 msgid "Customer with Tax Id {0} already exists"
-msgstr ""
+msgstr "Cliente con Id de impuestos {0} ya existe"
 
 #: erpnext_mexico_compliance/overrides/sales_invoice.py:163
 msgid "Customer {0} has no tax ID"
