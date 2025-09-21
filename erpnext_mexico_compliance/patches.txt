@@ -1,1 +1,0 @@
-erpnext_mexico_compliance.patches.v0_5.add_uuid
