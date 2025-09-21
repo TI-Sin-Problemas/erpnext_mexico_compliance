@@ -87,7 +87,10 @@ after_sync = "erpnext_mexico_compliance.install.after_sync"
 # Migration
 # ------------
 
-# after_migrate = "erpnext_mexico_compliance.migrate.after_migrate"
+after_migrate = [
+    "erpnext_mexico_compliance.migrate.set_sales_invoices_uuid",
+    "erpnext_mexico_compliance.migrate.set_payment_entries_uuid",
+]
 # before_migrate = "erpnext_mexico_compliance.migrate.before_migrate"
 
 # Integration Setup
