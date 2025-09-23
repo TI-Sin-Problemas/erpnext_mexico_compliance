@@ -14,6 +14,7 @@ from frappe.utils.data import get_datetime
 from satcfdi.create.cfd import cfdi40, pago20
 from satcfdi.exceptions import SchemaValidationError
 
+from erpnext_mexico_compliance.overrides.sales_invoice import SalesInvoice
 from erpnext_mexico_compliance.utils import money_in_words
 from erpnext_mexico_compliance.utils.cfdi import get_uuid_from_xml
 
@@ -145,11 +146,13 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
         if all(r.total_amount == r.allocated_amount for r in self.references):
             invoices = []
             for r in self.references:
-                invoice = frappe.get_doc(r.reference_doctype, r.reference_name)
+                invoice: SalesInvoice = frappe.get_doc(  # type: ignore
+                    r.reference_doctype, r.reference_name
+                )
                 if not invoice.mx_stamped_xml:
                     msg = _("Reference {0} has not being stamped").format(invoice.name)
                     frappe.throw(msg)
-                cfdi = cfdi40.CFDI.from_string(invoice.mx_stamped_xml.encode("utf-8"))
+                cfdi = invoice.mx_cfdi_obj
                 invoices.append(cfdi)
             return cfdi40.Comprobante.pago_comprobantes(
                 comprobantes=invoices,
