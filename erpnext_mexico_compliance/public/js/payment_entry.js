@@ -150,6 +150,18 @@ function refresh(frm) {
   }
 }
 
+function setup(frm) {
+  frm.set_query("substitute_payment_entry", (doc) => {
+    return {
+      filters: [
+        ["name", "!=", doc.name],
+        ["mx_stamped_xml", "is", "set"],
+      ],
+    };
+  });
+}
+
 frappe.ui.form.on("Payment Entry", {
   refresh,
+  setup,
 });
