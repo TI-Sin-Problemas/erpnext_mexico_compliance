@@ -272,7 +272,7 @@ class CommonController(Document):
         substitute_name = getattr(self, substitute_field)
         substitute_uuid = None
         if substitute_name:
-            substitute = frappe.get_doc(self.doctype, self.substitute_payment_entry)
+            substitute = frappe.get_doc(self.doctype, substitute_name)
             substitute_uuid = substitute.mx_uuid
 
         self.cancellation_acknowledgement = ws.cancel(
