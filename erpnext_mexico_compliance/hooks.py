@@ -19,7 +19,7 @@ required_apps = ["erpnext"]
 
 # include js, css files in header of web template
 # web_include_css = "/assets/erpnext_mexico_compliance/css/erpnext_mexico_compliance.css"
-# web_include_js = "/assets/erpnext_mexico_compliance/js/erpnext_mexico_compliance.js"
+web_include_js = "/assets/erpnext_mexico_compliance/js/portal_invoice.js"
 
 # include custom scss in every website theme (without file extension ".scss")
 # website_theme_scss = "erpnext_mexico_compliance/public/scss/website"
