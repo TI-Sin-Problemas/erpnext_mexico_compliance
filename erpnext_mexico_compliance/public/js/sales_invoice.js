@@ -160,8 +160,7 @@ function setup(frm) {
     return {
       filters: [
         ["name", "!=", doc.name],
-        ["customer", "=", doc.customer],
-        ["mx_stamped_xml", "!=", ""],
+        ["mx_stamped_xml", "is", "set"],
       ],
     };
   });
