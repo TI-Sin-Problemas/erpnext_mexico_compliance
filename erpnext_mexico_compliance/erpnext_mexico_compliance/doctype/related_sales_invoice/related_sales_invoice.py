@@ -17,8 +17,8 @@ class RelatedSalesInvoice(Document):
 		parent: DF.Data
 		parentfield: DF.Data
 		parenttype: DF.Data
-		sales_invoice: DF.Link | None
-		sat_relationship_type: DF.Link | None
+		sales_invoice: DF.Link
+		sat_relationship_type: DF.Link
 		uuid: DF.Data | None
 	# end: auto-generated types
 	pass
