@@ -16,14 +16,17 @@ from frappe.utils import get_datetime
 from satcfdi.create.cfd import catalogos, cfdi40
 from satcfdi.exceptions import SchemaValidationError
 
-from erpnext_mexico_compliance.utils import money_in_words
-from erpnext_mexico_compliance.utils.cfdi import get_uuid_from_xml
-
-from ..controllers.common import CommonController
-from ..erpnext_mexico_compliance.doctype.cfdi_stamping_settings.cfdi_stamping_settings import (
+from erpnext_mexico_compliance.controllers.common import CommonController
+from erpnext_mexico_compliance.erpnext_mexico_compliance.doctype.cfdi_stamping_settings.cfdi_stamping_settings import (
     CFDIStampingSettings,
 )
-from ..ws_client import get_ws_client
+from erpnext_mexico_compliance.erpnext_mexico_compliance.doctype.related_sales_invoice.related_sales_invoice import (
+    RelatedSalesInvoice,
+)
+from erpnext_mexico_compliance.utils import money_in_words
+from erpnext_mexico_compliance.utils.cfdi import get_uuid_from_xml
+from erpnext_mexico_compliance.ws_client import get_ws_client
+
 from .customer import Customer
 
 # temporary hack until https://github.com/frappe/frappe/issues/27373 is fixed
@@ -48,6 +51,7 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
         substitute_invoice: DF.Link
         cancellation_acknowledgement: DF.HTMLEditor
         mx_addenda: DF.HTMLEditor
+        mx_related_sales_invoices: DF.Table[RelatedSalesInvoice]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -221,6 +225,11 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
 
     def get_cfdi_voucher(self, csd) -> cfdi40.Comprobante:
         address = frappe.get_doc("Address", self.company_address)
+
+        related_documents = {}
+        for rsi in self.mx_related_sales_invoices:
+            related_documents.setdefault(rsi.sat_relationship_type, []).append(rsi.uuid)
+
         return cfdi40.Comprobante(
             emisor=csd.get_issuer(),
             lugar_expedicion=address.pincode,
@@ -236,6 +245,9 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
             ),
             metodo_pago=self.mx_payment_option,
             fecha=self.posting_datetime,
+            cfdi_relacionados=[
+                cfdi40.CfdiRelacionados(k, v) for k, v in related_documents.items()
+            ],
         )
 
     @frappe.whitelist()
@@ -336,3 +348,16 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
                 else self.rounded_total
             )
             self.in_words = money_in_words(amount, self.currency)
+
+    def validate(self):
+        super().validate()
+
+        # Check if all related sales invoices have been stamped
+        msgs = []
+        for r in self.mx_related_sales_invoices:
+            if not r.uuid:
+                msg = _("Related Sales Invoice {0} has not been stamped")
+                msgs.append(msg.format(r.sales_invoice))
+
+        if len(msgs) > 0:
+            frappe.throw(msgs, as_list=True)  # type: ignore
