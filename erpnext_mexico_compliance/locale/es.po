@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: erpnext-mexico-compliance\n"
 "Report-Msgid-Bugs-To: info@tisinproblemas.com\n"
 "POT-Creation-Date: 2025-09-23 20:22+0000\n"
-"PO-Revision-Date: 2025-09-23 21:43\n"
+"PO-Revision-Date: 2025-09-26 21:53\n"
 "Last-Translator: info@tisinproblemas.com\n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -389,7 +389,7 @@ msgstr "Tipo de Documento"
 
 #: erpnext_mexico_compliance/public/js/portal_invoice.js:8
 msgid "Download CFDI files"
-msgstr ""
+msgstr "Descargar archivos CFDI"
 
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.py:74
 msgid "Duplicated PDF template for {} and {}"
