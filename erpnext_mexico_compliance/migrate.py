@@ -2,7 +2,7 @@
 
 import frappe
 
-from .setup import remove_splitted_fixtures, split_big_fixtures
+from .sat import update_sat_catalogs
 from .utils.cfdi import get_uuid_from_xml
 
 
@@ -33,11 +33,7 @@ def set_payment_entries_uuid():
         frappe.db.set_value("Payment Entry", name, "mx_uuid", get_uuid_from_xml(xml))
 
 
-def after_migrate():
-    """Run after migration taskis"""
-    remove_splitted_fixtures()
-
-
-def before_migrate():
-    """Run after migration tasks"""
-    split_big_fixtures()
+def enqueue_sat_catalogs_update():
+    """Queues a task to update the SAT Catalogs for the current site."""
+    print(f"Queued update of SAT Catalogs for {frappe.local.site}")
+    frappe.enqueue(update_sat_catalogs, queue="long")

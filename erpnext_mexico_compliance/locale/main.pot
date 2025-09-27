@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ERPNext Mexico Compliance VERSION\n"
 "Report-Msgid-Bugs-To: info@tisinproblemas.com\n"
-"POT-Creation-Date: 2025-09-23 20:22+0000\n"
-"PO-Revision-Date: 2025-09-23 20:22+0000\n"
+"POT-Creation-Date: 2025-09-27 04:18+0000\n"
+"PO-Revision-Date: 2025-09-27 04:18+0000\n"
 "Last-Translator: info@tisinproblemas.com\n"
 "Language-Team: info@tisinproblemas.com\n"
 "MIME-Version: 1.0\n"
@@ -33,7 +33,7 @@ msgstr ""
 msgid "A Cancellation Reason is required to cancel this sales invoice."
 msgstr ""
 
-#: erpnext_mexico_compliance/controllers/common.py:225
+#: erpnext_mexico_compliance/controllers/common.py:226
 msgid "A Cancellation Reason is required."
 msgstr ""
 
@@ -63,6 +63,7 @@ msgstr ""
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_payment_method/sat_payment_method.json
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_payment_option/sat_payment_option.json
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_product_or_service_key/sat_product_or_service_key.json
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_relationship_type/sat_relationship_type.json
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_tax_regime/sat_tax_regime.json
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_uom_key/sat_uom_key.json
 msgid "Accounts Manager"
@@ -75,6 +76,7 @@ msgstr ""
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_payment_method/sat_payment_method.json
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_payment_option/sat_payment_option.json
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_product_or_service_key/sat_product_or_service_key.json
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_relationship_type/sat_relationship_type.json
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_tax_regime/sat_tax_regime.json
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_uom_key/sat_uom_key.json
 msgid "Accounts User"
@@ -92,13 +94,13 @@ msgstr ""
 msgid "Addenda"
 msgstr ""
 
-#: erpnext_mexico_compliance/overrides/payment_entry.py:133
-#: erpnext_mexico_compliance/overrides/payment_entry.py:210
-#: erpnext_mexico_compliance/overrides/sales_invoice.py:143
+#: erpnext_mexico_compliance/overrides/payment_entry.py:134
+#: erpnext_mexico_compliance/overrides/payment_entry.py:211
+#: erpnext_mexico_compliance/overrides/sales_invoice.py:147
 msgid "Address {0} has no zip code"
 msgstr ""
 
-#: erpnext_mexico_compliance/overrides/payment_entry.py:168
+#: erpnext_mexico_compliance/overrides/payment_entry.py:169
 msgid "All references must have the same total amount, partial payments are not supported"
 msgstr ""
 
@@ -140,7 +142,7 @@ msgstr ""
 msgid "CFDI Actions"
 msgstr ""
 
-#: erpnext_mexico_compliance/controllers/common.py:206
+#: erpnext_mexico_compliance/controllers/common.py:207
 msgid "CFDI Code: {0}"
 msgstr ""
 
@@ -149,12 +151,12 @@ msgstr ""
 msgid "CFDI PDF Template"
 msgstr ""
 
-#: erpnext_mexico_compliance/controllers/common.py:158
+#: erpnext_mexico_compliance/controllers/common.py:159
 msgid "CFDI Stamped Successfully"
 msgstr ""
 
-#: erpnext_mexico_compliance/overrides/payment_entry.py:77
-#: erpnext_mexico_compliance/overrides/sales_invoice.py:76
+#: erpnext_mexico_compliance/overrides/payment_entry.py:78
+#: erpnext_mexico_compliance/overrides/sales_invoice.py:80
 msgid "CFDI Stamping Error"
 msgstr ""
 
@@ -165,7 +167,7 @@ msgstr ""
 msgid "CFDI Stamping Settings"
 msgstr ""
 
-#: erpnext_mexico_compliance/controllers/common.py:207
+#: erpnext_mexico_compliance/controllers/common.py:208
 msgid "CFDI Status: {0}"
 msgstr ""
 
@@ -173,7 +175,7 @@ msgstr ""
 msgid "CFDI Web Service Error"
 msgstr ""
 
-#: erpnext_mexico_compliance/controllers/common.py:286
+#: erpnext_mexico_compliance/controllers/common.py:287
 msgid "CFDI cancellation requested successfully"
 msgstr ""
 
@@ -210,7 +212,7 @@ msgstr ""
 msgid "Cancellation Reason"
 msgstr ""
 
-#: erpnext_mexico_compliance/controllers/common.py:209
+#: erpnext_mexico_compliance/controllers/common.py:210
 msgid "Cancellation Status: {0}"
 msgstr ""
 
@@ -228,7 +230,7 @@ msgstr ""
 msgid "Cancellation reason"
 msgstr ""
 
-#: erpnext_mexico_compliance/overrides/payment_entry.py:240
+#: erpnext_mexico_compliance/overrides/payment_entry.py:241
 msgid "Cannot stamp a payment entry with a {0} reference"
 msgstr ""
 
@@ -273,7 +275,9 @@ msgid "Check this field if the cancelled invoice needs to have another related i
 msgstr ""
 
 #. Label of a Data field in DocType 'Cancellation Reason'
+#. Label of a Data field in DocType 'SAT Relationship Type'
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cancellation_reason/cancellation_reason.json
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_relationship_type/sat_relationship_type.json
 msgid "Code"
 msgstr ""
 
@@ -293,8 +297,8 @@ msgstr ""
 msgid "Company for which this certificate will be used to sign CFDI"
 msgstr ""
 
-#: erpnext_mexico_compliance/overrides/payment_entry.py:214
-#: erpnext_mexico_compliance/overrides/sales_invoice.py:147
+#: erpnext_mexico_compliance/overrides/payment_entry.py:215
+#: erpnext_mexico_compliance/overrides/sales_invoice.py:151
 msgid "Company {0} has no address"
 msgstr ""
 
@@ -323,7 +327,7 @@ msgstr ""
 msgid "Customer"
 msgstr ""
 
-#: erpnext_mexico_compliance/overrides/sales_invoice.py:173
+#: erpnext_mexico_compliance/overrides/sales_invoice.py:177
 msgid "Customer address {0} has no zip code"
 msgstr ""
 
@@ -331,12 +335,12 @@ msgstr ""
 msgid "Customer with Tax Id {0} already exists"
 msgstr ""
 
-#: erpnext_mexico_compliance/overrides/sales_invoice.py:164
+#: erpnext_mexico_compliance/overrides/sales_invoice.py:168
 msgid "Customer {0} has no tax ID"
 msgstr ""
 
-#: erpnext_mexico_compliance/overrides/payment_entry.py:93
-#: erpnext_mexico_compliance/overrides/sales_invoice.py:167
+#: erpnext_mexico_compliance/overrides/payment_entry.py:94
+#: erpnext_mexico_compliance/overrides/sales_invoice.py:171
 msgid "Customer {0} has no tax regime"
 msgstr ""
 
@@ -355,6 +359,7 @@ msgstr ""
 #. Label of a Data field in DocType 'SAT Payment Method'
 #. Label of a Data field in DocType 'SAT Payment Option'
 #. Label of a Data field in DocType 'SAT Product or Service Key'
+#. Label of a Data field in DocType 'SAT Relationship Type'
 #. Label of a Data field in DocType 'SAT Tax Regime'
 #. Label of a Small Text field in DocType 'SAT UOM Key'
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cancellation_reason/cancellation_reason.json
@@ -362,6 +367,7 @@ msgstr ""
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_payment_method/sat_payment_method.json
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_payment_option/sat_payment_option.json
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_product_or_service_key/sat_product_or_service_key.json
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_relationship_type/sat_relationship_type.json
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_tax_regime/sat_tax_regime.json
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_uom_key/sat_uom_key.json
 msgid "Description"
@@ -401,12 +407,14 @@ msgstr ""
 #. Label of a Check field in DocType 'SAT Payment Method'
 #. Label of a Check field in DocType 'SAT Payment Option'
 #. Label of a Check field in DocType 'SAT Product or Service Key'
+#. Label of a Check field in DocType 'SAT Relationship Type'
 #. Label of a Check field in DocType 'SAT Tax Regime'
 #. Label of a Check field in DocType 'SAT UOM Key'
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_cfdi_use/sat_cfdi_use.json
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_payment_method/sat_payment_method.json
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_payment_option/sat_payment_option.json
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_product_or_service_key/sat_product_or_service_key.json
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_relationship_type/sat_relationship_type.json
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_tax_regime/sat_tax_regime.json
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_uom_key/sat_uom_key.json
 msgid "Enabled"
@@ -422,7 +430,7 @@ msgstr ""
 msgid "Files"
 msgstr ""
 
-#: erpnext_mexico_compliance/overrides/sales_invoice.py:94
+#: erpnext_mexico_compliance/overrides/sales_invoice.py:98
 #: erpnext_mexico_compliance/overrides/sales_invoice_item.py:71
 msgid "From {}"
 msgstr ""
@@ -463,7 +471,7 @@ msgstr ""
 msgid "Indicates the method used to make a payment, in accordance with the SAT catalog of payment methods"
 msgstr ""
 
-#: erpnext_mexico_compliance/overrides/payment_entry.py:265
+#: erpnext_mexico_compliance/overrides/payment_entry.py:266
 #: erpnext_mexico_compliance/overrides/sales_invoice.py:278
 msgid "Invalid CFDI"
 msgstr ""
@@ -476,11 +484,11 @@ msgstr ""
 msgid "Invalid CURP format"
 msgstr ""
 
-#: erpnext_mexico_compliance/controllers/common.py:226
+#: erpnext_mexico_compliance/controllers/common.py:227
 msgid "Invalid Cancellation Reason"
 msgstr ""
 
-#: erpnext_mexico_compliance/overrides/payment_entry.py:342
+#: erpnext_mexico_compliance/overrides/payment_entry.py:343
 msgid "Invalid Document Type"
 msgstr ""
 
@@ -500,7 +508,7 @@ msgstr ""
 msgid "Invalid Tax Id"
 msgstr ""
 
-#: erpnext_mexico_compliance/overrides/sales_invoice.py:175
+#: erpnext_mexico_compliance/overrides/sales_invoice.py:179
 msgid "Invoice has no billing address"
 msgstr ""
 
@@ -510,7 +518,7 @@ msgstr ""
 msgid "Is Cancellable"
 msgstr ""
 
-#: erpnext_mexico_compliance/controllers/common.py:208
+#: erpnext_mexico_compliance/controllers/common.py:209
 msgid "Is Cancellable: {0}"
 msgstr ""
 
@@ -666,9 +674,24 @@ msgstr ""
 msgid "RFC: {0}"
 msgstr ""
 
-#: erpnext_mexico_compliance/overrides/payment_entry.py:152
-#: erpnext_mexico_compliance/overrides/payment_entry.py:247
+#: erpnext_mexico_compliance/overrides/payment_entry.py:153
+#: erpnext_mexico_compliance/overrides/payment_entry.py:248
 msgid "Reference {0} has not being stamped"
+msgstr ""
+
+#. Name of a DocType
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/related_sales_invoice/related_sales_invoice.json
+msgid "Related Sales Invoice"
+msgstr ""
+
+#: erpnext_mexico_compliance/overrides/sales_invoice.py:359
+msgid "Related Sales Invoice {0} has not been stamped"
+msgstr ""
+
+#. Label of the mx_related_sales_invoices (Table) field in DocType 'Sales
+#. Invoice'
+#: erpnext_mexico_compliance/fixtures/custom_field.json
+msgid "Related Sales Invoices"
 msgstr ""
 
 #. Label of a Check field in DocType 'Cancellation Reason'
@@ -730,7 +753,7 @@ msgstr ""
 msgid "SAT Payment Option"
 msgstr ""
 
-#: erpnext_mexico_compliance/overrides/payment_entry.py:250
+#: erpnext_mexico_compliance/overrides/payment_entry.py:251
 msgid "SAT Payment Option for reference {0} is not PPD"
 msgstr ""
 
@@ -745,6 +768,13 @@ msgstr ""
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/workspace/mexico_compliance/mexico_compliance.json
 #: erpnext_mexico_compliance/fixtures/custom_field.json
 msgid "SAT Product or Service Key"
+msgstr ""
+
+#. Label of a Link field in DocType 'Related Sales Invoice'
+#. Name of a DocType
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/related_sales_invoice/related_sales_invoice.json
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_relationship_type/sat_relationship_type.json
+msgid "SAT Relationship Type"
 msgstr ""
 
 #. Name of a DocType
@@ -772,7 +802,9 @@ msgid "SSN"
 msgstr ""
 
 #. Option for the 'Document Type' (Select) field in DocType 'CFDI PDF Template'
+#. Label of a Link field in DocType 'Related Sales Invoice'
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_pdf_template/cfdi_pdf_template.json
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/related_sales_invoice/related_sales_invoice.json
 msgid "Sales Invoice"
 msgstr ""
 
@@ -828,6 +860,7 @@ msgstr ""
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_payment_method/sat_payment_method.json
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_payment_option/sat_payment_option.json
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_product_or_service_key/sat_product_or_service_key.json
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_relationship_type/sat_relationship_type.json
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_tax_regime/sat_tax_regime.json
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_uom_key/sat_uom_key.json
 msgid "System Manager"
@@ -865,7 +898,7 @@ msgstr ""
 msgid "The Cancellation Reason requires a substitute payment entry."
 msgstr ""
 
-#: erpnext_mexico_compliance/controllers/common.py:283
+#: erpnext_mexico_compliance/controllers/common.py:284
 msgid "This Document will be cancelled once the CFDI cancellation request is approved"
 msgstr ""
 
@@ -880,7 +913,7 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: erpnext_mexico_compliance/overrides/sales_invoice.py:95
+#: erpnext_mexico_compliance/overrides/sales_invoice.py:99
 #: erpnext_mexico_compliance/overrides/sales_invoice_item.py:75
 msgid "To {}"
 msgstr ""
@@ -890,10 +923,17 @@ msgstr ""
 msgid "UOM Name"
 msgstr ""
 
+#. Label of a Data field in DocType 'Related Sales Invoice'
 #. Label of the mx_uuid (Data) field in DocType 'Sales Invoice'
 #. Label of the mx_uuid (Data) field in DocType 'Payment Entry'
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/related_sales_invoice/related_sales_invoice.json
 #: erpnext_mexico_compliance/fixtures/custom_field.json
 msgid "UUID"
+msgstr ""
+
+#. Label of a Date field in DocType 'SAT Relationship Type'
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_relationship_type/sat_relationship_type.json
+msgid "Valid From"
 msgstr ""
 
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/digital_signing_certificate/digital_signing_certificate.js:7
@@ -917,11 +957,11 @@ msgstr ""
 msgid "Zip code"
 msgstr ""
 
-#: erpnext_mexico_compliance/controllers/common.py:249
+#: erpnext_mexico_compliance/controllers/common.py:250
 msgid "{} is required"
 msgstr ""
 
-#: erpnext_mexico_compliance/controllers/common.py:246
+#: erpnext_mexico_compliance/controllers/common.py:247
 msgid "{} is required when {} is {}"
 msgstr ""
 
