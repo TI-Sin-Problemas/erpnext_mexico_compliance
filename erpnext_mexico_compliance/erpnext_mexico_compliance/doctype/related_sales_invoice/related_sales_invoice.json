@@ -40,7 +40,7 @@
  "modified": "2025-09-26 17:05:11.822881",
  "modified_by": "Administrator",
  "module": "ERPNext Mexico Compliance",
- "name": "Sales Invoice Relationship",
+ "name": "Related Sales Invoice",
  "owner": "Administrator",
  "permissions": [],
  "row_format": "Dynamic",
