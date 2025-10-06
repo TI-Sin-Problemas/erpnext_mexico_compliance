@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: erpnext-mexico-compliance\n"
 "Report-Msgid-Bugs-To: info@tisinproblemas.com\n"
 "POT-Creation-Date: 2025-09-27 04:18+0000\n"
-"PO-Revision-Date: 2025-09-27 04:42\n"
+"PO-Revision-Date: 2025-10-06 01:49\n"
 "Last-Translator: info@tisinproblemas.com\n"
 "Language-Team: Spanish, Mexico\n"
 "MIME-Version: 1.0\n"
@@ -605,7 +605,7 @@ msgstr "Cumplimiento para México"
 #. Label of the mode_of_payment (Link) field in DocType 'Sales Invoice'
 #: erpnext_mexico_compliance/fixtures/custom_field.json
 msgid "Mode of Payment"
-msgstr ""
+msgstr "Modo de Pago"
 
 #. Description of a Card Break in the Mexico Compliance Workspace
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/workspace/mexico_compliance/mexico_compliance.json
@@ -684,17 +684,17 @@ msgstr "La referencia {0} no ha sido timbrada"
 #. Name of a DocType
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/related_sales_invoice/related_sales_invoice.json
 msgid "Related Sales Invoice"
-msgstr ""
+msgstr "Factura de Ventas Relacionada"
 
 #: erpnext_mexico_compliance/overrides/sales_invoice.py:359
 msgid "Related Sales Invoice {0} has not been stamped"
-msgstr ""
+msgstr "La Factura de Ventas relacionada {0} no ha sido timbrada"
 
 #. Label of the mx_related_sales_invoices (Table) field in DocType 'Sales
 #. Invoice'
 #: erpnext_mexico_compliance/fixtures/custom_field.json
 msgid "Related Sales Invoices"
-msgstr ""
+msgstr "Facturas de Venta Relacionadas"
 
 #. Label of a Check field in DocType 'Cancellation Reason'
 #. Label of the requires_relationship (Check) field in DocType 'Payment Entry'
@@ -777,7 +777,7 @@ msgstr "Clave SAT de Producto o Servicio"
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/related_sales_invoice/related_sales_invoice.json
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_relationship_type/sat_relationship_type.json
 msgid "SAT Relationship Type"
-msgstr ""
+msgstr "Tipo de Relación SAT"
 
 #. Name of a DocType
 #. Label of a Link in the Mexico Compliance Workspace
