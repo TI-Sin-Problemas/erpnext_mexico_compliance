@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: erpnext-mexico-compliance\n"
 "Report-Msgid-Bugs-To: info@tisinproblemas.com\n"
 "POT-Creation-Date: 2025-09-27 04:18+0000\n"
-"PO-Revision-Date: 2025-09-27 04:42\n"
+"PO-Revision-Date: 2025-10-06 00:49\n"
 "Last-Translator: info@tisinproblemas.com\n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -684,17 +684,17 @@ msgstr "La referencia {0} no ha sido timbrada"
 #. Name of a DocType
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/related_sales_invoice/related_sales_invoice.json
 msgid "Related Sales Invoice"
-msgstr ""
+msgstr "Factura de Ventas Relacionada"
 
 #: erpnext_mexico_compliance/overrides/sales_invoice.py:359
 msgid "Related Sales Invoice {0} has not been stamped"
-msgstr ""
+msgstr "La Factura de Ventas relacionada {0} no ha sido timbrada"
 
 #. Label of the mx_related_sales_invoices (Table) field in DocType 'Sales
 #. Invoice'
 #: erpnext_mexico_compliance/fixtures/custom_field.json
 msgid "Related Sales Invoices"
-msgstr ""
+msgstr "Facturas de Venta Relacionadas"
 
 #. Label of a Check field in DocType 'Cancellation Reason'
 #. Label of the requires_relationship (Check) field in DocType 'Payment Entry'
