@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: erpnext-mexico-compliance\n"
 "Report-Msgid-Bugs-To: info@tisinproblemas.com\n"
 "POT-Creation-Date: 2025-09-27 04:18+0000\n"
-"PO-Revision-Date: 2025-10-06 00:49\n"
+"PO-Revision-Date: 2025-10-06 01:49\n"
 "Last-Translator: info@tisinproblemas.com\n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -777,7 +777,7 @@ msgstr "Clave SAT de Producto o Servicio"
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/related_sales_invoice/related_sales_invoice.json
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_relationship_type/sat_relationship_type.json
 msgid "SAT Relationship Type"
-msgstr ""
+msgstr "Tipo de Relación SAT"
 
 #. Name of a DocType
 #. Label of a Link in the Mexico Compliance Workspace
