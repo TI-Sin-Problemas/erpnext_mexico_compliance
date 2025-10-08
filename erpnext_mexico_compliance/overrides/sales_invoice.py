@@ -247,7 +247,6 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
             cfdi_relacionados=[
                 cfdi40.CfdiRelacionados(k, v) for k, v in related_documents.items()
             ],
-            _traslados_sobre_totales=True,
         )
 
     @frappe.whitelist()
