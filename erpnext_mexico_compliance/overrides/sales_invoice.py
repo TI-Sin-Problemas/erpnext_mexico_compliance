@@ -10,6 +10,12 @@ from decimal import Decimal
 import frappe
 from erpnext.accounts.doctype.sales_invoice import sales_invoice
 from erpnext.setup.doctype.company.company import Company, get_default_company_address
+from frappe import _
+from frappe.contacts.doctype.address.address import Address
+from frappe.utils import get_datetime
+from satcfdi.create.cfd import catalogos, cfdi40
+from satcfdi.exceptions import SchemaValidationError
+
 from erpnext_mexico_compliance.controllers.common import CommonController
 from erpnext_mexico_compliance.erpnext_mexico_compliance.doctype.cfdi_stamping_settings.cfdi_stamping_settings import (
     CFDIStampingSettings,
@@ -20,11 +26,6 @@ from erpnext_mexico_compliance.erpnext_mexico_compliance.doctype.related_sales_i
 from erpnext_mexico_compliance.utils import money_in_words
 from erpnext_mexico_compliance.utils.cfdi import get_uuid_from_xml
 from erpnext_mexico_compliance.ws_client import get_ws_client
-from frappe import _
-from frappe.contacts.doctype.address.address import Address
-from frappe.utils import get_datetime
-from satcfdi.create.cfd import catalogos, cfdi40
-from satcfdi.exceptions import SchemaValidationError
 
 from .customer import Customer
 
@@ -359,7 +360,4 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
                 msgs.append(msg.format(r.sales_invoice))
 
         if len(msgs) > 0:
-            frappe.throw(msgs, as_list=True)  # type: ignore
-            frappe.throw(msgs, as_list=True)  # type: ignore
-            frappe.throw(msgs, as_list=True)  # type: ignore
             frappe.throw(msgs, as_list=True)  # type: ignore
