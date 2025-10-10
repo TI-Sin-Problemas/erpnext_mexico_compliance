@@ -175,11 +175,10 @@ class CommonController(Document):
         status = ws.get_status(cfdi)
         if status.is_cancellable == status.CancellableStatus.NOT_CANCELLABLE:
             self.mx_is_cancellable = 0
-            return self.save()
 
         if status.status == status.DocumentStatus.CANCELLED:
             return self.cancel()
-        return None
+        return self.save()
 
     @frappe.whitelist()
     def check_cancellation_status(self):
