@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: erpnext-mexico-compliance\n"
 "Report-Msgid-Bugs-To: info@tisinproblemas.com\n"
 "POT-Creation-Date: 2025-10-12 05:40+0000\n"
-"PO-Revision-Date: 2025-10-12 20:01\n"
+"PO-Revision-Date: 2025-10-12 21:23\n"
 "Last-Translator: info@tisinproblemas.com\n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -624,7 +624,7 @@ msgstr "Configuración del módulo"
 
 #: erpnext_mexico_compliance/api/v1/__init__.py:74
 msgid "No cancellation acknowledgement available for {0} {1}."
-msgstr ""
+msgstr "Acuse de cancelación no disponible para {0} {1}."
 
 #. Label of a Link field in DocType 'SAT Product or Service Key'
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_product_or_service_key/sat_product_or_service_key.json
@@ -971,7 +971,7 @@ msgstr ""
 #. Label of the mx_zip_code (Data) field in DocType 'Employee'
 #: erpnext_mexico_compliance/fixtures/custom_field.json
 msgid "Zip code"
-msgstr ""
+msgstr "Código postal"
 
 #: erpnext_mexico_compliance/controllers/common.py:249
 msgid "{} is required"
