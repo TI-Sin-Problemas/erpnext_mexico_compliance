@@ -316,3 +316,12 @@ class CommonController(Document):
         child = etree.fromstring(rendered_addenda)
         root.append(child)
         return root
+
+    @property
+    def ack_cancellation_element(self) -> etree.Element:
+        """Returns the XML element representing the acknowledgement of the cancellation of the CFDI document.
+
+        Returns:
+            etree.Element: The acknowledgement XML element.
+        """
+        return etree.fromstring(self.cancellation_acknowledgement.encode("utf-8"))

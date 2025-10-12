@@ -166,7 +166,15 @@ function setup(frm) {
   });
 }
 
+function downloadCancellationAcknowledgement(frm) {
+  window.open(
+    "/api/method/erpnext_mexico_compliance.api.v1.download_cancellation_acknowledgement?doctype=Sales%20Invoice&docname=" +
+      frm.doc.name
+  );
+}
+
 frappe.ui.form.on("Sales Invoice", {
   refresh,
   setup,
+  mx_download_acknowledgement: downloadCancellationAcknowledgement,
 });
