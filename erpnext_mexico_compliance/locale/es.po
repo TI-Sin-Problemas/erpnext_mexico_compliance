@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: erpnext-mexico-compliance\n"
 "Report-Msgid-Bugs-To: info@tisinproblemas.com\n"
 "POT-Creation-Date: 2025-10-12 05:40+0000\n"
-"PO-Revision-Date: 2025-10-12 06:54\n"
+"PO-Revision-Date: 2025-10-12 20:01\n"
 "Last-Translator: info@tisinproblemas.com\n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -211,7 +211,7 @@ msgstr "Cancelación"
 
 #: erpnext_mexico_compliance/api/v1/__init__.py:77
 msgid "Cancellation Acknowledgement Not Found"
-msgstr ""
+msgstr "Acuse de Cancelación no encontrado"
 
 #. Name of a DocType
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cancellation_reason/cancellation_reason.json
@@ -405,7 +405,7 @@ msgstr "Descargar archivos CFDI"
 #. Invoice'
 #: erpnext_mexico_compliance/fixtures/custom_field.json
 msgid "Download acknowledgement"
-msgstr ""
+msgstr "Descargar acuse"
 
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.py:74
 msgid "Duplicated PDF template for {} and {}"
