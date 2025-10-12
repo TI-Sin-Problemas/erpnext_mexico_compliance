@@ -1,0 +1,47 @@
+<head>
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"
+    integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu"
+    crossorigin="anonymous"
+  />
+</head>
+<body>
+  <h2 class="text-center">Acuse de solicitud de Cancelación de CFDI</h2>
+  <hr />
+  <div class="container">
+    <div class="row">
+      <p class="col-xs-6">
+        <strong>Fecha y hora de solicitud:</strong>
+      </p>
+      <p class="col-xs-6">
+        {{ frappe.format_value(ack.get("Fecha"), {"fieldtype":"Datetime"}) }}
+      </p>
+    </div>
+    <div class="row">
+      <p class="col-xs-6"><strong>RFC Emisor:</strong></p>
+      <p class="col-xs-6">{{ ack.get("RfcEmisor") }}</p>
+    </div>
+  </div>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Folio Fiscal</th>
+        <th>Estatus</th>
+        <th>Motivo</th>
+        <th>Reemplaza CFDI</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ ack[0][0].text }}</td>
+        <td>Solicitud de cancelación recibida</td>
+        <td>{{ reason.code }} - {{ reason.description }}</td>
+        <td>{% if substitute %}{{ substitute.mx_uuid }}{% endif %}</td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="word-wrap: break-word">
+    <strong>Sello digital SAT:</strong> {{ ack[1][1].text }}
+  </p>
+</body>
