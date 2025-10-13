@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: erpnext-mexico-compliance\n"
 "Report-Msgid-Bugs-To: info@tisinproblemas.com\n"
-"POT-Creation-Date: 2025-09-27 04:18+0000\n"
-"PO-Revision-Date: 2025-10-06 01:49\n"
+"POT-Creation-Date: 2025-10-12 05:40+0000\n"
+"PO-Revision-Date: 2025-10-12 21:23\n"
 "Last-Translator: info@tisinproblemas.com\n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -35,7 +35,7 @@ msgstr "Un Motivo de Cancelación es necesario para cancelar este pago."
 msgid "A Cancellation Reason is required to cancel this sales invoice."
 msgstr "Un Motivo de Cancelación es necesario para cancelar esta factura de venta."
 
-#: erpnext_mexico_compliance/controllers/common.py:226
+#: erpnext_mexico_compliance/controllers/common.py:225
 msgid "A Cancellation Reason is required."
 msgstr "Un Motivo de Cancelación es necesario."
 
@@ -144,7 +144,7 @@ msgstr ""
 msgid "CFDI Actions"
 msgstr "Acciones de CFDI"
 
-#: erpnext_mexico_compliance/controllers/common.py:207
+#: erpnext_mexico_compliance/controllers/common.py:206
 msgid "CFDI Code: {0}"
 msgstr "Código CFDI: {0}"
 
@@ -169,7 +169,7 @@ msgstr "Error de Timbrado CFDI"
 msgid "CFDI Stamping Settings"
 msgstr "Configuración de Timbrado de CFDI"
 
-#: erpnext_mexico_compliance/controllers/common.py:208
+#: erpnext_mexico_compliance/controllers/common.py:207
 msgid "CFDI Status: {0}"
 msgstr "Estado de CFDI: {0}"
 
@@ -177,7 +177,7 @@ msgstr "Estado de CFDI: {0}"
 msgid "CFDI Web Service Error"
 msgstr "Error del Web Service de CFDI"
 
-#: erpnext_mexico_compliance/controllers/common.py:287
+#: erpnext_mexico_compliance/controllers/common.py:286
 msgid "CFDI cancellation requested successfully"
 msgstr "Cancelación de CFDI solicitada exitosamente"
 
@@ -209,12 +209,16 @@ msgstr "Cancelar"
 msgid "Cancellation"
 msgstr "Cancelación"
 
+#: erpnext_mexico_compliance/api/v1/__init__.py:77
+msgid "Cancellation Acknowledgement Not Found"
+msgstr "Acuse de Cancelación no encontrado"
+
 #. Name of a DocType
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cancellation_reason/cancellation_reason.json
 msgid "Cancellation Reason"
 msgstr "Motivo de Cancelación"
 
-#: erpnext_mexico_compliance/controllers/common.py:210
+#: erpnext_mexico_compliance/controllers/common.py:209
 msgid "Cancellation Status: {0}"
 msgstr "Estado de cancelación: {0}"
 
@@ -397,6 +401,12 @@ msgstr "Tipo de Documento"
 msgid "Download CFDI files"
 msgstr "Descargar archivos CFDI"
 
+#. Label of the mx_download_acknowledgement (Button) field in DocType 'Sales
+#. Invoice'
+#: erpnext_mexico_compliance/fixtures/custom_field.json
+msgid "Download acknowledgement"
+msgstr "Descargar acuse"
+
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.py:74
 msgid "Duplicated PDF template for {} and {}"
 msgstr "Plantilla PDF duplicada para {} y {}"
@@ -486,7 +496,7 @@ msgstr "CURP inválido"
 msgid "Invalid CURP format"
 msgstr "Formato de CURP inválido"
 
-#: erpnext_mexico_compliance/controllers/common.py:227
+#: erpnext_mexico_compliance/controllers/common.py:226
 msgid "Invalid Cancellation Reason"
 msgstr "Motivo de Cancelación inválido"
 
@@ -520,7 +530,7 @@ msgstr "La factura no tiene dirección de facturación"
 msgid "Is Cancellable"
 msgstr "Es Cancelable"
 
-#: erpnext_mexico_compliance/controllers/common.py:209
+#: erpnext_mexico_compliance/controllers/common.py:208
 msgid "Is Cancellable: {0}"
 msgstr "Se puede cancelar: {0}"
 
@@ -611,6 +621,10 @@ msgstr ""
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/workspace/mexico_compliance/mexico_compliance.json
 msgid "Module settings"
 msgstr "Configuración del módulo"
+
+#: erpnext_mexico_compliance/api/v1/__init__.py:74
+msgid "No cancellation acknowledgement available for {0} {1}."
+msgstr "Acuse de cancelación no disponible para {0} {1}."
 
 #. Label of a Link field in DocType 'SAT Product or Service Key'
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_product_or_service_key/sat_product_or_service_key.json
@@ -900,7 +914,7 @@ msgstr "El motivo de cancelación requiere una factura sustituta."
 msgid "The Cancellation Reason requires a substitute payment entry."
 msgstr "El motivo de cancelación requiere una entrada de pago sustituta."
 
-#: erpnext_mexico_compliance/controllers/common.py:284
+#: erpnext_mexico_compliance/controllers/common.py:283
 msgid "This Document will be cancelled once the CFDI cancellation request is approved"
 msgstr "Este Documento será cancelado una vez que la solicitud de cancelación de CFDI sea aprobada"
 
@@ -957,13 +971,13 @@ msgstr ""
 #. Label of the mx_zip_code (Data) field in DocType 'Employee'
 #: erpnext_mexico_compliance/fixtures/custom_field.json
 msgid "Zip code"
-msgstr ""
+msgstr "Código postal"
 
-#: erpnext_mexico_compliance/controllers/common.py:250
+#: erpnext_mexico_compliance/controllers/common.py:249
 msgid "{} is required"
 msgstr "{} es requerido"
 
-#: erpnext_mexico_compliance/controllers/common.py:247
+#: erpnext_mexico_compliance/controllers/common.py:246
 msgid "{} is required when {} is {}"
 msgstr "{} es requerido cuando {} es {}"
 
