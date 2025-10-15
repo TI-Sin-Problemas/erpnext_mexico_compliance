@@ -79,7 +79,7 @@ class CFDIPDFTemplate(Document):
             body = f"<body>{header}{self.content_html}{footer}</body>"
         else:
             body = f"<body>{self.content_html}</body>"
-        return f"<html>{head}{body}</html>"
+        return f"<!DOCTYPE html><html>{head}{body}</html>"
 
     def get_rendered_pdf(
         self, xml: str, doc: Document, context: dict | None = None
