@@ -8,6 +8,7 @@ import abc
 import frappe
 from frappe import _
 from frappe.client import attach_file
+from frappe.model.docstatus import DocStatus
 from frappe.model.document import Document
 from frappe.model.naming import NamingSeries
 from lxml import etree
@@ -177,8 +178,9 @@ class CommonController(Document):
             self.mx_is_cancellable = 0
 
         if status.status == status.DocumentStatus.CANCELLED:
-            return self.cancel()
-        return self.save()
+            self.docstatus = DocStatus.CANCELLED
+
+        return self.db_update()
 
     @frappe.whitelist()
     def check_cancellation_status(self):
