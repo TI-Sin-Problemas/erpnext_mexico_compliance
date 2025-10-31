@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: erpnext-mexico-compliance\n"
 "Report-Msgid-Bugs-To: info@tisinproblemas.com\n"
-"POT-Creation-Date: 2025-10-12 05:40+0000\n"
-"PO-Revision-Date: 2025-10-12 21:23\n"
+"POT-Creation-Date: 2025-10-30 04:36+0000\n"
+"PO-Revision-Date: 2025-10-31 06:36\n"
 "Last-Translator: info@tisinproblemas.com\n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -31,11 +31,11 @@ msgstr "<span class=\"h4\">Cumplimiento Mexicano</span>"
 msgid "A Cancellation Reason is required to cancel this payment entry."
 msgstr "Un Motivo de Cancelación es necesario para cancelar este pago."
 
-#: erpnext_mexico_compliance/public/js/sales_invoice.js:89
+#: erpnext_mexico_compliance/public/js/sales_invoice.js:106
 msgid "A Cancellation Reason is required to cancel this sales invoice."
 msgstr "Un Motivo de Cancelación es necesario para cancelar esta factura de venta."
 
-#: erpnext_mexico_compliance/controllers/common.py:225
+#: erpnext_mexico_compliance/controllers/common.py:227
 msgid "A Cancellation Reason is required."
 msgstr "Un Motivo de Cancelación es necesario."
 
@@ -97,22 +97,22 @@ msgid "Addenda"
 msgstr ""
 
 #: erpnext_mexico_compliance/overrides/payment_entry.py:134
-#: erpnext_mexico_compliance/overrides/payment_entry.py:211
+#: erpnext_mexico_compliance/overrides/payment_entry.py:268
 #: erpnext_mexico_compliance/overrides/sales_invoice.py:147
 msgid "Address {0} has no zip code"
 msgstr "La dirección {0} no tiene código postal"
 
-#: erpnext_mexico_compliance/overrides/payment_entry.py:169
+#: erpnext_mexico_compliance/overrides/payment_entry.py:226
 msgid "All references must have the same total amount, partial payments are not supported"
 msgstr "Todas las referencias deben tener el mismo monto total, los pagos parciales no son soportados"
 
 #: erpnext_mexico_compliance/public/js/payment_entry.js:54
-#: erpnext_mexico_compliance/public/js/sales_invoice.js:54
+#: erpnext_mexico_compliance/public/js/sales_invoice.js:71
 msgid "Attach PDF"
 msgstr "Adjuntar PDF"
 
 #: erpnext_mexico_compliance/public/js/payment_entry.js:68
-#: erpnext_mexico_compliance/public/js/sales_invoice.js:68
+#: erpnext_mexico_compliance/public/js/sales_invoice.js:85
 msgid "Attach XML"
 msgstr "Adjuntar XML"
 
@@ -140,11 +140,11 @@ msgid "CFDI"
 msgstr ""
 
 #: erpnext_mexico_compliance/public/js/payment_entry.js:45
-#: erpnext_mexico_compliance/public/js/sales_invoice.js:45
+#: erpnext_mexico_compliance/public/js/sales_invoice.js:62
 msgid "CFDI Actions"
 msgstr "Acciones de CFDI"
 
-#: erpnext_mexico_compliance/controllers/common.py:206
+#: erpnext_mexico_compliance/controllers/common.py:208
 msgid "CFDI Code: {0}"
 msgstr "Código CFDI: {0}"
 
@@ -153,7 +153,7 @@ msgstr "Código CFDI: {0}"
 msgid "CFDI PDF Template"
 msgstr "Plantilla PDF de CFDI"
 
-#: erpnext_mexico_compliance/controllers/common.py:159
+#: erpnext_mexico_compliance/controllers/common.py:160
 msgid "CFDI Stamped Successfully"
 msgstr "CFDI Timbrado Exitosamente"
 
@@ -169,7 +169,7 @@ msgstr "Error de Timbrado CFDI"
 msgid "CFDI Stamping Settings"
 msgstr "Configuración de Timbrado de CFDI"
 
-#: erpnext_mexico_compliance/controllers/common.py:207
+#: erpnext_mexico_compliance/controllers/common.py:209
 msgid "CFDI Status: {0}"
 msgstr "Estado de CFDI: {0}"
 
@@ -177,7 +177,7 @@ msgstr "Estado de CFDI: {0}"
 msgid "CFDI Web Service Error"
 msgstr "Error del Web Service de CFDI"
 
-#: erpnext_mexico_compliance/controllers/common.py:286
+#: erpnext_mexico_compliance/controllers/common.py:288
 msgid "CFDI cancellation requested successfully"
 msgstr "Cancelación de CFDI solicitada exitosamente"
 
@@ -197,7 +197,7 @@ msgid "CURP"
 msgstr ""
 
 #: erpnext_mexico_compliance/public/js/payment_entry.js:139
-#: erpnext_mexico_compliance/public/js/sales_invoice.js:136
+#: erpnext_mexico_compliance/public/js/sales_invoice.js:153
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -218,7 +218,7 @@ msgstr "Acuse de Cancelación no encontrado"
 msgid "Cancellation Reason"
 msgstr "Motivo de Cancelación"
 
-#: erpnext_mexico_compliance/controllers/common.py:209
+#: erpnext_mexico_compliance/controllers/common.py:211
 msgid "Cancellation Status: {0}"
 msgstr "Estado de cancelación: {0}"
 
@@ -236,7 +236,7 @@ msgstr "Acuse de cancelación"
 msgid "Cancellation reason"
 msgstr "Motivo de cancelación"
 
-#: erpnext_mexico_compliance/overrides/payment_entry.py:241
+#: erpnext_mexico_compliance/overrides/payment_entry.py:298
 msgid "Cannot stamp a payment entry with a {0} reference"
 msgstr "No se puede timbrar una entrada de pago con una referencia {0}"
 
@@ -270,7 +270,7 @@ msgid "Certificate key file (.key)"
 msgstr "Archivo de clave de certificado (.key)"
 
 #: erpnext_mexico_compliance/public/js/payment_entry.js:145
-#: erpnext_mexico_compliance/public/js/sales_invoice.js:142
+#: erpnext_mexico_compliance/public/js/sales_invoice.js:159
 msgid "Check Cancellation Status"
 msgstr "Verificar estado de cancelación"
 
@@ -303,7 +303,7 @@ msgstr "Compañía"
 msgid "Company for which this certificate will be used to sign CFDI"
 msgstr "Compañía para la cual este certificado será usado para firmar CFDI"
 
-#: erpnext_mexico_compliance/overrides/payment_entry.py:215
+#: erpnext_mexico_compliance/overrides/payment_entry.py:272
 #: erpnext_mexico_compliance/overrides/sales_invoice.py:151
 msgid "Company {0} has no address"
 msgstr "La compañía {0} no tiene dirección"
@@ -388,7 +388,7 @@ msgstr "Descripción"
 #: erpnext_mexico_compliance/public/js/payment_entry.js:8
 #: erpnext_mexico_compliance/public/js/payment_entry.js:106
 #: erpnext_mexico_compliance/public/js/sales_invoice.js:8
-#: erpnext_mexico_compliance/public/js/sales_invoice.js:103
+#: erpnext_mexico_compliance/public/js/sales_invoice.js:120
 msgid "Digital Signing Certificate"
 msgstr "Certificado de Sello Digital"
 
@@ -433,7 +433,7 @@ msgid "Enabled"
 msgstr "Habilitado"
 
 #: erpnext_mexico_compliance/public/js/payment_entry.js:35
-#: erpnext_mexico_compliance/public/js/sales_invoice.js:35
+#: erpnext_mexico_compliance/public/js/sales_invoice.js:52
 msgid "File {0} attached"
 msgstr "Archivo {0} adjuntado"
 
@@ -483,8 +483,8 @@ msgstr "Indica la forma en la que se realiza un pago, de acuerdo al catálogo de
 msgid "Indicates the method used to make a payment, in accordance with the SAT catalog of payment methods"
 msgstr "Indica el método usado para realizar un pago, de acuerdo al catálogo de métodos de pago del SAT"
 
-#: erpnext_mexico_compliance/overrides/payment_entry.py:266
-#: erpnext_mexico_compliance/overrides/sales_invoice.py:278
+#: erpnext_mexico_compliance/overrides/payment_entry.py:323
+#: erpnext_mexico_compliance/overrides/sales_invoice.py:280
 msgid "Invalid CFDI"
 msgstr "CFDI Inválido"
 
@@ -496,11 +496,11 @@ msgstr "CURP inválido"
 msgid "Invalid CURP format"
 msgstr "Formato de CURP inválido"
 
-#: erpnext_mexico_compliance/controllers/common.py:226
+#: erpnext_mexico_compliance/controllers/common.py:228
 msgid "Invalid Cancellation Reason"
 msgstr "Motivo de Cancelación inválido"
 
-#: erpnext_mexico_compliance/overrides/payment_entry.py:343
+#: erpnext_mexico_compliance/overrides/payment_entry.py:400
 msgid "Invalid Document Type"
 msgstr "Tipo de Documento inválido"
 
@@ -530,7 +530,7 @@ msgstr "La factura no tiene dirección de facturación"
 msgid "Is Cancellable"
 msgstr "Es Cancelable"
 
-#: erpnext_mexico_compliance/controllers/common.py:208
+#: erpnext_mexico_compliance/controllers/common.py:210
 msgid "Is Cancellable: {0}"
 msgstr "Se puede cancelar: {0}"
 
@@ -543,6 +543,10 @@ msgstr "Es Grupo"
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.json
 msgid "Is Premium"
 msgstr "Es Premium"
+
+#: erpnext_mexico_compliance/public/js/sales_invoice.js:33
+msgid "Items with amount of 0 won't be included in the CFDI. Do you want to continue?"
+msgstr ""
 
 #. Label of a Attach field in DocType 'Digital Signing Certificate'
 #. Label of a Data field in DocType 'SAT CFDI Use'
@@ -690,8 +694,8 @@ msgstr "El formato de RFC no cumple con las especificaciones del SAT"
 msgid "RFC: {0}"
 msgstr ""
 
-#: erpnext_mexico_compliance/overrides/payment_entry.py:153
-#: erpnext_mexico_compliance/overrides/payment_entry.py:248
+#: erpnext_mexico_compliance/overrides/payment_entry.py:210
+#: erpnext_mexico_compliance/overrides/payment_entry.py:305
 msgid "Reference {0} has not being stamped"
 msgstr "La referencia {0} no ha sido timbrada"
 
@@ -700,7 +704,7 @@ msgstr "La referencia {0} no ha sido timbrada"
 msgid "Related Sales Invoice"
 msgstr "Factura de Ventas Relacionada"
 
-#: erpnext_mexico_compliance/overrides/sales_invoice.py:359
+#: erpnext_mexico_compliance/overrides/sales_invoice.py:361
 msgid "Related Sales Invoice {0} has not been stamped"
 msgstr "La Factura de Ventas relacionada {0} no ha sido timbrada"
 
@@ -769,7 +773,7 @@ msgstr "Forma de Pago SAT"
 msgid "SAT Payment Option"
 msgstr "Método de Pago SAT"
 
-#: erpnext_mexico_compliance/overrides/payment_entry.py:251
+#: erpnext_mexico_compliance/overrides/payment_entry.py:308
 msgid "SAT Payment Option for reference {0} is not PPD"
 msgstr "El Método de Pago SAT para la referencia {0} no es PPD"
 
@@ -832,7 +836,7 @@ msgstr "Apellido Materno"
 #: erpnext_mexico_compliance/public/js/payment_entry.js:24
 #: erpnext_mexico_compliance/public/js/payment_entry.js:124
 #: erpnext_mexico_compliance/public/js/sales_invoice.js:24
-#: erpnext_mexico_compliance/public/js/sales_invoice.js:120
+#: erpnext_mexico_compliance/public/js/sales_invoice.js:137
 msgid "Select a Certificate to sign the CFDI"
 msgstr "Selecciona un Certificado para firmar el CFDI"
 
@@ -842,7 +846,7 @@ msgid "Settings"
 msgstr "Configuración"
 
 #: erpnext_mexico_compliance/public/js/payment_entry.js:141
-#: erpnext_mexico_compliance/public/js/sales_invoice.js:138
+#: erpnext_mexico_compliance/public/js/sales_invoice.js:155
 msgid "Stamp CFDI"
 msgstr "Timbrar CFDI"
 
@@ -906,7 +910,7 @@ msgstr "Regímenes fiscales"
 msgid "Test mode"
 msgstr "Modo de pruebas"
 
-#: erpnext_mexico_compliance/public/js/sales_invoice.js:96
+#: erpnext_mexico_compliance/public/js/sales_invoice.js:113
 msgid "The Cancellation Reason requires a substitute invoice."
 msgstr "El motivo de cancelación requiere una factura sustituta."
 
@@ -914,7 +918,7 @@ msgstr "El motivo de cancelación requiere una factura sustituta."
 msgid "The Cancellation Reason requires a substitute payment entry."
 msgstr "El motivo de cancelación requiere una entrada de pago sustituta."
 
-#: erpnext_mexico_compliance/controllers/common.py:283
+#: erpnext_mexico_compliance/controllers/common.py:285
 msgid "This Document will be cancelled once the CFDI cancellation request is approved"
 msgstr "Este Documento será cancelado una vez que la solicitud de cancelación de CFDI sea aprobada"
 
@@ -973,11 +977,11 @@ msgstr ""
 msgid "Zip code"
 msgstr "Código postal"
 
-#: erpnext_mexico_compliance/controllers/common.py:249
+#: erpnext_mexico_compliance/controllers/common.py:251
 msgid "{} is required"
 msgstr "{} es requerido"
 
-#: erpnext_mexico_compliance/controllers/common.py:246
+#: erpnext_mexico_compliance/controllers/common.py:248
 msgid "{} is required when {} is {}"
 msgstr "{} es requerido cuando {} es {}"
 
