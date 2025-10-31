@@ -1,7 +1,7 @@
 // Copyright (c) 2024, TI Sin Problemas and contributors
 // For license information, please see license.txt
 
-function stampCfdi(frm) {
+function promptBeforeStamp(frm) {
   frappe.prompt(
     [
       {
@@ -23,6 +23,23 @@ function stampCfdi(frm) {
     },
     __("Select a Certificate to sign the CFDI")
   );
+}
+
+function stampCfdi(frm) {
+  const zeroAmountItems = frm.doc.items.filter((item) => item.amount === 0);
+
+  if (zeroAmountItems.length > 0) {
+    frappe.confirm(
+      __(
+        "Items with amount of 0 won't be included in the CFDI. Do you want to continue?"
+      ),
+      () => {
+        promptBeforeStamp(frm);
+      }
+    );
+  } else {
+    promptBeforeStamp(frm);
+  }
 }
 
 async function attachFile(frm, ext) {

@@ -201,6 +201,8 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
         for this sales invoice."""
         cfdi_items = []
         for item in self.items:
+            if item.amount == 0:
+                continue
             discount = (
                 Decimal(str(item.discount_amount)) if item.discount_amount else None
             )
