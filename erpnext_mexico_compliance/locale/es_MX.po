@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: erpnext-mexico-compliance\n"
 "Report-Msgid-Bugs-To: info@tisinproblemas.com\n"
 "POT-Creation-Date: 2025-11-15 23:55+0000\n"
-"PO-Revision-Date: 2025-11-16 00:27\n"
+"PO-Revision-Date: 2025-11-16 01:23\n"
 "Last-Translator: info@tisinproblemas.com\n"
 "Language-Team: Spanish, Mexico\n"
 "MIME-Version: 1.0\n"
@@ -150,7 +150,7 @@ msgstr "Código CFDI: {0}"
 
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/report/stamped_invoice_differences/stamped_invoice_differences.py:26
 msgid "CFDI Grand Total"
-msgstr ""
+msgstr "Total del CFDI"
 
 #. Name of a DocType
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_pdf_template/cfdi_pdf_template.json
