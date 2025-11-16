@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: erpnext-mexico-compliance\n"
 "Report-Msgid-Bugs-To: info@tisinproblemas.com\n"
 "POT-Creation-Date: 2025-11-15 23:55+0000\n"
-"PO-Revision-Date: 2025-11-16 00:17\n"
+"PO-Revision-Date: 2025-11-16 00:27\n"
 "Last-Translator: info@tisinproblemas.com\n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -875,7 +875,7 @@ msgstr "Timbrar al validar"
 #. Name of a report
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/report/stamped_invoice_differences/stamped_invoice_differences.json
 msgid "Stamped Invoice Differences"
-msgstr ""
+msgstr "Diferencias de las Facturas Timbradas"
 
 #. Label of the mx_stamped_xml (HTML Editor) field in DocType 'Payment Entry'
 #. Label of the mx_stamped_xml (HTML Editor) field in DocType 'Sales Invoice'
