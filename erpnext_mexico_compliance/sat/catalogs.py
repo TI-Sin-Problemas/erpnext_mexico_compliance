@@ -94,19 +94,6 @@ class CatalogManager:
 
         return query_result
 
-    def _get_relationship_types(self, *, as_dict=False):
-        """Retrieves a list of relationship types from the database.
-
-        Args:
-            as_dict (bool, optional): If True, returns the result as a list of dictionaries. Defaults to False.
-
-        Returns:
-            list[tuple] | list[dict]: A list of relationship types, either as a list of tuples or a list of dictionaries.
-        """
-        table = Table("cfdi_40_tipos_relaciones")
-        fields = [table.id, table.texto, table.vigencia_desde]
-        return self._get_items(table, fields, as_dict)
-
     def _get_product_service_keys(self, *, as_dict=False) -> list[tuple] | list[dict]:
         """Retrieves a list of product and service keys from the database.
 
@@ -122,7 +109,9 @@ class CatalogManager:
 
     def _update_relationship_types(self):
         """Updates the SAT Relationship Type documents based on the data retrieved from the database."""
-        data: list[dict] = self._get_relationship_types(as_dict=True)  # type: ignore
+        table = Table("cfdi_40_tipos_relaciones")
+        fields = [table.id, table.texto, table.vigencia_desde]
+        data: list[dict] = self._get_items(table=table, fields=fields, as_dict=True)  # type: ignore
         doctype = "SAT Relationship Type"
 
         for d in data:
