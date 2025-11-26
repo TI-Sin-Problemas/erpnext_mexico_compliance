@@ -12,6 +12,13 @@ import requests
 from frappe.utils import date_diff
 from pypika import Query, Table
 
+from erpnext_mexico_compliance.erpnext_mexico_compliance.doctype.sat_product_or_service_key.sat_product_or_service_key import (
+    SATProductorServiceKey,
+)
+from erpnext_mexico_compliance.erpnext_mexico_compliance.doctype.sat_relationship_type.sat_relationship_type import (
+    SATRelationshipType,
+)
+
 
 class CatalogManager:
     def __init__(self):
@@ -115,23 +122,51 @@ class CatalogManager:
 
     def _update_relationship_types(self):
         """Updates the SAT Relationship Type documents based on the data retrieved from the database."""
-        data = self._get_relationship_types(as_dict=True)
+        data: list[dict] = self._get_relationship_types(as_dict=True)  # type: ignore
         doctype = "SAT Relationship Type"
 
         for d in data:
             has_changed = False
 
             try:
-                doc = frappe.get_doc(doctype, d["id"])
+                doc: SATRelationshipType = frappe.get_doc(doctype, d["id"])  # type: ignore
             except frappe.DoesNotExistError:
-                doc = frappe.new_doc(doctype, code=d["id"])
+                doc: SATRelationshipType = frappe.new_doc(doctype, code=d["id"])  # type: ignore
 
             if doc.description != d["texto"]:
                 doc.description = d["texto"]
                 has_changed = True
 
-            if date_diff(doc.valid_from, d["vigencia_desde"]):
+            if date_diff(doc.valid_from, d["vigencia_desde"]):  # type: ignore
                 doc.valid_from = d["vigencia_desde"]
+                has_changed = True
+
+            if has_changed or doc.is_new():
+                doc.save()
+
+        frappe.db.commit()
+
+    def _update_product_services(self):
+        """Updates the SAT Product or Service Key documents based on the data retrieved from the database.
+
+        The SAT Product or Service Key documents are updated based on the data retrieved from the database.
+        If a document does not exist, it is created. If a document exists and the description has changed, the description is updated.
+        """
+        data: list[dict] = self._get_product_service_keys(as_dict=True)  # type: ignore
+        doctype = "SAT Product or Service Key"
+
+        for d in data:
+            has_changed = False
+            key = d["id"]
+            description = d["texto"]
+
+            try:
+                doc: SATProductorServiceKey = frappe.get_doc(doctype, {"key": key})  # type: ignore
+            except frappe.DoesNotExistError:
+                doc: SATProductorServiceKey = frappe.new_doc(doctype, key=key)  # type: ignore
+
+            if doc.description != description:
+                doc.description = description
                 has_changed = True
 
             if has_changed or doc.is_new():
@@ -141,6 +176,8 @@ class CatalogManager:
 
     def update_doctype(self, doctype: str):
         match doctype:
+            case "SAT Product or Service Key":
+                self._update_product_services()
             case "SAT Relationship Type":
                 self._update_relationship_types()
             case _:
