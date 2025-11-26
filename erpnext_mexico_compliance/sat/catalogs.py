@@ -67,6 +67,26 @@ class CatalogManager:
         cur.execute(str(query))
         return cur.fetchall()
 
+    def _get_items(
+        self, table: Table, fields: list[str], as_dict: bool = False
+    ) -> list[tuple] | list[dict]:
+        """Retrieves items from a given table.
+
+        Args:
+            table (Table): The table to query.
+            fields (list[str]): A list of field names to select.
+            as_dict (bool, optional): If True, returns the result as a list of dictionaries. Defaults to False.
+
+        Returns:
+            list[tuple] | list[dict]: A list of items, either as a list of tuples or a list of dictionaries.
+        """
+        query_result = self._get_query_result(table, fields)
+
+        if as_dict:
+            return self._get_query_result_as_dict(fields, query_result)
+
+        return query_result
+
     def _get_relationship_types(self, *, as_dict=False):
         """Retrieves a list of relationship types from the database.
 
@@ -78,12 +98,7 @@ class CatalogManager:
         """
         table = Table("cfdi_40_tipos_relaciones")
         fields = [table.id, table.texto, table.vigencia_desde]
-        query_result = self._get_query_result(table, fields)
-
-        if as_dict:
-            return self._get_query_result_as_dict(fields, query_result)
-
-        return query_result
+        return self._get_items(table, fields, as_dict)
 
     def _update_relationship_types(self):
         """Updates the SAT Relationship Type documents based on the data retrieved from the database."""
