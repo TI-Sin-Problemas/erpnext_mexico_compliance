@@ -21,6 +21,9 @@ from erpnext_mexico_compliance.erpnext_mexico_compliance.doctype.sat_product_or_
 from erpnext_mexico_compliance.erpnext_mexico_compliance.doctype.sat_relationship_type.sat_relationship_type import (
     SATRelationshipType,
 )
+from erpnext_mexico_compliance.erpnext_mexico_compliance.doctype.sat_tax_regime.sat_tax_regime import (
+    SATTaxRegime,
+)
 
 
 class CatalogManager:
@@ -190,6 +193,35 @@ class CatalogManager:
 
         frappe.db.commit()
 
+    def _update_tax_regimes(self):
+        """Updates the SAT Tax Regime documents based on the data retrieved from the database.
+
+        If a document does not exist, it is created. If a document exists and the description has changed, the description is updated."""
+        table = Table("cfdi_40_regimenes_fiscales")
+        fields = [table.id, table.texto]
+
+        data: list[dict] = self._get_items(table=table, fields=fields, as_dict=True)  # type: ignore
+        doctype = "SAT Tax Regime"
+
+        for d in data:
+            has_changed = False
+            key = d["id"]
+            description = d["texto"]
+
+            try:
+                doc: SATTaxRegime = frappe.get_doc(doctype, {"key": key})  # type: ignore
+            except frappe.DoesNotExistError:
+                doc: SATTaxRegime = frappe.new_doc(doctype, key=key)  # type: ignore
+
+            if doc.description != description:
+                doc.description = description
+                has_changed = True
+
+            if has_changed or doc.is_new():
+                doc.save()
+
+        frappe.db.commit()
+
     def update_doctype(self, doctype: str):
         match doctype:
             case "SAT CFDI Use":
@@ -198,5 +230,7 @@ class CatalogManager:
                 self._update_product_services()
             case "SAT Relationship Type":
                 self._update_relationship_types()
+            case "SAT Tax Regime":
+                self._update_tax_regimes()
             case _:
                 raise ValueError(f"Unsupported doctype: {doctype}")
