@@ -68,7 +68,7 @@ Please be aware that in order to successfully stamp a Sales Invoices, some requi
 - There must be at least 1 Digital Signing Certificate for the Company issuing the Sales Invoice
 - You must have available credits/stamps
 - The Address of the Company must have a Zip Code
-- The Customer must have a valid CFDI Tax Id (RFC)
+- The Customer must have a valid Tax Id (RFC)
 - The Customer must have a Tax Regime
 - The Customer's address must have a Zip Code
 - The Invoice Items must have a SAT Product or Service Key

@@ -76,7 +76,7 @@ doctype_js = {
 
 # before_install = "erpnext_mexico_compliance.install.before_install"
 # after_install = "erpnext_mexico_compliance.install.after_install"
-after_sync = "erpnext_mexico_compliance.install.after_sync"
+# after_sync = "erpnext_mexico_compliance.install.after_sync"
 
 # Uninstallation
 # ------------

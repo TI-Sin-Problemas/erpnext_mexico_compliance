@@ -7,4 +7,10 @@ from .catalogs import CatalogManager
 
 def update_sat_catalogs():
     manager = CatalogManager()
+    manager.update_doctype("SAT Tax Regime")
+    manager.update_doctype("SAT CFDI Use")
+    manager.update_doctype("SAT Payment Option")
+    manager.update_doctype("SAT Payment Method")
+    manager.update_doctype("SAT Product or Service Key")
     manager.update_doctype("SAT Relationship Type")
+    manager.update_doctype("SAT UOM Key")

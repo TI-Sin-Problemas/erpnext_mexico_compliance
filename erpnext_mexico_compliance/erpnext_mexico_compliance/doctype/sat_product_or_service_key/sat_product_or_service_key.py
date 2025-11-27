@@ -18,13 +18,8 @@ class SATProductorServiceKey(Document):
 
         description: DF.Data
         enabled: DF.Check
-        is_group: DF.Check
         key: DF.Data
         key_name: DF.Data | None
-        lft: DF.Int
-        old_parent: DF.Link | None
-        parent_sat_product_or_service_key: DF.Link | None
-        rgt: DF.Int
     # end: auto-generated types
     """SAT's Product or Service Key"""
 
