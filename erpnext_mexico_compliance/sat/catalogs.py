@@ -15,6 +15,9 @@ from pypika import Query, Table
 from erpnext_mexico_compliance.erpnext_mexico_compliance.doctype.sat_cfdi_use.sat_cfdi_use import (
     SATCFDIUse,
 )
+from erpnext_mexico_compliance.erpnext_mexico_compliance.doctype.sat_payment_method.sat_payment_method import (
+    SATPaymentMethod,
+)
 from erpnext_mexico_compliance.erpnext_mexico_compliance.doctype.sat_product_or_service_key.sat_product_or_service_key import (
     SATProductorServiceKey,
 )
@@ -222,10 +225,42 @@ class CatalogManager:
 
         frappe.db.commit()
 
+    def _update_payment_methods(self):
+        """Updates the SAT Payment Method documents based on the data retrieved from the database.
+
+        If a document does not exist, it is created. If a document exists and the description has changed, the description is updated.
+        """
+        table = Table("cfdi_40_formas_pago")
+        fields = [table.id, table.texto]
+
+        data: list[dict] = self._get_items(table=table, fields=fields, as_dict=True)  # type: ignore
+        doctype = "SAT Payment Method"
+
+        for d in data:
+            has_changed = False
+            key = d["id"]
+            description = d["texto"]
+
+            try:
+                doc: SATPaymentMethod = frappe.get_doc(doctype, {"key": key})  # type: ignore
+            except frappe.DoesNotExistError:
+                doc: SATPaymentMethod = frappe.new_doc(doctype, key=key)  # type: ignore
+
+            if doc.description != description:
+                doc.description = description
+                has_changed = True
+
+            if has_changed or doc.is_new():
+                doc.save()
+
+        frappe.db.commit()
+
     def update_doctype(self, doctype: str):
         match doctype:
             case "SAT CFDI Use":
                 self._update_cfdi_uses()
+            case "SAT Payment Method":
+                self._update_payment_methods()
             case "SAT Product or Service Key":
                 self._update_product_services()
             case "SAT Relationship Type":
