@@ -12,6 +12,9 @@ import requests
 from frappe.utils import date_diff
 from pypika import Query, Table
 
+from erpnext_mexico_compliance.erpnext_mexico_compliance.doctype.sat_cfdi_use.sat_cfdi_use import (
+    SATCFDIUse,
+)
 from erpnext_mexico_compliance.erpnext_mexico_compliance.doctype.sat_product_or_service_key.sat_product_or_service_key import (
     SATProductorServiceKey,
 )
@@ -152,8 +155,45 @@ class CatalogManager:
 
         frappe.db.commit()
 
+    def _update_cfdi_uses(self):
+        """Updates the SAT CFDI Use documents based on the data retrieved from the database."""
+        table = Table("cfdi_40_usos_cfdi")
+        fields = [table.id, table.texto, table.regimenes_fiscales_receptores]
+        data: list[dict] = self._get_items(table=table, fields=fields, as_dict=True)  # type: ignore
+        doctype = "SAT CFDI Use"
+
+        for d in data:
+            has_changed = False
+            key = d["id"]
+            description = d["texto"]
+            tax_regimes = [
+                r.strip() for r in d["regimenes_fiscales_receptores"].split(",")
+            ]
+
+            try:
+                doc: SATCFDIUse = frappe.get_doc(doctype, {"key": key})  # type: ignore
+            except frappe.DoesNotExistError:
+                doc: SATCFDIUse = frappe.new_doc(doctype, key=key)  # type: ignore
+
+            if doc.description != description:
+                doc.description = description
+                has_changed = True
+
+            doc_tax_regimes = [tr.tax_regime for tr in doc.tax_regimes]
+            for regime in tax_regimes:
+                if regime not in doc_tax_regimes:
+                    doc.append("tax_regimes", {"tax_regime": regime})
+                    has_changed = True
+
+            if has_changed or doc.is_new():
+                doc.save()
+
+        frappe.db.commit()
+
     def update_doctype(self, doctype: str):
         match doctype:
+            case "SAT CFDI Use":
+                self._update_cfdi_uses()
             case "SAT Product or Service Key":
                 self._update_product_services()
             case "SAT Relationship Type":
