@@ -58,7 +58,7 @@
    "hidden": 0,
    "is_query_report": 0,
    "label": "Accounting",
-   "link_count": 6,
+   "link_count": 7,
    "link_type": "DocType",
    "onboard": 0,
    "type": "Card Break"
@@ -122,9 +122,19 @@
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "SAT Relationship Type",
+   "link_count": 0,
+   "link_to": "SAT Relationship Type",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
   }
  ],
- "modified": "2025-07-03 16:47:48.420776",
+ "modified": "2025-11-25 17:53:40.366230",
  "modified_by": "Administrator",
  "module": "ERPNext Mexico Compliance",
  "name": "Mexico Compliance",
