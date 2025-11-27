@@ -30,6 +30,9 @@ from erpnext_mexico_compliance.erpnext_mexico_compliance.doctype.sat_relationshi
 from erpnext_mexico_compliance.erpnext_mexico_compliance.doctype.sat_tax_regime.sat_tax_regime import (
     SATTaxRegime,
 )
+from erpnext_mexico_compliance.erpnext_mexico_compliance.doctype.sat_uom_key.sat_uom_key import (
+    SATUOMKey,
+)
 
 
 class CatalogManager:
@@ -286,6 +289,39 @@ class CatalogManager:
             if has_changed or doc.is_new():
                 doc.save()
 
+        frappe.db.commit()
+
+    def _update_unit_of_measure(self):
+        table = Table("cfdi_40_claves_unidades")
+        fields = [table.id, table.texto, table.descripcion]
+
+        data: list[dict] = self._get_items(table=table, fields=fields, as_dict=True)  # type: ignore
+        doctype = "SAT UOM Key"
+
+        for d in data:
+            has_changed = False
+            key = d["id"]
+            uom_name = d["texto"]
+            description = d["descripcion"]
+
+            try:
+                doc: SATUOMKey = frappe.get_doc(doctype, {"key": key})  # type: ignore
+            except frappe.DoesNotExistError:
+                doc: SATUOMKey = frappe.new_doc(doctype, key=key)  # type: ignore
+
+            if doc.uom_name != uom_name:
+                doc.uom_name = uom_name
+                has_changed = True
+
+            if doc.description != description:
+                doc.description = description
+                has_changed = True
+
+            if has_changed or doc.is_new():
+                doc.save()
+
+        frappe.db.commit()
+
     def update_doctype(self, doctype: str):
         match doctype:
             case "SAT CFDI Use":
@@ -300,5 +336,7 @@ class CatalogManager:
                 self._update_relationship_types()
             case "SAT Tax Regime":
                 self._update_tax_regimes()
+            case "SAT UOM Key":
+                self._update_unit_of_measure()
             case _:
                 raise ValueError(f"Unsupported doctype: {doctype}")

@@ -13,3 +13,4 @@ def update_sat_catalogs():
     manager.update_doctype("SAT Payment Method")
     manager.update_doctype("SAT Product or Service Key")
     manager.update_doctype("SAT Relationship Type")
+    manager.update_doctype("SAT UOM Key")
