@@ -159,6 +159,14 @@ function setup(frm) {
       ],
     };
   });
+
+  frm.set_query("mode_of_payment", () => {
+    return {
+      filters: {
+        sat_payment_method: ["!=", "99"],
+      },
+    };
+  });
 }
 
 frappe.ui.form.on("Payment Entry", {
