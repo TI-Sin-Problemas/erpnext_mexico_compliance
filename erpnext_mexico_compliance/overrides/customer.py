@@ -43,8 +43,11 @@ class Customer(ERPNextCustomer):
         if not self.tax_id:
             return
 
-        if self.tax_id.upper() == "XEXX010101000":
-            return
+        match self.tax_id.upper():
+            case "XAXX010101000":
+                return
+            case "XEXX010101000":
+                return
 
         if frappe.db.exists(
             "Customer", {"tax_id": self.tax_id, "name": ["!=", self.name]}
