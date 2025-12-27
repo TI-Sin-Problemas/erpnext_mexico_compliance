@@ -333,7 +333,7 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
             frappe.ValidationError: If the mode of payment is "99".
         """
         if self.mx_payment_mode == "99":
-            frappe.throw(_("Ivalid SAT Payment Method"))
+            frappe.throw(_("Invalid SAT Payment Method"))
 
     def validate(self):
         super().validate()
