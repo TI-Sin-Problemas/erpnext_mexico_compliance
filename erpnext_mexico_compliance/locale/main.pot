@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ERPNext Mexico Compliance VERSION\n"
 "Report-Msgid-Bugs-To: info@tisinproblemas.com\n"
-"POT-Creation-Date: 2025-12-24 23:42+0000\n"
-"PO-Revision-Date: 2025-12-24 23:42+0000\n"
+"POT-Creation-Date: 2025-12-27 00:53+0000\n"
+"PO-Revision-Date: 2025-12-27 00:53+0000\n"
 "Last-Translator: info@tisinproblemas.com\n"
 "Language-Team: info@tisinproblemas.com\n"
 "MIME-Version: 1.0\n"
@@ -522,6 +522,10 @@ msgstr ""
 msgid "Invalid RFC"
 msgstr ""
 
+#: erpnext_mexico_compliance/overrides/payment_entry.py:336
+msgid "Invalid SAT Payment Method"
+msgstr ""
+
 #: erpnext_mexico_compliance/overrides/employee.py:67
 msgid "Invalid SSN"
 msgstr ""
@@ -555,10 +559,6 @@ msgstr ""
 
 #: erpnext_mexico_compliance/public/js/sales_invoice.js:33
 msgid "Items with amount of 0 won't be included in the CFDI. Do you want to continue?"
-msgstr ""
-
-#: erpnext_mexico_compliance/overrides/payment_entry.py:336
-msgid "Ivalid SAT Payment Method"
 msgstr ""
 
 #. Label of a Attach field in DocType 'Digital Signing Certificate'
