@@ -45,6 +45,7 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
         cancellation_reason: DF.Link
         substitute_payment_entry: DF.Link
         cancellation_acknowledgement: DF.HTMLEditor
+        mode_of_payment: DF.Link
 
     def on_submit(self):
         """
@@ -321,6 +322,22 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
 
         self.base_in_words = money_in_words(base_amount, self.company_currency)
         self.in_words = money_in_words(amount, currency)
+
+    def validate_mode_of_payment(self):
+        """Validates the mode of payment of this payment entry.
+
+        If the mode of payment is "99", an error message is thrown with the message
+        "Ivalid SAT Payment Method".
+
+        Raises:
+            frappe.ValidationError: If the mode of payment is "99".
+        """
+        if self.mx_payment_mode == "99":
+            frappe.throw(_("Ivalid SAT Payment Method"))
+
+    def validate(self):
+        super().validate()
+        self.validate_mode_of_payment()
 
 
 def get_installment_number(
