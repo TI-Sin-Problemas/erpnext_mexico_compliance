@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: erpnext-mexico-compliance\n"
 "Report-Msgid-Bugs-To: info@tisinproblemas.com\n"
-"POT-Creation-Date: 2025-12-24 23:42+0000\n"
-"PO-Revision-Date: 2025-12-27 00:45\n"
+"POT-Creation-Date: 2025-12-27 00:53+0000\n"
+"PO-Revision-Date: 2025-12-27 00:58\n"
 "Last-Translator: info@tisinproblemas.com\n"
 "Language-Team: Spanish, Mexico\n"
 "MIME-Version: 1.0\n"
@@ -524,6 +524,10 @@ msgstr "Tipo de Documento inválido"
 msgid "Invalid RFC"
 msgstr "RFC inválido"
 
+#: erpnext_mexico_compliance/overrides/payment_entry.py:336
+msgid "Invalid SAT Payment Method"
+msgstr ""
+
 #: erpnext_mexico_compliance/overrides/employee.py:67
 msgid "Invalid SSN"
 msgstr "NSS inválido"
@@ -558,10 +562,6 @@ msgstr "Es Premium"
 #: erpnext_mexico_compliance/public/js/sales_invoice.js:33
 msgid "Items with amount of 0 won't be included in the CFDI. Do you want to continue?"
 msgstr "Los productos con un importe de 0 no se incluirán en el CFDI. ¿Desea continuar?"
-
-#: erpnext_mexico_compliance/overrides/payment_entry.py:336
-msgid "Ivalid SAT Payment Method"
-msgstr ""
 
 #. Label of a Attach field in DocType 'Digital Signing Certificate'
 #. Label of a Data field in DocType 'SAT CFDI Use'
@@ -724,7 +724,7 @@ msgstr "Requiere relación"
 
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_cfdi_use/sat_cfdi_use.py:43
 msgid "Row {0}: Tax Regime {1} is duplicated"
-msgstr ""
+msgstr "Fila {0}: El régimen fiscal {1} está duplicado"
 
 #. Label of the column_break_sat (Column Break) field in DocType 'Employee'
 #: erpnext_mexico_compliance/fixtures/custom_field.json
