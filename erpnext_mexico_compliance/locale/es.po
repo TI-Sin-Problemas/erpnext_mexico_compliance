@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: erpnext-mexico-compliance\n"
 "Report-Msgid-Bugs-To: info@tisinproblemas.com\n"
-"POT-Creation-Date: 2025-11-25 23:56+0000\n"
-"PO-Revision-Date: 2025-11-27 22:51\n"
+"POT-Creation-Date: 2025-12-27 00:53+0000\n"
+"PO-Revision-Date: 2025-12-27 01:03\n"
 "Last-Translator: info@tisinproblemas.com\n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -96,13 +96,13 @@ msgstr "Añadir código XML extra en la etiqueta \"Addenda\" de las facturas CFD
 msgid "Addenda"
 msgstr ""
 
-#: erpnext_mexico_compliance/overrides/payment_entry.py:134
-#: erpnext_mexico_compliance/overrides/payment_entry.py:211
+#: erpnext_mexico_compliance/overrides/payment_entry.py:135
+#: erpnext_mexico_compliance/overrides/payment_entry.py:212
 #: erpnext_mexico_compliance/overrides/sales_invoice.py:147
 msgid "Address {0} has no zip code"
 msgstr "La dirección {0} no tiene código postal"
 
-#: erpnext_mexico_compliance/overrides/payment_entry.py:169
+#: erpnext_mexico_compliance/overrides/payment_entry.py:170
 msgid "All references must have the same total amount, partial payments are not supported"
 msgstr "Todas las referencias deben tener el mismo monto total, los pagos parciales no son soportados"
 
@@ -161,7 +161,7 @@ msgstr "Plantilla PDF de CFDI"
 msgid "CFDI Stamped Successfully"
 msgstr "CFDI Timbrado Exitosamente"
 
-#: erpnext_mexico_compliance/overrides/payment_entry.py:78
+#: erpnext_mexico_compliance/overrides/payment_entry.py:79
 #: erpnext_mexico_compliance/overrides/sales_invoice.py:80
 msgid "CFDI Stamping Error"
 msgstr "Error de Timbrado CFDI"
@@ -240,7 +240,7 @@ msgstr "Acuse de cancelación"
 msgid "Cancellation reason"
 msgstr "Motivo de cancelación"
 
-#: erpnext_mexico_compliance/overrides/payment_entry.py:241
+#: erpnext_mexico_compliance/overrides/payment_entry.py:242
 msgid "Cannot stamp a payment entry with a {0} reference"
 msgstr "No se puede timbrar una entrada de pago con una referencia {0}"
 
@@ -307,7 +307,7 @@ msgstr "Compañía"
 msgid "Company for which this certificate will be used to sign CFDI"
 msgstr "Compañía para la cual este certificado será usado para firmar CFDI"
 
-#: erpnext_mexico_compliance/overrides/payment_entry.py:215
+#: erpnext_mexico_compliance/overrides/payment_entry.py:216
 #: erpnext_mexico_compliance/overrides/sales_invoice.py:151
 msgid "Company {0} has no address"
 msgstr "La compañía {0} no tiene dirección"
@@ -341,7 +341,7 @@ msgstr "Cliente"
 msgid "Customer address {0} has no zip code"
 msgstr "La dirección del cliente {0} no tiene código postal"
 
-#: erpnext_mexico_compliance/overrides/customer.py:52
+#: erpnext_mexico_compliance/overrides/customer.py:55
 msgid "Customer with Tax Id {0} already exists"
 msgstr "Cliente con Id de impuestos {0} ya existe"
 
@@ -349,7 +349,7 @@ msgstr "Cliente con Id de impuestos {0} ya existe"
 msgid "Customer {0} has no tax ID"
 msgstr "El cliente {0} no tiene RFC"
 
-#: erpnext_mexico_compliance/overrides/payment_entry.py:94
+#: erpnext_mexico_compliance/overrides/payment_entry.py:95
 #: erpnext_mexico_compliance/overrides/sales_invoice.py:171
 msgid "Customer {0} has no tax regime"
 msgstr "El cliente {0} no tiene régimen fiscal"
@@ -499,7 +499,7 @@ msgstr "Indica la forma en la que se realiza un pago, de acuerdo al catálogo de
 msgid "Indicates the method used to make a payment, in accordance with the SAT catalog of payment methods"
 msgstr "Indica el método usado para realizar un pago, de acuerdo al catálogo de métodos de pago del SAT"
 
-#: erpnext_mexico_compliance/overrides/payment_entry.py:266
+#: erpnext_mexico_compliance/overrides/payment_entry.py:267
 #: erpnext_mexico_compliance/overrides/sales_invoice.py:280
 msgid "Invalid CFDI"
 msgstr "CFDI Inválido"
@@ -516,13 +516,17 @@ msgstr "Formato de CURP inválido"
 msgid "Invalid Cancellation Reason"
 msgstr "Motivo de Cancelación inválido"
 
-#: erpnext_mexico_compliance/overrides/payment_entry.py:343
+#: erpnext_mexico_compliance/overrides/payment_entry.py:360
 msgid "Invalid Document Type"
 msgstr "Tipo de Documento inválido"
 
 #: erpnext_mexico_compliance/overrides/employee.py:42
 msgid "Invalid RFC"
 msgstr "RFC inválido"
+
+#: erpnext_mexico_compliance/overrides/payment_entry.py:336
+msgid "Invalid SAT Payment Method"
+msgstr "Forma de pago SAT Inválida"
 
 #: erpnext_mexico_compliance/overrides/employee.py:67
 msgid "Invalid SSN"
@@ -549,11 +553,6 @@ msgstr "Es Cancelable"
 #: erpnext_mexico_compliance/controllers/common.py:209
 msgid "Is Cancellable: {0}"
 msgstr "Se puede cancelar: {0}"
-
-#. Label of a Check field in DocType 'SAT Product or Service Key'
-#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_product_or_service_key/sat_product_or_service_key.json
-msgid "Is Group"
-msgstr "Es Grupo"
 
 #. Label of a Check field in DocType 'CFDI Stamping Settings'
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.json
@@ -600,11 +599,6 @@ msgstr "Clave Nombre"
 msgid "Key file not configured"
 msgstr "Archivo de llave no configurado"
 
-#. Label of a Int field in DocType 'SAT Product or Service Key'
-#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_product_or_service_key/sat_product_or_service_key.json
-msgid "Left"
-msgstr ""
-
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/digital_signing_certificate/digital_signing_certificate.py:83
 msgid "Legal name: {0}"
 msgstr "Razón social: {0}"
@@ -646,11 +640,6 @@ msgstr "Configuración del módulo"
 msgid "No cancellation acknowledgement available for {0} {1}."
 msgstr "Acuse de cancelación no disponible para {0} {1}."
 
-#. Label of a Link field in DocType 'SAT Product or Service Key'
-#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_product_or_service_key/sat_product_or_service_key.json
-msgid "Old Parent"
-msgstr "Padre antiguo"
-
 #. Label of a Table field in DocType 'CFDI Stamping Settings'
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.json
 msgid "PDF Templates"
@@ -661,11 +650,6 @@ msgstr "Plantillas PDF"
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_pdf_template/cfdi_pdf_template.json
 msgid "PDF body in HTML"
 msgstr "Cuerpo PDF en HTML"
-
-#. Label of a Link field in DocType 'SAT Product or Service Key'
-#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_product_or_service_key/sat_product_or_service_key.json
-msgid "Parent SAT Product or Service Key"
-msgstr "Clave de Producto o Servicio del SAT padre"
 
 #. Label of a Password field in DocType 'Digital Signing Certificate'
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/digital_signing_certificate/digital_signing_certificate.json
@@ -710,8 +694,8 @@ msgstr "El formato de RFC no cumple con las especificaciones del SAT"
 msgid "RFC: {0}"
 msgstr ""
 
-#: erpnext_mexico_compliance/overrides/payment_entry.py:153
-#: erpnext_mexico_compliance/overrides/payment_entry.py:248
+#: erpnext_mexico_compliance/overrides/payment_entry.py:154
+#: erpnext_mexico_compliance/overrides/payment_entry.py:249
 msgid "Reference {0} has not being stamped"
 msgstr "La referencia {0} no ha sido timbrada"
 
@@ -738,10 +722,9 @@ msgstr "Facturas de Venta Relacionadas"
 msgid "Requires relationship"
 msgstr "Requiere relación"
 
-#. Label of a Int field in DocType 'SAT Product or Service Key'
-#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_product_or_service_key/sat_product_or_service_key.json
-msgid "Right"
-msgstr ""
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_cfdi_use/sat_cfdi_use.py:43
+msgid "Row {0}: Tax Regime {1} is duplicated"
+msgstr "Fila {0}: El régimen fiscal {1} está duplicado"
 
 #. Label of the column_break_sat (Column Break) field in DocType 'Employee'
 #: erpnext_mexico_compliance/fixtures/custom_field.json
@@ -789,7 +772,7 @@ msgstr "Forma de Pago SAT"
 msgid "SAT Payment Option"
 msgstr "Método de Pago SAT"
 
-#: erpnext_mexico_compliance/overrides/payment_entry.py:251
+#: erpnext_mexico_compliance/overrides/payment_entry.py:252
 msgid "SAT Payment Option for reference {0} is not PPD"
 msgstr "El Método de Pago SAT para la referencia {0} no es PPD"
 
@@ -983,6 +966,10 @@ msgstr ""
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/digital_signing_certificate/digital_signing_certificate.js:7
 msgid "Validate Certificate"
 msgstr "Validar Certificado"
+
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_cfdi_use/sat_cfdi_use.py:50
+msgid "Validation Error"
+msgstr ""
 
 #. Label of a Section Break field in DocType 'CFDI Stamping Settings'
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.json
