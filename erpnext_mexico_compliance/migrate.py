@@ -37,3 +37,9 @@ def enqueue_sat_catalogs_update():
     """Queues a task to update the SAT Catalogs for the current site."""
     print(f"Queued update of SAT Catalogs for {frappe.local.site}")
     frappe.enqueue(update_sat_catalogs, queue="long")
+
+
+def set_cfdi_settings():
+    """Sets the CFDI Stamping Settings to the current site configuration."""
+    settings = frappe.get_single("CFDI Stamping Settings")
+    settings.save()
