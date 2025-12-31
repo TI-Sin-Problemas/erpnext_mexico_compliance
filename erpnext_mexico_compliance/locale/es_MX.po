@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: erpnext-mexico-compliance\n"
 "Report-Msgid-Bugs-To: info@tisinproblemas.com\n"
-"POT-Creation-Date: 2025-12-31 00:05+0000\n"
-"PO-Revision-Date: 2025-12-31 01:35\n"
+"POT-Creation-Date: 2025-12-31 04:53+0000\n"
+"PO-Revision-Date: 2025-12-31 06:24\n"
 "Last-Translator: info@tisinproblemas.com\n"
 "Language-Team: Spanish, Mexico\n"
 "MIME-Version: 1.0\n"
@@ -871,7 +871,7 @@ msgstr "XML Timbrado"
 #: erpnext_mexico_compliance/public/js/payment_entry.js:21
 #: erpnext_mexico_compliance/public/js/sales_invoice.js:21
 msgid "Stamping CFDI..."
-msgstr ""
+msgstr "Timbrando CFDI..."
 
 #. Label of the substitute_invoice (Link) field in DocType 'Sales Invoice'
 #: erpnext_mexico_compliance/fixtures/custom_field.json
@@ -929,6 +929,10 @@ msgstr "El motivo de cancelación requiere una factura sustituta."
 #: erpnext_mexico_compliance/public/js/payment_entry.js:98
 msgid "The Cancellation Reason requires a substitute payment entry."
 msgstr "El motivo de cancelación requiere una entrada de pago sustituta."
+
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.py:113
+msgid "The value of {0} is set from the site config and cannot be changed here. Only the site admin can change it."
+msgstr ""
 
 #: erpnext_mexico_compliance/controllers/common.py:284
 msgid "This Document will be cancelled once the CFDI cancellation request is approved"
