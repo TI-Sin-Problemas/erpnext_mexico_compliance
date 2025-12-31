@@ -106,7 +106,7 @@ class CFDIStampingSettings(Document):
         doc_field = self.meta.get_field(field)
 
         current_value = getattr(self, field)
-        if doc_field.fieldtype == "Password":
+        if doc_field.fieldtype == "Password" and current_value:
             current_value = self.get_password(field)
 
         if value and current_value != value:
