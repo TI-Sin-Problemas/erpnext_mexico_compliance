@@ -18,6 +18,7 @@ function stampCfdi(frm) {
         doc: frm.doc,
         args: { certificate },
         freeze: true,
+        freeze_message: __("Stamping CFDI..."),
       });
       frm.reload_doc();
     },
