@@ -96,6 +96,31 @@ class CFDIStampingSettings(Document):
         except frappe.exceptions.ValidationError:
             return False
 
+    def set_field_from_site_config(self, field):
+        """Sets a field from the site config if it is set.
+
+        Args:
+            field (str): The name of the field to set.
+        """
+        value = frappe.conf.get(f"cfdi_{field}")
+        doc_field = self.meta.get_field(field)
+
+        current_value = getattr(self, field)
+        if doc_field.fieldtype == "Password":
+            current_value = self.get_password(field)
+
+        if value and current_value != value:
+            msg = _(
+                "The value of {0} is set from the site config and cannot be changed here. Only the site admin can change it."
+            ).format(_(doc_field.label))
+            frappe.msgprint(msg)
+            setattr(self, field, value)
+
+    def before_validate(self):
+        self.set_field_from_site_config("api_key")
+        self.set_field_from_site_config("api_secret")
+        self.set_field_from_site_config("test_mode")
+
 
 @redis_cache(ttl=43200)  # Cache for 12 hours
 def get_is_premium() -> bool:
