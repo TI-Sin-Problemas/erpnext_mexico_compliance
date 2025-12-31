@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ERPNext Mexico Compliance VERSION\n"
 "Report-Msgid-Bugs-To: info@tisinproblemas.com\n"
-"POT-Creation-Date: 2025-12-31 00:05+0000\n"
-"PO-Revision-Date: 2025-12-31 00:05+0000\n"
+"POT-Creation-Date: 2025-12-31 04:53+0000\n"
+"PO-Revision-Date: 2025-12-31 04:53+0000\n"
 "Last-Translator: info@tisinproblemas.com\n"
 "Language-Team: info@tisinproblemas.com\n"
 "MIME-Version: 1.0\n"
@@ -926,6 +926,10 @@ msgstr ""
 
 #: erpnext_mexico_compliance/public/js/payment_entry.js:98
 msgid "The Cancellation Reason requires a substitute payment entry."
+msgstr ""
+
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.py:113
+msgid "The value of {0} is set from the site config and cannot be changed here. Only the site admin can change it."
 msgstr ""
 
 #: erpnext_mexico_compliance/controllers/common.py:284
