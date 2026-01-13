@@ -7,6 +7,8 @@ For license information, please see license.txt
 
 import frappe
 
+from erpnext_mexico_compliance.overrides.sales_invoice import SalesInvoice
+
 
 def check_cancellation_status():
     """Checks the cancellation status of Sales Invoices and Payment Entries."""
@@ -28,7 +30,7 @@ def check_cancellation_status():
     )
 
     for i in invoices:
-        doc = frappe.get_doc("Sales Invoice", i.name)
+        doc: SalesInvoice = frappe.get_doc("Sales Invoice", i.name)
         doc.update_cancellation_status()
 
     for p in payments:
