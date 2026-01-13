@@ -63,7 +63,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-07-29 17:21:11.470031",
+ "modified": "2026-01-12 19:04:19.037603",
  "modified_by": "Administrator",
  "module": "ERPNext Mexico Compliance",
  "name": "Digital Signing Certificate",
@@ -105,7 +105,7 @@
   }
  ],
  "row_format": "Dynamic",
- "sort_field": "modified",
+ "sort_field": "creation",
  "sort_order": "DESC",
  "states": []
 }

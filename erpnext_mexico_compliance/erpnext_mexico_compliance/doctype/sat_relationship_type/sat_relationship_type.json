@@ -44,7 +44,7 @@
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-09-26 18:38:07.715716",
+ "modified": "2026-01-12 19:04:17.638120",
  "modified_by": "Administrator",
  "module": "ERPNext Mexico Compliance",
  "name": "SAT Relationship Type",
@@ -88,7 +88,7 @@
  "row_format": "Dynamic",
  "search_fields": "code, description",
  "show_title_field_in_link": 1,
- "sort_field": "code",
+ "sort_field": "creation",
  "sort_order": "DESC",
  "states": [],
  "title_field": "description"

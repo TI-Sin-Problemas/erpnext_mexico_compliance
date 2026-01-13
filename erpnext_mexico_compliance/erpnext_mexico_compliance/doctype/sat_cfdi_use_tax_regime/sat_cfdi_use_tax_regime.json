@@ -20,13 +20,14 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-08-14 17:46:03.491710",
+ "modified": "2026-01-12 19:04:26.466503",
  "modified_by": "Administrator",
  "module": "ERPNext Mexico Compliance",
  "name": "SAT CFDI Use Tax Regime",
  "owner": "Administrator",
  "permissions": [],
- "sort_field": "modified",
+ "row_format": "Dynamic",
+ "sort_field": "creation",
  "sort_order": "DESC",
  "states": []
 }

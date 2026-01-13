@@ -39,14 +39,14 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-09-26 22:09:27.887913",
+ "modified": "2026-01-12 19:04:16.996970",
  "modified_by": "Administrator",
  "module": "ERPNext Mexico Compliance",
  "name": "Related Sales Invoice",
  "owner": "Administrator",
  "permissions": [],
  "row_format": "Dynamic",
- "sort_field": "modified",
+ "sort_field": "creation",
  "sort_order": "DESC",
  "states": []
 }
