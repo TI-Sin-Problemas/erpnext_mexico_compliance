@@ -10,6 +10,8 @@
   "api_secret",
   "test_mode",
   "is_premium",
+  "enable_low_credits_warning",
+  "low_credits_threshold",
   "column_break_omyj",
   "stamp_on_submit",
   "default_csds",
@@ -77,13 +79,26 @@
    "fieldtype": "Check",
    "is_virtual": 1,
    "label": "Is Premium"
+  },
+  {
+   "default": "1",
+   "fieldname": "enable_low_credits_warning",
+   "fieldtype": "Check",
+   "label": "Enable Low Credits Warning"
+  },
+  {
+   "default": "50",
+   "depends_on": "eval: doc.enable_low_credits_warning",
+   "fieldname": "low_credits_threshold",
+   "fieldtype": "Int",
+   "label": "Low Credits Threshold"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2026-01-12 19:04:25.455213",
+ "modified": "2026-01-15 11:47:15.876169",
  "modified_by": "Administrator",
  "module": "ERPNext Mexico Compliance",
  "name": "CFDI Stamping Settings",
@@ -101,7 +116,7 @@
   }
  ],
  "row_format": "Dynamic",
- "sort_field": "creation",
+ "sort_field": "modified",
  "sort_order": "DESC",
  "states": []
 }

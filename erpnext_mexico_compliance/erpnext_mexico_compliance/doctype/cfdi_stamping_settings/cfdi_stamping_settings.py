@@ -28,6 +28,8 @@ class CFDIStampingSettings(Document):
         api_key: DF.Data | None
         api_secret: DF.Password | None
         default_csds: DF.Table[DefaultCSD]
+        enable_low_credits_warning: DF.Check
+        low_credits_threshold: DF.Int
         pdf_templates: DF.Table[CFDIPDFTemplate]
         stamp_on_submit: DF.Check
         test_mode: DF.Check
@@ -58,6 +60,15 @@ class CFDIStampingSettings(Document):
         """
         ws = ws_client.get_ws_client(self)
         return ws.get_available_credits()
+
+    def check_low_credits(self):
+        remaining_credits = self.get_available_credits()
+        if remaining_credits < self.low_credits_threshold:
+            frappe.msgprint(
+                msg=_("Warning: {} CFDI credits remaining.").format(remaining_credits),
+                indicator="orange",
+                alert=True,
+            )
 
     def _validate_children(self):
         """
