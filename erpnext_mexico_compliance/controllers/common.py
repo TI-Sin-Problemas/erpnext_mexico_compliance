@@ -151,6 +151,8 @@ class CommonController(Document):
         """
         self.run_method("before_stamp_cfdi")
         self.send_stamp_request(certificate)
+        settings: CFDIStampingSettings = frappe.get_single("CFDI Stamping Settings")  # type: ignore
+        settings.check_low_credits()
         self.run_method("after_stamp_cfdi")
         self.run_method("before_attach_files")
         self.attach_pdf()
