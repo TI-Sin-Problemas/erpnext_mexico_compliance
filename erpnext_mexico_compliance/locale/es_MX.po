@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: erpnext-mexico-compliance\n"
 "Report-Msgid-Bugs-To: info@tisinproblemas.com\n"
 "POT-Creation-Date: 2026-01-15 18:28+0000\n"
-"PO-Revision-Date: 2026-01-15 18:51\n"
+"PO-Revision-Date: 2026-01-15 20:10\n"
 "Last-Translator: info@tisinproblemas.com\n"
 "Language-Team: Spanish, Mexico\n"
 "MIME-Version: 1.0\n"
@@ -435,7 +435,7 @@ msgstr "ERPNext Cumplimiento para México"
 #. Stamping Settings'
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.json
 msgid "Enable Low Credits Warning"
-msgstr ""
+msgstr "Activar Advertencia de Pocos Créditos"
 
 #. Label of the enabled (Check) field in DocType 'SAT CFDI Use'
 #. Label of the enabled (Check) field in DocType 'SAT Payment Method'
@@ -634,7 +634,7 @@ msgstr "Cargar muestra de contenido"
 #. Settings'
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.json
 msgid "Low Credits Threshold"
-msgstr ""
+msgstr "Límite de Pocos Créditos"
 
 #. Name of a Workspace
 #. Label of the tab_mexico_compliance (Tab Break) field in DocType 'Employee'
@@ -1005,7 +1005,7 @@ msgstr ""
 
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.py:68
 msgid "Warning: {} CFDI credits remaining."
-msgstr ""
+msgstr "Advertencia: {} créditos CFDI restantes."
 
 #. Label of the web_service_section (Section Break) field in DocType 'CFDI
 #. Stamping Settings'
