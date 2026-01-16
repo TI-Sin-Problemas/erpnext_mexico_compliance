@@ -8,7 +8,18 @@ app_description = (
 )
 app_email = "info@tisinproblemas.com"
 app_license = "MIT"
+app_home = "/desk/mexico-compliance"
 required_apps = ["erpnext"]
+
+add_to_apps_screen = [
+    {
+        "name": app_name,
+        "logo": "/assets/erpnext_mexico_compliance/img/logo.png",
+        "title": app_title,
+        "route": app_home,
+        "has_permission": "erpnext_mexico_compliance.utils.permissions.check_app_permission",
+    }
+]
 
 # Includes in <head>
 # ------------------
