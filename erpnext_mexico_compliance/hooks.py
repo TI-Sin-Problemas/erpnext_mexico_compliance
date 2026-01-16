@@ -15,7 +15,7 @@ add_to_apps_screen = [
     {
         "name": app_name,
         "logo": "/assets/erpnext_mexico_compliance/img/logo.png",
-        "title": app_title,
+        "title": "Mexico Compliance",
         "route": app_home,
         "has_permission": "erpnext_mexico_compliance.utils.permissions.check_app_permission",
     }
