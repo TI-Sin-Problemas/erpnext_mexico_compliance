@@ -285,16 +285,18 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
 		return reason.requires_relationship
 
 	@frappe.whitelist()
-	def cancel_cfdi(self, certificate: str, *args, **kwargs):
+	def cancel(self, certificate: str, *args, **kwargs):
 		"""Cancels the CFDI document of this payment entry.
 
 		Args:
-		    certificate (str): The name of the Digital Signing Certificate to use for cancellation.
+			certificate (str): The name of the Digital Signing Certificate to use for cancellation.
 
 		Returns:
-		    Document: The result of the cancellation operation.
+			Document: The result of the cancellation operation.
 		"""
-		return super().cancel_cfdi(certificate, "substitute_payment_entry")
+		if self.is_stamped:
+			return self.cancel_cfdi(certificate, "substitute_payment_entry")
+		return super().cancel()
 
 	def set_total_in_words(self):
 		if self.payment_type in ("Pay", "Internal Transfer"):

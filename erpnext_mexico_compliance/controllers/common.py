@@ -322,3 +322,12 @@ class CommonController(Document):
 		    etree.Element: The acknowledgement XML element.
 		"""
 		return etree.fromstring(self.cancellation_acknowledgement.encode("utf-8"))
+
+	@property
+	def is_stamped(self) -> bool:
+		"""Checks if the document is stamped.
+
+		Returns:
+			bool: True if the document is stamped, False otherwise.
+		"""
+		return bool(self.mx_stamped_xml)

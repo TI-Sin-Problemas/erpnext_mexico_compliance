@@ -298,7 +298,7 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
 		return reason.requires_relationship
 
 	@frappe.whitelist()
-	def cancel_cfdi(self, certificate: str, *args, **kwargs):
+	def cancel(self, certificate: str, *args, **kwargs):
 		"""Cancels the CFDI document of this sales invoice.
 
 		Args:
@@ -307,7 +307,9 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
 		Returns:
 			Document: The result of the cancellation operation.
 		"""
-		return super().cancel_cfdi(certificate, "substitute_invoice")
+		if self.is_stamped:
+			return self.cancel_cfdi(certificate, "substitute_invoice")
+		return super().cancel()
 
 	@property
 	def payment_entries(self) -> list[frappe._dict]:

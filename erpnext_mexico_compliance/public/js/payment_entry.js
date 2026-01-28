@@ -22,7 +22,7 @@ function stampCfdi(frm) {
       });
       frm.reload_doc();
     },
-    __("Select a Certificate to sign the CFDI")
+    __("Select a Certificate to sign the CFDI"),
   );
 }
 
@@ -54,7 +54,7 @@ async function addAttachPdfButton(frm) {
     frm.add_custom_button(
       __("Attach PDF"),
       async () => await attachFile(frm, "pdf"),
-      cfdiActionsGroup
+      cfdiActionsGroup,
     );
   }
 }
@@ -68,7 +68,7 @@ async function addAttachXmlButton(frm) {
     frm.add_custom_button(
       __("Attach XML"),
       async () => await attachFile(frm, "xml"),
-      cfdiActionsGroup
+      cfdiActionsGroup,
     );
   }
 }
@@ -88,7 +88,7 @@ function cancel(frm) {
   if (mx_stamped_xml) {
     if (!cancellation_reason) {
       const msg = __(
-        "A Cancellation Reason is required to cancel this payment entry."
+        "A Cancellation Reason is required to cancel this payment entry.",
       );
       frappe.throw(msg);
     }
@@ -96,7 +96,7 @@ function cancel(frm) {
 
   if (requires_relationship && !substitute_payment_entry) {
     const msg = __(
-      "The Cancellation Reason requires a substitute payment entry."
+      "The Cancellation Reason requires a substitute payment entry.",
     );
     frappe.throw(msg);
   }
@@ -113,16 +113,16 @@ function cancel(frm) {
     ],
     async ({ certificate }) => {
       const { message: cfdi_msg } = await frappe.call({
-        method: "cancel_cfdi",
+        method: "cancel",
         doc: frm.doc,
         args: { certificate },
-        btn: $(".btn-secondary"),
+        btn: $(`button[data-label="${__("Cancel")}"]`),
         freeze: true,
       });
       frappe.show_alert({ message: cfdi_msg, indicator: "green" });
       frm.reload_doc();
     },
-    __("Select a Certificate to sign the CFDI")
+    __("Select a Certificate to sign the CFDI"),
   );
 }
 
@@ -144,7 +144,7 @@ function refresh(frm) {
 
       if (cancellation_acknowledgement) {
         frm.add_custom_button(__("Check Cancellation Status"), () =>
-          checkCancellationStatus(frm)
+          checkCancellationStatus(frm),
         );
       }
       break;

@@ -22,7 +22,7 @@ function promptBeforeStamp(frm) {
       });
       frm.reload_doc();
     },
-    __("Select a Certificate to sign the CFDI")
+    __("Select a Certificate to sign the CFDI"),
   );
 }
 
@@ -32,11 +32,11 @@ function stampCfdi(frm) {
   if (zeroAmountItems.length > 0) {
     frappe.confirm(
       __(
-        "Items with amount of 0 won't be included in the CFDI. Do you want to continue?"
+        "Items with amount of 0 won't be included in the CFDI. Do you want to continue?",
       ),
       () => {
         promptBeforeStamp(frm);
-      }
+      },
     );
   } else {
     promptBeforeStamp(frm);
@@ -71,7 +71,7 @@ async function addAttachPdfButton(frm) {
     frm.add_custom_button(
       __("Attach PDF"),
       async () => await attachFile(frm, "pdf"),
-      cfdiActionsGroup
+      cfdiActionsGroup,
     );
   }
 }
@@ -85,7 +85,7 @@ async function addAttachXmlButton(frm) {
     frm.add_custom_button(
       __("Attach XML"),
       async () => await attachFile(frm, "xml"),
-      cfdiActionsGroup
+      cfdiActionsGroup,
     );
   }
 }
@@ -105,7 +105,7 @@ function cancel(frm) {
   if (mx_stamped_xml) {
     if (!cancellation_reason) {
       const msg = __(
-        "A Cancellation Reason is required to cancel this sales invoice."
+        "A Cancellation Reason is required to cancel this sales invoice.",
       );
       frappe.throw(msg);
     }
@@ -127,15 +127,15 @@ function cancel(frm) {
       ],
       async ({ certificate }) => {
         await frappe.call({
-          method: "cancel_cfdi",
+          method: "cancel",
           doc: frm.doc,
           args: { certificate },
-          btn: $(".btn-secondary"),
+          btn: $(`button[data-label="${__("Cancel")}"]`),
           freeze: true,
         });
         frm.reload_doc();
       },
-      __("Select a Certificate to sign the CFDI")
+      __("Select a Certificate to sign the CFDI"),
     );
   }
 }
@@ -158,7 +158,7 @@ function refresh(frm) {
 
       if (cancellation_acknowledgement) {
         frm.add_custom_button(__("Check Cancellation Status"), () =>
-          checkCancellationStatus(frm)
+          checkCancellationStatus(frm),
         );
       }
 
@@ -187,7 +187,7 @@ function setup(frm) {
 function downloadCancellationAcknowledgement(frm) {
   window.open(
     "/api/method/erpnext_mexico_compliance.api.v1.download_cancellation_acknowledgement?doctype=Sales%20Invoice&docname=" +
-      frm.doc.name
+      frm.doc.name,
   );
 }
 
