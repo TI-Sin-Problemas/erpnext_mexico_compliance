@@ -181,7 +181,7 @@ class CommonController(Document):
 
 		if status.status == status.DocumentStatus.CANCELLED:
 			self.flags.ignore_links = True
-			self.cancel()
+			self._cancel()
 
 	@frappe.whitelist()
 	def check_cancellation_status(self):
@@ -247,7 +247,7 @@ class CommonController(Document):
 			)
 			frappe.throw(msg, title=_("{} is required").format(substitute_field_label))
 
-	def _cancel_cfdi(self, certificate: str, substitute_field: str):
+	def cancel_cfdi(self, certificate: str, substitute_field: str):
 		"""Cancels the CFDI document associated with the current document.
 
 		This method uses a web service client to cancel the CFDI document associated
