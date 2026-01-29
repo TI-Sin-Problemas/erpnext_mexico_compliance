@@ -273,9 +273,8 @@ class CommonController(Document):
 			substitute = frappe.get_doc(self.doctype, substitute_name)
 			substitute_uuid = substitute.mx_uuid
 
-		self.cancellation_acknowledgement = ws.cancel(
-			certificate, cfdi, self.cancellation_reason, substitute_uuid
-		)
+		response = ws.cancel_cfdi(certificate, cfdi, self.cancellation_reason, substitute_uuid)
+		self.cancellation_acknowledgement = response["acknowledgement"]
 
 		ret = self.save()
 		frappe.msgprint(
