@@ -253,7 +253,8 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
 			frappe.throw(str(e), title=_("Invalid CFDI"))
 
 		ws = get_ws_client()
-		xml = ws.stamp(cfdi)
+		response = ws.stamp(cfdi)
+		xml = response["xml"]
 
 		self.db_set("mx_stamped_xml", xml)
 		self.db_set("mx_uuid", get_uuid_from_xml(xml))
