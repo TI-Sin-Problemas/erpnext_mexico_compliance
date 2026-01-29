@@ -1,121 +1,36 @@
-"""
-Copyright (c) 2022, TI Sin Problemas and contributors
-For license information, please see license.txt
-"""
-
-import json
-from enum import Enum
+"""Copyright (c) 2022-2026, TI Sin Problemas and contributors
+For license information, please see license.txt"""
 
 import frappe
-import requests
 from frappe import _
+from frappe.frappeclient import FrappeClient
 from satcfdi.cfdi import CFDI
 
-from . import auth, models
+from . import models
 
 
-class OperationMode(Enum):
-	"""Represents the operation mode of the CFDI Web Service."""
+class APIClient(FrappeClient):
+	def post_api(self, method, data=None):  # type: ignore
+		if data is None:
+			data = {}
+		res = self.session.post(
+			f"{self.url}/api/method/{method}", data=data, verify=self.verify, headers=self.headers
+		)
+		return self.post_process(res)
 
-	PROD = "https://tisinproblemas.com"
-	TEST = "https://cfdi.tisp-staging.com"
-
-
-class WSClient:
-	"""Represents a CFDI Web Service client."""
-
-	response: requests.Response
-	endpoints = {
-		"cancel": "/api/method/tisp_apps.api.v1.cfdi.cancel",
-		"status": "/api/method/tisp_apps.api.v1.cfdi.status",
-		"stamp": "/api/method/tisp_apps.api.v1.cfdi.stamp",
-		"subscription": "/api/method/tisp_apps.api.v1.cfdi.subscription_details",
-	}
-
-	def __init__(self, token: str, mode: OperationMode = OperationMode.TEST) -> None:
-		self.session = requests.Session()
-		self.session.auth = auth.TokenAuth(token)
-		self.url = mode.value
-		self.logger = frappe.logger("erpnext_mexico_compliance.ws_client", True)
-
-	def _get_uri(self, method: str) -> str:
-		"""Returns the URI for the given method.
-
-		Args:
-			method (str): The method for which to get the URI.
-
-		Returns:
-			str: The URI for the given method.
-		"""
-		return f"{self.url}{self.endpoints[method]}"
-
-	def _get_message(self):
-		"""Extracts and returns the 'message' field from the JSON response.
-
-		Returns:
-			str: The message extracted from the JSON response.
-		"""
-		return self.response.json()["message"]
-
-	def log_error(self, include_data: bool = False) -> None:
-		"""Logs an error message with optional data.
-
-		Args:
-			include_data (bool, optional): Whether to include the response data in the error
-			message. Defaults to False.
-
-		This function logs an error message using the logger object. The error message includes the
-		response code and message. If the `include_data` parameter is set to True, the response data
-		is also included in the error message.
-		"""
-		msg = {"code": self.response.code, "message": self.response.message}
-		if include_data:
-			msg["data"] = self.response.data
-		self.logger.error(msg)
-
-	def raise_from_code(self):
-		"""Raises a WSClientException if the given code is not 200.
-
-		Raises:
-			WSClientException: If the given code is not 200.
-			WSExistingCfdiException: If the given code is 307.
-		"""
-		if self.response.ok:
-			return
-
-		self.logger.error({"status": self.response.status_code, "message": self.response.text})
-		try:
-			res = self.response.json()
-		except requests.JSONDecodeError:
-			res = {"_server_messages": f'[{{"message": "{self.response.text}"}}]'}
-
-		server_messages = json.loads(res.get("_server_messages", "[]"))
-		msgs = [m.get("message", "") for m in server_messages]
-		frappe.throw(msgs, title=_("CFDI Web Service Error"), as_list=True)
-
-	def stamp(self, cfdi: CFDI) -> str:
+	def stamp(self, cfdi: CFDI) -> dict:
 		"""Stamps the provided CFDI.
 
 		Args:
 			cfdi (CFDI): The CFDI to be stamped.
 
 		Returns:
-			str: The stamped CFDI XML.
+			dict: The API response containing the stamped CFDI XML.
 		"""
 		xml_cfdi = cfdi.xml_bytes().decode("utf-8")
-		self.response = self.session.post(self._get_uri("stamp"), data={"xml": xml_cfdi})
-		self.logger.debug({"action": "stamp", "data": xml_cfdi})
-		self.raise_from_code()
-		message = self._get_message()
-		return message["xml"]
+		return self.post_api("tisp_apps.api.v1.cfdi.stamp", data={"xml": xml_cfdi})
 
-	def cancel(
-		self,
-		signing_certificate: str,
-		cfdi: CFDI,
-		reason: str,
-		substitute_uuid: str = None,
-	) -> str:
+	def cancel_cfdi(self, signing_certificate: str, cfdi: CFDI, reason: str, substitute_uuid: str):
 		"""Cancels a CFDI using the provided signing certificate, CFDI, reason, and optional
 		substitute UUID.
 
@@ -127,7 +42,7 @@ class WSClient:
 			substitute_uuid (str, optional): The substitute UUID for cancellation. Defaults to None.
 
 		Returns:
-			str: The cancellation acknowledgement xml.
+			dict: The API response containing the cancellation acknowledgement XML.
 		"""
 		csd = frappe.get_doc("Digital Signing Certificate", signing_certificate)
 		data = {
@@ -141,39 +56,24 @@ class WSClient:
 			"cancellation_reason": reason,
 			"substitute_uuid": substitute_uuid,
 		}
-		self.response = self.session.post(self._get_uri("cancel"), data=data)
-		self.logger.debug(
-			{
-				"action": "cancel",
-				"signing_certificate": signing_certificate,
-				"cfdi": cfdi,
-				"reason": reason,
-				"substitute_uuid": substitute_uuid,
-			}
-		)
-		self.raise_from_code()
-		msg = self._get_message()
-		return msg["acknowledgement"]
+		return self.post_api("tisp_apps.api.v1.cfdi.cancel", data=data)
 
-	def get_available_credits(self) -> int:
-		"""Retrieves the available credits from the CFDI Web Service.
+	def get_subscription(self):
+		"""Retrieves the subscription details from the CFDI Web Service.
 
 		Returns:
-			int: The number of available credits.
+			dict: The API response containing the subscription details.
 		"""
-		self.response = self.session.get(self._get_uri("subscription"), timeout=60)
-		self.raise_from_code()
-		return self._get_message()["available_credits"]
+		return self.get_api("tisp_apps.api.v1.cfdi.subscription_details")
 
-	def get_status(self, cfdi: CFDI) -> models.CfdiStatus:
-		"""
-		Retrieves the status of a CFDI document from the CFDI Web Service.
+	def get_status(self, cfdi: CFDI):
+		"""Retrieves the status of a CFDI from the CFDI Web Service.
 
 		Args:
-			cfdi (CFDI): The CFDI document to retrieve the status for.
+			cfdi (CFDI): The CFDI to retrieve the status of.
 
 		Returns:
-			CfdiStatus: The status of the CFDI document.
+			dict: The API response containing the status of the CFDI.
 		"""
 		params = {
 			"uuid": cfdi["Complemento"]["TimbreFiscalDigital"]["UUID"],
@@ -181,16 +81,5 @@ class WSClient:
 			"receiver_rfc": cfdi["Receptor"]["Rfc"],
 			"total": cfdi["Total"],
 		}
-		self.response = self.session.get(self._get_uri("status"), params=params, timeout=60)
-		self.raise_from_code()
-		return models.CfdiStatus.from_json(self.response.json())
-
-	def get_subscription_details(self) -> models.SubscriptionDetails:
-		"""Retrieves the subscription details from the CFDI Web Service.
-
-		Returns:
-			SubscriptionDetails: The subscription details.
-		"""
-		self.response = self.session.get(self._get_uri("subscription"), timeout=60)
-		self.raise_from_code()
-		return models.SubscriptionDetails.from_json(self.response.json())
+		response = self.get_api("tisp_apps.api.v1.cfdi.status", params=params)
+		return models.CfdiStatus.from_dict(response)
