@@ -10,6 +10,17 @@ from . import models
 
 
 class APIClient(FrappeClient):
+	def post_process(self, response):
+		try:
+			ret = super().post_process(response)
+		except Exception:
+			frappe.throw(response.text, title=_("CFDI Web Service Error"))
+			raise
+
+		if ret is None:
+			frappe.throw(response.text, title=_("CFDI Web Service Error"))
+		return ret
+
 	def post_api(self, method, data=None):  # type: ignore
 		if data is None:
 			data = {}
