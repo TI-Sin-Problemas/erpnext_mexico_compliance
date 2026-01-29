@@ -94,7 +94,7 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
 		- From `start_date` To `end_date`
 
 		Returns:
-		    str: The formatted service duration string.
+			str: The formatted service duration string.
 		"""
 		start_date = _("From {}").format(self.from_date) if self.from_date else ""
 		end_date = _("To {}").format(self.to_date) if self.to_date else ""
@@ -123,7 +123,7 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
 		The accounts are filtered by the names of the account heads in the invoice's taxes.
 
 		Returns:
-		    list[dict]: A list of dictionaries containing tax account information.
+			list[dict]: A list of dictionaries containing tax account information.
 		"""
 		heads = [t.account_head for t in self.taxes]
 		return frappe.get_list(
@@ -139,7 +139,7 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
 		If any issues are found, an error message is thrown with the list of issues.
 
 		Raises:
-		    frappe.ValidationError: If any issues were found.
+			frappe.ValidationError: If any issues were found.
 		"""
 		if self.company_address:
 			address = frappe.get_doc("Address", self.company_address)
@@ -159,7 +159,7 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
 		If any issues are found, an error message is thrown with the list of issues.
 
 		Raises:
-		    frappe.ValidationError: If any issues were found.
+			frappe.ValidationError: If any issues were found.
 		"""
 		customer_link = f'<a href="{self.customer_doc.get_url()}">{self.customer_doc.name}</a>'
 		msgs = []
@@ -262,7 +262,7 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
 		"""Stamps a CFDI document for the current sales invoice.
 
 		Args:
-		    certificate (str): The name of the Digital Signing Certificate to use for signing.
+			certificate (str): The name of the Digital Signing Certificate to use for signing.
 		"""
 		self.validate_company_address()
 		self.validate_customer()
@@ -273,7 +273,8 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
 			frappe.throw(str(e), title=_("Invalid CFDI"))
 
 		ws = get_ws_client()
-		xml = ws.stamp(cfdi)
+		response = ws.stamp(cfdi)
+		xml = response["xml"]
 
 		self.db_set("mx_stamped_xml", xml)
 		self.db_set("mx_uuid", get_uuid_from_xml(xml))
@@ -290,7 +291,7 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
 		requires_relationship field of the Cancellation Reason document.
 
 		Returns:
-		    int: 1 if a relationship is required, 0 otherwise.
+			int: 1 if a relationship is required, 0 otherwise.
 		"""
 		if not self.cancellation_reason:
 			return 0
