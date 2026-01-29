@@ -58,8 +58,9 @@ class CFDIStampingSettings(Document):
 		Returns:
 			int: The number of available credits.
 		"""
-		ws = ws_client.get_ws_client(self)
-		return ws.get_available_credits()
+		ws = ws_client.get_ws_client()
+		response = ws.get_subscription()
+		return response["available_credits"]
 
 	def check_low_credits(self):
 		remaining_credits = self.get_available_credits()
@@ -159,5 +160,5 @@ def get_is_premium() -> bool:
 		bool: True if the account has a valid premium subscription, False otherwise.
 	"""
 	ws = ws_client.get_ws_client()
-	subscription = ws.get_subscription_details()
-	return subscription.has_subscription
+	subscription = ws.get_subscription()
+	return subscription["has_subscription"]
