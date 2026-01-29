@@ -3,6 +3,7 @@ Copyright (c) 2022, TI Sin Problemas and contributors
 For license information, please see license.txt
 """
 
+import json
 from enum import Enum
 
 import frappe
@@ -14,190 +15,182 @@ from . import auth, models
 
 
 class OperationMode(Enum):
-    """Represents the operation mode of the CFDI Web Service."""
+	"""Represents the operation mode of the CFDI Web Service."""
 
-    PROD = "https://tisinproblemas.com"
-    TEST = "https://cfdi.tisp-staging.com"
+	PROD = "https://tisinproblemas.com"
+	TEST = "https://cfdi.tisp-staging.com"
 
 
 class WSClient:
-    """Represents a CFDI Web Service client."""
+	"""Represents a CFDI Web Service client."""
 
-    response: requests.Response
-    endpoints = {
-        "cancel": "/api/method/tisp_apps.api.v1.cfdi.cancel",
-        "status": "/api/method/tisp_apps.api.v1.cfdi.status",
-        "stamp": "/api/method/tisp_apps.api.v1.cfdi.stamp",
-        "subscription": "/api/method/tisp_apps.api.v1.cfdi.subscription_details",
-    }
+	response: requests.Response
+	endpoints = {
+		"cancel": "/api/method/tisp_apps.api.v1.cfdi.cancel",
+		"status": "/api/method/tisp_apps.api.v1.cfdi.status",
+		"stamp": "/api/method/tisp_apps.api.v1.cfdi.stamp",
+		"subscription": "/api/method/tisp_apps.api.v1.cfdi.subscription_details",
+	}
 
-    def __init__(self, token: str, mode: OperationMode = OperationMode.TEST) -> None:
-        self.session = requests.Session()
-        self.session.auth = auth.TokenAuth(token)
-        self.url = mode.value
-        self.logger = frappe.logger("erpnext_mexico_compliance.ws_client", True)
+	def __init__(self, token: str, mode: OperationMode = OperationMode.TEST) -> None:
+		self.session = requests.Session()
+		self.session.auth = auth.TokenAuth(token)
+		self.url = mode.value
+		self.logger = frappe.logger("erpnext_mexico_compliance.ws_client", True)
 
-    def _get_uri(self, method: str) -> str:
-        """Returns the URI for the given method.
+	def _get_uri(self, method: str) -> str:
+		"""Returns the URI for the given method.
 
-        Args:
-            method (str): The method for which to get the URI.
+		Args:
+			method (str): The method for which to get the URI.
 
-        Returns:
-            str: The URI for the given method.
-        """
-        return f"{self.url}{self.endpoints[method]}"
+		Returns:
+			str: The URI for the given method.
+		"""
+		return f"{self.url}{self.endpoints[method]}"
 
-    def _get_message(self):
-        """Extracts and returns the 'message' field from the JSON response.
+	def _get_message(self):
+		"""Extracts and returns the 'message' field from the JSON response.
 
-        Returns:
-            str: The message extracted from the JSON response.
-        """
-        return self.response.json()["message"]
+		Returns:
+			str: The message extracted from the JSON response.
+		"""
+		return self.response.json()["message"]
 
-    def log_error(self, include_data: bool = False) -> None:
-        """Logs an error message with optional data.
+	def log_error(self, include_data: bool = False) -> None:
+		"""Logs an error message with optional data.
 
-        Args:
-            include_data (bool, optional): Whether to include the response data in the error
-            message. Defaults to False.
+		Args:
+			include_data (bool, optional): Whether to include the response data in the error
+			message. Defaults to False.
 
-        This function logs an error message using the logger object. The error message includes the
-        response code and message. If the `include_data` parameter is set to True, the response data
-        is also included in the error message.
-        """
-        msg = {"code": self.response.code, "message": self.response.message}
-        if include_data:
-            msg["data"] = self.response.data
-        self.logger.error(msg)
+		This function logs an error message using the logger object. The error message includes the
+		response code and message. If the `include_data` parameter is set to True, the response data
+		is also included in the error message.
+		"""
+		msg = {"code": self.response.code, "message": self.response.message}
+		if include_data:
+			msg["data"] = self.response.data
+		self.logger.error(msg)
 
-    def raise_from_code(self):
-        """Raises a WSClientException if the given code is not 200.
+	def raise_from_code(self):
+		"""Raises a WSClientException if the given code is not 200.
 
-        Raises:
-            WSClientException: If the given code is not 200.
-            WSExistingCfdiException: If the given code is 307.
-        """
-        if self.response.ok:
-            return
+		Raises:
+			WSClientException: If the given code is not 200.
+			WSExistingCfdiException: If the given code is 307.
+		"""
+		if self.response.ok:
+			return
 
-        self.logger.error(
-            {"status": self.response.status_code, "message": self.response.text}
-        )
-        try:
-            res = self.response.json()
-        except requests.JSONDecodeError:
-            res = {"exception": self.response.text}
-        msg = res.get("exception", "")
-        exc_type = res.get("exc_type", "")
-        if exc_type and ":" in msg:
-            # If the exception type is present, split the message to get the actual error message
-            msg = msg.split(exc_type + ":")[1].strip()
-        frappe.throw(msg, title=_("CFDI Web Service Error"))
+		self.logger.error({"status": self.response.status_code, "message": self.response.text})
+		try:
+			res = self.response.json()
+		except requests.JSONDecodeError:
+			res = {"_server_messages": f'[{{"message": "{self.response.text}"}}]'}
 
-    def stamp(self, cfdi: CFDI) -> str:
-        """Stamps the provided CFDI.
+		server_messages = json.loads(res.get("_server_messages", "[]"))
+		msgs = [m.get("message", "") for m in server_messages]
+		frappe.throw(msgs, title=_("CFDI Web Service Error"), as_list=True)
 
-        Args:
-            cfdi (CFDI): The CFDI to be stamped.
+	def stamp(self, cfdi: CFDI) -> str:
+		"""Stamps the provided CFDI.
 
-        Returns:
-            str: The stamped CFDI XML.
-        """
-        xml_cfdi = cfdi.xml_bytes().decode("utf-8")
-        self.response = self.session.post(
-            self._get_uri("stamp"), data={"xml": xml_cfdi}
-        )
-        self.logger.debug({"action": "stamp", "data": xml_cfdi})
-        self.raise_from_code()
-        message = self._get_message()
-        return message["xml"]
+		Args:
+			cfdi (CFDI): The CFDI to be stamped.
 
-    def cancel(
-        self,
-        signing_certificate: str,
-        cfdi: CFDI,
-        reason: str,
-        substitute_uuid: str = None,
-    ) -> str:
-        """Cancels a CFDI using the provided signing certificate, CFDI, reason, and optional
-        substitute UUID.
+		Returns:
+			str: The stamped CFDI XML.
+		"""
+		xml_cfdi = cfdi.xml_bytes().decode("utf-8")
+		self.response = self.session.post(self._get_uri("stamp"), data={"xml": xml_cfdi})
+		self.logger.debug({"action": "stamp", "data": xml_cfdi})
+		self.raise_from_code()
+		message = self._get_message()
+		return message["xml"]
 
-        Args:
-            signing_certificate (str): The name of the Digital Signing Certificate DocType to use
-                for cancellation.
-            cfdi (CFDI): The CFDI to be cancelled.
-            reason (str): The reason for cancellation.
-            substitute_uuid (str, optional): The substitute UUID for cancellation. Defaults to None.
+	def cancel(
+		self,
+		signing_certificate: str,
+		cfdi: CFDI,
+		reason: str,
+		substitute_uuid: str = None,
+	) -> str:
+		"""Cancels a CFDI using the provided signing certificate, CFDI, reason, and optional
+		substitute UUID.
 
-        Returns:
-            str: The cancellation acknowledgement xml.
-        """
-        csd = frappe.get_doc("Digital Signing Certificate", signing_certificate)
-        data = {
-            "key": csd.get_key_b64(),
-            "cer": csd.get_certificate_b64(),
-            "password": csd.get_password(),
-            "uuid": cfdi["Complemento"]["TimbreFiscalDigital"]["UUID"],
-            "issuer_rfc": cfdi["Emisor"]["Rfc"],
-            "receiver_rfc": cfdi["Receptor"]["Rfc"],
-            "total": cfdi["Total"],
-            "cancellation_reason": reason,
-            "substitute_uuid": substitute_uuid,
-        }
-        self.response = self.session.post(self._get_uri("cancel"), data=data)
-        self.logger.debug(
-            {
-                "action": "cancel",
-                "signing_certificate": signing_certificate,
-                "cfdi": cfdi,
-                "reason": reason,
-                "substitute_uuid": substitute_uuid,
-            }
-        )
-        self.raise_from_code()
-        msg = self._get_message()
-        return msg["acknowledgement"]
+		Args:
+			signing_certificate (str): The name of the Digital Signing Certificate DocType to use
+				for cancellation.
+			cfdi (CFDI): The CFDI to be cancelled.
+			reason (str): The reason for cancellation.
+			substitute_uuid (str, optional): The substitute UUID for cancellation. Defaults to None.
 
-    def get_available_credits(self) -> int:
-        """Retrieves the available credits from the CFDI Web Service.
+		Returns:
+			str: The cancellation acknowledgement xml.
+		"""
+		csd = frappe.get_doc("Digital Signing Certificate", signing_certificate)
+		data = {
+			"key": csd.get_key_b64(),
+			"cer": csd.get_certificate_b64(),
+			"password": csd.get_password(),
+			"uuid": cfdi["Complemento"]["TimbreFiscalDigital"]["UUID"],
+			"issuer_rfc": cfdi["Emisor"]["Rfc"],
+			"receiver_rfc": cfdi["Receptor"]["Rfc"],
+			"total": cfdi["Total"],
+			"cancellation_reason": reason,
+			"substitute_uuid": substitute_uuid,
+		}
+		self.response = self.session.post(self._get_uri("cancel"), data=data)
+		self.logger.debug(
+			{
+				"action": "cancel",
+				"signing_certificate": signing_certificate,
+				"cfdi": cfdi,
+				"reason": reason,
+				"substitute_uuid": substitute_uuid,
+			}
+		)
+		self.raise_from_code()
+		msg = self._get_message()
+		return msg["acknowledgement"]
 
-        Returns:
-            int: The number of available credits.
-        """
-        self.response = self.session.get(self._get_uri("subscription"), timeout=60)
-        self.raise_from_code()
-        return self._get_message()["available_credits"]
+	def get_available_credits(self) -> int:
+		"""Retrieves the available credits from the CFDI Web Service.
 
-    def get_status(self, cfdi: CFDI) -> models.CfdiStatus:
-        """
-        Retrieves the status of a CFDI document from the CFDI Web Service.
+		Returns:
+			int: The number of available credits.
+		"""
+		self.response = self.session.get(self._get_uri("subscription"), timeout=60)
+		self.raise_from_code()
+		return self._get_message()["available_credits"]
 
-        Args:
-            cfdi (CFDI): The CFDI document to retrieve the status for.
+	def get_status(self, cfdi: CFDI) -> models.CfdiStatus:
+		"""
+		Retrieves the status of a CFDI document from the CFDI Web Service.
 
-        Returns:
-            CfdiStatus: The status of the CFDI document.
-        """
-        params = {
-            "uuid": cfdi["Complemento"]["TimbreFiscalDigital"]["UUID"],
-            "issuer_rfc": cfdi["Emisor"]["Rfc"],
-            "receiver_rfc": cfdi["Receptor"]["Rfc"],
-            "total": cfdi["Total"],
-        }
-        self.response = self.session.get(
-            self._get_uri("status"), params=params, timeout=60
-        )
-        self.raise_from_code()
-        return models.CfdiStatus.from_json(self.response.json())
+		Args:
+			cfdi (CFDI): The CFDI document to retrieve the status for.
 
-    def get_subscription_details(self) -> models.SubscriptionDetails:
-        """Retrieves the subscription details from the CFDI Web Service.
+		Returns:
+			CfdiStatus: The status of the CFDI document.
+		"""
+		params = {
+			"uuid": cfdi["Complemento"]["TimbreFiscalDigital"]["UUID"],
+			"issuer_rfc": cfdi["Emisor"]["Rfc"],
+			"receiver_rfc": cfdi["Receptor"]["Rfc"],
+			"total": cfdi["Total"],
+		}
+		self.response = self.session.get(self._get_uri("status"), params=params, timeout=60)
+		self.raise_from_code()
+		return models.CfdiStatus.from_json(self.response.json())
 
-        Returns:
-            SubscriptionDetails: The subscription details.
-        """
-        self.response = self.session.get(self._get_uri("subscription"), timeout=60)
-        self.raise_from_code()
-        return models.SubscriptionDetails.from_json(self.response.json())
+	def get_subscription_details(self) -> models.SubscriptionDetails:
+		"""Retrieves the subscription details from the CFDI Web Service.
+
+		Returns:
+			SubscriptionDetails: The subscription details.
+		"""
+		self.response = self.session.get(self._get_uri("subscription"), timeout=60)
+		self.raise_from_code()
+		return models.SubscriptionDetails.from_json(self.response.json())
