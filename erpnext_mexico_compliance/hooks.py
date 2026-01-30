@@ -3,22 +3,20 @@ from . import __version__ as app_version
 app_name = "erpnext_mexico_compliance"
 app_title = "ERPNext Mexico Compliance"
 app_publisher = "TI Sin Problemas"
-app_description = (
-    "ERPNext app to serve as base to comply with Mexican Rules and Regulations"
-)
+app_description = "ERPNext app to serve as base to comply with Mexican Rules and Regulations"
 app_email = "info@tisinproblemas.com"
 app_license = "MIT"
 app_home = "/desk/mexico-compliance"
 required_apps = ["erpnext"]
 
 add_to_apps_screen = [
-    {
-        "name": app_name,
-        "logo": "/assets/erpnext_mexico_compliance/img/logo.png",
-        "title": "Mexico Compliance",
-        "route": app_home,
-        "has_permission": "erpnext_mexico_compliance.utils.permissions.check_app_permission",
-    }
+	{
+		"name": app_name,
+		"logo": "/assets/erpnext_mexico_compliance/img/logo.png",
+		"title": "Mexico Compliance",
+		"route": app_home,
+		"has_permission": "erpnext_mexico_compliance.utils.permissions.check_app_permission",
+	}
 ]
 
 # Includes in <head>
@@ -44,8 +42,8 @@ web_include_js = "/assets/erpnext_mexico_compliance/js/portal_invoice.js"
 
 # include js in doctype views
 doctype_js = {
-    "Sales Invoice": "public/js/sales_invoice.js",
-    "Payment Entry": "public/js/payment_entry.js",
+	"Sales Invoice": "public/js/sales_invoice.js",
+	"Payment Entry": "public/js/payment_entry.js",
 }
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
@@ -99,10 +97,10 @@ doctype_js = {
 # ------------
 
 after_migrate = [
-    "erpnext_mexico_compliance.migrate.set_sales_invoices_uuid",
-    "erpnext_mexico_compliance.migrate.set_payment_entries_uuid",
-    "erpnext_mexico_compliance.migrate.enqueue_sat_catalogs_update",
-    "erpnext_mexico_compliance.migrate.set_cfdi_settings",
+	"erpnext_mexico_compliance.migrate.set_sales_invoices_uuid",
+	"erpnext_mexico_compliance.migrate.set_payment_entries_uuid",
+	"erpnext_mexico_compliance.migrate.enqueue_sat_catalogs_update",
+	"erpnext_mexico_compliance.migrate.set_cfdi_settings",
 ]
 # before_migrate = "erpnext_mexico_compliance.migrate.before_migrate"
 
@@ -145,11 +143,11 @@ after_migrate = [
 # Override standard doctype classes
 
 override_doctype_class = {
-    "Customer": "erpnext_mexico_compliance.overrides.customer.Customer",
-    "Employee": "erpnext_mexico_compliance.overrides.employee.Employee",
-    "Payment Entry": "erpnext_mexico_compliance.overrides.payment_entry.PaymentEntry",
-    "Sales Invoice": "erpnext_mexico_compliance.overrides.sales_invoice.SalesInvoice",
-    "Sales Invoice Item": "erpnext_mexico_compliance.overrides.sales_invoice_item.SalesInvoiceItem",
+	"Customer": "erpnext_mexico_compliance.overrides.customer.Customer",
+	"Employee": "erpnext_mexico_compliance.overrides.employee.Employee",
+	"Payment Entry": "erpnext_mexico_compliance.overrides.payment_entry.PaymentEntry",
+	"Sales Invoice": "erpnext_mexico_compliance.overrides.sales_invoice.SalesInvoice",
+	"Sales Invoice Item": "erpnext_mexico_compliance.overrides.sales_invoice_item.SalesInvoiceItem",
 }
 
 # Document Events
@@ -168,19 +166,19 @@ override_doctype_class = {
 # ---------------
 
 scheduler_events = {
-    # 	"all": [
-    # 		"erpnext_mexico_compliance.tasks.all"
-    # 	],
-    # 	"daily": [
-    # 		"erpnext_mexico_compliance.tasks.daily"
-    # 	],
-    "hourly": ["erpnext_mexico_compliance.tasks.check_cancellation_status"],
-    # 	"weekly": [
-    # 		"erpnext_mexico_compliance.tasks.weekly"
-    # 	],
-    # 	"monthly": [
-    # 		"erpnext_mexico_compliance.tasks.monthly"
-    # 	],
+	# 	"all": [
+	# 		"erpnext_mexico_compliance.tasks.all"
+	# 	],
+	# 	"daily": [
+	# 		"erpnext_mexico_compliance.tasks.daily"
+	# 	],
+	"hourly": ["erpnext_mexico_compliance.tasks.check_cancellation_status"],
+	# 	"weekly": [
+	# 		"erpnext_mexico_compliance.tasks.weekly"
+	# 	],
+	# 	"monthly": [
+	# 		"erpnext_mexico_compliance.tasks.monthly"
+	# 	],
 }
 
 # Testing
@@ -260,9 +258,12 @@ export_python_type_annotations = True
 # }
 
 fixtures = [
-    {"doctype": "Custom Field", "filters": [{"module": "ERPNext Mexico Compliance"}]},
-    {
-        "doctype": "Property Setter",
-        "filters": [{"module": "ERPNext Mexico Compliance"}],
-    },
+	{"doctype": "Custom Field", "filters": [{"module": "ERPNext Mexico Compliance"}]},
+	{
+		"doctype": "Property Setter",
+		"filters": [{"module": "ERPNext Mexico Compliance"}],
+	},
+	{
+		"doctype": "Cancellation Reason",
+	},
 ]
