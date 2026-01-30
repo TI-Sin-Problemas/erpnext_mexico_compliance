@@ -1,4 +1,5 @@
 {
+ "app": "erpnext_mexico_compliance",
  "charts": [],
  "content": "[{\"id\":\"I0YRNY96Kv\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Mexico Compliance</span>\",\"col\":12}},{\"id\":\"2_c8TjCfdY\",\"type\":\"card\",\"data\":{\"card_name\":\"Accounting\",\"col\":4}},{\"id\":\"U5q9et5tJ7\",\"type\":\"card\",\"data\":{\"card_name\":\"Settings\",\"col\":4}}]",
  "creation": "2024-06-25 23:20:44.180369",
@@ -58,7 +59,7 @@
    "hidden": 0,
    "is_query_report": 0,
    "label": "Accounting",
-   "link_count": 7,
+   "link_count": 8,
    "link_type": "DocType",
    "onboard": 0,
    "type": "Card Break"
@@ -132,9 +133,19 @@
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Cancellation Reason",
+   "link_count": 0,
+   "link_to": "Cancellation Reason",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
   }
  ],
- "modified": "2025-11-25 17:53:40.366230",
+ "modified": "2026-01-30 15:32:17.119923",
  "modified_by": "Administrator",
  "module": "ERPNext Mexico Compliance",
  "name": "Mexico Compliance",
@@ -146,5 +157,6 @@
  "roles": [],
  "sequence_id": 24.0,
  "shortcuts": [],
- "title": "Mexico Compliance"
+ "title": "Mexico Compliance",
+ "type": "Workspace"
 }
