@@ -297,7 +297,7 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
 		"""
 		if self.is_stamped:
 			return self.cancel_cfdi(certificate, "substitute_payment_entry")
-		return super().cancel()
+		return super(CommonController).cancel()
 
 	def set_total_in_words(self):
 		if self.payment_type in ("Pay", "Internal Transfer"):
