@@ -1,0 +1,29 @@
+{
+ "app": "erpnext_mexico_compliance",
+ "creation": "2026-01-13 22:44:05.508306",
+ "docstatus": 0,
+ "doctype": "Workspace Sidebar",
+ "header_icon": "organization",
+ "idx": 0,
+ "items": [
+  {
+   "child": 0,
+   "collapsible": 1,
+   "icon": "settings",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Settings",
+   "link_to": "Mexico Compliance",
+   "link_type": "Workspace",
+   "show_arrow": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-01-31 22:34:27.079118",
+ "modified_by": "Administrator",
+ "module": "ERPNext Mexico Compliance",
+ "name": "Mexico Compliance",
+ "owner": "Administrator",
+ "standard": 1,
+ "title": "Mexico Compliance"
+}
