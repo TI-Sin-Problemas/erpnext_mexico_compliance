@@ -299,7 +299,7 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
 		return reason.requires_relationship
 
 	@frappe.whitelist()
-	def cancel(self, certificate: str = "", *args, **kwargs):
+	def cancel(self, certificate: str = ""):
 		"""Cancels the CFDI document of this sales invoice.
 
 		Args:
