@@ -245,19 +245,6 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
 			cfdi_relacionados=[cfdi40.CfdiRelacionados(k, v) for k, v in related_documents.items()],
 		)
 
-	@frappe.whitelist()
-	def has_file(self, file_name: str) -> bool:
-		"""Returns DocType name if the CFDI document for this sales invoice has a file named as
-		`file_name` attached."""
-		return frappe.db.exists(
-			"File",
-			{
-				"attached_to_doctype": self.doctype,
-				"attached_to_name": self.name,
-				"file_name": file_name,
-			},
-		)
-
 	def send_stamp_request(self, certificate: str):
 		"""Stamps a CFDI document for the current sales invoice.
 

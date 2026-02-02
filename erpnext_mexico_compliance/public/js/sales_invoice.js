@@ -63,9 +63,16 @@ async function attachFile(frm, ext) {
 const cfdiActionsGroup = __("CFDI Actions");
 
 async function addAttachPdfButton(frm) {
-  const { message: hasFile } = await frm.call("has_file", {
-    file_name: `${frm.doc.name}_CFDI.pdf`,
-  });
+  const { doc } = frm;
+  const { doctype, name } = doc;
+  const { message: hasFile } = await frappe.call(
+    "erpnext_mexico_compliance.controllers.common.has_file",
+    {
+      dt: doctype,
+      dn: name,
+      file_name: `${name}_CFDI.pdf`,
+    },
+  );
 
   if (!hasFile) {
     frm.add_custom_button(
@@ -77,9 +84,16 @@ async function addAttachPdfButton(frm) {
 }
 
 async function addAttachXmlButton(frm) {
-  const { message: hasFile } = await frm.call("has_file", {
-    file_name: `${frm.doc.name}_CFDI.xml`,
-  });
+  const { doc } = frm;
+  const { doctype, name } = doc;
+  const { message: hasFile } = await frappe.call(
+    "erpnext_mexico_compliance.controllers.common.has_file",
+    {
+      dt: doctype,
+      dn: name,
+      file_name: `${name}_CFDI.xml`,
+    },
+  );
 
   if (!hasFile) {
     frm.add_custom_button(
