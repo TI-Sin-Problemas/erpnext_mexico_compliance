@@ -330,3 +330,10 @@ class CommonController(Document):
 			bool: True if the document is stamped, False otherwise.
 		"""
 		return bool(self.mx_stamped_xml)
+
+
+@frappe.whitelist()
+def has_file(dt: str, dn: str, file_name: str) -> bool:
+	return bool(
+		frappe.db.exists("File", {"attached_to_doctype": dt, "attached_to_name": dn, "file_name": file_name})
+	)

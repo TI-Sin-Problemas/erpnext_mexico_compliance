@@ -259,19 +259,6 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
 		self.db_set("mx_stamped_xml", xml)
 		self.db_set("mx_uuid", get_uuid_from_xml(xml))
 
-	@frappe.whitelist()
-	def has_file(self, file_name: str) -> bool:
-		"""Returns DocType name if the CFDI document for this sales invoice has a file named as
-		`file_name` attached."""
-		return frappe.db.exists(
-			"File",
-			{
-				"attached_to_doctype": self.doctype,
-				"attached_to_name": self.name,
-				"file_name": file_name,
-			},
-		)
-
 	@property
 	def requires_relationship(self) -> int:
 		"""Indicates whether a relationship with another payment entry is required for the
