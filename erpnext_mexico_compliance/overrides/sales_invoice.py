@@ -297,7 +297,7 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
 		"""
 		if self.is_stamped:
 			return self.cancel_cfdi(certificate, "substitute_invoice")
-		return super(CommonController).cancel()
+		return super().cancel()
 
 	@property
 	def payment_entries(self) -> list[frappe._dict]:
