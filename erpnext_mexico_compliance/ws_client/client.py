@@ -1,6 +1,8 @@
 """Copyright (c) 2022-2026, TI Sin Problemas and contributors
 For license information, please see license.txt"""
 
+import json
+
 import frappe
 from frappe import _
 from frappe.frappeclient import FrappeClient
@@ -12,10 +14,22 @@ from . import models
 class APIClient(FrappeClient):
 	def post_process(self, response):
 		try:
-			ret = super().post_process(response)
+			return super().post_process(response)
 		except Exception:
-			frappe.throw(response.text, title=_("CFDI Web Service Error"))
-			raise
+			ret = None
+
+		rjson = response.json()
+		if rjson and rjson.get("exc_type"):
+			msgs = json.loads(rjson.get("_server_messages"))
+			for m in msgs:
+				kwargs = json.loads(m)
+				frappe.msgprint(
+					kwargs["message"],
+					_("CFDI Web Service Error"),
+					kwargs["raise_exception"],
+					kwargs["as_table"],
+					indicator=kwargs["indicator"],
+				)
 
 		if ret is None:
 			frappe.throw(response.text, title=_("CFDI Web Service Error"))
