@@ -219,7 +219,7 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
 		address: Address = frappe.get_doc("Address", customer.customer_primary_address)  # type: ignore
 		if not address.pincode:
 			link = f'<a href="{address.get_url()}">{address.name}</a>'
-			msg = _("Customer's primary address {0} has no zip code").format(link)
+			msg = _("Customer address {0} has no zip code").format(link)
 			frappe.throw(msg)
 
 	def get_reference_docs(self) -> list[Document]:
