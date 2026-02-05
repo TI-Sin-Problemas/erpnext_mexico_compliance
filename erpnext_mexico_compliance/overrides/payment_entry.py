@@ -7,8 +7,10 @@ import sys
 
 import frappe
 from erpnext.accounts.doctype.payment_entry import payment_entry
+from erpnext.selling.doctype.customer.customer import Customer
 from erpnext.setup.doctype.company.company import get_default_company_address
 from frappe import _
+from frappe.contacts.doctype.address.address import Address
 from frappe.model.document import Document
 from frappe.utils.data import get_datetime
 from satcfdi.create.cfd import cfdi40, pago20
@@ -129,9 +131,6 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
 	def get_cfdi_voucher(self, csd: DigitalSigningCertificate) -> cfdi40.Comprobante:
 		address = frappe.get_doc("Address", self.company_address)
 
-		if not address.pincode:
-			frappe.throw(_("Address {0} has no zip code").format(address.name))
-
 		reference_date = self.reference_date
 		if isinstance(reference_date, str):
 			reference_date = get_datetime(reference_date)
@@ -197,7 +196,7 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
 		If any issues are found, an error message is thrown with the list of issues.
 
 		Raises:
-		    frappe.ValidationError: If any issues were found.
+			frappe.ValidationError: If any issues were found.
 		"""
 		if self.company_address:
 			address = frappe.get_doc("Address", self.company_address)
@@ -209,11 +208,25 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
 			link = f'<a href="{company.get_url()}">{company.name}</a>'
 			frappe.throw(_("Company {0} has no address").format(link))
 
+	def validate_customer_address(self):
+		customer: Customer = frappe.get_doc(self.party_type, self.party)  # type: ignore
+
+		if not customer.customer_primary_address:
+			link = f'<a href="{customer.get_url()}">{customer.name}</a>'
+			msg = _("Customer {0} has no primary address").format(link)
+			frappe.throw(msg)
+
+		address: Address = frappe.get_doc("Address", customer.customer_primary_address)  # type: ignore
+		if not address.pincode:
+			link = f'<a href="{address.get_url()}">{address.name}</a>'
+			msg = _("Customer's primary address {0} has no zip code").format(link)
+			frappe.throw(msg)
+
 	def get_reference_docs(self) -> list[Document]:
 		"""List of documents associated with the current payment entry.
 
 		Returns:
-		    list[Document]: List of documents associated with the current payment entry.
+			list[Document]: List of documents associated with the current payment entry.
 		"""
 
 		return [frappe.get_doc(r.reference_doctype, r.reference_name) for r in self.references]
@@ -225,7 +238,7 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
 		has been stamped.
 
 		Throws:
-		    frappe.ValidationError: If any of the references have not been stamped.
+			frappe.ValidationError: If any of the references have not been stamped.
 		"""
 		msgs = []
 		for ref in self.get_reference_docs():
@@ -246,6 +259,7 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
 
 	def send_stamp_request(self, certificate: str):
 		self.validate_company_address()
+		self.validate_customer_address()
 		self.validate_references()
 
 		try:
@@ -266,7 +280,7 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
 		cancellation reason.
 
 		Returns:
-		    int: 1 if a relationship is required, 0 otherwise.
+			int: 1 if a relationship is required, 0 otherwise.
 		"""
 		if not self.cancellation_reason:
 			return 0
@@ -307,7 +321,7 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
 		"Ivalid SAT Payment Method".
 
 		Raises:
-		    frappe.ValidationError: If the mode of payment is "99".
+			frappe.ValidationError: If the mode of payment is "99".
 		"""
 		if self.mx_payment_mode == "99":
 			frappe.throw(_("Invalid SAT Payment Method"))
@@ -321,15 +335,15 @@ def get_installment_number(doctype: str, docname: str, payment_entry_name: str) 
 	"""Returns the installment number of a payment entry in a sales invoice.
 
 	Args:
-	    doctype (str): The type of document.
-	    docname (str): The name of the document.
-	    payment_entry_name (str): The name of the payment entry.
+		doctype (str): The type of document.
+		docname (str): The name of the document.
+		payment_entry_name (str): The name of the payment entry.
 
 	Returns:
-	    int: The installment number of the payment entry.
+		int: The installment number of the payment entry.
 
 	Raises:
-	    frappe.ValidationError: If the document type is not "Sales Invoice".
+		frappe.ValidationError: If the document type is not "Sales Invoice".
 	"""
 	if doctype != "Sales Invoice":
 		raise frappe.ValidationError(_("Invalid Document Type"))
