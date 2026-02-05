@@ -159,6 +159,7 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
 				forma_pago=self.mx_payment_mode,
 				emisor=issuer,
 				lugar_expedicion=address.pincode,
+				receptor=self.cfdi_receiver,
 				serie=self.cfdi_series,
 				folio=self.cfdi_folio,
 				fecha=get_datetime(posting_date),
