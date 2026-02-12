@@ -182,6 +182,7 @@ function refresh(frm) {
 
 function setup(frm) {
   frm.set_query("mx_cfdi_use", (doc) => {
+    if (!doc.customer) return {};
     return {
       query: "erpnext_mexico_compliance.controllers.queries.cfdi_use_query",
       filters: { customer: doc.customer },
