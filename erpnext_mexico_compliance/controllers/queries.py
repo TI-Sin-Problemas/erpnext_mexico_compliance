@@ -3,7 +3,6 @@ For license information, please see license.txt"""
 
 import frappe
 from erpnext.controllers.queries import get_fields
-from frappe.desk.reportview import get_filters_cond
 
 
 @frappe.whitelist()
