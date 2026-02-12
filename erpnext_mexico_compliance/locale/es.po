@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: erpnext-mexico-compliance\n"
 "Report-Msgid-Bugs-To: info@tisinproblemas.com\n"
 "POT-Creation-Date: 2026-02-05 18:58+0000\n"
-"PO-Revision-Date: 2026-02-12 00:52\n"
+"PO-Revision-Date: 2026-02-12 01:11\n"
 "Last-Translator: info@tisinproblemas.com\n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -353,7 +353,7 @@ msgstr "Cliente con Id de impuestos {0} ya existe"
 
 #: erpnext_mexico_compliance/overrides/payment_entry.py:216
 msgid "Customer {0} has no primary address"
-msgstr ""
+msgstr "El cliente {0} no tiene dirección principal"
 
 #: erpnext_mexico_compliance/overrides/sales_invoice.py:167
 msgid "Customer {0} has no tax ID"
