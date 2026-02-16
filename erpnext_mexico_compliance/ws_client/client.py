@@ -20,9 +20,24 @@ class APIClient(FrappeClient):
 
 		rjson = response.json()
 		if rjson and rjson.get("exc_type"):
-			msgs = json.loads(rjson.get("_server_messages"))
+			msgs = json.loads(rjson.get("_server_messages", "[]"))
+
+			if not msgs:
+				msgs = [
+					{
+						"message": response.text,
+						"raise_exception": True,
+						"as_table": False,
+						"indicator": "red",
+					}
+				]
+
 			for m in msgs:
-				kwargs = json.loads(m)
+				if isinstance(m, dict):
+					kwargs = m
+				else:
+					kwargs = json.loads(m)
+
 				frappe.msgprint(
 					kwargs["message"],
 					_("CFDI Web Service Error"),
