@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ERPNext Mexico Compliance VERSION\n"
 "Report-Msgid-Bugs-To: info@tisinproblemas.com\n"
-"POT-Creation-Date: 2026-02-05 18:58+0000\n"
-"PO-Revision-Date: 2026-02-05 18:58+0000\n"
+"POT-Creation-Date: 2026-02-19 03:43+0000\n"
+"PO-Revision-Date: 2026-02-19 03:43+0000\n"
 "Last-Translator: info@tisinproblemas.com\n"
 "Language-Team: info@tisinproblemas.com\n"
 "MIME-Version: 1.0\n"
@@ -47,7 +47,7 @@ msgstr ""
 msgid "API Secret"
 msgstr ""
 
-#: erpnext_mexico_compliance/overrides/sales_invoice_item.py:102
+#: erpnext_mexico_compliance/overrides/sales_invoice_item.py:115
 msgid "Account {} does not have a tax type."
 msgstr ""
 
@@ -174,8 +174,8 @@ msgstr ""
 msgid "CFDI Status: {0}"
 msgstr ""
 
-#: erpnext_mexico_compliance/ws_client/client.py:28
-#: erpnext_mexico_compliance/ws_client/client.py:35
+#: erpnext_mexico_compliance/ws_client/client.py:43
+#: erpnext_mexico_compliance/ws_client/client.py:50
 msgid "CFDI Web Service Error"
 msgstr ""
 
@@ -471,7 +471,7 @@ msgid "Files"
 msgstr ""
 
 #: erpnext_mexico_compliance/overrides/sales_invoice.py:99
-#: erpnext_mexico_compliance/overrides/sales_invoice_item.py:71
+#: erpnext_mexico_compliance/overrides/sales_invoice_item.py:84
 msgid "From {}"
 msgstr ""
 
@@ -516,7 +516,7 @@ msgid "Indicates the method used to make a payment, in accordance with the SAT c
 msgstr ""
 
 #: erpnext_mexico_compliance/overrides/payment_entry.py:268
-#: erpnext_mexico_compliance/overrides/sales_invoice.py:260
+#: erpnext_mexico_compliance/overrides/sales_invoice.py:265
 msgid "Invalid CFDI"
 msgstr ""
 
@@ -573,6 +573,10 @@ msgstr ""
 #. Label of the is_premium (Check) field in DocType 'CFDI Stamping Settings'
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.json
 msgid "Is Premium"
+msgstr ""
+
+#: erpnext_mexico_compliance/overrides/sales_invoice_item.py:41
+msgid "Item {0} at row {1} does not have a SAT Product or Service Key"
 msgstr ""
 
 #: erpnext_mexico_compliance/public/js/sales_invoice.js:34
@@ -729,7 +733,7 @@ msgstr ""
 msgid "Related Sales Invoice"
 msgstr ""
 
-#: erpnext_mexico_compliance/overrides/sales_invoice.py:338
+#: erpnext_mexico_compliance/overrides/sales_invoice.py:343
 msgid "Related Sales Invoice {0} has not been stamped"
 msgstr ""
 
@@ -978,7 +982,7 @@ msgid "Title"
 msgstr ""
 
 #: erpnext_mexico_compliance/overrides/sales_invoice.py:100
-#: erpnext_mexico_compliance/overrides/sales_invoice_item.py:75
+#: erpnext_mexico_compliance/overrides/sales_invoice_item.py:88
 msgid "To {}"
 msgstr ""
 

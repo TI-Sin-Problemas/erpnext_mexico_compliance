@@ -15,110 +15,121 @@ from satcfdi.create.cfd import catalogos, cfdi40
 
 
 class SalesInvoiceItem(sales_invoice_item.SalesInvoiceItem):
-    """ERPNext Sales Invoice Item override"""
+	"""ERPNext Sales Invoice Item override"""
 
-    from typing import TYPE_CHECKING
+	from typing import TYPE_CHECKING
 
-    if TYPE_CHECKING:
-        from frappe.types import DF
+	if TYPE_CHECKING:
+		from frappe.types import DF
 
-        mx_product_service_key: DF.Link
+		mx_product_service_key: DF.Link
 
-    def before_validate(self):
-        """Add missing fields before validation"""
-        if self.item_code:
-            item = frappe.get_doc("Item", self.item_code)
-            self.mx_product_service_key = item.mx_product_service_key
+	def before_validate(self):
+		"""Add missing fields before validation"""
+		if self.item_code and not self.mx_product_service_key:
+			value = frappe.get_value("Item", self.item_code, "mx_product_service_key")
+			if value:
+				self.mx_product_service_key = value
+				self.db_update()
 
-    @property
-    def item_doc(self) -> Item:
-        """Related Item DocType
+	def validate(self):
+		"""Checks if the item has a SAT Product or Service Key."""
+		self.before_validate()
 
-        Returns:
-            Item: Item doctype
-        """
-        if self.item_code:
-            return frappe.get_doc("Item", self.item_code)
-        return None
+		if not self.mx_product_service_key:
+			frappe.throw(
+				_("Item {0} at row {1} does not have a SAT Product or Service Key").format(
+					self.item_code, self.idx
+				)
+			)
 
-    @property
-    def uom_doc(self) -> UOM:
-        """The UOM (Unit of Measure) DocType of the item.
+	@property
+	def item_doc(self) -> Item:
+		"""Related Item DocType
 
-        Returns:
-            UOM: UOM of the item
-        """
-        return frappe.get_doc("UOM", self.uom)
+		Returns:
+		    Item: Item doctype
+		"""
+		if self.item_code:
+			return frappe.get_doc("Item", self.item_code)
+		return None
 
-    @property
-    def service_duration_display(self) -> str:
-        """Returns a string displaying the service duration in a formatted manner.
+	@property
+	def uom_doc(self) -> UOM:
+		"""The UOM (Unit of Measure) DocType of the item.
 
-        The service duration is displayed as a range between the start date and the end date, if
-        both are provided. If only one of them is provided, the string will display the start or
-        end date accordingly. If neither is provided, an empty string is returned.
+		Returns:
+		    UOM: UOM of the item
+		"""
+		return frappe.get_doc("UOM", self.uom)
 
-        Examples:
-        - From `start_date`
-        - To `end_date`
-        - From `start_date` To `end_date`
+	@property
+	def service_duration_display(self) -> str:
+		"""Returns a string displaying the service duration in a formatted manner.
 
-        Returns:
-            str: The formatted service duration string.
-        """
-        start_date = ""
-        if self.service_start_date:
-            start_date = _("From {}").format(self.service_start_date)
+		The service duration is displayed as a range between the start date and the end date, if
+		both are provided. If only one of them is provided, the string will display the start or
+		end date accordingly. If neither is provided, an empty string is returned.
 
-        end_date = ""
-        if self.service_end_date:
-            start_date = _("To {}").format(self.service_end_date)
+		Examples:
+		- From `start_date`
+		- To `end_date`
+		- From `start_date` To `end_date`
 
-        return f"{start_date} {end_date}".strip()
+		Returns:
+		    str: The formatted service duration string.
+		"""
+		start_date = ""
+		if self.service_start_date:
+			start_date = _("From {}").format(self.service_start_date)
 
-    @property
-    def cfdi_description(self):
-        """Returns description ready to stamp a CFDI"""
-        cfdi_description = f"{self.item_name}"
-        item_description = strip_html(self.description) if self.description else ""
-        if all([self.description, self.item_name != item_description]):
-            cfdi_description += f" - {item_description}"
+		end_date = ""
+		if self.service_end_date:
+			start_date = _("To {}").format(self.service_end_date)
 
-        invoice_dates = self.parent_doc.subscription_duration_display
-        if invoice_dates:
-            cfdi_description += f" ({invoice_dates})"
+		return f"{start_date} {end_date}".strip()
 
-        return cfdi_description.strip()
+	@property
+	def cfdi_description(self):
+		"""Returns description ready to stamp a CFDI"""
+		cfdi_description = f"{self.item_name}"
+		item_description = strip_html(self.description) if self.description else ""
+		if all([self.description, self.item_name != item_description]):
+			cfdi_description += f" - {item_description}"
 
-    @property
-    def cfdi_taxes(self) -> cfdi40.Impuestos:
-        """The `cfdi40.Impuestos` object representing the taxes for this sales invoice item."""
-        withholding_taxes = []
-        transferred_taxes = []
-        for account in self.parent_doc.tax_accounts:
-            if not account["tax_type"]:
-                account_name = account["name"]
-                anchor = f'<a href="/app/account/{account_name}">{account_name}</a>'
-                frappe.throw(_("Account {} does not have a tax type.").format(anchor))
-            tax_type = catalogos.Impuesto[account["tax_type"]]
-            tax_rate = Decimal(account["tax_rate"]) / 100
-            tax_rate = tax_rate.quantize(Decimal("1.000000"))
+		invoice_dates = self.parent_doc.subscription_duration_display
+		if invoice_dates:
+			cfdi_description += f" ({invoice_dates})"
 
-            if tax_rate < 0:
-                withholding = cfdi40.Retencion(
-                    impuesto=tax_type,
-                    tipo_factor=catalogos.TipoFactor.TASA,
-                    tasa_o_cuota=Decimal(tax_rate * -1),
-                )
-                withholding_taxes.append(withholding)
-            else:
-                transferred = cfdi40.Traslado(
-                    impuesto=tax_type,
-                    tipo_factor=catalogos.TipoFactor.TASA,
-                    tasa_o_cuota=tax_rate,
-                )
-                transferred_taxes.append(transferred)
+		return cfdi_description.strip()
 
-        return cfdi40.Impuestos(
-            retenciones=withholding_taxes, traslados=transferred_taxes
-        )
+	@property
+	def cfdi_taxes(self) -> cfdi40.Impuestos:
+		"""The `cfdi40.Impuestos` object representing the taxes for this sales invoice item."""
+		withholding_taxes = []
+		transferred_taxes = []
+		for account in self.parent_doc.tax_accounts:
+			if not account["tax_type"]:
+				account_name = account["name"]
+				anchor = f'<a href="/app/account/{account_name}">{account_name}</a>'
+				frappe.throw(_("Account {} does not have a tax type.").format(anchor))
+			tax_type = catalogos.Impuesto[account["tax_type"]]
+			tax_rate = Decimal(account["tax_rate"]) / 100
+			tax_rate = tax_rate.quantize(Decimal("1.000000"))
+
+			if tax_rate < 0:
+				withholding = cfdi40.Retencion(
+					impuesto=tax_type,
+					tipo_factor=catalogos.TipoFactor.TASA,
+					tasa_o_cuota=Decimal(tax_rate * -1),
+				)
+				withholding_taxes.append(withholding)
+			else:
+				transferred = cfdi40.Traslado(
+					impuesto=tax_type,
+					tipo_factor=catalogos.TipoFactor.TASA,
+					tasa_o_cuota=tax_rate,
+				)
+				transferred_taxes.append(transferred)
+
+		return cfdi40.Impuestos(retenciones=withholding_taxes, traslados=transferred_taxes)
