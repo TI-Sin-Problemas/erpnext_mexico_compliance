@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: erpnext-mexico-compliance\n"
 "Report-Msgid-Bugs-To: info@tisinproblemas.com\n"
-"POT-Creation-Date: 2026-02-05 18:58+0000\n"
-"PO-Revision-Date: 2026-02-12 01:11\n"
+"POT-Creation-Date: 2026-02-19 03:43+0000\n"
+"PO-Revision-Date: 2026-02-19 08:12\n"
 "Last-Translator: info@tisinproblemas.com\n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -49,7 +49,7 @@ msgstr ""
 msgid "API Secret"
 msgstr ""
 
-#: erpnext_mexico_compliance/overrides/sales_invoice_item.py:102
+#: erpnext_mexico_compliance/overrides/sales_invoice_item.py:115
 msgid "Account {} does not have a tax type."
 msgstr "La cuenta {} no tiene un tipo de impuesto."
 
@@ -176,8 +176,8 @@ msgstr "Configuración de Timbrado de CFDI"
 msgid "CFDI Status: {0}"
 msgstr "Estado de CFDI: {0}"
 
-#: erpnext_mexico_compliance/ws_client/client.py:28
-#: erpnext_mexico_compliance/ws_client/client.py:35
+#: erpnext_mexico_compliance/ws_client/client.py:43
+#: erpnext_mexico_compliance/ws_client/client.py:50
 msgid "CFDI Web Service Error"
 msgstr "Error del Web Service de CFDI"
 
@@ -473,7 +473,7 @@ msgid "Files"
 msgstr "Archivos"
 
 #: erpnext_mexico_compliance/overrides/sales_invoice.py:99
-#: erpnext_mexico_compliance/overrides/sales_invoice_item.py:71
+#: erpnext_mexico_compliance/overrides/sales_invoice_item.py:84
 msgid "From {}"
 msgstr "De {}"
 
@@ -518,7 +518,7 @@ msgid "Indicates the method used to make a payment, in accordance with the SAT c
 msgstr "Indica el método usado para realizar un pago, de acuerdo al catálogo de métodos de pago del SAT"
 
 #: erpnext_mexico_compliance/overrides/payment_entry.py:268
-#: erpnext_mexico_compliance/overrides/sales_invoice.py:260
+#: erpnext_mexico_compliance/overrides/sales_invoice.py:265
 msgid "Invalid CFDI"
 msgstr "CFDI Inválido"
 
@@ -576,6 +576,10 @@ msgstr "Se puede cancelar: {0}"
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.json
 msgid "Is Premium"
 msgstr "Es Premium"
+
+#: erpnext_mexico_compliance/overrides/sales_invoice_item.py:41
+msgid "Item {0} at row {1} does not have a SAT Product or Service Key"
+msgstr "El producto {0} en la fila {1} no tiene Clave de Producto o Servicio"
 
 #: erpnext_mexico_compliance/public/js/sales_invoice.js:34
 msgid "Items with amount of 0 won't be included in the CFDI. Do you want to continue?"
@@ -731,7 +735,7 @@ msgstr "La referencia {0} no ha sido timbrada"
 msgid "Related Sales Invoice"
 msgstr "Factura de Ventas Relacionada"
 
-#: erpnext_mexico_compliance/overrides/sales_invoice.py:338
+#: erpnext_mexico_compliance/overrides/sales_invoice.py:343
 msgid "Related Sales Invoice {0} has not been stamped"
 msgstr "La Factura de Ventas relacionada {0} no ha sido timbrada"
 
@@ -980,7 +984,7 @@ msgid "Title"
 msgstr "Título"
 
 #: erpnext_mexico_compliance/overrides/sales_invoice.py:100
-#: erpnext_mexico_compliance/overrides/sales_invoice_item.py:75
+#: erpnext_mexico_compliance/overrides/sales_invoice_item.py:88
 msgid "To {}"
 msgstr "A {}"
 
