@@ -194,6 +194,10 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
 			uso_cfdi=self.mx_cfdi_use,
 		)
 
+	def validate_items(self):
+		for i in self.items:
+			i.validate()
+
 	@property
 	def cfdi_items(self) -> list[cfdi40.Concepto]:
 		"""Returns a list of `cfdi40.Concepto` objects representing the items of the CFDI document
@@ -253,6 +257,7 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
 		"""
 		self.validate_company_address()
 		self.validate_customer()
+		self.validate_items()
 
 		try:
 			cfdi = self.sign_cfdi(certificate)
