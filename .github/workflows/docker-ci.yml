@@ -45,7 +45,7 @@ jobs:
           build-args: |
             APPS_JSON_BASE64=${{ env.APPS_JSON_BASE64 }}
             FRAPPE_PATH=https://github.com/frappe/frappe
-            FRAPPE_BRANCH=version-14
+            FRAPPE_BRANCH=version-16
 
           tags: |
             ahuahuachi/erpnext_mexico_compliance:latest
