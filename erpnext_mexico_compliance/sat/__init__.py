@@ -5,12 +5,36 @@ For license information, please see license.txt
 from .catalogs import CatalogManager
 
 
-def update_sat_catalogs():
-    manager = CatalogManager()
-    manager.update_doctype("SAT Tax Regime")
-    manager.update_doctype("SAT CFDI Use")
-    manager.update_doctype("SAT Payment Option")
-    manager.update_doctype("SAT Payment Method")
-    manager.update_doctype("SAT Product or Service Key")
-    manager.update_doctype("SAT Relationship Type")
-    manager.update_doctype("SAT UOM Key")
+def update_tax_regimes():
+	manager = CatalogManager()
+	manager.update_doctype("SAT Tax Regime")
+
+
+def update_cfdi_uses():
+	manager = CatalogManager()
+	manager.update_doctype("SAT CFDI Use")
+
+
+def update_payment_options():
+	manager = CatalogManager()
+	manager.update_doctype("SAT Payment Option")
+
+
+def update_payment_methods():
+	manager = CatalogManager()
+	manager.update_doctype("SAT Payment Method")
+
+
+def update_product_or_service_keys():
+	manager = CatalogManager()
+	manager.update_doctype("SAT Product or Service Key")
+
+
+def update_relationship_types():
+	manager = CatalogManager()
+	manager.update_doctype("SAT Relationship Type")
+
+
+def update_units_of_measure():
+	manager = CatalogManager()
+	manager.update_doctype("SAT UOM Key")
