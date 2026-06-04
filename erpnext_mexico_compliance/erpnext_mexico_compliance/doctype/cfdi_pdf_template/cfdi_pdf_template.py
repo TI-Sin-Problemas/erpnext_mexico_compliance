@@ -2,6 +2,7 @@
 For license information, please see license.txt"""
 
 import typing as t
+from typing import TYPE_CHECKING
 
 import frappe
 from frappe.model.document import Document
@@ -11,148 +12,146 @@ from satcfdi.cfdi import CFDI
 from erpnext_mexico_compliance.hooks import app_name
 from erpnext_mexico_compliance.utils import qr_as_base64
 
+if TYPE_CHECKING:
+	from erpnext_mexico_compliance.doctype.cfdi_pdf_template.cfdi_pdf_template import CFDIPDFTemplate
 
-def get_sample_file_content(
-    document_type: str, sample_type: t.Literal["xml", "html.jinja", "css"]
-) -> str:
-    """
-    Reads a sample file for the given document type.
 
-    Args:
-        document_type (str): The document type of the file to read.
-        sample_type (Literal["xml", "html", "css"]): The type of the file to read, which can be
-            "xml", "html", or "css".
+def get_sample_file_content(document_type: str, sample_type: t.Literal["xml", "html.jinja", "css"]) -> str:
+	"""
+	Reads a sample file for the given document type.
 
-    Returns:
-        str: The contents of the sample file.
+	Args:
+		document_type (str): The document type of the file to read.
+		sample_type (Literal["xml", "html", "css"]): The type of the file to read, which can be
+			"xml", "html", or "css".
 
-    Raises:
-        ValueError: If the document type is not supported.
-    """
-    match document_type:
-        case "Payment Entry":
-            file_name = f"pago.{sample_type}"
-        case "Sales Invoice":
-            file_name = f"ingreso.{sample_type}"
-        case _:
-            raise ValueError(f"Unsupported document type: {document_type}")
+	Returns:
+		str: The contents of the sample file.
 
-    path = f"{frappe.get_app_path(app_name)}/examples/cfdi/{file_name}"
-    with open(path, "r") as f:
-        content = f.read()
-    return content
+	Raises:
+		ValueError: If the document type is not supported.
+	"""
+	match document_type:
+		case "Payment Entry":
+			file_name = f"pago.{sample_type}"
+		case "Sales Invoice":
+			file_name = f"ingreso.{sample_type}"
+		case _:
+			raise ValueError(f"Unsupported document type: {document_type}")
+
+	path = f"{frappe.get_app_path(app_name)}/examples/cfdi/{file_name}"
+	with open(path) as f:  # nosemgrep: frappe-semgrep-rules.rules.security.frappe-security-file-traversal
+		content = f.read()
+	return content
 
 
 class CFDIPDFTemplate(Document):
-    # begin: auto-generated types
-    # This code is auto-generated. Do not modify anything in this block.
+	# begin: auto-generated types
+	# This code is auto-generated. Do not modify anything in this block.
 
-    from typing import TYPE_CHECKING
+	from typing import TYPE_CHECKING
 
-    if TYPE_CHECKING:
-        from frappe.types import DF
+	if TYPE_CHECKING:
+		from frappe.types import DF
 
-        company: DF.Link
-        content_html: DF.HTMLEditor
-        css_styles: DF.Code | None
-        document_type: DF.Literal["", "Payment Entry", "Sales Invoice"]
-        letter_head: DF.Link | None
-        parent: DF.Data
-        parentfield: DF.Data
-        parenttype: DF.Data
-        title: DF.Data | None
-    # end: auto-generated types
+		company: DF.Link
+		content_html: DF.HTMLEditor
+		css_styles: DF.Code | None
+		document_type: DF.Literal["", "Payment Entry", "Sales Invoice"]
+		letter_head: DF.Link | None
+		parent: DF.Data
+		parentfield: DF.Data
+		parenttype: DF.Data
+		title: DF.Data | None
+	# end: auto-generated types
 
-    @property
-    def template(self):
-        """Returns the HTML template for the PDF."""
-        title = f"<title>{self.title}</title>"
-        style = f"<style>{self.css_styles}</style>"
-        head = (
-            '<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">'
-            f"{title}{style}</head>"
-        )
-        if self.letter_head:
-            letterhead = frappe.get_doc("Letter Head", self.letter_head)
-            header = letterhead.content or ""
-            footer = letterhead.footer or ""
-            body = f"<body>{header}{self.content_html}{footer}</body>"
-        else:
-            body = f"<body>{self.content_html}</body>"
-        return f"<!DOCTYPE html><html>{head}{body}</html>"
+	@property
+	def template(self):
+		"""Returns the HTML template for the PDF."""
+		title = f"<title>{self.title}</title>"
+		style = f"<style>{self.css_styles}</style>"
+		head = (
+			f'<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">{title}{style}</head>'
+		)
+		if self.letter_head:
+			letterhead = frappe.get_doc("Letter Head", self.letter_head)
+			header = letterhead.content or ""
+			footer = letterhead.footer or ""
+			body = f"<body>{header}{self.content_html}{footer}</body>"
+		else:
+			body = f"<body>{self.content_html}</body>"
+		return f"<!DOCTYPE html><html>{head}{body}</html>"
 
-    def get_rendered_pdf(
-        self, xml: str, doc: Document, context: dict | None = None
-    ) -> bytes:
-        """Renders the PDF template with the given XML and returns it as a PDF.
+	def get_rendered_pdf(self, xml: str, doc: Document, context: dict | None = None) -> bytes:
+		"""Renders the PDF template with the given XML and returns it as a PDF.
 
-        Args:
-            doc (Document): The document to render the PDF for.
-            xml (str): The XML of the CFDI to render.
-            context (dict, optional): Additional context to render the template. Defaults to None.
+		Args:
+			doc (Document): The document to render the PDF for.
+			xml (str): The XML of the CFDI to render.
+			context (dict, optional): Additional context to render the template. Defaults to None.
 
-        Returns:
-            bytes: The rendered PDF.
-        """
-        cfdi = CFDI.from_string(xml.encode("utf-8"))
-        qr = qr_as_base64(cfdi.verifica_url)
-        context = context or {}
-        context.update({"doc": doc, "cfdi": cfdi, "qr": qr})
-        rendered = frappe.render_template(self.template, context)
-        options = {"margin-left": "5mm", "margin-right": "5mm"}
-        return get_pdf(rendered, options=options)
+		Returns:
+			bytes: The rendered PDF.
+		"""
+		cfdi = CFDI.from_string(xml.encode("utf-8"))
+		qr = qr_as_base64(cfdi.verifica_url)
+		context = context or {}
+		context.update({"doc": doc, "cfdi": cfdi, "qr": qr})
+		rendered = frappe.render_template(self.template, context)
+		options = {"margin-left": "5mm", "margin-right": "5mm"}
+		return get_pdf(rendered, options=options)
 
-    def get_example_pdf(self):
-        """Generates an example PDF using a sample CFDI XML file.
+	def get_example_pdf(self):
+		"""Generates an example PDF using a sample CFDI XML file.
 
-        This method reads a sample CFDI XML file from the application's examples directory,
-        renders it using the PDF template, and returns the resulting PDF as bytes.
+		This method reads a sample CFDI XML file from the application's examples directory,
+		renders it using the PDF template, and returns the resulting PDF as bytes.
 
-        Returns:
-            bytes: The rendered example PDF.
-        """
+		Returns:
+			bytes: The rendered example PDF.
+		"""
 
-        xml = get_sample_file_content(self.document_type, "xml")
-        doc = frappe.get_doc(
-            self.document_type,
-            frappe.get_all(self.document_type, limit_page_length=1)[0].name,
-        )
-        return self.get_rendered_pdf(xml, doc)
+		xml = get_sample_file_content(self.document_type, "xml")
+		doc = frappe.get_doc(
+			self.document_type,
+			frappe.get_all(self.document_type, limit_page_length=1)[0].name,
+		)
+		return self.get_rendered_pdf(xml, doc)
 
-    @frappe.whitelist()
-    def get_sample_content(self) -> str:
-        """Returns a sample HTML content for the given document type.
+	@frappe.whitelist()
+	def get_sample_content(self) -> str:
+		"""Returns a sample HTML content for the given document type.
 
-        This method reads a sample HTML file from the application's examples directory,
-        which can be used to populate the `content_html` field of the CFDI PDF template.
+		This method reads a sample HTML file from the application's examples directory,
+		which can be used to populate the `content_html` field of the CFDI PDF template.
 
-        Returns:
-            str: The sample HTML content.
-        """
-        return get_sample_file_content(self.document_type, "html.jinja")
+		Returns:
+			str: The sample HTML content.
+		"""
+		return get_sample_file_content(self.document_type, "html.jinja")
 
-    @frappe.whitelist()
-    def get_sample_css(self) -> str:
-        """Returns a sample CSS content for the given document type.
+	@frappe.whitelist()
+	def get_sample_css(self) -> str:
+		"""Returns a sample CSS content for the given document type.
 
-        This method reads a sample CSS file from the application's examples directory,
-        which can be used to populate the `css_styles` field of the CFDI PDF template.
+		This method reads a sample CSS file from the application's examples directory,
+		which can be used to populate the `css_styles` field of the CFDI PDF template.
 
-        Returns:
-            str: The sample CSS content.
-        """
+		Returns:
+			str: The sample CSS content.
+		"""
 
-        return get_sample_file_content(self.document_type, "css")
+		return get_sample_file_content(self.document_type, "css")
 
 
 @frappe.whitelist()
-def print_example(docname):
-    """Prints a rendered PDF of the given CFDI PDF template.
+def print_example(docname: str):
+	"""Prints a rendered PDF of the given CFDI PDF template.
 
-    Args:
-        docname (str): The name of the CFDI PDF template document to render.
-    """
-    doc = frappe.get_doc("CFDI PDF Template", docname)
-    frappe.local.response.filename = f"{doc.title}.pdf"
-    frappe.local.response.filecontent = doc.get_example_pdf()
-    frappe.local.response.type = "pdf"
+	Args:
+		docname (str): The name of the CFDI PDF template document to render.
+	"""
+	doc: CFDIPDFTemplate = frappe.get_doc("CFDI PDF Template", docname)  # type: ignore
+	frappe.local.response.filename = f"{doc.title}.pdf"
+	frappe.local.response.filecontent = doc.get_example_pdf()
+	frappe.local.response.type = "pdf"
