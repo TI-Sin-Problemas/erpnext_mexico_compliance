@@ -6,17 +6,17 @@ from frappe.model.document import Document
 
 
 class CancellationReason(Document):
-    """Invoice Cancellation Reason"""
+	"""Invoice Cancellation Reason"""
 
-    # begin: auto-generated types
-    # This code is auto-generated. Do not modify anything in this block.
+	# begin: auto-generated types
+	# This code is auto-generated. Do not modify anything in this block.
 
-    from typing import TYPE_CHECKING
+	from typing import TYPE_CHECKING
 
-    if TYPE_CHECKING:
-        from frappe.types import DF
+	if TYPE_CHECKING:
+		from frappe.types import DF
 
-        code: DF.Data
-        description: DF.Data
-        requires_relationship: DF.Check
-    # end: auto-generated types
+		code: DF.Data
+		description: DF.Data
+		requires_relationship: DF.Check
+	# end: auto-generated types
