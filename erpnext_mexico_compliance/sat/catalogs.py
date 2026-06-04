@@ -13,330 +13,326 @@ from frappe.utils import date_diff
 from pypika import Query, Table
 
 from erpnext_mexico_compliance.erpnext_mexico_compliance.doctype.sat_cfdi_use.sat_cfdi_use import (
-    SATCFDIUse,
+	SATCFDIUse,
 )
 from erpnext_mexico_compliance.erpnext_mexico_compliance.doctype.sat_payment_method.sat_payment_method import (
-    SATPaymentMethod,
+	SATPaymentMethod,
 )
 from erpnext_mexico_compliance.erpnext_mexico_compliance.doctype.sat_payment_option.sat_payment_option import (
-    SATPaymentOption,
+	SATPaymentOption,
 )
 from erpnext_mexico_compliance.erpnext_mexico_compliance.doctype.sat_product_or_service_key.sat_product_or_service_key import (
-    SATProductorServiceKey,
+	SATProductorServiceKey,
 )
 from erpnext_mexico_compliance.erpnext_mexico_compliance.doctype.sat_relationship_type.sat_relationship_type import (
-    SATRelationshipType,
+	SATRelationshipType,
 )
 from erpnext_mexico_compliance.erpnext_mexico_compliance.doctype.sat_tax_regime.sat_tax_regime import (
-    SATTaxRegime,
+	SATTaxRegime,
 )
 from erpnext_mexico_compliance.erpnext_mexico_compliance.doctype.sat_uom_key.sat_uom_key import (
-    SATUOMKey,
+	SATUOMKey,
 )
 
 
 class CatalogManager:
-    def __init__(self):
-        self.db_path = self.download_db()
-        self.connection = sqlite3.connect(self.db_path)
-
-    def __enter__(self):
-        return self
-
-    def __exit__(self, exc_type, exc_value, traceback):
-        self.connection.close()
-        os.remove(self.db_path)
-
-    def download_db(self):
-        url = "https://github.com/phpcfdi/resources-sat-catalogs/releases/latest/download/catalogs.db.bz2"
-        response = requests.get(url=url)
-        response.raise_for_status()
-        with tempfile.NamedTemporaryFile(delete=False) as f:
-            decompressed = bz2.decompress(response.content)
-            f.write(decompressed)
-        return f.name
-
-    def _get_query_result_as_dict(self, fields: list, items: list[tuple]):
-        """Transforms a query result into a list of dictionaries.
-
-        Args:
-            fields (list): A list of pypika fields.
-            items (list[tuple]): A list of query result items.
-
-        Returns:
-            list[dict]: A list of dictionaries, where each dictionary represents a row of data and its values are mapped to the corresponding field name.
-        """
-        result = []
-        for row in items:
-            item = {}
-            for idx, field in enumerate(fields):
-                item[field.name] = row[idx]
-            result.append(item)
-        return result
-
-    def _get_query_result(self, table: Table, fields: list):
-        """Executes a query and returns the result.
-
-        Args:
-            table (Table): The table to query.
-            fields (list): A list of pypika fields to select.
-
-        Returns:
-            list[tuple]: The result of the query.
-        """
-        cur = self.connection.cursor()
-        query = Query.from_(table).select(*fields)
-        cur.execute(str(query))
-        return cur.fetchall()
-
-    def _get_items(
-        self, table: Table, fields: list[str], as_dict: bool = False
-    ) -> list[tuple] | list[dict]:
-        """Retrieves items from a given table.
-
-        Args:
-            table (Table): The table to query.
-            fields (list[str]): A list of field names to select.
-            as_dict (bool, optional): If True, returns the result as a list of dictionaries. Defaults to False.
-
-        Returns:
-            list[tuple] | list[dict]: A list of items, either as a list of tuples or a list of dictionaries.
-        """
-        query_result = self._get_query_result(table, fields)
-
-        if as_dict:
-            return self._get_query_result_as_dict(fields, query_result)
-
-        return query_result
-
-    def _update_relationship_types(self):
-        """Updates the SAT Relationship Type documents based on the data retrieved from the database."""
-        table = Table("cfdi_40_tipos_relaciones")
-        fields = [table.id, table.texto, table.vigencia_desde]
-        data: list[dict] = self._get_items(table=table, fields=fields, as_dict=True)  # type: ignore
-        doctype = "SAT Relationship Type"
-
-        for d in data:
-            has_changed = False
-
-            try:
-                doc: SATRelationshipType = frappe.get_doc(doctype, d["id"])  # type: ignore
-            except frappe.DoesNotExistError:
-                doc: SATRelationshipType = frappe.new_doc(doctype, code=d["id"])  # type: ignore
-
-            if doc.description != d["texto"]:
-                doc.description = d["texto"]
-                has_changed = True
-
-            if date_diff(doc.valid_from, d["vigencia_desde"]):  # type: ignore
-                doc.valid_from = d["vigencia_desde"]
-                has_changed = True
-
-            if has_changed or doc.is_new():
-                doc.save()
-
-        frappe.db.commit()
-
-    def _update_product_services(self):
-        """Updates the SAT Product or Service Key documents based on the data retrieved from the database.
-
-        The SAT Product or Service Key documents are updated based on the data retrieved from the database.
-        If a document does not exist, it is created. If a document exists and the description has changed, the description is updated.
-        """
-        table = Table("cfdi_40_productos_servicios")
-        fields = [table.id, table.texto]
-        data: list[dict] = self._get_items(table=table, fields=fields, as_dict=True)  # type: ignore
-        doctype = "SAT Product or Service Key"
-
-        for d in data:
-            has_changed = False
-            key = d["id"]
-            description = d["texto"]
-
-            try:
-                doc: SATProductorServiceKey = frappe.get_doc(doctype, {"key": key})  # type: ignore
-            except frappe.DoesNotExistError:
-                doc: SATProductorServiceKey = frappe.new_doc(doctype, key=key)  # type: ignore
-
-            if doc.description != description:
-                doc.description = description
-                has_changed = True
-
-            if has_changed or doc.is_new():
-                doc.save()
+	def __init__(self):
+		self.db_path = self.download_db()
+		self.connection = sqlite3.connect(self.db_path)
+
+	def __enter__(self):
+		return self
+
+	def __exit__(self, exc_type, exc_value, traceback):
+		self.connection.close()
+		os.remove(self.db_path)
+
+	def download_db(self):
+		url = "https://github.com/phpcfdi/resources-sat-catalogs/releases/latest/download/catalogs.db.bz2"
+		response = requests.get(url=url)
+		response.raise_for_status()
+		with tempfile.NamedTemporaryFile(delete=False) as f:
+			decompressed = bz2.decompress(response.content)
+			f.write(decompressed)
+		return f.name
+
+	def _get_query_result_as_dict(self, fields: list, items: list[tuple]):
+		"""Transforms a query result into a list of dictionaries.
+
+		Args:
+		    fields (list): A list of pypika fields.
+		    items (list[tuple]): A list of query result items.
+
+		Returns:
+		    list[dict]: A list of dictionaries, where each dictionary represents a row of data and its values are mapped to the corresponding field name.
+		"""
+		result = []
+		for row in items:
+			item = {}
+			for idx, field in enumerate(fields):
+				item[field.name] = row[idx]
+			result.append(item)
+		return result
+
+	def _get_query_result(self, table: Table, fields: list):
+		"""Executes a query and returns the result.
+
+		Args:
+		    table (Table): The table to query.
+		    fields (list): A list of pypika fields to select.
+
+		Returns:
+		    list[tuple]: The result of the query.
+		"""
+		cur = self.connection.cursor()
+		query = Query.from_(table).select(*fields)
+		cur.execute(str(query))
+		return cur.fetchall()
+
+	def _get_items(self, table: Table, fields: list[str], as_dict: bool = False) -> list[tuple] | list[dict]:
+		"""Retrieves items from a given table.
+
+		Args:
+		    table (Table): The table to query.
+		    fields (list[str]): A list of field names to select.
+		    as_dict (bool, optional): If True, returns the result as a list of dictionaries. Defaults to False.
+
+		Returns:
+		    list[tuple] | list[dict]: A list of items, either as a list of tuples or a list of dictionaries.
+		"""
+		query_result = self._get_query_result(table, fields)
+
+		if as_dict:
+			return self._get_query_result_as_dict(fields, query_result)
+
+		return query_result
+
+	def _update_relationship_types(self):
+		"""Updates the SAT Relationship Type documents based on the data retrieved from the database."""
+		table = Table("cfdi_40_tipos_relaciones")
+		fields = [table.id, table.texto, table.vigencia_desde]
+		data: list[dict] = self._get_items(table=table, fields=fields, as_dict=True)  # type: ignore
+		doctype = "SAT Relationship Type"
+
+		for d in data:
+			has_changed = False
+
+			try:
+				doc: SATRelationshipType = frappe.get_doc(doctype, d["id"])  # type: ignore
+			except frappe.DoesNotExistError:
+				doc: SATRelationshipType = frappe.new_doc(doctype, code=d["id"])  # type: ignore
+
+			if doc.description != d["texto"]:
+				doc.description = d["texto"]
+				has_changed = True
+
+			if date_diff(doc.valid_from, d["vigencia_desde"]):  # type: ignore
+				doc.valid_from = d["vigencia_desde"]
+				has_changed = True
+
+			if has_changed or doc.is_new():
+				doc.save()
+
+		frappe.db.commit()
+
+	def _update_product_services(self):
+		"""Updates the SAT Product or Service Key documents based on the data retrieved from the database.
+
+		The SAT Product or Service Key documents are updated based on the data retrieved from the database.
+		If a document does not exist, it is created. If a document exists and the description has changed, the description is updated.
+		"""
+		table = Table("cfdi_40_productos_servicios")
+		fields = [table.id, table.texto]
+		data: list[dict] = self._get_items(table=table, fields=fields, as_dict=True)  # type: ignore
+		doctype = "SAT Product or Service Key"
+
+		for d in data:
+			has_changed = False
+			key = d["id"]
+			description = d["texto"]
+
+			try:
+				doc: SATProductorServiceKey = frappe.get_doc(doctype, {"key": key})  # type: ignore
+			except frappe.DoesNotExistError:
+				doc: SATProductorServiceKey = frappe.new_doc(doctype, key=key)  # type: ignore
+
+			if doc.description != description:
+				doc.description = description
+				has_changed = True
+
+			if has_changed or doc.is_new():
+				doc.save()
+
+		frappe.db.commit()
+
+	def _update_cfdi_uses(self):
+		"""Updates the SAT CFDI Use documents based on the data retrieved from the database."""
+		table = Table("cfdi_40_usos_cfdi")
+		fields = [table.id, table.texto, table.regimenes_fiscales_receptores]
+		data: list[dict] = self._get_items(table=table, fields=fields, as_dict=True)  # type: ignore
+		doctype = "SAT CFDI Use"
+
+		for d in data:
+			has_changed = False
+			key = d["id"]
+			description = d["texto"]
+			tax_regimes = [r.strip() for r in d["regimenes_fiscales_receptores"].split(",")]
+
+			try:
+				doc: SATCFDIUse = frappe.get_doc(doctype, {"key": key})  # type: ignore
+			except frappe.DoesNotExistError:
+				doc: SATCFDIUse = frappe.new_doc(doctype, key=key)  # type: ignore
+
+			if doc.description != description:
+				doc.description = description
+				has_changed = True
+
+			doc_tax_regimes = [tr.tax_regime for tr in doc.tax_regimes]
+			for regime in tax_regimes:
+				if regime not in doc_tax_regimes:
+					doc.append("tax_regimes", {"tax_regime": regime})
+					has_changed = True
 
-        frappe.db.commit()
-
-    def _update_cfdi_uses(self):
-        """Updates the SAT CFDI Use documents based on the data retrieved from the database."""
-        table = Table("cfdi_40_usos_cfdi")
-        fields = [table.id, table.texto, table.regimenes_fiscales_receptores]
-        data: list[dict] = self._get_items(table=table, fields=fields, as_dict=True)  # type: ignore
-        doctype = "SAT CFDI Use"
-
-        for d in data:
-            has_changed = False
-            key = d["id"]
-            description = d["texto"]
-            tax_regimes = [
-                r.strip() for r in d["regimenes_fiscales_receptores"].split(",")
-            ]
-
-            try:
-                doc: SATCFDIUse = frappe.get_doc(doctype, {"key": key})  # type: ignore
-            except frappe.DoesNotExistError:
-                doc: SATCFDIUse = frappe.new_doc(doctype, key=key)  # type: ignore
-
-            if doc.description != description:
-                doc.description = description
-                has_changed = True
-
-            doc_tax_regimes = [tr.tax_regime for tr in doc.tax_regimes]
-            for regime in tax_regimes:
-                if regime not in doc_tax_regimes:
-                    doc.append("tax_regimes", {"tax_regime": regime})
-                    has_changed = True
+			if has_changed or doc.is_new():
+				doc.save()
 
-            if has_changed or doc.is_new():
-                doc.save()
+		frappe.db.commit()
+
+	def _update_tax_regimes(self):
+		"""Updates the SAT Tax Regime documents based on the data retrieved from the database.
 
-        frappe.db.commit()
-
-    def _update_tax_regimes(self):
-        """Updates the SAT Tax Regime documents based on the data retrieved from the database.
-
-        If a document does not exist, it is created. If a document exists and the description has changed, the description is updated."""
-        table = Table("cfdi_40_regimenes_fiscales")
-        fields = [table.id, table.texto]
-
-        data: list[dict] = self._get_items(table=table, fields=fields, as_dict=True)  # type: ignore
-        doctype = "SAT Tax Regime"
-
-        for d in data:
-            has_changed = False
-            key = d["id"]
-            description = d["texto"]
-
-            try:
-                doc: SATTaxRegime = frappe.get_doc(doctype, {"key": key})  # type: ignore
-            except frappe.DoesNotExistError:
-                doc: SATTaxRegime = frappe.new_doc(doctype, key=key)  # type: ignore
-
-            if doc.description != description:
-                doc.description = description
-                has_changed = True
-
-            if has_changed or doc.is_new():
-                doc.save()
-
-        frappe.db.commit()
-
-    def _update_payment_methods(self):
-        """Updates the SAT Payment Method documents based on the data retrieved from the database.
-
-        If a document does not exist, it is created. If a document exists and the description has changed, the description is updated.
-        """
-        table = Table("cfdi_40_formas_pago")
-        fields = [table.id, table.texto]
-
-        data: list[dict] = self._get_items(table=table, fields=fields, as_dict=True)  # type: ignore
-        doctype = "SAT Payment Method"
-
-        for d in data:
-            has_changed = False
-            key = d["id"]
-            description = d["texto"]
-
-            try:
-                doc: SATPaymentMethod = frappe.get_doc(doctype, {"key": key})  # type: ignore
-            except frappe.DoesNotExistError:
-                doc: SATPaymentMethod = frappe.new_doc(doctype, key=key)  # type: ignore
-
-            if doc.description != description:
-                doc.description = description
-                has_changed = True
-
-            if has_changed or doc.is_new():
-                doc.save()
-
-        frappe.db.commit()
-
-    def _update_payment_options(self):
-        """Updates the SAT Payment Option documents based on the data retrieved from the database.
-
-        If a document does not exist, it is created. If a document exists and the description has changed, the description is updated.
-        """
-        table = Table("cfdi_40_metodos_pago")
-        fields = [table.id, table.texto]
-
-        data: list[dict] = self._get_items(table=table, fields=fields, as_dict=True)  # type: ignore
-        doctype = "SAT Payment Option"
-
-        for d in data:
-            has_changed = False
-            key = d["id"]
-            description = d["texto"]
-
-            try:
-                doc: SATPaymentOption = frappe.get_doc(doctype, {"key": key})  # type: ignore
-            except frappe.DoesNotExistError:
-                doc: SATPaymentOption = frappe.new_doc(doctype, key=key)  # type: ignore
-
-            if doc.description != description:
-                doc.description = description
-                has_changed = True
-
-            if has_changed or doc.is_new():
-                doc.save()
-
-        frappe.db.commit()
-
-    def _update_unit_of_measure(self):
-        table = Table("cfdi_40_claves_unidades")
-        fields = [table.id, table.texto, table.descripcion]
-
-        data: list[dict] = self._get_items(table=table, fields=fields, as_dict=True)  # type: ignore
-        doctype = "SAT UOM Key"
-
-        for d in data:
-            has_changed = False
-            key = d["id"]
-            uom_name = d["texto"]
-            description = d["descripcion"]
-
-            try:
-                doc: SATUOMKey = frappe.get_doc(doctype, {"key": key})  # type: ignore
-            except frappe.DoesNotExistError:
-                doc: SATUOMKey = frappe.new_doc(doctype, key=key)  # type: ignore
-
-            if doc.uom_name != uom_name:
-                doc.uom_name = uom_name
-                has_changed = True
-
-            if doc.description != description:
-                doc.description = description
-                has_changed = True
-
-            if has_changed or doc.is_new():
-                doc.save()
-
-        frappe.db.commit()
-
-    def update_doctype(self, doctype: str):
-        match doctype:
-            case "SAT CFDI Use":
-                self._update_cfdi_uses()
-            case "SAT Payment Option":
-                self._update_payment_options()
-            case "SAT Payment Method":
-                self._update_payment_methods()
-            case "SAT Product or Service Key":
-                self._update_product_services()
-            case "SAT Relationship Type":
-                self._update_relationship_types()
-            case "SAT Tax Regime":
-                self._update_tax_regimes()
-            case "SAT UOM Key":
-                self._update_unit_of_measure()
-            case _:
-                raise ValueError(f"Unsupported doctype: {doctype}")
+		If a document does not exist, it is created. If a document exists and the description has changed, the description is updated."""
+		table = Table("cfdi_40_regimenes_fiscales")
+		fields = [table.id, table.texto]
+
+		data: list[dict] = self._get_items(table=table, fields=fields, as_dict=True)  # type: ignore
+		doctype = "SAT Tax Regime"
+
+		for d in data:
+			has_changed = False
+			key = d["id"]
+			description = d["texto"]
+
+			try:
+				doc: SATTaxRegime = frappe.get_doc(doctype, {"key": key})  # type: ignore
+			except frappe.DoesNotExistError:
+				doc: SATTaxRegime = frappe.new_doc(doctype, key=key)  # type: ignore
+
+			if doc.description != description:
+				doc.description = description
+				has_changed = True
+
+			if has_changed or doc.is_new():
+				doc.save()
+
+		frappe.db.commit()
+
+	def _update_payment_methods(self):
+		"""Updates the SAT Payment Method documents based on the data retrieved from the database.
+
+		If a document does not exist, it is created. If a document exists and the description has changed, the description is updated.
+		"""
+		table = Table("cfdi_40_formas_pago")
+		fields = [table.id, table.texto]
+
+		data: list[dict] = self._get_items(table=table, fields=fields, as_dict=True)  # type: ignore
+		doctype = "SAT Payment Method"
+
+		for d in data:
+			has_changed = False
+			key = d["id"]
+			description = d["texto"]
+
+			try:
+				doc: SATPaymentMethod = frappe.get_doc(doctype, {"key": key})  # type: ignore
+			except frappe.DoesNotExistError:
+				doc: SATPaymentMethod = frappe.new_doc(doctype, key=key)  # type: ignore
+
+			if doc.description != description:
+				doc.description = description
+				has_changed = True
+
+			if has_changed or doc.is_new():
+				doc.save()
+
+		frappe.db.commit()
+
+	def _update_payment_options(self):
+		"""Updates the SAT Payment Option documents based on the data retrieved from the database.
+
+		If a document does not exist, it is created. If a document exists and the description has changed, the description is updated.
+		"""
+		table = Table("cfdi_40_metodos_pago")
+		fields = [table.id, table.texto]
+
+		data: list[dict] = self._get_items(table=table, fields=fields, as_dict=True)  # type: ignore
+		doctype = "SAT Payment Option"
+
+		for d in data:
+			has_changed = False
+			key = d["id"]
+			description = d["texto"]
+
+			try:
+				doc: SATPaymentOption = frappe.get_doc(doctype, {"key": key})  # type: ignore
+			except frappe.DoesNotExistError:
+				doc: SATPaymentOption = frappe.new_doc(doctype, key=key)  # type: ignore
+
+			if doc.description != description:
+				doc.description = description
+				has_changed = True
+
+			if has_changed or doc.is_new():
+				doc.save()
+
+		frappe.db.commit()
+
+	def _update_unit_of_measure(self):
+		table = Table("cfdi_40_claves_unidades")
+		fields = [table.id, table.texto, table.descripcion]
+
+		data: list[dict] = self._get_items(table=table, fields=fields, as_dict=True)  # type: ignore
+		doctype = "SAT UOM Key"
+
+		for d in data:
+			has_changed = False
+			key = d["id"]
+			uom_name = d["texto"]
+			description = d["descripcion"]
+
+			try:
+				doc: SATUOMKey = frappe.get_doc(doctype, {"key": key})  # type: ignore
+			except frappe.DoesNotExistError:
+				doc: SATUOMKey = frappe.new_doc(doctype, key=key)  # type: ignore
+
+			if doc.uom_name != uom_name:
+				doc.uom_name = uom_name
+				has_changed = True
+
+			if doc.description != description:
+				doc.description = description
+				has_changed = True
+
+			if has_changed or doc.is_new():
+				doc.save()
+
+		frappe.db.commit()
+
+	def update_doctype(self, doctype: str):
+		match doctype:
+			case "SAT CFDI Use":
+				self._update_cfdi_uses()
+			case "SAT Payment Option":
+				self._update_payment_options()
+			case "SAT Payment Method":
+				self._update_payment_methods()
+			case "SAT Product or Service Key":
+				self._update_product_services()
+			case "SAT Relationship Type":
+				self._update_relationship_types()
+			case "SAT Tax Regime":
+				self._update_tax_regimes()
+			case "SAT UOM Key":
+				self._update_unit_of_measure()
+			case _:
+				raise ValueError(f"Unsupported doctype: {doctype}")
