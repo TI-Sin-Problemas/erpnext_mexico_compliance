@@ -6,21 +6,21 @@ from frappe.model.document import Document
 
 
 class SATPaymentMethod(Document):
-    # begin: auto-generated types
-    # This code is auto-generated. Do not modify anything in this block.
+	# begin: auto-generated types
+	# This code is auto-generated. Do not modify anything in this block.
 
-    from typing import TYPE_CHECKING
+	from typing import TYPE_CHECKING
 
-    if TYPE_CHECKING:
-        from frappe.types import DF
+	if TYPE_CHECKING:
+		from frappe.types import DF
 
-        description: DF.Data
-        enabled: DF.Check
-        key: DF.Data
-        key_name: DF.Data | None
-    # end: auto-generated types
-    """SAT's Payment Mode (Forma de pago)"""
+		description: DF.Data
+		enabled: DF.Check
+		key: DF.Data
+		key_name: DF.Data | None
+	# end: auto-generated types
+	"""SAT's Payment Mode (Forma de pago)"""
 
-    def before_save(self):
-        """Set DocType key name"""
-        self.key_name = f"{self.key} - {self.description}"[:140]
+	def before_save(self):
+		"""Set DocType key name"""
+		self.key_name = f"{self.key} - {self.description}"[:140]
