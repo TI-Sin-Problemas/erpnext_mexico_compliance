@@ -2,6 +2,7 @@
 For license information, please see license.txt"""
 
 import typing as t
+from typing import TYPE_CHECKING
 
 import frappe
 from frappe.model.document import Document
@@ -10,6 +11,9 @@ from satcfdi.cfdi import CFDI
 
 from erpnext_mexico_compliance.hooks import app_name
 from erpnext_mexico_compliance.utils import qr_as_base64
+
+if TYPE_CHECKING:
+	from erpnext_mexico_compliance.doctype.cfdi_pdf_template.cfdi_pdf_template import CFDIPDFTemplate
 
 
 def get_sample_file_content(document_type: str, sample_type: t.Literal["xml", "html.jinja", "css"]) -> str:
@@ -141,13 +145,13 @@ class CFDIPDFTemplate(Document):
 
 
 @frappe.whitelist()
-def print_example(docname):
+def print_example(docname: str):
 	"""Prints a rendered PDF of the given CFDI PDF template.
 
 	Args:
 		docname (str): The name of the CFDI PDF template document to render.
 	"""
-	doc = frappe.get_doc("CFDI PDF Template", docname)
+	doc: CFDIPDFTemplate = frappe.get_doc("CFDI PDF Template", docname)  # type: ignore
 	frappe.local.response.filename = f"{doc.title}.pdf"
 	frappe.local.response.filecontent = doc.get_example_pdf()
 	frappe.local.response.type = "pdf"
