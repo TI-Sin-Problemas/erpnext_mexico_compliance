@@ -40,7 +40,7 @@ def get_sample_file_content(document_type: str, sample_type: t.Literal["xml", "h
 			raise ValueError(f"Unsupported document type: {document_type}")
 
 	path = f"{frappe.get_app_path(app_name)}/examples/cfdi/{file_name}"
-	with open(path) as f:
+	with open(path) as f:  # nosemgrep: frappe-semgrep-rules.rules.security.frappe-security-file-traversal
 		content = f.read()
 	return content
 
