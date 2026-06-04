@@ -22,7 +22,7 @@ jobs:
           REPO_URL: https://token:${{ github.token }}@github.com/${{ github.repository }}
           REPO_BRANCH: "main"
         with:
-          json: ./apps.json
+          json: ./docker/apps.json
 
       - name: Load apps.json to environment
         run: echo "APPS_JSON_BASE64=$(base64 --wrap=0 ${{ steps.render.outputs.result }})" >> $GITHUB_ENV
