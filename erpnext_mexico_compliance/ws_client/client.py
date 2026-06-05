@@ -2,16 +2,33 @@
 For license information, please see license.txt"""
 
 import json
+import platform
 
 import frappe
 from frappe import _
 from frappe.frappeclient import FrappeClient
+from frappe.utils import get_app_version
 from satcfdi.cfdi import CFDI
 
 from . import models
 
 
 class APIClient(FrappeClient):
+	def __init__(self, url, api_key, api_secret):
+		super().__init__(url=url, api_key=api_key, api_secret=api_secret)
+		self.__set_user_agent()
+
+	def __set_user_agent(self):
+		app_name = "erpnext_mexico_compliance"
+		app_title = frappe.get_hooks("app_title", app_name=app_name)[0]
+		app_title = app_title.replace(" ", "_")
+		version = get_app_version(app_name)
+		os_name = platform.system()
+		os_version = platform.release()
+		machine = platform.machine()
+
+		self.headers["User-Agent"] = f"{app_title}/{version} ({os_name} {os_version} {machine})"
+
 	def post_process(self, response):
 		try:
 			return super().post_process(response)
