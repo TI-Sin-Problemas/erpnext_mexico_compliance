@@ -9,7 +9,6 @@ from io import BytesIO
 
 import frappe
 from frappe import _
-from frappe.client import attach_file
 from frappe.model.document import Document
 from frappe.model.naming import NamingSeries
 from lxml import etree
