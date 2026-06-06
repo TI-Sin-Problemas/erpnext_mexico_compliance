@@ -126,16 +126,7 @@ class CommonController(Document):
 		"""
 		self.run_method("before_attach_xml")
 		file_name = f"{self.name}_CFDI.xml"
-
-		if hasattr(self, "mx_addenda") and self.mx_addenda:
-			xml = etree.fromstring(self.mx_stamped_xml.encode("utf-8"))
-			xml.append(self.build_addenda())
-			content = etree.tostring(xml, xml_declaration=True, encoding="utf-8")
-			content = content.decode()
-		else:
-			content = self.mx_stamped_xml
-
-		ret = attach_file(file_name, content, self.doctype, self.name, is_private=1)
+		ret = attach_file(file_name, self.mx_stamped_xml, self.doctype, self.name, is_private=1)
 		self.run_method("after_attach_xml")
 		return ret
 
@@ -308,8 +299,9 @@ class CommonController(Document):
 			return None
 
 		root = etree.Element("{http://www.sat.gob.mx/cfd/4}Addenda")
+		parser = etree.XMLParser(remove_blank_text=True)
 		rendered_addenda = frappe.render_template(self.mx_addenda, {"doc": self})
-		child = etree.fromstring(rendered_addenda)
+		child = etree.fromstring(rendered_addenda.strip(), parser=parser)
 		root.append(child)
 		return root
 
