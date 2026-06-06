@@ -54,10 +54,10 @@ class CommonController(Document):
 		"""Generates a CFDI voucher using the provided digital signing certificate.
 
 		Args:
-		    csd (DigitalSigningCertificate): The digital signing certificate.
+			csd (DigitalSigningCertificate): The digital signing certificate.
 
 		Returns:
-		    cfdi40.Comprobante: The generated CFDI voucher.
+			cfdi40.Comprobante: The generated CFDI voucher.
 		"""
 		raise NotImplementedError("cfdi_voucher method is not implemented")
 
@@ -65,10 +65,10 @@ class CommonController(Document):
 		"""Signs a CFDI document with the provided digital signing certificate.
 
 		Args:
-		    certificate (str): The name of the Digital Signing Certificate to use for signing.
+			certificate (str): The name of the Digital Signing Certificate to use for signing.
 
 		Returns:
-		    CFDI: The signed and processed CFDI document.
+			CFDI: The signed and processed CFDI document.
 		"""
 		csd = frappe.get_doc("Digital Signing Certificate", certificate)
 		voucher = self.get_cfdi_voucher(csd)
@@ -79,7 +79,7 @@ class CommonController(Document):
 	def send_stamp_request(self, certificate: str):
 		"""Sends a request to stamp the CFDI document with the provided digital signing certificate.
 		Args:
-		    certificate (str): The name of the Digital Signing Certificate to use for stamping.
+			certificate (str): The name of the Digital Signing Certificate to use for stamping.
 		"""
 		raise NotImplementedError("send_stamp_request method is not implemented")
 
@@ -90,7 +90,7 @@ class CommonController(Document):
 		This method generates a PDF file from the CFDI XML and attaches it to the current document.
 
 		Returns:
-		    Document: The result of attaching the PDF file to the current document.
+			Document: The result of attaching the PDF file to the current document.
 		"""
 
 		self.run_method("before_attach_pdf")
@@ -122,7 +122,7 @@ class CommonController(Document):
 		This method generates an XML file from the CFDI XML and attaches it to the current document.
 
 		Returns:
-		    Document: The result of attaching the XML file to the current document.
+			Document: The result of attaching the XML file to the current document.
 		"""
 		self.run_method("before_attach_xml")
 		file_name = f"{self.name}_CFDI.xml"
@@ -144,10 +144,10 @@ class CommonController(Document):
 		"""Stamps a CFDI document with the provided digital signing certificate.
 
 		Args:
-		    certificate (str): The name of the Digital Signing Certificate to use for signing.
+			certificate (str): The name of the Digital Signing Certificate to use for signing.
 
 		Returns:
-		    CFDI: A message indicating the result of the stamping operation.
+			CFDI: A message indicating the result of the stamping operation.
 		"""
 		self.run_method("before_stamp_cfdi")
 		self.send_stamp_request(certificate)
@@ -170,7 +170,7 @@ class CommonController(Document):
 		If the CFDI is already cancelled, it cancels the document.
 
 		Returns:
-		    Document: The result of the cancel operation if the CFDI is cancelled.
+			Document: The result of the cancel operation if the CFDI is cancelled.
 		"""
 		ws = get_ws_client()
 		cfdi = CFDI.from_string(self.mx_stamped_xml.encode("utf-8"))
@@ -234,7 +234,7 @@ class CommonController(Document):
 		with a corresponding message.
 
 		Args:
-		    substitute_field (str): The field name of the substitute document.
+			substitute_field (str): The field name of the substitute document.
 		"""
 
 		reason = frappe.get_doc("Cancellation Reason", self.cancellation_reason)
@@ -318,7 +318,7 @@ class CommonController(Document):
 		"""Returns the XML element representing the acknowledgement of the cancellation of the CFDI document.
 
 		Returns:
-		    etree.Element: The acknowledgement XML element.
+			etree.Element: The acknowledgement XML element.
 		"""
 		return etree.fromstring(self.cancellation_acknowledgement.encode("utf-8"))
 
