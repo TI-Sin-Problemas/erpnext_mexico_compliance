@@ -120,7 +120,6 @@
 		"after": true,
 		"qz": true,
 		"localforage": true,
-		"extend_cscript": true,
-		"mdm_web_tools": true
+		"extend_cscript": true
 	}
 }
