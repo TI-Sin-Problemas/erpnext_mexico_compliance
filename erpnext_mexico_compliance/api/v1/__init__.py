@@ -13,11 +13,11 @@ def download_cfdi_files(doctype: t.Literal["Sales Invoice", "Payment Entry"], do
 	Download CFDI files for a given document.
 
 	Args:
-	    doctype (t.Literal["Sales Invoice", "Payment Entry"]): The doctype of the document.
-	    docname (str): The name of the document.
+		doctype (t.Literal["Sales Invoice", "Payment Entry"]): The doctype of the document.
+		docname (str): The name of the document.
 
 	Returns:
-	    A response with the file content and filename.
+		A response with the file content and filename.
 	"""
 
 	file_table = frappe.qb.DocType("File")
@@ -55,12 +55,12 @@ def download_cancellation_acknowledgement(doctype: t.Literal["Sales Invoice", "P
 	"""Downloads a PDF containing the cancellation acknowledgement for the given document.
 
 	Args:
-	    doctype (str): The type of document to cancel.
-	    docname (str): The name of the document to cancel.
+		doctype (str): The type of document to cancel.
+		docname (str): The name of the document to cancel.
 
 	Raises:
-	    frappe.PageDoesNotExistError: If the document does not exist.
-	    frappe.ValidationError: If the document does not have a cancellation acknowledgement.
+		frappe.PageDoesNotExistError: If the document does not exist.
+		frappe.ValidationError: If the document does not have a cancellation acknowledgement.
 	"""
 	doc = frappe.get_doc(doctype, docname)
 
