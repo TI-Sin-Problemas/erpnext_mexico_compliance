@@ -1,14 +1,13 @@
-exclude: 'node_modules|.git'
+exclude: "node_modules|.git"
 default_stages: [pre-commit]
 fail_fast: false
-
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0
     hooks:
       - id: trailing-whitespace
-        files: "mdm_web_tools.*"
+        files: "erpnext_mexico_compliance.*"
         exclude: ".*json$|.*txt$|.*csv|.*md|.*svg"
       - id: check-merge-conflict
       - id: check-ast
@@ -37,33 +36,32 @@ repos:
         types_or: [javascript, vue, scss]
         # Ignore any files that might contain jinja / bundles
         exclude: |
-            (?x)^(
-                mdm_web_tools/public/dist/.*|
-                .*node_modules.*|
-                .*boilerplate.*|
-                mdm_web_tools/templates/includes/.*|
-                mdm_web_tools/public/js/lib/.*
-            )$
-
+          (?x)^(
+              erpnext_mexico_compliance/public/dist/.*|
+              .*node_modules.*|
+              .*boilerplate.*|
+              erpnext_mexico_compliance/templates/includes/.*|
+              erpnext_mexico_compliance/public/js/lib/.*
+          )$
 
   - repo: https://github.com/pre-commit/mirrors-eslint
     rev: v8.44.0
     hooks:
       - id: eslint
         types_or: [javascript]
-        args: ['--quiet']
+        args: ["--quiet"]
         # Ignore any files that might contain jinja / bundles
         exclude: |
-            (?x)^(
-                mdm_web_tools/public/dist/.*|
-                cypress/.*|
-                .*node_modules.*|
-                .*boilerplate.*|
-                mdm_web_tools/templates/includes/.*|
-                mdm_web_tools/public/js/lib/.*
-            )$
+          (?x)^(
+              erpnext_mexico_compliance/public/dist/.*|
+              cypress/.*|
+              .*node_modules.*|
+              .*boilerplate.*|
+              erpnext_mexico_compliance/templates/includes/.*|
+              erpnext_mexico_compliance/public/js/lib/.*
+          )$
 
 ci:
-    autoupdate_schedule: weekly
-    skip: []
-    submodules: false
+  autoupdate_schedule: weekly
+  skip: []
+  submodules: false
