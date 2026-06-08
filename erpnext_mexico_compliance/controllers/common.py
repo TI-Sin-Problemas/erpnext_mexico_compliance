@@ -102,30 +102,27 @@ class CommonController(Document):
 		else:
 			return template[0].get_rendered_pdf(self.mx_stamped_xml, self)
 
-	@frappe.whitelist()
-	def download_pdf(self):
-		"""Downloads the PDF file for the current document's CFDI."""
-		frappe.local.response.filename = f"{self.name}_CFDI.pdf"
-		frappe.local.response.filecontent = self.pdf_file
-		frappe.local.response.type = "download"
-
-	@frappe.whitelist()
-	def download_xml(self):
-		"""Downloads the stamped XML file for the current document's CFDI."""
-		frappe.local.response.filename = f"{self.name}_CFDI.xml"
-		frappe.local.response.filecontent = self.mx_stamped_xml
-		frappe.local.response.type = "download"
-
-	@frappe.whitelist()
-	def download_zip(self):
-		"""Downloads a zip file containing the stamped XML and PDF files for the current document's CFDI."""
+	def get_cfdi_zip_file(self) -> BytesIO:
+		"""Returns a zip file containing the stamped XML and PDF files for the current document's CFDI."""
 		zip_buffer = BytesIO()
 		with zipfile.ZipFile(zip_buffer, "w", zipfile.ZIP_DEFLATED) as zip_file:
 			zip_file.writestr(f"{self.name}_CFDI.xml", self.mx_stamped_xml)
 			zip_file.writestr(f"{self.name}_CFDI.pdf", self.pdf_file)
 
+		return zip_buffer
+
+	@frappe.whitelist()
+	def view_pdf(self):
+		"""Displays the PDF file for the current document's CFDI."""
+		frappe.local.response.filename = f"{self.name}_CFDI.pdf"
+		frappe.local.response.filecontent = self.pdf_file
+		frappe.local.response.type = "pdf"
+
+	@frappe.whitelist()
+	def download_cfdi_files(self):
+		"""Downloads a zip file containing the stamped XML and PDF files for the current document's CFDI."""
 		frappe.local.response.filename = f"{self.name}_CFDI.zip"
-		frappe.local.response.filecontent = zip_buffer.getvalue()
+		frappe.local.response.filecontent = self.get_cfdi_zip_file().getvalue()
 		frappe.local.response.type = "download"
 
 	@frappe.whitelist()

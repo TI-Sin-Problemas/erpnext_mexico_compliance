@@ -25,7 +25,7 @@ def download_cfdi_files(doctype: t.Literal["Sales Invoice", "Payment Entry"], do
 		doctype,
 		{"name": docname, "customer": ["in", customers]},  # type: ignore
 	)
-	doc.download_zip()
+	doc.download_cfdi_files()
 
 
 @frappe.whitelist()

@@ -96,25 +96,15 @@ function addDownloadCFDIBtns(frm, dt, dn) {
 	const cfdiActionsGroup = __("CFDI Actions");
 
 	frm.add_custom_button(
-		__("Download PDF file"),
-		() => {
-			window.location.href = `/api/v2/document/${dt}/${dn}/method/download_pdf`;
-		},
+		__("View PDF file"),
+		() => window.open(`/api/v2/document/${dt}/${dn}/method/view_pdf`),
 		cfdiActionsGroup
 	);
 
 	frm.add_custom_button(
-		__("Download XML file"),
+		__("Download CFDI files"),
 		() => {
-			window.location.href = `/api/v2/document/${dt}/${dn}/method/download_xml`;
-		},
-		cfdiActionsGroup
-	);
-
-	frm.add_custom_button(
-		__("Download ZIP file"),
-		() => {
-			window.location.href = `/api/v2/document/${dt}/${dn}/method/download_zip`;
+			window.location.href = `/api/v2/document/${dt}/${dn}/method/download_cfdi_files`;
 		},
 		cfdiActionsGroup
 	);
