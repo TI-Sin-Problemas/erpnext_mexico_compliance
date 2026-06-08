@@ -75,7 +75,7 @@ class APIClient(FrappeClient):
 		)
 		return self.post_process(res)
 
-	def stamp(self, cfdi: CFDI) -> dict:
+	def stamp(self, cfdi: CFDI) -> dict[str, str]:
 		"""Stamps the provided CFDI.
 
 		Args:

@@ -41,67 +41,6 @@ function stampCfdi(frm) {
 	}
 }
 
-async function attachFile(frm, ext) {
-	const functionMap = { pdf: "attach_pdf", xml: "attach_xml" };
-
-	try {
-		const { message } = await frm.call(functionMap[ext]);
-		const { file_name } = message;
-		frappe.show_alert({
-			message: __("File {0} attached", [file_name]),
-			indicator: "green",
-		});
-		frm.reload_doc();
-	} catch (error) {
-		const { message } = error;
-		frappe.throw(message ? message : error);
-	}
-}
-
-const cfdiActionsGroup = __("CFDI Actions");
-
-async function addAttachPdfButton(frm) {
-	const { doc } = frm;
-	const { doctype, name } = doc;
-	const { message: hasFile } = await frappe.call(
-		"erpnext_mexico_compliance.controllers.common.has_file",
-		{
-			dt: doctype,
-			dn: name,
-			file_name: `${name}_CFDI.pdf`,
-		}
-	);
-
-	if (!hasFile) {
-		frm.add_custom_button(
-			__("Attach PDF"),
-			async () => await attachFile(frm, "pdf"),
-			cfdiActionsGroup
-		);
-	}
-}
-
-async function addAttachXmlButton(frm) {
-	const { doc } = frm;
-	const { doctype, name } = doc;
-	const { message: hasFile } = await frappe.call(
-		"erpnext_mexico_compliance.controllers.common.has_file",
-		{
-			dt: doctype,
-			dn: name,
-			file_name: `${name}_CFDI.xml`,
-		}
-	);
-
-	if (!hasFile) {
-		frm.add_custom_button(
-			__("Attach XML"),
-			async () => await attachFile(frm, "xml"),
-			cfdiActionsGroup
-		);
-	}
-}
-
 async function checkCancellationStatus(frm) {
 	await frm.call("check_cancellation_status");
 }
@@ -146,12 +85,36 @@ function cancel(frm) {
 	}
 }
 
-function refresh(frm) {
+/**
+ * Add buttons to download CFDI files
+ *
+ * @param {frappe.ui.form.Form} frm
+ * @param {string} dt
+ * @param {string} dn
+ */
+function addDownloadCFDIBtns(frm, dt, dn) {
+	const cfdiActionsGroup = __("CFDI Actions");
+
+	frm.add_custom_button(
+		__("View PDF file"),
+		() => window.open(`/api/v2/document/${dt}/${dn}/method/view_pdf`),
+		cfdiActionsGroup
+	);
+
+	frm.add_custom_button(
+		__("Download CFDI files"),
+		() => {
+			window.location.href = `/api/v2/document/${dt}/${dn}/method/download_cfdi_files`;
+		},
+		cfdiActionsGroup
+	);
+}
+
+function refresh(frm, dt, dn) {
 	const { docstatus, mx_stamped_xml, cancellation_acknowledgement } = frm.doc;
 
 	if (mx_stamped_xml) {
-		addAttachPdfButton(frm);
-		addAttachXmlButton(frm);
+		addDownloadCFDIBtns(frm, dt, dn);
 	}
 
 	switch (docstatus) {

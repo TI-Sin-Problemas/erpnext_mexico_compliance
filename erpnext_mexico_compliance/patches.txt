@@ -1,0 +1,2 @@
+
+erpnext_mexico_compliance.patches.0_13_0.remove_attached_cfdi

@@ -9,7 +9,7 @@ frappe.ready(() => {
 
 		menuItem.onclick = () => {
 			const docname = window.location.pathname.split("/").pop();
-			window.location.href = `/api/method/erpnext_mexico_compliance.api.v1.download_cfdi_files?doctype=Sales%20Invoice&docname=${docname}`;
+			window.location.href = `/api/v2/method/erpnext_mexico_compliance.api.v1.download_cfdi_files?doctype=Sales%20Invoice&docname=${docname}`;
 		};
 
 		const dropdownMenu = document.querySelector(

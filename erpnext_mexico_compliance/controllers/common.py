@@ -4,10 +4,11 @@ For license information, please see license.txt
 """
 
 import abc
+import zipfile
+from io import BytesIO
 
 import frappe
 from frappe import _
-from frappe.client import attach_file
 from frappe.model.document import Document
 from frappe.model.naming import NamingSeries
 from lxml import etree
@@ -54,10 +55,10 @@ class CommonController(Document):
 		"""Generates a CFDI voucher using the provided digital signing certificate.
 
 		Args:
-		    csd (DigitalSigningCertificate): The digital signing certificate.
+			csd (DigitalSigningCertificate): The digital signing certificate.
 
 		Returns:
-		    cfdi40.Comprobante: The generated CFDI voucher.
+			cfdi40.Comprobante: The generated CFDI voucher.
 		"""
 		raise NotImplementedError("cfdi_voucher method is not implemented")
 
@@ -65,10 +66,10 @@ class CommonController(Document):
 		"""Signs a CFDI document with the provided digital signing certificate.
 
 		Args:
-		    certificate (str): The name of the Digital Signing Certificate to use for signing.
+			certificate (str): The name of the Digital Signing Certificate to use for signing.
 
 		Returns:
-		    CFDI: The signed and processed CFDI document.
+			CFDI: The signed and processed CFDI document.
 		"""
 		csd = frappe.get_doc("Digital Signing Certificate", certificate)
 		voucher = self.get_cfdi_voucher(csd)
@@ -79,25 +80,15 @@ class CommonController(Document):
 	def send_stamp_request(self, certificate: str):
 		"""Sends a request to stamp the CFDI document with the provided digital signing certificate.
 		Args:
-		    certificate (str): The name of the Digital Signing Certificate to use for stamping.
+			certificate (str): The name of the Digital Signing Certificate to use for stamping.
 		"""
 		raise NotImplementedError("send_stamp_request method is not implemented")
 
-	@frappe.whitelist()
-	def attach_pdf(self) -> Document:
-		"""Attaches the CFDI PDF to the current document.
-
-		This method generates a PDF file from the CFDI XML and attaches it to the current document.
-
-		Returns:
-		    Document: The result of attaching the PDF file to the current document.
-		"""
-
-		self.run_method("before_attach_pdf")
-		cfdi = cfdi40.CFDI.from_string(self.mx_stamped_xml.encode("utf-8"))
-		file_name = f"{self.name}_CFDI.pdf"
-
-		settings: CFDIStampingSettings = frappe.get_single("CFDI Stamping Settings")
+	@property
+	def pdf_file(self) -> bytes:
+		"""Returns the PDF file for the current document's CFDI."""
+		cfdi = self.mx_cfdi_obj
+		settings: CFDIStampingSettings = frappe.get_single("CFDI Stamping Settings")  # type: ignore
 		template = filter(
 			lambda x: x.document_type == self.doctype and x.company == self.company,
 			settings.pdf_templates,
@@ -107,57 +98,48 @@ class CommonController(Document):
 		if not settings.is_premium or len(template) == 0:
 			from satcfdi import render
 
-			file_data = render.pdf_bytes(cfdi)
+			return render.pdf_bytes(cfdi)
 		else:
-			file_data = template[0].get_rendered_pdf(self.mx_stamped_xml, self)
+			return template[0].get_rendered_pdf(self.mx_stamped_xml, self)
 
-		ret = attach_file(file_name, file_data, self.doctype, self.name, is_private=1)
-		self.run_method("after_attach_pdf")
-		return ret
+	def get_cfdi_zip_file(self) -> BytesIO:
+		"""Returns a zip file containing the stamped XML and PDF files for the current document's CFDI."""
+		zip_buffer = BytesIO()
+		with zipfile.ZipFile(zip_buffer, "w", zipfile.ZIP_DEFLATED) as zip_file:
+			zip_file.writestr(f"{self.name}_CFDI.xml", self.mx_stamped_xml)
+			zip_file.writestr(f"{self.name}_CFDI.pdf", self.pdf_file)
+
+		return zip_buffer
 
 	@frappe.whitelist()
-	def attach_xml(self) -> Document:
-		"""Attaches the CFDI XML to the current document.
+	def view_pdf(self):
+		"""Displays the PDF file for the current document's CFDI."""
+		frappe.local.response.filename = f"{self.name}_CFDI.pdf"
+		frappe.local.response.filecontent = self.pdf_file
+		frappe.local.response.type = "pdf"
 
-		This method generates an XML file from the CFDI XML and attaches it to the current document.
-
-		Returns:
-		    Document: The result of attaching the XML file to the current document.
-		"""
-		self.run_method("before_attach_xml")
-		file_name = f"{self.name}_CFDI.xml"
-
-		if hasattr(self, "mx_addenda") and self.mx_addenda:
-			xml = etree.fromstring(self.mx_stamped_xml.encode("utf-8"))
-			xml.append(self.build_addenda())
-			content = etree.tostring(xml, xml_declaration=True, encoding="utf-8")
-			content = content.decode()
-		else:
-			content = self.mx_stamped_xml
-
-		ret = attach_file(file_name, content, self.doctype, self.name, is_private=1)
-		self.run_method("after_attach_xml")
-		return ret
+	@frappe.whitelist()
+	def download_cfdi_files(self):
+		"""Downloads a zip file containing the stamped XML and PDF files for the current document's CFDI."""
+		frappe.local.response.filename = f"{self.name}_CFDI.zip"
+		frappe.local.response.filecontent = self.get_cfdi_zip_file().getvalue()
+		frappe.local.response.type = "download"
 
 	@frappe.whitelist()
 	def stamp_cfdi(self, certificate: str):
 		"""Stamps a CFDI document with the provided digital signing certificate.
 
 		Args:
-		    certificate (str): The name of the Digital Signing Certificate to use for signing.
+			certificate (str): The name of the Digital Signing Certificate to use for signing.
 
 		Returns:
-		    CFDI: A message indicating the result of the stamping operation.
+			CFDI: A message indicating the result of the stamping operation.
 		"""
 		self.run_method("before_stamp_cfdi")
 		self.send_stamp_request(certificate)
 		settings: CFDIStampingSettings = frappe.get_single("CFDI Stamping Settings")  # type: ignore
 		settings.check_low_credits()
 		self.run_method("after_stamp_cfdi")
-		self.run_method("before_attach_files")
-		self.attach_pdf()
-		self.attach_xml()
-		self.run_method("after_attach_files")
 		frappe.msgprint(_("CFDI Stamped Successfully"), indicator="green", alert=True)
 
 	def update_cancellation_status(self):
@@ -170,7 +152,7 @@ class CommonController(Document):
 		If the CFDI is already cancelled, it cancels the document.
 
 		Returns:
-		    Document: The result of the cancel operation if the CFDI is cancelled.
+			Document: The result of the cancel operation if the CFDI is cancelled.
 		"""
 		ws = get_ws_client()
 		cfdi = CFDI.from_string(self.mx_stamped_xml.encode("utf-8"))
@@ -234,7 +216,7 @@ class CommonController(Document):
 		with a corresponding message.
 
 		Args:
-		    substitute_field (str): The field name of the substitute document.
+			substitute_field (str): The field name of the substitute document.
 		"""
 
 		reason = frappe.get_doc("Cancellation Reason", self.cancellation_reason)
@@ -308,8 +290,9 @@ class CommonController(Document):
 			return None
 
 		root = etree.Element("{http://www.sat.gob.mx/cfd/4}Addenda")
+		parser = etree.XMLParser(remove_blank_text=True)
 		rendered_addenda = frappe.render_template(self.mx_addenda, {"doc": self})
-		child = etree.fromstring(rendered_addenda)
+		child = etree.fromstring(rendered_addenda.strip(), parser=parser)
 		root.append(child)
 		return root
 
@@ -318,7 +301,7 @@ class CommonController(Document):
 		"""Returns the XML element representing the acknowledgement of the cancellation of the CFDI document.
 
 		Returns:
-		    etree.Element: The acknowledgement XML element.
+			etree.Element: The acknowledgement XML element.
 		"""
 		return etree.fromstring(self.cancellation_acknowledgement.encode("utf-8"))
 
@@ -330,10 +313,3 @@ class CommonController(Document):
 			bool: True if the document is stamped, False otherwise.
 		"""
 		return bool(self.mx_stamped_xml)
-
-
-@frappe.whitelist()
-def has_file(dt: str, dn: str, file_name: str) -> bool:
-	return bool(
-		frappe.db.exists("File", {"attached_to_doctype": dt, "attached_to_name": dn, "file_name": file_name})
-	)

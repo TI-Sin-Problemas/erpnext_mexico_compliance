@@ -13,6 +13,7 @@ from erpnext.setup.doctype.company.company import Company, get_default_company_a
 from frappe import _
 from frappe.contacts.doctype.address.address import Address
 from frappe.utils import get_datetime
+from lxml import etree
 from satcfdi.create.cfd import catalogos, cfdi40
 from satcfdi.exceptions import SchemaValidationError
 
@@ -267,6 +268,12 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
 		ws = get_ws_client()
 		response = ws.stamp(cfdi)
 		xml = response["xml"]
+
+		if self.mx_addenda:
+			parser = etree.XMLParser(remove_blank_text=True)
+			xml_element = etree.fromstring(xml.encode("utf-8"), parser=parser)
+			xml_element.append(self.build_addenda())
+			xml = etree.tostring(xml_element, xml_declaration=True, encoding="utf-8").decode()
 
 		self.db_set("mx_stamped_xml", xml)
 		self.db_set("mx_uuid", get_uuid_from_xml(xml))
