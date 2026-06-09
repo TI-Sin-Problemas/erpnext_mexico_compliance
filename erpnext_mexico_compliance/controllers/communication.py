@@ -40,9 +40,8 @@ def send_email(
 	attach_cfdi_files=False,
 	**kwargs,
 ) -> dict[str, str]:
-	if attach_cfdi_files:
-		doc: PaymentEntry | SalesInvoice = frappe.get_doc(doctype, name)  # type: ignore
-
+	doc: PaymentEntry | SalesInvoice = frappe.get_doc(doctype, name)  # type: ignore
+	if attach_cfdi_files and doc.mx_stamped_xml:
 		if attachments is None:
 			attachments = []
 		elif isinstance(attachments, str):
