@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_bulk_edit": 1,
  "allow_rename": 1,
  "creation": "2024-08-09 14:55:18.675674",
  "doctype": "DocType",
@@ -16,7 +17,11 @@
   "stamp_on_submit",
   "default_csds",
   "section_break_eylu",
-  "pdf_templates"
+  "pdf_templates",
+  "column_break_twmd",
+  "send_email_on_stamp",
+  "send_email_to",
+  "default_email_template"
  ],
  "fields": [
   {
@@ -92,13 +97,41 @@
    "fieldname": "low_credits_threshold",
    "fieldtype": "Int",
    "label": "Low Credits Threshold"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval: doc.is_premium",
+   "description": "If enabled, an automatic email will be sent with the CFDI Files attached after stamping the document",
+   "fieldname": "send_email_on_stamp",
+   "fieldtype": "Check",
+   "label": "Send email on stamp"
+  },
+  {
+   "depends_on": "eval: doc.send_email_on_stamp && doc.is_premium",
+   "fieldname": "send_email_to",
+   "fieldtype": "Select",
+   "label": "Send email to",
+   "mandatory_depends_on": "eval: doc.send_email_on_stamp",
+   "options": "\nAll Billing Contacts\nDocument Contact"
+  },
+  {
+   "depends_on": "eval: doc.send_email_on_stamp && doc.is_premium",
+   "fieldname": "default_email_template",
+   "fieldtype": "Link",
+   "label": "Default Email Template",
+   "mandatory_depends_on": "eval: doc.send_email_on_stamp",
+   "options": "Email Template"
+  },
+  {
+   "fieldname": "column_break_twmd",
+   "fieldtype": "Column Break"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2026-01-15 11:47:15.876169",
+ "modified": "2026-06-09 12:48:13.404285",
  "modified_by": "Administrator",
  "module": "ERPNext Mexico Compliance",
  "name": "CFDI Stamping Settings",

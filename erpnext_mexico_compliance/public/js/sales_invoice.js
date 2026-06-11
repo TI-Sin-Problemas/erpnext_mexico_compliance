@@ -110,6 +110,13 @@ function addDownloadCFDIBtns(frm, dt, dn) {
 	);
 }
 
+/**
+ * Hook executed on form refresh
+ *
+ * @param {frappe.ui.form.Form} frm - The form object
+ * @param {string} dt - The doctype
+ * @param {string} dn - The doctype name
+ */
 function refresh(frm, dt, dn) {
 	const { docstatus, mx_stamped_xml, cancellation_acknowledgement } = frm.doc;
 
@@ -135,6 +142,11 @@ function refresh(frm, dt, dn) {
 	}
 }
 
+/**
+ * Hook executed on form setup
+ *
+ * @param {frappe.ui.form.Form} frm - The form object
+ */
 function setup(frm) {
 	frm.set_query("mx_cfdi_use", (doc) => {
 		if (!doc.customer) return {};

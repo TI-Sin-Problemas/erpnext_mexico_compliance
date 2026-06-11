@@ -9,6 +9,7 @@ from io import BytesIO
 
 import frappe
 from frappe import _
+from frappe.email.doctype.email_template.email_template import get_email_template
 from frappe.model.document import Document
 from frappe.model.naming import NamingSeries
 from lxml import etree
@@ -17,13 +18,16 @@ from satcfdi.create.cfd import cfdi40
 
 from erpnext_mexico_compliance.erpnext_mexico_compliance.doctype.cfdi_stamping_settings.cfdi_stamping_settings import (
 	CFDIStampingSettings,
+	EmailContactType,
 )
-from erpnext_mexico_compliance.utils import qr_as_base64
-
-from ..erpnext_mexico_compliance.doctype.digital_signing_certificate.digital_signing_certificate import (
+from erpnext_mexico_compliance.erpnext_mexico_compliance.doctype.digital_signing_certificate.digital_signing_certificate import (
 	DigitalSigningCertificate,
 )
+from erpnext_mexico_compliance.utils import qr_as_base64
+from erpnext_mexico_compliance.utils.contacts import get_contact_emails
+
 from ..ws_client import get_ws_client
+from . import communication
 
 
 class CommonController(Document):
@@ -141,6 +145,7 @@ class CommonController(Document):
 		settings.check_low_credits()
 		self.run_method("after_stamp_cfdi")
 		frappe.msgprint(_("CFDI Stamped Successfully"), indicator="green", alert=True)
+		self.send_email()
 
 	def update_cancellation_status(self):
 		"""
@@ -313,3 +318,37 @@ class CommonController(Document):
 			bool: True if the document is stamped, False otherwise.
 		"""
 		return bool(self.mx_stamped_xml)
+
+	def get_billing_emails(self):
+		raise NotImplementedError
+
+	def send_email(self):
+		settings: CFDIStampingSettings = frappe.get_single("CFDI Stamping Settings")  # type: ignore
+		if settings.can_send_emails:
+			recipients = []
+
+			match settings.send_email_to:
+				case EmailContactType.ALL_BILLING_CONTACTS:
+					recipients = self.get_billing_emails()
+				case EmailContactType.DOCUMENT_CONTACT:
+					recipients = get_contact_emails(self.contact_person)
+				case _:
+					frappe.throw(_("Invalid email contact type: {}").format(settings.send_email_to))
+
+			if not recipients:
+				frappe.throw(_("No recipients found for the current document."))
+
+			email = get_email_template(settings.default_email_template, self.as_dict())
+
+			frappe.sendmail(
+				recipients=recipients,
+				subject=email["subject"],  # type: ignore
+				message=email["message"],  # type: ignore
+				reference_doctype=self.doctype,
+				reference_name=self.name,
+				attachments=[
+					{"fcontent": self.get_cfdi_zip_file().getvalue(), "fname": f"{self.name}_CFDI.zip"}
+				],
+			)
+
+			frappe.msgprint(_("Email with CFDI files sent successfully"), indicator="green", alert=True)

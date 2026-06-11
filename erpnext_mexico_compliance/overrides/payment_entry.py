@@ -19,6 +19,7 @@ from satcfdi.exceptions import SchemaValidationError
 from erpnext_mexico_compliance.overrides.sales_invoice import SalesInvoice
 from erpnext_mexico_compliance.utils import money_in_words
 from erpnext_mexico_compliance.utils.cfdi import get_uuid_from_xml
+from erpnext_mexico_compliance.utils.contacts import get_all_billing_contacts_emails
 
 from ..controllers.common import CommonController
 from ..erpnext_mexico_compliance.doctype.cfdi_stamping_settings.cfdi_stamping_settings import (
@@ -329,6 +330,11 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
 	def validate(self):
 		super().validate()
 		self.validate_mode_of_payment()
+
+	def get_billing_emails(self):
+		if not all([self.party_type == "Customer", self.party]):
+			return []
+		return get_all_billing_contacts_emails(self.party)  # type: ignore
 
 
 def get_installment_number(doctype: str, docname: str, payment_entry_name: str) -> int | None:
