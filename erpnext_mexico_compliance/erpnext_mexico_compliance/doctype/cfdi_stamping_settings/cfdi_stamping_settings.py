@@ -1,12 +1,23 @@
 """Copyright (c) 2024, TI Sin Problemas and contributors
 For license information, please see license.txt"""
 
+from enum import StrEnum
+from typing import TYPE_CHECKING
+
 import frappe
 from frappe import _
 from frappe.model.document import Document
 from frappe.utils.caching import redis_cache
 
 from erpnext_mexico_compliance import ws_client
+
+if TYPE_CHECKING:
+	from frappe.email.doctype.email_template.email_template import EmailTemplate
+
+
+class EmailContactType(StrEnum):
+	ALL_BILLING_CONTACTS = "All Billing Contacts"
+	DOCUMENT_CONTACT = "Document Contact"
 
 
 class CFDIStampingSettings(Document):
@@ -28,9 +39,12 @@ class CFDIStampingSettings(Document):
 		api_key: DF.Data | None
 		api_secret: DF.Password | None
 		default_csds: DF.Table[DefaultCSD]
+		default_email_template: DF.Link | None
 		enable_low_credits_warning: DF.Check
 		low_credits_threshold: DF.Int
 		pdf_templates: DF.Table[CFDIPDFTemplate]
+		send_email_on_stamp: DF.Check
+		send_email_to: DF.Literal["", "All Billing Contacts", "Document Contact"]
 		stamp_on_submit: DF.Check
 		test_mode: DF.Check
 	# end: auto-generated types
@@ -86,9 +100,17 @@ class CFDIStampingSettings(Document):
 				frappe.throw(_("Duplicated PDF template for {} and {}").format(*value))
 			existing_templates.add(value)
 
+	def validate_email_settings(self):
+		if self.send_email_on_stamp:
+			if not self.send_email_to:
+				frappe.throw(_("Please select a type of contact to send the email to"))
+			if not self.default_email_template:
+				frappe.throw(_("Please select a default email template"))
+
 	def validate(self):
 		"""Validates the CFDI Stamping Settings."""
 		self._validate_children()
+		self.validate_email_settings()
 
 	@property
 	def is_premium(self) -> bool:
@@ -146,6 +168,22 @@ class CFDIStampingSettings(Document):
 		if bool(self.test_mode):
 			return "https://cfdi.tisp-staging.com"
 		return "https://tisinproblemas.com"
+
+	@property
+	def can_send_emails(self):
+		"""Determines if the account can send emails.
+
+		Returns:
+			bool: True if the account can send emails, False otherwise.
+		"""
+		return bool(
+			all([self.is_premium, self.send_email_on_stamp, self.send_email_to, self.default_email_template])
+		)
+
+	@property
+	def email_template_doc(self) -> EmailTemplate:
+		"""Retrieves the default email template document."""
+		return frappe.get_doc("Email Template", self.default_email_template)  # type: ignore
 
 
 @redis_cache(ttl=43200)  # Cache for 12 hours
