@@ -1,10 +1,12 @@
-import ast
+import json
 from typing import TYPE_CHECKING
 
 import frappe
 from frappe.core.doctype.communication.email import make
 
 if TYPE_CHECKING:
+	from frappe.core.doctype.file.file import File
+
 	from erpnext_mexico_compliance.overrides.payment_entry import PaymentEntry
 	from erpnext_mexico_compliance.overrides.sales_invoice import SalesInvoice
 
@@ -45,9 +47,19 @@ def send_email(
 		if attachments is None:
 			attachments = []
 		elif isinstance(attachments, str):
-			attachments = ast.literal_eval(attachments)
+			attachments = json.loads(attachments)
 
-		attachments.append({"fname": f"{doc.name}_CFDI.zip", "fcontent": doc.get_cfdi_zip_file().getvalue()})
+		file_name = f"{doc.name}_CFDI.zip"
+		file_content = doc.get_cfdi_zip_file().getvalue()
+		file_id = frappe.db.exists("File", {"file_name": file_name})
+
+		if file_id:
+			file: File = frappe.get_doc("File", {"file_name": file_name})  # type: ignore
+			file.content = file_content
+			saved_file = file.save()
+			attachments.append(saved_file.name)
+		else:
+			attachments.append({"fname": file_name, "fcontent": file_content})
 
 	return make(
 		doctype=doctype,
