@@ -26,6 +26,7 @@ from erpnext_mexico_compliance.erpnext_mexico_compliance.doctype.related_sales_i
 )
 from erpnext_mexico_compliance.utils import money_in_words
 from erpnext_mexico_compliance.utils.cfdi import get_uuid_from_xml
+from erpnext_mexico_compliance.utils.contacts import get_all_billing_contacts_emails
 from erpnext_mexico_compliance.ws_client import get_ws_client
 
 from .customer import Customer
@@ -352,3 +353,6 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
 
 		if len(msgs) > 0:
 			frappe.throw(msgs, as_list=True)  # type: ignore
+
+	def get_billing_emails(self):
+		return get_all_billing_contacts_emails(self.customer)
