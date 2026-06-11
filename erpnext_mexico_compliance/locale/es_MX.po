@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: erpnext-mexico-compliance\n"
 "Report-Msgid-Bugs-To: info@tisinproblemas.com\n"
 "POT-Creation-Date: 2026-06-11 06:00+0000\n"
-"PO-Revision-Date: 2026-06-11 06:07\n"
+"PO-Revision-Date: 2026-06-11 06:16\n"
 "Last-Translator: info@tisinproblemas.com\n"
 "Language-Team: Spanish, Mexico\n"
 "MIME-Version: 1.0\n"
@@ -105,7 +105,7 @@ msgstr "La dirección {0} no tiene código postal"
 #. Settings'
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.json
 msgid "All Billing Contacts"
-msgstr ""
+msgstr "Todos los Contactos de facturación"
 
 #: erpnext_mexico_compliance/overrides/payment_entry.py:168
 msgid "All references must have the same total amount, partial payments are not supported"
@@ -113,7 +113,7 @@ msgstr "Todas las referencias deben tener el mismo monto total, los pagos parcia
 
 #: erpnext_mexico_compliance/public/js/overrides/CommunicationComposer.js:8
 msgid "Attach CFDI files"
-msgstr ""
+msgstr "Adjuntar archivos CFDI"
 
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.js:7
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.js:10
@@ -384,7 +384,7 @@ msgstr "Certificados de Sello Digital Predeterminados"
 #. Settings'
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.json
 msgid "Default Email Template"
-msgstr ""
+msgstr "Plantilla de correo electrónico predeterminado"
 
 #. Label of the description (Data) field in DocType 'Cancellation Reason'
 #. Label of the description (Data) field in DocType 'SAT CFDI Use'
@@ -427,7 +427,7 @@ msgstr "Certificado de Sello Digital"
 #. Settings'
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.json
 msgid "Document Contact"
-msgstr ""
+msgstr "Contacto del documento"
 
 #. Label of the document_type (Select) field in DocType 'CFDI PDF Template'
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_pdf_template/cfdi_pdf_template.json
@@ -456,7 +456,7 @@ msgstr "ERPNext Cumplimiento para México"
 
 #: erpnext_mexico_compliance/public/js/overrides/CommunicationComposer.js:85
 msgid "Email Sent"
-msgstr ""
+msgstr "Correo electrónico Enviado"
 
 #: erpnext_mexico_compliance/public/js/overrides/CommunicationComposer.js:72
 msgid "Email not sent to {0} (unsubscribed / disabled)"
@@ -468,7 +468,7 @@ msgstr ""
 
 #: erpnext_mexico_compliance/controllers/common.py:354
 msgid "Email with CFDI files sent successfully"
-msgstr ""
+msgstr "Correo electrónico con archivos CFDI enviado correctamente"
 
 #. Label of the enable_low_credits_warning (Check) field in DocType 'CFDI
 #. Stamping Settings'
@@ -536,7 +536,7 @@ msgstr ""
 #. Stamping Settings'
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.json
 msgid "If enabled, an automatic email will be sent with the CFDI Files attached after stamping the document"
-msgstr ""
+msgstr "Si está activado, se enviará un correo electrónico automático con los archivos CFDI adjuntados después de timbrar el documento"
 
 #. Description of the 'Stamp on submit' (Check) field in DocType 'CFDI Stamping
 #. Settings'
@@ -752,11 +752,11 @@ msgstr "Por favor guarda la Plantilla PDF de CFDI primero"
 
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.py:108
 msgid "Please select a default email template"
-msgstr ""
+msgstr "Por favor, seleccione una plantilla de correo electrónico por defecto"
 
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.py:106
 msgid "Please select a type of contact to send the email to"
-msgstr ""
+msgstr "Por favor, seleccione un tipo de contacto para enviar el correo electrónico"
 
 #. Label of the section_break_eylu (Section Break) field in DocType 'CFDI
 #. Stamping Settings'
@@ -936,13 +936,13 @@ msgstr "Selecciona un Certificado para firmar el CFDI"
 #. Settings'
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.json
 msgid "Send email on stamp"
-msgstr ""
+msgstr "Enviar correo electrónico al timbrar"
 
 #. Label of the send_email_to (Select) field in DocType 'CFDI Stamping
 #. Settings'
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.json
 msgid "Send email to"
-msgstr ""
+msgstr "Enviar email a"
 
 #. Label of a Card Break in the Mexico Compliance Workspace
 #. Label of a Workspace Sidebar Item
