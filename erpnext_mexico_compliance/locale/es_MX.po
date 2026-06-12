@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: erpnext-mexico-compliance\n"
 "Report-Msgid-Bugs-To: info@tisinproblemas.com\n"
 "POT-Creation-Date: 2026-06-11 06:00+0000\n"
-"PO-Revision-Date: 2026-06-12 03:38\n"
+"PO-Revision-Date: 2026-06-12 07:35\n"
 "Last-Translator: info@tisinproblemas.com\n"
 "Language-Team: Spanish, Mexico\n"
 "MIME-Version: 1.0\n"
@@ -1096,7 +1096,7 @@ msgstr ""
 #: erpnext_mexico_compliance/public/js/payment_entry.js:89
 #: erpnext_mexico_compliance/public/js/sales_invoice.js:99
 msgid "View PDF file"
-msgstr ""
+msgstr "Ver archivo PDF"
 
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.py:83
 msgid "Warning: {} CFDI credits remaining."
