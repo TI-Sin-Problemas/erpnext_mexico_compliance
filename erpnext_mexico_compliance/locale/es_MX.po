@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: erpnext-mexico-compliance\n"
 "Report-Msgid-Bugs-To: info@tisinproblemas.com\n"
 "POT-Creation-Date: 2026-06-11 06:00+0000\n"
-"PO-Revision-Date: 2026-06-11 06:16\n"
+"PO-Revision-Date: 2026-06-12 03:38\n"
 "Last-Translator: info@tisinproblemas.com\n"
 "Language-Team: Spanish, Mexico\n"
 "MIME-Version: 1.0\n"
@@ -697,7 +697,7 @@ msgstr "Límite de Pocos Créditos"
 #: erpnext_mexico_compliance/fixtures/custom_field.json
 #: erpnext_mexico_compliance/workspace_sidebar/mexico_compliance.json
 msgid "Mexico Compliance"
-msgstr "Cumplimiento para México"
+msgstr "Cumplimiento Mexicano"
 
 #. Label of the mx_mode_of_payment (Link) field in DocType 'Subscription'
 #. Label of the mode_of_payment (Link) field in DocType 'Sales Invoice'
