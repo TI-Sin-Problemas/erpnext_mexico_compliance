@@ -47,6 +47,7 @@ class CommonController(Document):
 		mx_is_cancellable: DF.Check
 		cancellation_reason: DF.Link
 		cancellation_acknowledgement: DF.HTMLEditor
+		mx_cfdi_status: DF.Literal["Cancelled", "Pending Cancellation", "Valid"]
 
 	@property
 	def cfdi_series(self) -> str:
@@ -166,14 +167,15 @@ class CommonController(Document):
 			Document: The result of the cancel operation if the CFDI is cancelled.
 		"""
 		ws = get_ws_client()
-		cfdi = CFDI.from_string(self.mx_stamped_xml.encode("utf-8"))
-		status = ws.get_status(cfdi)
+		status = ws.get_status(self.mx_cfdi_obj)
 		if status.is_cancellable == status.CancellableStatus.NOT_CANCELLABLE:
 			self.mx_is_cancellable = 0
+			self.mx_cfdi_status = CFDIStatus.VALID.value
 			self.save()
 
 		if status.status == status.DocumentStatus.CANCELLED:
 			self.flags.ignore_links = True
+			self.mx_cfdi_status = CFDIStatus.CANCELLED.value
 			self._cancel()
 
 	@frappe.whitelist()
@@ -268,6 +270,7 @@ class CommonController(Document):
 
 		response = ws.cancel_cfdi(certificate, cfdi, self.cancellation_reason, substitute_uuid)
 		self.cancellation_acknowledgement = response["acknowledgement"]
+		self.mx_cfdi_status = CFDIStatus.PENDING_CANCELLATION.value
 
 		ret = self.save()
 		frappe.msgprint(
