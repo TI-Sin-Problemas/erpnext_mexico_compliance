@@ -121,6 +121,7 @@ function refresh(frm, dt, dn) {
 	const { docstatus, mx_stamped_xml, cancellation_acknowledgement } = frm.doc;
 
 	if (mx_stamped_xml) {
+		erpnext_mexico_compliance.utils.overrideEmailDocFunction(frm);
 		addDownloadCFDIBtns(frm, dt, dn);
 	}
 
