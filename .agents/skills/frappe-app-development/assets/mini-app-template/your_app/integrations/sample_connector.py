@@ -1,5 +1,6 @@
 import frappe
 import requests
+from frappe import _
 from requests.exceptions import RequestException
 from your_app.utils.errors import ERROR_CODES
 from your_app.utils.logging import log_error
@@ -12,7 +13,7 @@ def fetch_status(external_id: str):
 	callers receive predictable exceptions.
 	"""
 	if not external_id:
-		frappe.throw("external_id is required")
+		frappe.throw(_("external_id is required"))
 
 	try:
 		# Replace with real integration URL and authentication

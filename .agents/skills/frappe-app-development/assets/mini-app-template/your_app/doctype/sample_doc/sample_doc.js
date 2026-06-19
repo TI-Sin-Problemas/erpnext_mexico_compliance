@@ -4,7 +4,7 @@ frappe.ui.form.on("Sample Doc", {
 		// frm.set_query("customer", () => ({ filters: { disabled: 0 } }));
 	},
 	refresh(frm) {
-		frm.add_custom_button("Approve", () => {
+		frm.add_custom_button(__("Approve"), () => {
 			frappe
 				.call({
 					method: "your_app.api.hello",
@@ -17,7 +17,7 @@ frappe.ui.form.on("Sample Doc", {
 	},
 	validate(frm) {
 		if (!frm.doc.title) {
-			frappe.msgprint("Title is required");
+			frappe.msgprint(__("Title is required"));
 			frappe.validated = false;
 		}
 	},

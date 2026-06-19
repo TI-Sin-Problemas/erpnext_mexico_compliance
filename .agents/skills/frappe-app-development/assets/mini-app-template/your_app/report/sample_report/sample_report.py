@@ -1,4 +1,5 @@
 import frappe
+from frappe import _
 from frappe.query_builder import functions as fn
 
 
@@ -7,13 +8,13 @@ def execute(filters=None):
 
 	columns = [
 		{
-			"label": "Title",
+			"label": _("Title"),
 			"fieldname": "title",
 			"fieldtype": "Data",
 			"width": 200,
 		},
 		{
-			"label": "Status",
+			"label": _("Status"),
 			"fieldname": "status",
 			"fieldtype": "Data",
 			"width": 100,
@@ -54,7 +55,7 @@ def execute(filters=None):
 
 	report_summary = [
 		{
-			"label": "Total Records",
+			"label": _("Total Records"),
 			"value": total_count,
 			"indicator": "blue",
 		}

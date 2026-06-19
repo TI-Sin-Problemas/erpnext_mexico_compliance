@@ -3,7 +3,7 @@ frappe.listview_settings["Sample Doc"] = {
 		listview.page.add_action_item("Mark Closed", () => {
 			const selected = listview.get_checked_items();
 			if (!selected.length) {
-				frappe.msgprint("Select at least one document");
+				frappe.msgprint(__("Select at least one document"));
 				return;
 			}
 			frappe

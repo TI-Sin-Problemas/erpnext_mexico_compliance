@@ -1,4 +1,5 @@
 import frappe
+from frappe import _
 from frappe.model.document import Document
 
 
@@ -10,8 +11,8 @@ class SampleDoc(Document):
 		side-effects, prefer service-layer functions that can be unit tested.
 		"""
 		if not self.title:
-			frappe.throw("Title is required")
+			frappe.throw(_("Title is required"))
 
 		# Example: enforce a maximum title length for predictable storage
 		if self.title and len(self.title) > 255:
-			frappe.throw("Title must be 255 characters or fewer")
+			frappe.throw(_("Title must be 255 characters or fewer"))
