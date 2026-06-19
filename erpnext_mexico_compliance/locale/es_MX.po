@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: erpnext-mexico-compliance\n"
 "Report-Msgid-Bugs-To: info@tisinproblemas.com\n"
 "POT-Creation-Date: 2026-06-19 05:51+0000\n"
-"PO-Revision-Date: 2026-06-19 06:19\n"
+"PO-Revision-Date: 2026-06-19 07:15\n"
 "Last-Translator: info@tisinproblemas.com\n"
 "Language-Team: Spanish, Mexico\n"
 "MIME-Version: 1.0\n"
@@ -609,7 +609,7 @@ msgstr "RFC Inválido"
 
 #: erpnext_mexico_compliance/controllers/common.py:345
 msgid "Invalid email contact type: {}"
-msgstr ""
+msgstr "Tipo de contacto de email inválido: {}"
 
 #: erpnext_mexico_compliance/overrides/sales_invoice.py:180
 msgid "Invoice has no billing address"
@@ -728,7 +728,7 @@ msgstr "Acuse de cancelación no disponible para {0} {1}."
 
 #: erpnext_mexico_compliance/controllers/common.py:348
 msgid "No recipients found for the current document."
-msgstr ""
+msgstr "No se encontraron destinatarios para el documento actual."
 
 #. Label of the pdf_templates (Table) field in DocType 'CFDI Stamping Settings'
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.json
@@ -762,7 +762,7 @@ msgstr ""
 #. Option for the 'CFDI Status' (Select) field in DocType 'Sales Invoice'
 #: erpnext_mexico_compliance/fixtures/custom_field.json
 msgid "Pending Cancellation"
-msgstr ""
+msgstr "Pendiente de Cancelación"
 
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.js:23
 msgid "Please save the CFDI PDF Template first"
