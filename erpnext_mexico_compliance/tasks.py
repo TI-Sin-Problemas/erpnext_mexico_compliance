@@ -7,6 +7,7 @@ For license information, please see license.txt
 
 import frappe
 
+from erpnext_mexico_compliance.controllers.common import CFDIStatus
 from erpnext_mexico_compliance.overrides.payment_entry import PaymentEntry
 from erpnext_mexico_compliance.overrides.sales_invoice import SalesInvoice
 
@@ -14,20 +15,10 @@ from erpnext_mexico_compliance.overrides.sales_invoice import SalesInvoice
 def check_cancellation_status():
 	"""Checks the cancellation status of Sales Invoices and Payment Entries."""
 	invoices = frappe.get_all(
-		"Sales Invoice",
-		fields=["name"],
-		filters={
-			"cancellation_acknowledgement": ["is", "not set"],
-			"docstatus": 1,
-		},
+		"Sales Invoice", fields=["name"], filters={"mx_cfdi_status": CFDIStatus.PENDING_CANCELLATION.value}
 	)
 	payments = frappe.get_all(
-		"Payment Entry",
-		fields=["name"],
-		filters={
-			"cancellation_acknowledgement": ["is", "not set"],
-			"docstatus": 1,
-		},
+		"Payment Entry", fields=["name"], filters={"mx_cfdi_status": CFDIStatus.PENDING_CANCELLATION.value}
 	)
 
 	for i in invoices:
