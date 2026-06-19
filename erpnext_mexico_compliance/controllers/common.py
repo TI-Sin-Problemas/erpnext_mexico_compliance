@@ -5,6 +5,7 @@ For license information, please see license.txt
 
 import abc
 import zipfile
+from enum import StrEnum
 from io import BytesIO
 
 import frappe
@@ -27,7 +28,12 @@ from erpnext_mexico_compliance.utils import qr_as_base64
 from erpnext_mexico_compliance.utils.contacts import get_contact_emails
 
 from ..ws_client import get_ws_client
-from . import communication
+
+
+class CFDIStatus(StrEnum):
+	CANCELLED = "Cancelled"
+	PENDING_CANCELLATION = "Pending Cancellation"
+	VALID = "Valid"
 
 
 class CommonController(Document):

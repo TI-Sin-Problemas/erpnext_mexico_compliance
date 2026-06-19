@@ -16,12 +16,12 @@ from frappe.utils.data import get_datetime
 from satcfdi.create.cfd import cfdi40, pago20
 from satcfdi.exceptions import SchemaValidationError
 
+from erpnext_mexico_compliance.controllers.common import CFDIStatus, CommonController
 from erpnext_mexico_compliance.overrides.sales_invoice import SalesInvoice
 from erpnext_mexico_compliance.utils import money_in_words
 from erpnext_mexico_compliance.utils.cfdi import get_uuid_from_xml
 from erpnext_mexico_compliance.utils.contacts import get_all_billing_contacts_emails
 
-from ..controllers.common import CommonController
 from ..erpnext_mexico_compliance.doctype.cfdi_stamping_settings.cfdi_stamping_settings import (
 	CFDIStampingSettings,
 )
@@ -274,6 +274,7 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
 
 		self.db_set("mx_stamped_xml", xml)
 		self.db_set("mx_uuid", get_uuid_from_xml(xml))
+		self.db_set("mx_cfdi_status", CFDIStatus.VALID.value)
 
 	@property
 	def requires_relationship(self) -> int:

@@ -17,7 +17,7 @@ from lxml import etree
 from satcfdi.create.cfd import catalogos, cfdi40
 from satcfdi.exceptions import SchemaValidationError
 
-from erpnext_mexico_compliance.controllers.common import CommonController
+from erpnext_mexico_compliance.controllers.common import CFDIStatus, CommonController
 from erpnext_mexico_compliance.erpnext_mexico_compliance.doctype.cfdi_stamping_settings.cfdi_stamping_settings import (
 	CFDIStampingSettings,
 )
@@ -278,6 +278,7 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
 
 		self.db_set("mx_stamped_xml", xml)
 		self.db_set("mx_uuid", get_uuid_from_xml(xml))
+		self.db_set("mx_cfdi_status", CFDIStatus.VALID.value)
 
 	@property
 	def requires_relationship(self) -> int:
