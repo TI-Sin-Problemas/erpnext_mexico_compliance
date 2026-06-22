@@ -98,7 +98,6 @@ doctype_js = {
 
 after_migrate = [
 	"erpnext_mexico_compliance.migrate.execute_after_migrate_tasks",
-	"erpnext_mexico_compliance.migrate.enqueue_sat_catalogs_update",
 	"erpnext_mexico_compliance.migrate.set_cfdi_settings",
 ]
 # before_migrate = "erpnext_mexico_compliance.migrate.before_migrate"
