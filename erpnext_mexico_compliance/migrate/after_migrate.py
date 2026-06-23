@@ -2,11 +2,27 @@ import typing as t
 
 import click
 import frappe
+from frappe.utils import update_progress_bar
 
 from erpnext_mexico_compliance import sat
 from erpnext_mexico_compliance.utils.cfdi import get_uuid_from_xml
 
 
+def _activate_auto_commit(func):
+	"""Temporarily set auto_commit_on_many_writes to True."""
+
+	def wrapper(*args, **kwargs):
+		old = frappe.db.auto_commit_on_many_writes
+		frappe.db.auto_commit_on_many_writes = True
+		try:
+			func(*args, **kwargs)
+		finally:
+			frappe.db.auto_commit_on_many_writes = old
+
+	return wrapper
+
+
+@_activate_auto_commit
 def set_missing_uuids(doctype: t.Literal["Sales Invoice", "Payment Entry"]):
 	"""Sets the 'mx_uuid' field of all Sales Invoices or Payment Entries with the UUID extracted from their
 	'mx_stamped_xml' field.
@@ -17,10 +33,12 @@ def set_missing_uuids(doctype: t.Literal["Sales Invoice", "Payment Entry"]):
 	FILTERS = {"mx_stamped_xml": ["is", "set"], "mx_uuid": ["is", "not set"]}
 
 	query = frappe.qb.get_query(doctype, fields=["name", "mx_stamped_xml"], filters=FILTERS)
-
-	with click.progressbar(query.run(), label=f"Setting {doctype} missing UUIDs") as bar:
-		for name, xml in bar:
-			frappe.db.set_value(doctype, name, "mx_uuid", get_uuid_from_xml(xml))
+	docs = query.run()
+	total = len(docs)
+	for idx, doc in enumerate(docs):
+		name, xml = doc
+		frappe.db.set_value(doctype, name, "mx_uuid", get_uuid_from_xml(xml))
+		update_progress_bar(f"Setting missing UUIDs for {doctype}", idx, total)
 
 
 def enqueue_sat_catalogs_update():
