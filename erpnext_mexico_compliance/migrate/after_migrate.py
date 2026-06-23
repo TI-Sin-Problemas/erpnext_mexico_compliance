@@ -16,15 +16,11 @@ def set_missing_uuids(doctype: t.Literal["Sales Invoice", "Payment Entry"]):
 	"""
 	FILTERS = {"mx_stamped_xml": ["is", "set"], "mx_uuid": ["is", "not set"]}
 
-	qty = frappe.db.count(doctype, filters=FILTERS)
-	if qty:
-		query = frappe.qb.get_query(  # type: ignore
-			doctype, fields=["name", "mx_stamped_xml"], filters=FILTERS
-		)
+	query = frappe.qb.get_query(doctype, fields=["name", "mx_stamped_xml"], filters=FILTERS)
 
-		with click.progressbar(query.run(), label=f"Setting {doctype} missing UUIDs") as bar:
-			for name, xml in bar:
-				frappe.db.set_value(doctype, name, "mx_uuid", get_uuid_from_xml(xml))
+	with click.progressbar(query.run(), label=f"Setting {doctype} missing UUIDs") as bar:
+		for name, xml in bar:
+			frappe.db.set_value(doctype, name, "mx_uuid", get_uuid_from_xml(xml))
 
 
 def enqueue_sat_catalogs_update():
