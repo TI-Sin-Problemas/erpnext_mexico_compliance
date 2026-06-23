@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from enum import Enum
+from enum import Enum, StrEnum
 
 
 @dataclass
@@ -13,7 +13,7 @@ class CfdiStatus:
 		CANCELLABLE_BY_DIRECT_CALL = "Cancelable sin aceptación"
 		NOT_CANCELLABLE = "No cancelable"
 
-	class DocumentStatus(Enum):
+	class DocumentStatus(StrEnum):
 		"""Represents the status of a CFDI."""
 
 		ACTIVE = "Vigente"
