@@ -127,7 +127,7 @@ def set_missing_cfdi_status(doctype: t.Literal["Sales Invoice", "Payment Entry"]
 			doctype=doctype,
 		)
 		click.echo(
-			f"{doc_qty} {doctype} documents with missing CFDI status have been found, queue {q._id} has been created."
+			f"{doc_qty} {doctype} documents with missing CFDI status have been found, queue {q.func_name} has been created."
 		)
 
 	elif doc_qty > 0:
