@@ -39,23 +39,6 @@ def _wait_until_queue_free(queue_name="default"):
 		sleep_time = min(sleep_time * 2, 60)
 
 
-def execute():
-	"""Enqueue removal of attached CFDI files as a background job."""
-	file_qty = frappe.db.count("File", filters=FILTERS)
-
-	if file_qty > get_max_jobs():
-		q = frappe.enqueue(
-			"erpnext_mexico_compliance.patches.0_13_0.remove_attached_cfdi.remove_cfdi_files",
-			queue="long",
-		)
-		print(
-			f"Found {file_qty} CFDI files to remove. Enqueuing job {q.func_name}. "
-			"Check RQ Jobs > Long Queue for progress."
-		)
-	elif file_qty > 0:
-		remove_cfdi_files()
-
-
 @activate_auto_commit
 def remove_cfdi_files():
 	try:
@@ -86,3 +69,20 @@ def remove_cfdi_files():
 			"erpnext_mexico_compliance.patches.0_13_0.remove_attached_cfdi.remove_cfdi_files",
 			queue="long",
 		)
+
+
+def execute():
+	"""Enqueues or performs removal of attached CFDI files as a background job."""
+	file_qty = frappe.db.count("File", filters=FILTERS)
+
+	if file_qty > get_max_jobs():
+		q = frappe.enqueue(
+			"erpnext_mexico_compliance.patches.0_13_0.remove_attached_cfdi.remove_cfdi_files",
+			queue="long",
+		)
+		print(
+			f"Found {file_qty} CFDI files to remove. Enqueuing job {q.func_name}. "
+			"Check RQ Jobs > Long Queue for progress."
+		)
+	elif file_qty > 0:
+		remove_cfdi_files()
