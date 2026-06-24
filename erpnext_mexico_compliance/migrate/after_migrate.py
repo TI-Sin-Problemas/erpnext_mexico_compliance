@@ -9,24 +9,11 @@ from satcfdi.cfdi import CFDI
 from erpnext_mexico_compliance import sat
 from erpnext_mexico_compliance.controllers.common import CFDIStatus
 from erpnext_mexico_compliance.utils.cfdi import get_uuid_from_xml
+from erpnext_mexico_compliance.utils.decorators import activate_auto_commit
 from erpnext_mexico_compliance.ws_client import get_ws_client, models
 
 
-def _activate_auto_commit(func):
-	"""Temporarily set auto_commit_on_many_writes to True."""
-
-	def wrapper(*args, **kwargs):
-		old = frappe.db.auto_commit_on_many_writes
-		frappe.db.auto_commit_on_many_writes = True
-		try:
-			func(*args, **kwargs)
-		finally:
-			frappe.db.auto_commit_on_many_writes = old
-
-	return wrapper
-
-
-@_activate_auto_commit
+@activate_auto_commit
 def set_missing_uuids(doctype: t.Literal["Sales Invoice", "Payment Entry"]):
 	"""Sets the 'mx_uuid' field of all Sales Invoices or Payment Entries with the UUID extracted from their
 	'mx_stamped_xml' field.
@@ -65,7 +52,7 @@ def set_cfdi_settings():
 CHUNK_SIZE = 500
 
 
-@_activate_auto_commit
+@activate_auto_commit
 def _set_missing_cfdi_status(doctype: t.Literal["Sales Invoice", "Payment Entry"]):
 	"""Sets the CFDI status of sales invoices and payment entries.
 
