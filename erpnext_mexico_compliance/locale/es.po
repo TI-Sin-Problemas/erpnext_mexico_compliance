@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: erpnext-mexico-compliance\n"
 "Report-Msgid-Bugs-To: info@tisinproblemas.com\n"
 "POT-Creation-Date: 2026-06-25 09:54+0000\n"
-"PO-Revision-Date: 2026-06-25 17:18\n"
+"PO-Revision-Date: 2026-06-25 17:30\n"
 "Last-Translator: info@tisinproblemas.com\n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -181,7 +181,7 @@ msgstr "Configuración de Timbrado de CFDI"
 #. Label of the mx_cfdi_status (Select) field in DocType 'Sales Invoice'
 #: erpnext_mexico_compliance/fixtures/custom_field.json
 msgid "CFDI Status"
-msgstr ""
+msgstr "Estado de CFDI"
 
 #: erpnext_mexico_compliance/controllers/common.py:200
 msgid "CFDI Status: {0}"
@@ -259,7 +259,7 @@ msgstr "Motivo de cancelación"
 #. Option for the 'CFDI Status' (Select) field in DocType 'Sales Invoice'
 #: erpnext_mexico_compliance/fixtures/custom_field.json
 msgid "Cancelled"
-msgstr ""
+msgstr "Cancelado"
 
 #: erpnext_mexico_compliance/overrides/payment_entry.py:247
 msgid "Cannot stamp a payment entry with a {0} reference"
@@ -727,7 +727,7 @@ msgstr "Cumplimiento Mexicano"
 #. Label of the mode_of_payment (Link) field in DocType 'Sales Invoice'
 #: erpnext_mexico_compliance/fixtures/custom_field.json
 msgid "Mode of Payment"
-msgstr ""
+msgstr "Modo de Pago"
 
 #. Description of a Card Break in the Mexico Compliance Workspace
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/workspace/mexico_compliance/mexico_compliance.json
