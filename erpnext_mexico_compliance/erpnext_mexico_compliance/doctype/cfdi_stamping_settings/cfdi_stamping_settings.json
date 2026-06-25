@@ -21,7 +21,7 @@
   "column_break_twmd",
   "send_email_on_stamp",
   "send_email_to",
-  "default_email_template"
+  "email_templates"
  ],
  "fields": [
   {
@@ -115,23 +115,22 @@
    "options": "\nAll Billing Contacts\nDocument Contact"
   },
   {
-   "depends_on": "eval: doc.send_email_on_stamp && doc.is_premium",
-   "fieldname": "default_email_template",
-   "fieldtype": "Link",
-   "label": "Default Email Template",
-   "mandatory_depends_on": "eval: doc.send_email_on_stamp",
-   "options": "Email Template"
-  },
-  {
    "fieldname": "column_break_twmd",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "email_templates",
+   "fieldtype": "Table",
+   "label": "Email Templates",
+   "mandatory_depends_on": "eval: doc.send_email_on_stamp && doc.is_premium",
+   "options": "CFDI Email Template"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2026-06-09 12:48:13.404285",
+ "modified": "2026-06-25 03:49:24.909084",
  "modified_by": "Administrator",
  "module": "ERPNext Mexico Compliance",
  "name": "CFDI Stamping Settings",
