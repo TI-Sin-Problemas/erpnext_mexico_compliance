@@ -48,7 +48,7 @@ class PaymentEntry(CommonController, payment_entry.PaymentEntry):
 		cancellation_reason: DF.Link
 		substitute_payment_entry: DF.Link
 		cancellation_acknowledgement: DF.HTMLEditor
-		mode_of_payment: DF.Link
+		mode_of_payment: DF.Link | None
 
 	def on_submit(self):
 		"""
