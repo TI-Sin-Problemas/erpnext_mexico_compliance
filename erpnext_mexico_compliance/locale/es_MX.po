@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: erpnext-mexico-compliance\n"
 "Report-Msgid-Bugs-To: info@tisinproblemas.com\n"
-"POT-Creation-Date: 2026-06-19 05:51+0000\n"
-"PO-Revision-Date: 2026-06-19 07:15\n"
+"POT-Creation-Date: 2026-06-25 09:54+0000\n"
+"PO-Revision-Date: 2026-06-25 17:30\n"
 "Last-Translator: info@tisinproblemas.com\n"
 "Language-Team: Spanish, Mexico\n"
 "MIME-Version: 1.0\n"
@@ -35,7 +35,7 @@ msgstr "Un Motivo de Cancelación es necesario para cancelar este pago."
 msgid "A Cancellation Reason is required to cancel this sales invoice."
 msgstr "Un Motivo de Cancelación es necesario para cancelar esta factura de venta."
 
-#: erpnext_mexico_compliance/controllers/common.py:219
+#: erpnext_mexico_compliance/controllers/common.py:218
 msgid "A Cancellation Reason is required."
 msgstr "Un Motivo de Cancelación es necesario."
 
@@ -49,7 +49,7 @@ msgstr ""
 msgid "API Secret"
 msgstr ""
 
-#: erpnext_mexico_compliance/overrides/sales_invoice_item.py:115
+#: erpnext_mexico_compliance/overrides/sales_invoice_item.py:120
 msgid "Account {} does not have a tax type."
 msgstr "La cuenta {} no tiene un tipo de impuesto."
 
@@ -143,9 +143,14 @@ msgstr ""
 msgid "CFDI Actions"
 msgstr "Acciones de CFDI"
 
-#: erpnext_mexico_compliance/controllers/common.py:200
+#: erpnext_mexico_compliance/controllers/common.py:199
 msgid "CFDI Code: {0}"
 msgstr "Código CFDI: {0}"
+
+#. Name of a DocType
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_email_template/cfdi_email_template.json
+msgid "CFDI Email Template"
+msgstr "Plantilla de Email CFDI"
 
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/report/stamped_invoice_differences/stamped_invoice_differences.py:26
 msgid "CFDI Grand Total"
@@ -156,7 +161,7 @@ msgstr "Total del CFDI"
 msgid "CFDI PDF Template"
 msgstr "Plantilla PDF de CFDI"
 
-#: erpnext_mexico_compliance/controllers/common.py:154
+#: erpnext_mexico_compliance/controllers/common.py:153
 msgid "CFDI Stamped Successfully"
 msgstr "CFDI Timbrado Exitosamente"
 
@@ -176,9 +181,9 @@ msgstr "Configuración de Timbrado de CFDI"
 #. Label of the mx_cfdi_status (Select) field in DocType 'Sales Invoice'
 #: erpnext_mexico_compliance/fixtures/custom_field.json
 msgid "CFDI Status"
-msgstr ""
+msgstr "Estado de CFDI"
 
-#: erpnext_mexico_compliance/controllers/common.py:201
+#: erpnext_mexico_compliance/controllers/common.py:200
 msgid "CFDI Status: {0}"
 msgstr "Estado de CFDI: {0}"
 
@@ -187,7 +192,7 @@ msgstr "Estado de CFDI: {0}"
 msgid "CFDI Web Service Error"
 msgstr "Error del Web Service de CFDI"
 
-#: erpnext_mexico_compliance/controllers/common.py:278
+#: erpnext_mexico_compliance/controllers/common.py:277
 msgid "CFDI cancellation requested successfully"
 msgstr "Cancelación de CFDI solicitada exitosamente"
 
@@ -232,7 +237,7 @@ msgstr "Acuse de Cancelación no encontrado"
 msgid "Cancellation Reason"
 msgstr "Motivo de Cancelación"
 
-#: erpnext_mexico_compliance/controllers/common.py:203
+#: erpnext_mexico_compliance/controllers/common.py:202
 msgid "Cancellation Status: {0}"
 msgstr "Estado de cancelación: {0}"
 
@@ -254,7 +259,7 @@ msgstr "Motivo de cancelación"
 #. Option for the 'CFDI Status' (Select) field in DocType 'Sales Invoice'
 #: erpnext_mexico_compliance/fixtures/custom_field.json
 msgid "Cancelled"
-msgstr ""
+msgstr "Cancelado"
 
 #: erpnext_mexico_compliance/overrides/payment_entry.py:247
 msgid "Cannot stamp a payment entry with a {0} reference"
@@ -392,12 +397,6 @@ msgstr "CSD Predeterminado"
 msgid "Default Digital Signing Certificates"
 msgstr "Certificados de Sello Digital Predeterminados"
 
-#. Label of the default_email_template (Link) field in DocType 'CFDI Stamping
-#. Settings'
-#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.json
-msgid "Default Email Template"
-msgstr "Plantilla de correo electrónico predeterminado"
-
 #. Label of the description (Data) field in DocType 'Cancellation Reason'
 #. Label of the description (Data) field in DocType 'SAT CFDI Use'
 #. Label of the description (Data) field in DocType 'SAT Payment Method'
@@ -441,7 +440,9 @@ msgstr "Certificado de Sello Digital"
 msgid "Document Contact"
 msgstr "Contacto del documento"
 
+#. Label of the document_type (Select) field in DocType 'CFDI Email Template'
 #. Label of the document_type (Select) field in DocType 'CFDI PDF Template'
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_email_template/cfdi_email_template.json
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_pdf_template/cfdi_pdf_template.json
 msgid "Document Type"
 msgstr "Tipo de Documento"
@@ -458,7 +459,7 @@ msgstr "Descargar archivos CFDI"
 msgid "Download acknowledgement"
 msgstr "Descargar acuse"
 
-#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.py:100
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.py:104
 msgid "Duplicated PDF template for {} and {}"
 msgstr "Plantilla PDF duplicada para {} y {}"
 
@@ -470,6 +471,17 @@ msgstr "ERPNext Cumplimiento para México"
 msgid "Email Sent"
 msgstr "Correo electrónico Enviado"
 
+#. Label of the email_template (Link) field in DocType 'CFDI Email Template'
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_email_template/cfdi_email_template.json
+msgid "Email Template"
+msgstr ""
+
+#. Label of the email_templates (Table) field in DocType 'CFDI Stamping
+#. Settings'
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.json
+msgid "Email Templates"
+msgstr ""
+
 #: erpnext_mexico_compliance/public/js/utils.js:88
 msgid "Email not sent to {0} (unsubscribed / disabled)"
 msgstr ""
@@ -478,7 +490,7 @@ msgstr ""
 msgid "Email sending undone"
 msgstr ""
 
-#: erpnext_mexico_compliance/controllers/common.py:363
+#: erpnext_mexico_compliance/controllers/common.py:362
 msgid "Email with CFDI files sent successfully"
 msgstr "Correo electrónico con archivos CFDI enviado correctamente"
 
@@ -516,7 +528,7 @@ msgid "Files"
 msgstr "Archivos"
 
 #: erpnext_mexico_compliance/overrides/sales_invoice.py:101
-#: erpnext_mexico_compliance/overrides/sales_invoice_item.py:84
+#: erpnext_mexico_compliance/overrides/sales_invoice_item.py:89
 msgid "From {}"
 msgstr "De {}"
 
@@ -579,7 +591,7 @@ msgstr "CURP inválido"
 msgid "Invalid CURP format"
 msgstr "Formato de CURP inválido"
 
-#: erpnext_mexico_compliance/controllers/common.py:220
+#: erpnext_mexico_compliance/controllers/common.py:219
 msgid "Invalid Cancellation Reason"
 msgstr "Motivo de Cancelación inválido"
 
@@ -607,7 +619,7 @@ msgstr "Formato de NSS inválido"
 msgid "Invalid Tax Id"
 msgstr "RFC Inválido"
 
-#: erpnext_mexico_compliance/controllers/common.py:345
+#: erpnext_mexico_compliance/controllers/common.py:344
 msgid "Invalid email contact type: {}"
 msgstr "Tipo de contacto de email inválido: {}"
 
@@ -621,7 +633,7 @@ msgstr "La factura no tiene dirección de facturación"
 msgid "Is Cancellable"
 msgstr "Es Cancelable"
 
-#: erpnext_mexico_compliance/controllers/common.py:202
+#: erpnext_mexico_compliance/controllers/common.py:201
 msgid "Is Cancellable: {0}"
 msgstr "Es Cancelable: {0}"
 
@@ -630,7 +642,7 @@ msgstr "Es Cancelable: {0}"
 msgid "Is Premium"
 msgstr "Es Premium"
 
-#: erpnext_mexico_compliance/overrides/sales_invoice_item.py:41
+#: erpnext_mexico_compliance/overrides/sales_invoice_item.py:44
 msgid "Item {0} at row {1} does not have a SAT Product or Service Key"
 msgstr "El producto {0} en la fila {1} no tiene Clave de Producto o Servicio"
 
@@ -726,7 +738,7 @@ msgstr "Configuración del módulo"
 msgid "No cancellation acknowledgement available for {0} {1}."
 msgstr "Acuse de cancelación no disponible para {0} {1}."
 
-#: erpnext_mexico_compliance/controllers/common.py:348
+#: erpnext_mexico_compliance/controllers/common.py:347
 msgid "No recipients found for the current document."
 msgstr "No se encontraron destinatarios para el documento actual."
 
@@ -753,7 +765,10 @@ msgstr "Contraseña"
 msgid "Password for the certificate key"
 msgstr "Contraseña para la llave del certificado"
 
+#. Option for the 'Document Type' (Select) field in DocType 'CFDI Email
+#. Template'
 #. Option for the 'Document Type' (Select) field in DocType 'CFDI PDF Template'
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_email_template/cfdi_email_template.json
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_pdf_template/cfdi_pdf_template.json
 msgid "Payment Entry"
 msgstr ""
@@ -768,11 +783,7 @@ msgstr "Pendiente de Cancelación"
 msgid "Please save the CFDI PDF Template first"
 msgstr "Por favor guarda la Plantilla PDF de CFDI primero"
 
-#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.py:108
-msgid "Please select a default email template"
-msgstr "Por favor, seleccione una plantilla de correo electrónico por defecto"
-
-#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.py:106
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.py:110
 msgid "Please select a type of contact to send the email to"
 msgstr "Por favor, seleccione un tipo de contacto para enviar el correo electrónico"
 
@@ -930,8 +941,11 @@ msgstr "Clave SAT de UDM"
 msgid "SSN"
 msgstr ""
 
+#. Option for the 'Document Type' (Select) field in DocType 'CFDI Email
+#. Template'
 #. Option for the 'Document Type' (Select) field in DocType 'CFDI PDF Template'
 #. Label of the sales_invoice (Link) field in DocType 'Related Sales Invoice'
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_email_template/cfdi_email_template.json
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_pdf_template/cfdi_pdf_template.json
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/related_sales_invoice/related_sales_invoice.json
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/report/stamped_invoice_differences/stamped_invoice_differences.py:15
@@ -1053,7 +1067,7 @@ msgstr "El motivo de cancelación requiere una factura sustituta."
 msgid "The Cancellation Reason requires a substitute payment entry."
 msgstr "El motivo de cancelación requiere una entrada de pago sustituta."
 
-#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.py:147
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.py:149
 msgid "The value of {0} is set from the site config and cannot be changed here. Only the site admin can change it."
 msgstr "El valor de {0} está establecido desde la configuración del sitio y no se puede cambiar aquí. Solo el administrador del sitio puede cambiarlo."
 
@@ -1061,7 +1075,7 @@ msgstr "El valor de {0} está establecido desde la configuración del sitio y no
 msgid "There were errors while sending email. Please try again."
 msgstr ""
 
-#: erpnext_mexico_compliance/controllers/common.py:277
+#: erpnext_mexico_compliance/controllers/common.py:276
 msgid "This Document will be cancelled once the CFDI cancellation request is approved"
 msgstr "Este Documento será cancelado una vez que la solicitud de cancelación de CFDI sea aprobada"
 
@@ -1077,7 +1091,7 @@ msgid "Title"
 msgstr "Título"
 
 #: erpnext_mexico_compliance/overrides/sales_invoice.py:102
-#: erpnext_mexico_compliance/overrides/sales_invoice_item.py:88
+#: erpnext_mexico_compliance/overrides/sales_invoice_item.py:93
 msgid "To {}"
 msgstr "A {}"
 
@@ -1085,6 +1099,10 @@ msgstr "A {}"
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/sat_uom_key/sat_uom_key.json
 msgid "UOM Name"
 msgstr "Nombre de UdM"
+
+#: erpnext_mexico_compliance/overrides/sales_invoice_item.py:50
+msgid "UOM {0} at row {1} does not have a SAT UOM Key"
+msgstr ""
 
 #. Label of the uuid (Data) field in DocType 'Related Sales Invoice'
 #. Label of the mx_uuid (Data) field in DocType 'Sales Invoice'
@@ -1122,7 +1140,7 @@ msgstr ""
 msgid "View PDF file"
 msgstr "Ver archivo PDF"
 
-#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.py:83
+#: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.py:87
 msgid "Warning: {} CFDI credits remaining."
 msgstr "Advertencia: {} créditos CFDI restantes."
 
@@ -1148,11 +1166,11 @@ msgstr ""
 msgid "Zip code"
 msgstr "Código postal"
 
-#: erpnext_mexico_compliance/controllers/common.py:243
+#: erpnext_mexico_compliance/controllers/common.py:242
 msgid "{} is required"
 msgstr "{} es requerido"
 
-#: erpnext_mexico_compliance/controllers/common.py:240
+#: erpnext_mexico_compliance/controllers/common.py:239
 msgid "{} is required when {} is {}"
 msgstr "{} es requerido cuando {} es {}"
 
