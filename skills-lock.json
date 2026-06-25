@@ -1,11 +1,23 @@
 {
   "version": 1,
   "skills": {
+    "code-style": {
+      "source": "frappe/skills",
+      "sourceType": "github",
+      "skillPath": "skills/code-style/SKILL.md",
+      "computedHash": "0580e1d1d2682ff9aae8682984eed8981e3a5b4eb273492ec6fe74a4d6d609a1"
+    },
     "frappe-api-development": {
       "source": "lubusIN/frappe-skills",
       "sourceType": "github",
       "skillPath": "frappe-api-development/SKILL.md",
       "computedHash": "ea948a08d3bbc627592c5a57024a6750591bb29e04f94965c0281fb516fe9330"
+    },
+    "frappe-app-dev": {
+      "source": "frappe/skills",
+      "sourceType": "github",
+      "skillPath": "skills/frappe-app-dev/SKILL.md",
+      "computedHash": "37aa49399ae6b78cabaf71e799eb9b4780eaaa8494330ef571af012e198acc2a"
     },
     "frappe-app-development": {
       "source": "lubusIN/frappe-skills",
@@ -84,6 +96,12 @@
       "sourceType": "github",
       "skillPath": "frappe-web-forms/SKILL.md",
       "computedHash": "a16402beb757d8a4a8755fd4484a28fcc9726ec24722db92d0b5d1c66f58b9e1"
+    },
+    "ui-design": {
+      "source": "frappe/skills",
+      "sourceType": "github",
+      "skillPath": "skills/ui-design/SKILL.md",
+      "computedHash": "c3dec2ce532f6f99bcf827030430dc4bb1528f3d654f2736a3612f85e4afcf28"
     }
   }
 }
