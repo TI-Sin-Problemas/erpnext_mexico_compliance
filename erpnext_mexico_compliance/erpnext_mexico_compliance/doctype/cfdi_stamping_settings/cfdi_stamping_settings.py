@@ -143,7 +143,7 @@ class CFDIStampingSettings(Document):
 		if doc_field.fieldtype == "Password" and current_value:
 			current_value = self.get_password(field)
 
-		if value and current_value != value:
+		if value is not None and current_value != value:
 			msg = _(
 				"The value of {0} is set from the site config and cannot be changed here. Only the site admin can change it."
 			).format(_(doc_field.label))

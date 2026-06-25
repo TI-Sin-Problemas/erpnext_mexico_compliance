@@ -96,12 +96,8 @@ doctype_js = {
 # Migration
 # ------------
 
-after_migrate = [
-	"erpnext_mexico_compliance.migrate.set_sales_invoices_uuid",
-	"erpnext_mexico_compliance.migrate.set_payment_entries_uuid",
-	"erpnext_mexico_compliance.migrate.enqueue_sat_catalogs_update",
-	"erpnext_mexico_compliance.migrate.set_cfdi_settings",
-]
+after_migrate = "erpnext_mexico_compliance.migrate.execute_after_migrate_tasks"
+
 # before_migrate = "erpnext_mexico_compliance.migrate.before_migrate"
 
 # Integration Setup
