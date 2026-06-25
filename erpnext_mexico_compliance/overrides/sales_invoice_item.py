@@ -33,7 +33,7 @@ class SalesInvoiceItem(sales_invoice_item.SalesInvoiceItem):
 				self.db_update()
 
 	def validate(self):
-		"""Checks if the item has a SAT Product or Service Key."""
+		"""Checks if the item has a SAT Product or Service Key and SAT UOM Key."""
 		self.before_validate()
 
 		if not self.mx_product_service_key:
@@ -43,12 +43,15 @@ class SalesInvoiceItem(sales_invoice_item.SalesInvoiceItem):
 				)
 			)
 
+		if not self.uom_doc.mx_uom_key:
+			frappe.throw(_("UOM {0} at row {1} does not have a SAT UOM Key").format(self.uom, self.idx))
+
 	@property
 	def item_doc(self) -> Item:
 		"""Related Item DocType
 
 		Returns:
-		    Item: Item doctype
+			Item: Item doctype
 		"""
 		if self.item_code:
 			return frappe.get_doc("Item", self.item_code)
@@ -59,7 +62,7 @@ class SalesInvoiceItem(sales_invoice_item.SalesInvoiceItem):
 		"""The UOM (Unit of Measure) DocType of the item.
 
 		Returns:
-		    UOM: UOM of the item
+			UOM: UOM of the item
 		"""
 		return frappe.get_doc("UOM", self.uom)
 
@@ -77,7 +80,7 @@ class SalesInvoiceItem(sales_invoice_item.SalesInvoiceItem):
 		- From `start_date` To `end_date`
 
 		Returns:
-		    str: The formatted service duration string.
+			str: The formatted service duration string.
 		"""
 		start_date = ""
 		if self.service_start_date:
