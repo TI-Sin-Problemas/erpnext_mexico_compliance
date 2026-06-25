@@ -1,17 +1,18 @@
 """Copyright (c) 2024, TI Sin Problemas and contributors
 For license information, please see license.txt"""
 
+import typing as t
 from enum import StrEnum
-from typing import TYPE_CHECKING
 
 import frappe
 from frappe import _
+from frappe.email.doctype.email_template.email_template import get_email_template
 from frappe.model.document import Document
 from frappe.utils.caching import redis_cache
 
 from erpnext_mexico_compliance import ws_client
 
-if TYPE_CHECKING:
+if t.TYPE_CHECKING:
 	from frappe.email.doctype.email_template.email_template import EmailTemplate
 
 
@@ -29,6 +30,9 @@ class CFDIStampingSettings(Document):
 	if TYPE_CHECKING:
 		from frappe.types import DF
 
+		from erpnext_mexico_compliance.erpnext_mexico_compliance.doctype.cfdi_email_template.cfdi_email_template import (
+			CFDIEmailTemplate,
+		)
 		from erpnext_mexico_compliance.erpnext_mexico_compliance.doctype.cfdi_pdf_template.cfdi_pdf_template import (
 			CFDIPDFTemplate,
 		)
@@ -39,7 +43,7 @@ class CFDIStampingSettings(Document):
 		api_key: DF.Data | None
 		api_secret: DF.Password | None
 		default_csds: DF.Table[DefaultCSD]
-		default_email_template: DF.Link | None
+		email_templates: DF.Table[CFDIEmailTemplate]
 		enable_low_credits_warning: DF.Check
 		low_credits_threshold: DF.Int
 		pdf_templates: DF.Table[CFDIPDFTemplate]
@@ -94,8 +98,8 @@ class CFDIStampingSettings(Document):
 		document type.
 		"""
 		existing_templates = set()
-		for t in self.pdf_templates:
-			value = (t.company, t.document_type)
+		for template in self.pdf_templates:
+			value = (template.company, template.document_type)
 			if value in existing_templates:
 				frappe.throw(_("Duplicated PDF template for {} and {}").format(*value))
 			existing_templates.add(value)
@@ -104,8 +108,6 @@ class CFDIStampingSettings(Document):
 		if self.send_email_on_stamp:
 			if not self.send_email_to:
 				frappe.throw(_("Please select a type of contact to send the email to"))
-			if not self.default_email_template:
-				frappe.throw(_("Please select a default email template"))
 
 	def validate(self):
 		"""Validates the CFDI Stamping Settings."""
@@ -169,21 +171,34 @@ class CFDIStampingSettings(Document):
 			return "https://cfdi.tisp-staging.com"
 		return "https://tisinproblemas.com"
 
-	@property
-	def can_send_emails(self):
-		"""Determines if the account can send emails.
+	def can_send_emails(self, doctype: t.Literal["Payment Entry", "Sales Invoice"]) -> bool:
+		"""Determines if the account can send emails for a given document type.
+
+		Args:
+			doctype (t.Literal["Payment Entry", "Sales Invoice"]): The document type to check.
 
 		Returns:
 			bool: True if the account can send emails, False otherwise.
 		"""
-		return bool(
-			all([self.is_premium, self.send_email_on_stamp, self.send_email_to, self.default_email_template])
-		)
+		is_doctype_included = doctype in [t.document_type for t in self.email_templates]
+		return bool(all([self.is_premium, self.send_email_on_stamp, self.send_email_to, is_doctype_included]))
 
-	@property
-	def email_template_doc(self) -> EmailTemplate:
-		"""Retrieves the default email template document."""
-		return frappe.get_doc("Email Template", self.default_email_template)  # type: ignore
+	def get_email_template(
+		self, doctype: t.Literal["Payment Entry", "Sales Invoice"], doc: dict
+	) -> dict[str, str]:
+		"""Return the processed HTML of an email template with the given doc context
+
+		Args:
+			doctype (t.Literal["Payment Entry", "Sales Invoice"]): The document type
+			doc (dict): The document context as a dictionary
+
+		Returns:
+			dict: The processed HTML of the email template as a dictionary with the following keys:
+				- subject: The subject of the email
+				- message: The HTML content of the email
+		"""
+		template = next(t for t in self.email_templates if t.document_type == doctype)
+		return get_email_template(template, doc)
 
 
 @redis_cache(ttl=43200)  # Cache for 12 hours

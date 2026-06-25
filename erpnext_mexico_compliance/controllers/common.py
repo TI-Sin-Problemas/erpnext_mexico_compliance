@@ -10,7 +10,6 @@ from io import BytesIO
 
 import frappe
 from frappe import _
-from frappe.email.doctype.email_template.email_template import get_email_template
 from frappe.model.document import Document
 from frappe.model.naming import NamingSeries
 from lxml import etree
@@ -333,7 +332,7 @@ class CommonController(Document):
 
 	def send_email(self):
 		settings: CFDIStampingSettings = frappe.get_single("CFDI Stamping Settings")  # type: ignore
-		if settings.can_send_emails:
+		if settings.can_send_emails(self.doctype):  # type: ignore
 			recipients = []
 
 			match settings.send_email_to:
@@ -347,12 +346,12 @@ class CommonController(Document):
 			if not recipients:
 				frappe.throw(_("No recipients found for the current document."))
 
-			email = get_email_template(settings.default_email_template, self.as_dict())
+			email = settings.get_email_template(self.doctype, self.as_dict())  # type: ignore
 
 			frappe.sendmail(
 				recipients=recipients,
-				subject=email["subject"],  # type: ignore
-				message=email["message"],  # type: ignore
+				subject=email["subject"],
+				message=email["message"],
 				reference_doctype=self.doctype,
 				reference_name=self.name,
 				attachments=[
