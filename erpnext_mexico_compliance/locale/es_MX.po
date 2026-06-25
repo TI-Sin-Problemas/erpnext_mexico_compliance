@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: erpnext-mexico-compliance\n"
 "Report-Msgid-Bugs-To: info@tisinproblemas.com\n"
 "POT-Creation-Date: 2026-06-25 09:54+0000\n"
-"PO-Revision-Date: 2026-06-25 11:37\n"
+"PO-Revision-Date: 2026-06-25 17:30\n"
 "Last-Translator: info@tisinproblemas.com\n"
 "Language-Team: Spanish, Mexico\n"
 "MIME-Version: 1.0\n"
@@ -150,7 +150,7 @@ msgstr "Código CFDI: {0}"
 #. Name of a DocType
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_email_template/cfdi_email_template.json
 msgid "CFDI Email Template"
-msgstr ""
+msgstr "Plantilla de Email CFDI"
 
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/report/stamped_invoice_differences/stamped_invoice_differences.py:26
 msgid "CFDI Grand Total"
@@ -181,7 +181,7 @@ msgstr "Configuración de Timbrado de CFDI"
 #. Label of the mx_cfdi_status (Select) field in DocType 'Sales Invoice'
 #: erpnext_mexico_compliance/fixtures/custom_field.json
 msgid "CFDI Status"
-msgstr ""
+msgstr "Estado de CFDI"
 
 #: erpnext_mexico_compliance/controllers/common.py:200
 msgid "CFDI Status: {0}"
@@ -259,7 +259,7 @@ msgstr "Motivo de cancelación"
 #. Option for the 'CFDI Status' (Select) field in DocType 'Sales Invoice'
 #: erpnext_mexico_compliance/fixtures/custom_field.json
 msgid "Cancelled"
-msgstr ""
+msgstr "Cancelado"
 
 #: erpnext_mexico_compliance/overrides/payment_entry.py:247
 msgid "Cannot stamp a payment entry with a {0} reference"
