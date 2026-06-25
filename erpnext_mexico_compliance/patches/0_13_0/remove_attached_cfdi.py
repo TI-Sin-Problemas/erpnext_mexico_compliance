@@ -16,12 +16,9 @@ FILTERS = [
 
 
 def get_max_jobs():
+	"""Returns the maximum number of jobs that can be queued at once."""
 	max_jobs = cint(frappe.conf.get("max_queued_jobs")) or MAX_QUEUED_JOBS
 	max_jobs += len(get_sites()) * 50
-
-	# Substract BATCH_SIZE so the burst of delete_dynamic_links jobs stays under the hard limit
-	max_jobs -= BATCH_SIZE
-
 	return max_jobs
 
 
@@ -30,7 +27,9 @@ def _wait_until_queue_free(queue_name="default"):
 	max_jobs = get_max_jobs()
 	q = get_queue(queue_name)
 	sleep_time = 5
-	while q.count >= max_jobs:
+
+	# Substract BATCH_SIZE so the burst of delete_dynamic_links jobs stays under the hard limit
+	while q.count >= (max_jobs - BATCH_SIZE):
 		print(
 			f"Queue {queue_name} is almost overloaded ({q.count}). Waiting {sleep_time} seconds for next batch."
 		)
@@ -42,6 +41,7 @@ def _wait_until_queue_free(queue_name="default"):
 @activate_auto_commit
 def remove_cfdi_files():
 	try:
+		_wait_until_queue_free()
 		while True:
 			files = frappe.get_all(
 				"File",
@@ -64,11 +64,12 @@ def remove_cfdi_files():
 			_wait_until_queue_free()
 			frappe.db.commit()
 
-	except JobTimeoutException:
+	except JobTimeoutException as e:
 		frappe.enqueue(
 			"erpnext_mexico_compliance.patches.0_13_0.remove_attached_cfdi.remove_cfdi_files",
 			queue="long",
 		)
+		raise JobTimeoutException("Job timed out - enqueuing again.") from e
 
 
 def execute():
