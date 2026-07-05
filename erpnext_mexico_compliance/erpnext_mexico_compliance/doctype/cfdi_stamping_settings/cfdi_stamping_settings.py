@@ -198,7 +198,7 @@ class CFDIStampingSettings(Document):
 				- message: The HTML content of the email
 		"""
 		template = next(t for t in self.email_templates if t.document_type == doctype)
-		return get_email_template(template, doc)
+		return get_email_template(template.email_template, doc)
 
 
 @redis_cache(ttl=43200)  # Cache for 12 hours
