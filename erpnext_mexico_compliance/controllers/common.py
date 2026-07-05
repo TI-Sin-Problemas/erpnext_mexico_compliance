@@ -344,7 +344,10 @@ class CommonController(Document):
 					frappe.throw(_("Invalid email contact type: {}").format(settings.send_email_to))
 
 			if not recipients:
-				frappe.throw(_("No recipients found for the current document."))
+				frappe.msgprint(
+					_("No recipients found for the current document."), indicator="yellow", alert=True
+				)
+				return
 
 			email = settings.get_email_template(self.doctype, self.as_dict())  # type: ignore
 
