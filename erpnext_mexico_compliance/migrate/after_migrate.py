@@ -105,9 +105,15 @@ def _set_missing_cfdi_status(doctype: t.Literal["Sales Invoice", "Payment Entry"
 				update_progress_bar(f"Setting {doctype} missing CFDI Status", idx, len(docs))
 
 			frappe.db.commit()
-	except JobTimeoutException:
+	except JobTimeoutException as e:
+		frappe.log_error(
+			title=f"JobTimeoutException in _set_missing_cfdi_status for {doctype}",
+			message=str(e),
+		)
 		frappe.enqueue(
-			"erpnext_mexico_compliance.migrate.after_migrate._set_missing_cfdi_status", doctype=doctype
+			"erpnext_mexico_compliance.migrate.after_migrate._set_missing_cfdi_status",
+			queue="long",
+			doctype=doctype,
 		)
 
 
