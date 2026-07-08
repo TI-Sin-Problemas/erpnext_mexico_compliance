@@ -331,6 +331,11 @@ class CommonController(Document):
 		raise NotImplementedError
 
 	def send_cfdi_by_email(self, recipients: list | None = None):
+		"""Sends the CFDI documents by email to the specified recipients or the default recipients.
+
+		Args:
+			recipients (list | None, optional): List of email recipients. Defaults to None.
+		"""
 		settings: CFDIStampingSettings = frappe.get_single("CFDI Stamping Settings")  # type: ignore
 		recipients = recipients or []
 
