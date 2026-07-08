@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ERPNext Mexico Compliance VERSION\n"
 "Report-Msgid-Bugs-To: info@tisinproblemas.com\n"
-"POT-Creation-Date: 2026-06-25 09:54+0000\n"
-"PO-Revision-Date: 2026-06-25 09:54+0000\n"
+"POT-Creation-Date: 2026-07-08 00:54+0000\n"
+"PO-Revision-Date: 2026-07-08 00:54+0000\n"
 "Last-Translator: info@tisinproblemas.com\n"
 "Language-Team: info@tisinproblemas.com\n"
 "MIME-Version: 1.0\n"
@@ -488,7 +488,7 @@ msgstr ""
 msgid "Email sending undone"
 msgstr ""
 
-#: erpnext_mexico_compliance/controllers/common.py:362
+#: erpnext_mexico_compliance/controllers/common.py:371
 msgid "Email with CFDI files sent successfully"
 msgstr ""
 
@@ -617,7 +617,7 @@ msgstr ""
 msgid "Invalid Tax Id"
 msgstr ""
 
-#: erpnext_mexico_compliance/controllers/common.py:344
+#: erpnext_mexico_compliance/controllers/common.py:350
 msgid "Invalid email contact type: {}"
 msgstr ""
 
@@ -736,7 +736,7 @@ msgstr ""
 msgid "No cancellation acknowledgement available for {0} {1}."
 msgstr ""
 
-#: erpnext_mexico_compliance/controllers/common.py:347
+#: erpnext_mexico_compliance/controllers/common.py:354
 msgid "No recipients found for the current document."
 msgstr ""
 
