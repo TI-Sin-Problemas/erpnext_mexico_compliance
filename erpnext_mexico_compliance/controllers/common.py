@@ -151,7 +151,7 @@ class CommonController(Document):
 		settings.check_low_credits()
 		self.run_method("after_stamp_cfdi")
 		frappe.msgprint(_("CFDI Stamped Successfully"), indicator="green", alert=True)
-		self.send_email()
+		self.send_cfdi_by_email()
 
 	def update_cancellation_status(self):
 		"""
@@ -330,18 +330,19 @@ class CommonController(Document):
 	def get_billing_emails(self):
 		raise NotImplementedError
 
-	def send_email(self):
+	def send_cfdi_by_email(self, recipients: list | None = None):
 		settings: CFDIStampingSettings = frappe.get_single("CFDI Stamping Settings")  # type: ignore
-		if settings.can_send_emails(self.doctype):  # type: ignore
-			recipients = []
+		recipients = recipients or []
 
-			match settings.send_email_to:
-				case EmailContactType.ALL_BILLING_CONTACTS:
-					recipients = self.get_billing_emails()
-				case EmailContactType.DOCUMENT_CONTACT:
-					recipients = get_contact_emails(self.contact_person)
-				case _:
-					frappe.throw(_("Invalid email contact type: {}").format(settings.send_email_to))
+		if settings.can_send_emails(self.doctype):  # type: ignore
+			if not recipients:
+				match settings.send_email_to:
+					case EmailContactType.ALL_BILLING_CONTACTS:
+						recipients = self.get_billing_emails()
+					case EmailContactType.DOCUMENT_CONTACT:
+						recipients = get_contact_emails(self.contact_person)
+					case _:
+						frappe.throw(_("Invalid email contact type: {}").format(settings.send_email_to))
 
 			if not recipients:
 				frappe.msgprint(
