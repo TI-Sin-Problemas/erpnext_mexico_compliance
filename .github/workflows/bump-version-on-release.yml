@@ -1,0 +1,58 @@
+name: Bump version on release
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Git tag (e.g. v0.13.4)"
+        required: true
+        type: string
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  bump-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: version-16
+          fetch-depth: 0
+
+      - name: Extract version from tag
+        id: version
+        run: |
+          TAG="${{ github.event.release.tag_name || inputs.tag }}"
+          VERSION="${TAG#v}"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Merge main into version-16
+        run: |
+          git fetch origin main
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git merge origin/main --no-edit || {
+            echo "Merge conflict detected. Resolve manually on version-16 branch."
+            exit 1
+          }
+
+      - name: Update __init__.py
+        run: |
+          sed -i 's/^__version__ = ".*"$/__version__ = "${{ steps.version.outputs.version }}"/' \
+            erpnext_mexico_compliance/__init__.py
+
+      - name: Commit and push
+        run: |
+          git add erpnext_mexico_compliance/__init__.py
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "chore: bump version to ${{ steps.version.outputs.version }}"
+          git push
