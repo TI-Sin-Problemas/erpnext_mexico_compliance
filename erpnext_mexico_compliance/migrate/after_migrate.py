@@ -83,7 +83,12 @@ def _set_missing_cfdi_status(doctype: t.Literal["Sales Invoice", "Payment Entry"
 					status = models.CfdiStatus.DocumentStatus.ACTIVE
 				else:
 					try:
-						status = api.get_status(cfdi).status
+						status = api.get_status(
+							uuid=cfdi["Complemento"]["TimbreFiscalDigital"]["UUID"],
+							issuer_rfc=cfdi["Emisor"]["Rfc"],
+							receiver_rfc=cfdi["Receptor"]["Rfc"],
+							total=cfdi["Total"],
+						).status
 					except Exception:
 						status = models.CfdiStatus.DocumentStatus.ACTIVE
 

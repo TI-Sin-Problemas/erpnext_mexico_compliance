@@ -123,20 +123,20 @@ class APIClient(FrappeClient):
 		"""
 		return self.get_api("tisp_apps.api.v1.cfdi.subscription_details")
 
-	def get_status(self, cfdi: CFDI):
+	def get_status(
+		self, *, uuid: str, issuer_rfc: str, receiver_rfc: str, total: float | str
+	) -> models.CfdiStatus:
 		"""Retrieves the status of a CFDI from the CFDI Web Service.
 
 		Args:
-			cfdi (CFDI): The CFDI to retrieve the status of.
+			uuid (str): The UUID of the CFDI.
+			issuer_rfc (str): The RFC of the issuer of the CFDI.
+			receiver_rfc (str): The RFC of the receiver of the CFDI.
+			total (float | str): The total amount of the CFDI.
 
 		Returns:
-			dict: The API response containing the status of the CFDI.
+			CfdiStatus: The API response containing the status of the CFDI.
 		"""
-		params = {
-			"uuid": cfdi["Complemento"]["TimbreFiscalDigital"]["UUID"],
-			"issuer_rfc": cfdi["Emisor"]["Rfc"],
-			"receiver_rfc": cfdi["Receptor"]["Rfc"],
-			"total": cfdi["Total"],
-		}
+		params = {"uuid": uuid, "issuer_rfc": issuer_rfc, "receiver_rfc": receiver_rfc, "total": total}
 		response = self.get_api("tisp_apps.api.v1.cfdi.status", params=params)
 		return models.CfdiStatus.from_dict(response)
