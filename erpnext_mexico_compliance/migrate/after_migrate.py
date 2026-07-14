@@ -1,3 +1,4 @@
+import gc
 import typing as t
 
 import click
@@ -66,8 +67,8 @@ def _set_missing_cfdi_status(doctype: t.Literal["Sales Invoice", "Payment Entry"
 		while True:
 			docs = frappe.get_all(
 				doctype,
-				fields=["name", "mx_stamped_xml", "cancellation_acknowledgement"],
 				filters={"mx_cfdi_status": ["is", "not set"], "mx_stamped_xml": ["is", "set"]},
+				pluck="name",
 				order_by="name",
 				limit=CHUNK_SIZE,
 			)
@@ -75,9 +76,11 @@ def _set_missing_cfdi_status(doctype: t.Literal["Sales Invoice", "Payment Entry"
 			if not docs:
 				break
 
-			for idx, doc in enumerate(docs):
-				ack = doc["cancellation_acknowledgement"]
-				cfdi: CFDI = CFDI.from_string(doc.mx_stamped_xml.encode("utf-8"))  # type: ignore
+			for idx, name in enumerate(docs):
+				mx_stamped_xml, ack = frappe.get_value(
+					doctype, name, ["mx_stamped_xml", "cancellation_acknowledgement"]
+				)
+				cfdi: CFDI = CFDI.from_string(mx_stamped_xml.encode("utf-8"))  # type: ignore
 
 				if test_mode:
 					status = models.CfdiStatus.DocumentStatus.ACTIVE
@@ -102,14 +105,17 @@ def _set_missing_cfdi_status(doctype: t.Literal["Sales Invoice", "Payment Entry"
 					value = CFDIStatus.VALID.value
 
 				else:
-					frappe.log_error(f"Failed to set CFDI status for {doctype} {doc.name}")
+					frappe.log_error(f"Failed to set CFDI status for {doctype} {name}")
 					continue
 
-				frappe.db.set_value(doctype, doc.name, "mx_cfdi_status", value)
+				frappe.db.set_value(doctype, name, "mx_cfdi_status", value)
 
 				update_progress_bar(f"Setting {doctype} missing CFDI Status", idx, len(docs))
+				del cfdi
 
 			frappe.db.commit()
+			gc.collect()
+
 	except JobTimeoutException as e:
 		frappe.log_error(
 			title=f"JobTimeoutException in _set_missing_cfdi_status for {doctype}",
