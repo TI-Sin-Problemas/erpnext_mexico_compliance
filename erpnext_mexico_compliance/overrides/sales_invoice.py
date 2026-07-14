@@ -235,6 +235,8 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
 		for rsi in self.mx_related_sales_invoices:
 			related_documents.setdefault(rsi.sat_relationship_type, []).append(rsi.uuid)
 
+		conversion_rate = Decimal(str(self.conversion_rate)) if self.currency != "MXN" else None
+
 		return cfdi40.Comprobante(
 			emisor=csd.get_issuer(),
 			lugar_expedicion=address.pincode,
@@ -245,7 +247,7 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
 			serie=self.cfdi_series,
 			folio=self.cfdi_folio,
 			forma_pago=self.mx_payment_mode,
-			tipo_cambio=(Decimal(self.conversion_rate) if self.currency != "MXN" else None),
+			tipo_cambio=conversion_rate,
 			metodo_pago=self.mx_payment_option,
 			fecha=self.posting_datetime,
 			cfdi_relacionados=[cfdi40.CfdiRelacionados(k, v) for k, v in related_documents.items()],
