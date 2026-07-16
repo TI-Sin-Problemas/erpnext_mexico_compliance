@@ -8,9 +8,13 @@ import frappe
 from frappe import _
 from frappe.frappeclient import FrappeClient
 from frappe.utils import get_app_version
+from lxml import etree
 from satcfdi.cfdi import CFDI
 
 from . import models
+
+CFDI_NS = "http://www.sat.gob.mx/cfd/4"
+TFD_NS = "http://www.sat.gob.mx/TimbreFiscalDigital"
 
 
 class APIClient(FrappeClient):
@@ -123,20 +127,24 @@ class APIClient(FrappeClient):
 		"""
 		return self.get_api("tisp_apps.api.v1.cfdi.subscription_details")
 
-	def get_status(
-		self, *, uuid: str, issuer_rfc: str, receiver_rfc: str, total: float | str
-	) -> models.CfdiStatus:
+	def get_status(self, xml: str | bytes) -> models.CfdiStatus:
 		"""Retrieves the status of a CFDI from the CFDI Web Service.
 
 		Args:
-			uuid (str): The UUID of the CFDI.
-			issuer_rfc (str): The RFC of the issuer of the CFDI.
-			receiver_rfc (str): The RFC of the receiver of the CFDI.
-			total (float | str): The total amount of the CFDI.
+			xml (str | bytes): The XML content of the CFDI.
 
 		Returns:
 			CfdiStatus: The API response containing the status of the CFDI.
 		"""
-		params = {"uuid": uuid, "issuer_rfc": issuer_rfc, "receiver_rfc": receiver_rfc, "total": total}
+		if isinstance(xml, str):
+			xml = xml.encode("utf-8")
+
+		root = etree.fromstring(xml)
+		params = {
+			"uuid": root.find(f"{{{CFDI_NS}}}Complemento/{{{TFD_NS}}}TimbreFiscalDigital").get("UUID"),
+			"issuer_rfc": root.find(f"{{{CFDI_NS}}}Emisor").get("Rfc"),
+			"receiver_rfc": root.find(f"{{{CFDI_NS}}}Receptor").get("Rfc"),
+			"total": root.get("Total"),
+		}
 		response = self.get_api("tisp_apps.api.v1.cfdi.status", params=params)
 		return models.CfdiStatus.from_dict(response)

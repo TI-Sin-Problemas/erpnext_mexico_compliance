@@ -166,12 +166,7 @@ class CommonController(Document):
 			Document: The result of the cancel operation if the CFDI is cancelled.
 		"""
 		ws = get_ws_client()
-		status = ws.get_status(
-			uuid=self.mx_cfdi_obj["Complemento"]["TimbreFiscalDigital"]["UUID"],
-			issuer_rfc=self.mx_cfdi_obj["Emisor"]["Rfc"],
-			receiver_rfc=self.mx_cfdi_obj["Receptor"]["Rfc"],
-			total=self.mx_cfdi_obj["Total"],
-		)
+		status = ws.get_status(self.mx_stamped_xml)
 		if status.is_cancellable == status.CancellableStatus.NOT_CANCELLABLE:
 			self.mx_is_cancellable = 0
 			self.mx_cfdi_status = CFDIStatus.VALID.value
@@ -195,12 +190,7 @@ class CommonController(Document):
 			Document: The result of the cancel operation if the CFDI is cancelled.
 		"""
 		client = get_ws_client()
-		status = client.get_status(
-			uuid=self.mx_cfdi_obj["Complemento"]["TimbreFiscalDigital"]["UUID"],
-			issuer_rfc=self.mx_cfdi_obj["Emisor"]["Rfc"],
-			receiver_rfc=self.mx_cfdi_obj["Receptor"]["Rfc"],
-			total=self.mx_cfdi_obj["Total"],
-		)
+		status = client.get_status(self.mx_stamped_xml)
 		title = status.status if isinstance(status.status, str) else status.status.value
 		is_cancellable = status.is_cancellable.value if status.is_cancellable else None
 		cancellation_status = status.cancellation_status.value if status.cancellation_status else None
