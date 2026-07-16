@@ -5,7 +5,6 @@ import click
 import frappe
 from frappe.utils import update_progress_bar
 from rq.timeouts import JobTimeoutException
-from satcfdi.cfdi import CFDI
 
 from erpnext_mexico_compliance import sat
 from erpnext_mexico_compliance.controllers.common import CFDIStatus
@@ -80,18 +79,15 @@ def _set_missing_cfdi_status(doctype: t.Literal["Sales Invoice", "Payment Entry"
 				mx_stamped_xml, ack = frappe.get_value(
 					doctype, name, ["mx_stamped_xml", "cancellation_acknowledgement"]
 				)
-				cfdi: CFDI = CFDI.from_string(mx_stamped_xml.encode("utf-8"))  # type: ignore
+
+				if not mx_stamped_xml:
+					continue
 
 				if test_mode:
 					status = models.CfdiStatus.DocumentStatus.ACTIVE
 				else:
 					try:
-						status = api.get_status(
-							uuid=cfdi["Complemento"]["TimbreFiscalDigital"]["UUID"],
-							issuer_rfc=cfdi["Emisor"]["Rfc"],
-							receiver_rfc=cfdi["Receptor"]["Rfc"],
-							total=cfdi["Total"],
-						).status
+						status = api.get_status(mx_stamped_xml).status
 					except Exception:
 						status = models.CfdiStatus.DocumentStatus.ACTIVE
 
@@ -111,21 +107,20 @@ def _set_missing_cfdi_status(doctype: t.Literal["Sales Invoice", "Payment Entry"
 				frappe.db.set_value(doctype, name, "mx_cfdi_status", value)
 
 				update_progress_bar(f"Setting {doctype} missing CFDI Status", idx, len(docs))
-				del cfdi
 
 			frappe.db.commit()
 			gc.collect()
 
 	except JobTimeoutException as e:
 		frappe.log_error(
-			title=f"JobTimeoutException in _set_missing_cfdi_status for {doctype}",
-			message=str(e),
+			title=f"JobTimeoutException in _set_missing_cfdi_status for {doctype}", message=str(e)
 		)
 		frappe.enqueue(
 			"erpnext_mexico_compliance.migrate.after_migrate._set_missing_cfdi_status",
 			queue="long",
 			doctype=doctype,
 		)
+		raise e
 
 
 def set_missing_cfdi_status(doctype: t.Literal["Sales Invoice", "Payment Entry"]):
