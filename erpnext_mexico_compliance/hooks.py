@@ -185,9 +185,9 @@ scheduler_events = {
 # Overriding Methods
 # ------------------------------
 #
-# override_whitelisted_methods = {
-# 	"frappe.desk.doctype.event.event.get_events": "erpnext_mexico_compliance.event.get_events"
-# }
+override_whitelisted_methods = {
+	"erpnext.setup.utils.get_exchange_rate": "erpnext_mexico_compliance.utils.exchange_rates.get_exchange_rate"
+}
 #
 # each overriding function accepts a `data` argument;
 # generated from the base implementation of the doctype dashboard,
