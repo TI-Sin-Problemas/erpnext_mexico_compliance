@@ -49,6 +49,7 @@ class CFDIStampingSettings(Document):
 		pdf_templates: DF.Table[CFDIPDFTemplate]
 		send_email_on_stamp: DF.Check
 		send_email_to: DF.Literal["", "All Billing Contacts", "Document Contact"]
+		sie_api_token: DF.Password | None
 		stamp_on_submit: DF.Check
 		test_mode: DF.Check
 	# end: auto-generated types
@@ -199,6 +200,14 @@ class CFDIStampingSettings(Document):
 		"""
 		template = next(t for t in self.email_templates if t.document_type == doctype)
 		return get_email_template(template.email_template, doc)
+
+	def get_sie_api_token(self):
+		"""Returns the API token for the Banxico SIE API.
+
+		Returns:
+			str: The API token.
+		"""
+		return self.get_password("sie_api_token")
 
 
 @redis_cache(ttl=43200)  # Cache for 12 hours

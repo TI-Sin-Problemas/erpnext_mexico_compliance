@@ -6,6 +6,7 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
+  "cfdi_tab",
   "web_service_section",
   "api_key",
   "api_secret",
@@ -21,7 +22,9 @@
   "column_break_twmd",
   "send_email_on_stamp",
   "send_email_to",
-  "email_templates"
+  "email_templates",
+  "currency_exchange_tab",
+  "sie_api_token"
  ],
  "fields": [
   {
@@ -124,13 +127,29 @@
    "label": "Email Templates",
    "mandatory_depends_on": "eval: doc.send_email_on_stamp && doc.is_premium",
    "options": "CFDI Email Template"
+  },
+  {
+   "fieldname": "cfdi_tab",
+   "fieldtype": "Tab Break",
+   "label": "CFDI"
+  },
+  {
+   "fieldname": "currency_exchange_tab",
+   "fieldtype": "Tab Break",
+   "label": "Currency Exchange"
+  },
+  {
+   "description": "The query token required to use Banxico's SIE API. You can obtain a token on the following URL: https://www.banxico.org.mx/SieAPIRest/service/v1/token",
+   "fieldname": "sie_api_token",
+   "fieldtype": "Password",
+   "label": "SIE API Token"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2026-06-25 03:49:24.909084",
+ "modified": "2026-07-18 22:35:59.396208",
  "modified_by": "Administrator",
  "module": "ERPNext Mexico Compliance",
  "name": "CFDI Stamping Settings",
