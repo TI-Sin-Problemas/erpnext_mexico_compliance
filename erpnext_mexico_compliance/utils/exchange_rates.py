@@ -1,12 +1,17 @@
 import frappe
 from erpnext.setup.utils import get_exchange_rate as erpnext_get_exchange_rate
-from frappe.utils import getdate
+from frappe.utils import DateTimeLikeObject, getdate
 
 from erpnext_mexico_compliance.banxico import get_sie_client
 
 
 @frappe.whitelist()
-def get_exchange_rate(from_currency, to_currency, transaction_date=None, args=None):
+def get_exchange_rate(
+	from_currency: str,
+	to_currency: str,
+	transaction_date: DateTimeLikeObject | None = None,
+	args: str | None = None,
+):
 	if args == "for_selling" and from_currency == "USD" and to_currency == "MXN":
 		sie = get_sie_client()
 		date = getdate(transaction_date)
