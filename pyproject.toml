@@ -5,7 +5,7 @@ description = "ERPNext app to serve as base to comply with help with Mexican Rul
 requires-python = ">=3.14"
 readme = "README.md"
 dynamic = ["version"]
-dependencies = ["satcfdi==26.7.2", "lxml==6.1.1"]
+dependencies = ["satcfdi==26.7.3", "lxml==6.1.1"]
 
 [project.urls]
 Homepage = "https://tisinproblemas.com/mexico-compliance"
