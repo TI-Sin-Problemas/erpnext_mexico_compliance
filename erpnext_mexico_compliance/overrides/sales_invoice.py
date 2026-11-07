@@ -58,8 +58,31 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
 
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
-		if not self.company_address:
+		if not self.company_address and self._can_read_company():
 			self.company_address = get_default_company_address(self.company)
+
+	def _can_read_company(self) -> bool:
+		"""Whether the session user may look up the default address of the invoice company.
+
+		Since ERPNext 16.53, `get_default_company_address` starts with
+		`frappe.has_permission("Company", ptype="select", doc=name, throw=True)`.
+		`__init__` runs whenever a Sales Invoice is built, not only when one is
+		edited: the portal list (`/invoices`) builds one per row with
+		`website_list_for_contact.get_portal_row`, without `company`, in the session of
+		a Website User, who has no `select` on Company. Calling it there made the whole
+		list answer 403.
+
+		Without a company there is no default address to look up, and without
+		permission on the company it is not this session's to fill. The same
+		permission is asked without `throw`, so nothing is left in the message log.
+
+		The doctype-level check goes first: for a non-Administrator, asking with
+		`doc=` loads the Company, so a portal user would cost one query per row and
+		a missing Company would raise `DoesNotExistError` instead of answering no.
+		"""
+		if not self.company or not frappe.has_permission("Company", ptype="select"):
+			return False
+		return frappe.has_permission("Company", ptype="select", doc=self.company)
 
 	def on_submit(self):
 		"""
