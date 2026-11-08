@@ -1,3 +1,5 @@
+![](/erpnext_mexico_compliance/public/icons/desktop_icons/solid/mexico_compliance.svg)
+
 # ERPNext Mexico Compliance
 
 ERPNext app to comply with Mexican Rules and Regulations
@@ -8,7 +10,7 @@ ERPNext Mexico Compliance has been designed to adapt ERPNext business logic to c
 
 It is built on top of [ERPNext][erpnext_github] and [Frappe Framework][frappe_github]
 
-For more details see [the documentation](https://tisinproblemas.com/mexico-compliance/introduccion)
+For more details see [the documentation](https://docs.tisinproblemas.com/erpnext-mexico-compliance)
 
 ## Installation
 
@@ -22,7 +24,7 @@ Signup with [Frappe Cloud][frappe_cloud] and refer to the [Installing an app][fr
 
 ```bash
 # Download app
-bench get-app https://github.com/TI-Sin-Problemas/erpnext_mexico_compliance.git --branch version-15
+bench get-app https://github.com/TI-Sin-Problemas/erpnext_mexico_compliance.git --branch version-16
 
 # Install app
 bench --site site_name install-app erpnext_mexico_compliance
