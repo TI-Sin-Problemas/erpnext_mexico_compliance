@@ -1,7 +1,6 @@
 {
- "app": "erpnext_mexico_compliance",
  "charts": [],
- "content": "[{\"id\":\"I0YRNY96Kv\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Mexico Compliance</span>\",\"col\":12}},{\"id\":\"2_c8TjCfdY\",\"type\":\"card\",\"data\":{\"card_name\":\"Accounting\",\"col\":4}},{\"id\":\"U5q9et5tJ7\",\"type\":\"card\",\"data\":{\"card_name\":\"Settings\",\"col\":4}}]",
+ "content": "[{\"id\": \"I0YRNY96Kv\", \"type\": \"header\", \"data\": {\"text\": \"\\u003cspan class=\\\"h4\\\"\\u003eMexico Compliance\\u003c/span\\u003e\", \"col\": 12}}, {\"id\": \"YDU6riBCuZ\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Available Credits\", \"col\": 4}}, {\"id\": \"LrsC1KUEay\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"2_c8TjCfdY\", \"type\": \"card\", \"data\": {\"card_name\": \"Accounting\", \"col\": 4}}, {\"id\": \"U5q9et5tJ7\", \"type\": \"card\", \"data\": {\"card_name\": \"Settings\", \"col\": 4}}]",
  "creation": "2024-06-25 23:20:44.180369",
  "custom_blocks": [],
  "docstatus": 0,
@@ -145,11 +144,16 @@
    "type": "Link"
   }
  ],
- "modified": "2026-01-30 15:32:17.119923",
+ "modified": "2026-11-08 02:26:13.139328",
  "modified_by": "Administrator",
  "module": "ERPNext Mexico Compliance",
  "name": "Mexico Compliance",
- "number_cards": [],
+ "number_cards": [
+  {
+   "label": "Available Credits",
+   "number_card_name": "Available Credits"
+  }
+ ],
  "owner": "Administrator",
  "parent_page": "",
  "public": 1,
@@ -157,6 +161,7 @@
  "roles": [],
  "sequence_id": 24.0,
  "shortcuts": [],
+ "standard": 1,
  "title": "Mexico Compliance",
  "type": "Workspace"
 }
