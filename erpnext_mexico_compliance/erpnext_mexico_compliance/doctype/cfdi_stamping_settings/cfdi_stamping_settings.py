@@ -224,3 +224,16 @@ def get_is_premium() -> bool:
 	ws = ws_client.get_ws_client()
 	subscription = ws.get_subscription()
 	return subscription["has_subscription"]
+
+
+@frappe.whitelist()
+def get_available_credits_number() -> dict:
+	"""Returns the available stamping credits for a Number Card
+
+	Returns:
+		dict: The available stamping credits as a dictionary with the following keys:
+			- value: The available stamping credits
+			- fieldtype: The field type of the value
+	"""
+	doc: CFDIStampingSettings = frappe.get_single("CFDI Stamping Settings")  # type: ignore
+	return {"value": doc.get_available_credits(), "fieldtype": "Int"}
