@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: erpnext-mexico-compliance\n"
 "Report-Msgid-Bugs-To: info@tisinproblemas.com\n"
 "POT-Creation-Date: 2026-11-08 08:33+0000\n"
-"PO-Revision-Date: 2026-11-08 09:19\n"
+"PO-Revision-Date: 2026-11-10 08:16\n"
 "Last-Translator: info@tisinproblemas.com\n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -120,7 +120,7 @@ msgstr "Adjuntar archivos CFDI"
 #. Label of a number card in the Mexico Compliance Workspace
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/workspace/mexico_compliance/mexico_compliance.json:153
 msgid "Available Credits"
-msgstr ""
+msgstr "Créditos Disponibles"
 
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.js:7
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.js:10
@@ -378,7 +378,7 @@ msgstr "Contenido HTML"
 #. Stamping Settings'
 #: erpnext_mexico_compliance/erpnext_mexico_compliance/doctype/cfdi_stamping_settings/cfdi_stamping_settings.json:139
 msgid "Currency Exchange"
-msgstr ""
+msgstr "Cambio de Divisas"
 
 #. Description of the 'PDF Templates' (Table) field in DocType 'CFDI Stamping
 #. Settings'
