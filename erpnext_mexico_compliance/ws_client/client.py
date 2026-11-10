@@ -6,7 +6,7 @@ import platform
 
 import frappe
 from frappe import _
-from frappe.frappeclient import FrappeClient
+from frappe.frappeclient import FrappeClient, FrappeException
 from frappe.utils import get_app_version
 from lxml import etree
 from satcfdi.cfdi import CFDI
@@ -35,41 +35,24 @@ class APIClient(FrappeClient):
 
 	def post_process(self, response):
 		try:
-			return super().post_process(response)
+			res = super().post_process(response)
+			return res
 		except Exception:
-			ret = None
+			pass
 
 		rjson = response.json()
-		if rjson and rjson.get("exc_type"):
+		exc_type = rjson.get("exc_type")
+		if rjson and exc_type:
 			msgs = json.loads(rjson.get("_server_messages", "[]"))
 
 			if not msgs:
-				msgs = [
-					{
-						"message": response.text,
-						"raise_exception": True,
-						"as_table": False,
-						"indicator": "red",
-					}
-				]
+				msgs = exc_type
 
-			for m in msgs:
-				if isinstance(m, dict):
-					kwargs = m
-				else:
-					kwargs = json.loads(m)
+			frappe.throw(
+				msgs, exc=FrappeException, title=_("CFDI Web Service Error"), as_list=isinstance(msgs, list)
+			)
 
-				frappe.msgprint(
-					kwargs["message"],
-					_("CFDI Web Service Error"),
-					kwargs["raise_exception"],
-					kwargs["as_table"],
-					indicator=kwargs["indicator"],
-				)
-
-		if ret is None:
-			frappe.throw(response.text, title=_("CFDI Web Service Error"))
-		return ret
+		frappe.throw(response.text, title=_("CFDI Web Service Error"))
 
 	def post_api(self, method, data=None):  # type: ignore
 		if data is None:
