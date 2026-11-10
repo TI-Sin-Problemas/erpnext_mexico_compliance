@@ -38,7 +38,7 @@ class APIClient(FrappeClient):
 			res = super().post_process(response)
 			return res
 		except Exception:
-			ret = None
+			pass
 
 		rjson = response.json()
 		exc_type = rjson.get("exc_type")
@@ -52,9 +52,7 @@ class APIClient(FrappeClient):
 				msgs, exc=FrappeException, title=_("CFDI Web Service Error"), as_list=isinstance(msgs, list)
 			)
 
-		if ret is None:
-			frappe.throw(response.text, title=_("CFDI Web Service Error"))
-		return ret
+		frappe.throw(response.text, title=_("CFDI Web Service Error"))
 
 	def post_api(self, method, data=None):  # type: ignore
 		if data is None:
