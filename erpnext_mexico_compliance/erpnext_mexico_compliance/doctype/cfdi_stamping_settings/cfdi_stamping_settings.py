@@ -224,3 +224,30 @@ def get_is_premium() -> bool:
 	ws = ws_client.get_ws_client()
 	subscription = ws.get_subscription()
 	return subscription["has_subscription"]
+
+
+@frappe.whitelist()
+def get_available_credits_number() -> dict:
+	"""Returns the available stamping credits for a Number Card
+
+	The credits are retrieved from the CFDI Web Service. If the service is
+	unreachable or the request fails, the value falls back to "N/A" so the
+	Number Card can still render. The result includes a route to the CFDI
+	Stamping Settings page for quick navigation.
+
+	Returns:
+		dict: The available stamping credits as a dictionary with the following keys:
+			- value: The available stamping credits, or "N/A" on failure
+			- fieldtype: The field type of the value
+			- route: The path to the CFDI Stamping Settings page
+	"""
+	doc: CFDIStampingSettings = frappe.get_single("CFDI Stamping Settings")  # type: ignore
+	try:
+		value = doc.get_available_credits()
+	except Exception:
+		value = "N/A"
+	return {
+		"value": value,
+		"fieldtype": "Int",
+		"route": ["mexico-compliance", "cfdi-stamping-settings", "CFDI Stamping Settings"],
+	}

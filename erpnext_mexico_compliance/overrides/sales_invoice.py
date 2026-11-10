@@ -9,7 +9,7 @@ from decimal import Decimal
 
 import frappe
 from erpnext.accounts.doctype.sales_invoice import sales_invoice
-from erpnext.setup.doctype.company.company import Company, get_default_company_address
+from erpnext.setup.doctype.company.company import Company
 from frappe import _
 from frappe.contacts.doctype.address.address import Address
 from frappe.utils import get_datetime
@@ -55,11 +55,6 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
 		mx_addenda: DF.HTMLEditor
 		mx_related_sales_invoices: DF.Table[RelatedSalesInvoice]
 		mx_uuid: DF.Data
-
-	def __init__(self, *args, **kwargs):
-		super().__init__(*args, **kwargs)
-		if not self.company_address:
-			self.company_address = get_default_company_address(self.company)
 
 	def on_submit(self):
 		"""
@@ -346,6 +341,7 @@ class SalesInvoice(CommonController, sales_invoice.SalesInvoice):
 
 	def validate(self):
 		super().validate()
+		self.validate_company_address()
 
 		# Check if all related sales invoices have been stamped
 		msgs = []
