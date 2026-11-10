@@ -7,13 +7,11 @@ from enum import StrEnum
 import frappe
 from frappe import _
 from frappe.email.doctype.email_template.email_template import get_email_template
+from frappe.frappeclient import FrappeException
 from frappe.model.document import Document
 from frappe.utils.caching import redis_cache
 
 from erpnext_mexico_compliance import ws_client
-
-if t.TYPE_CHECKING:
-	from frappe.email.doctype.email_template.email_template import EmailTemplate
 
 
 class EmailContactType(StrEnum):
@@ -130,7 +128,7 @@ class CFDIStampingSettings(Document):
 			return False
 		try:
 			return get_is_premium()
-		except frappe.exceptions.ValidationError:
+		except (frappe.exceptions.ValidationError, FrappeException):
 			return False
 
 	def set_field_from_site_config(self, field):
@@ -157,6 +155,14 @@ class CFDIStampingSettings(Document):
 		self.set_field_from_site_config("api_key")
 		self.set_field_from_site_config("api_secret")
 		self.set_field_from_site_config("test_mode")
+
+	def on_update(self):
+		"""Clears the premium status cache after every settings update.
+
+		The API credentials or test mode may have changed, making the cached
+		result of `get_is_premium` stale, so it is invalidated on save.
+		"""
+		get_is_premium.clear_cache()
 
 	@property
 	def api_url(self):
